@@ -13,11 +13,15 @@ public class Billard  extends JPanel {
     private ArrayList<Paroi> arrayHorizontales = new ArrayList();
     private List<Paroi> paroisHorizontales = Collections.synchronizedList(arrayHorizontales);
 
+    private Balle balle;
+
     public Billard(){
-        arrayVerticales.add(new Paroi(150, 100, 1, 1));
-        arrayVerticales.add(new Paroi(150, 900, 1, 1));
         arrayHorizontales.add(new Paroi(150, 100, 1, 1));
-        arrayHorizontales.add(new Paroi(950, 100, 1, 1));
+        arrayHorizontales.add(new Paroi(150, 900, 1, 1));
+        arrayVerticales.add(new Paroi(150, 100, 1, 1));
+        arrayVerticales.add(new Paroi(950, 100, 1, 1));
+
+        balle = new Balle(this, 850, 650, 25, 25);
     }
 
     @Override
@@ -30,5 +34,7 @@ public class Billard  extends JPanel {
         for(Paroi p: arrayHorizontales){
             p.dessine(g);
         }
+
+        balle.dessine(g);
     }
 }
