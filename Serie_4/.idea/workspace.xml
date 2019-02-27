@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="45aaccbf-8f27-428e-a0f6-cce6786dc98f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Serie_2/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_2/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Serie_2/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Serie_2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_2/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Serie_3/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_3/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Serie_3/.idea/modules.xml" beforeDir="false" />
+    <list default="true" id="0cbe1ce8-726b-44e2-9221-0ec470ae28cb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Principal/Paroi.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Serie_3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_3/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_3/Serie3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_3/Serie_3.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Série_1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Série_1/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,8 +14,45 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Principal/Principal.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Principal/Paroi.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/Principal/Principal.java" />
+        <option value="$PROJECT_DIR$/src/Principal/Paroi.java" />
+      </list>
+    </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="950" />
@@ -33,15 +65,37 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane" />
       <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Serie_4" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Serie_4" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Serie_4" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Serie_4" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Serie_4" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Serie_4" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Principal" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551260983237" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Exo" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Project" />
@@ -65,20 +119,21 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="45aaccbf-8f27-428e-a0f6-cce6786dc98f" name="Default Changelist" comment="" />
-      <created>1551121198830</created>
+      <changelist id="0cbe1ce8-726b-44e2-9221-0ec470ae28cb" name="Default Changelist" comment="" />
+      <created>1551256815891</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1551121198830</updated>
-      <workItem from="1551121200390" duration="4000" />
+      <updated>1551256815891</updated>
+      <workItem from="1551256817891" duration="3054000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4000" />
+    <option name="totallyTimeSpent" value="3054000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Image Layers" />
       <window_info id="Designer" />
@@ -112,6 +167,22 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/Principal/Principal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Principal/Paroi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
   </component>
   <component name="masterDetails">
     <states>
