@@ -11,7 +11,9 @@ public class ThreadCouleur extends Thread {
         while(true){
             try {
                 Thread.sleep(200);
-                billard.getBalle().changeColor();
+                for(Balle b: billard.getBalles()) {
+                    b.changeColor();
+                }
             }catch(InterruptedException e){
                 e.printStackTrace();
             }

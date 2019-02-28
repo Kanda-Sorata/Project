@@ -8,10 +8,12 @@ public class ThreadMouvement extends Thread{
     }
 
     public void run(){
-        while(true) { //Pac correct à modifier
+        while(true) {
             try {
                 Thread.sleep(5);
-                billard.getBalle().bouge();
+                for(Balle b: billard.getBalles()) {
+                    b.bouge();
+                }
                 billard.repaint();
             } catch (InterruptedException e) {
                 e.printStackTrace();
