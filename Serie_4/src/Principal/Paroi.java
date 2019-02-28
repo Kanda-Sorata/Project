@@ -4,9 +4,11 @@ import java.awt.*;
 
 public class Paroi {
     private Rectangle rectangle;
+    private int points;
 
-    public Paroi(int x0, int y0, int width, int height){ //height hauteur width largeur
+    public Paroi(int x0, int y0, int width, int height, int points){ //height hauteur width largeur
         rectangle = new Rectangle(x0, y0, width, height);
+       	this.points = points;
     }
 
     public void dessine(Graphics g){

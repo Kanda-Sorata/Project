@@ -3,12 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0cbe1ce8-726b-44e2-9221-0ec470ae28cb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Principal/Balle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Principal/Balle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Principal/Billard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Principal/Billard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Principal/FenetrePrincipale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Principal/FenetrePrincipale.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Principal/Paroi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Principal/Paroi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Principal/Principal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Principal/Principal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Principal/ThreadMouvement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Principal/ThreadMouvement.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -171,7 +165,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551368160416" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551368218424" />
     <property name="last_opened_file_path" value="$USER_HOME$/Exo" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -216,7 +210,7 @@
       <option name="presentableId" value="Default" />
       <updated>1551256815891</updated>
       <workItem from="1551256817891" duration="3342000" />
-      <workItem from="1551347787148" duration="15044000" />
+      <workItem from="1551347787148" duration="15111000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <created>1551261011531</created>
@@ -225,15 +219,21 @@
       <option name="project" value="LOCAL" />
       <updated>1551261011531</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="1">
+      <created>1551368195607</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1551368195607</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18415000" />
+    <option name="totallyTimeSpent" value="18482000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25637585" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -245,7 +245,7 @@
       <window_info anchor="bottom" id="Messages" weight="0.3286119" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3286119" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
