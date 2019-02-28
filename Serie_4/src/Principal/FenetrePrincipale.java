@@ -8,6 +8,7 @@ import java.awt.event.WindowEvent;
 public class FenetrePrincipale extends JFrame {
     private Billard billard;
     private Container containeur;
+    private FenetrePoints fenCompteur;
 
     public FenetrePrincipale(){
         super("Billard"); //Title
@@ -21,9 +22,12 @@ public class FenetrePrincipale extends JFrame {
 
         billard = new Billard(); //panel billard
 
+        fenCompteur = new FenetrePoints(billard); //fenetre compteur
+
         containeur = this.getContentPane(); //Recuperer le conteneur de la fenetre
 
         containeur.add(billard); //Ajoyter le billard au conteneur
+
 
         setVisible(true); //Rends la fenetre visible
 

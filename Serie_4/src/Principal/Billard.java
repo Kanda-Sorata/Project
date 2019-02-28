@@ -12,8 +12,8 @@ public class Billard  extends JPanel {
     private List<Paroi> paroisVerticales = Collections.synchronizedList(arrayVerticales);
     private ArrayList<Paroi> arrayHorizontales = new ArrayList();
     private List<Paroi> paroisHorizontales = Collections.synchronizedList(arrayHorizontales);
-    private int totalPoints;
 
+    private int totalPoints;
     private Balle balle;
 
     public Billard(){
@@ -45,6 +45,11 @@ public class Billard  extends JPanel {
 
         //Points
         totalPoints = 0;
+
+        //Color balle
+        Thread colorBale = new ThreadCouleur(this);
+        colorBale.start();
+
     }
 
     public Balle getBalle(){
@@ -57,9 +62,10 @@ public class Billard  extends JPanel {
         for(Paroi p: paroisVerticales){
             p.dessine(g);
         }
-        for(Paroi p: paroisHorizontales){
+        for(Paroi p: paroisHorizontales) {
             p.dessine(g);
         }
+
         balle.dessine(g);
     }
 
@@ -69,5 +75,13 @@ public class Billard  extends JPanel {
 
     public List<Paroi> getParoisHorizontales(){
         return paroisHorizontales;
+    }
+
+    public void setTotalPoint(int points){
+        totalPoints += points;
+    }
+
+    public String getTotalPoints(){
+        return String.valueOf(totalPoints);
     }
 }
