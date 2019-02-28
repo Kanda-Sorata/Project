@@ -10,8 +10,8 @@ public class FenetrePrincipale extends JFrame {
     private Container containeur;
 
     public FenetrePrincipale(){
-        super("Billard"); //Titre
-        setBounds(320, 180, 1280, 720); //Possition + taille
+        super("Billard"); //Title
+        setBounds(320, 180, 1280, 760); //Possition + taille
         addWindowListener(new WindowAdapter() { //Fermer la fenetre
             @Override
             public void windowClosing(WindowEvent windowEvent) {

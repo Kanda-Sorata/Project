@@ -16,25 +16,51 @@ public class Billard  extends JPanel {
     private Balle balle;
 
     public Billard(){
-        arrayHorizontales.add(new Paroi(150, 100, 1, 1));
-        arrayHorizontales.add(new Paroi(150, 900, 1, 1));
-        arrayVerticales.add(new Paroi(150, 100, 1, 1));
-        arrayVerticales.add(new Paroi(950, 100, 1, 1));
 
-        balle = new Balle(this, 850, 650, 25, 25);
+        //border
+        paroisHorizontales.add(new Paroi(240, 60, 800, 5));
+        paroisHorizontales.add(new Paroi(240, 660, 800, 5));
+        paroisVerticales.add(new Paroi(1040, 60, 5, 605));
+        paroisVerticales.add(new Paroi(240, 60, 5, 600));
+
+        //obstacle
+        paroisVerticales.add(new Paroi(400, 300, 5, 120));
+        paroisHorizontales.add(new Paroi(400, 295, 5, 5));
+        paroisHorizontales.add(new Paroi(400, 420, 5, 5));
+
+        paroisVerticales.add(new Paroi(720, 450, 5, 120));
+        paroisHorizontales.add(new Paroi(720, 445, 5, 5));
+        paroisHorizontales.add(new Paroi(720, 570, 5, 5));
+
+        paroisHorizontales.add(new Paroi(680, 336, 210, 5));
+
+        balle = new Balle(this, 750, 610, 24, 24);
+
+        ThreadMouvement move = new ThreadMouvement(this);
+        move.start();
+    }
+
+    public Balle getBalle(){
+        return balle;
     }
 
     @Override
     public void paint(Graphics g){
         super.paint(g);
-        for(Paroi p: arrayVerticales){
+        for(Paroi p: paroisVerticales){
             p.dessine(g);
         }
-
-        for(Paroi p: arrayHorizontales){
+        for(Paroi p: paroisHorizontales){
             p.dessine(g);
         }
-
         balle.dessine(g);
+    }
+
+    public List<Paroi> getParoisVerticales(){
+        return paroisVerticales;
+    }
+
+    public List<Paroi> getParoisHorizontales(){
+        return paroisHorizontales;
     }
 }
