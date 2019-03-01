@@ -11,10 +11,11 @@ public class ThreadComptagePoints extends Thread{
        while(true){
            try{
                Thread.sleep(1);
-                compteur.repaint();
            } catch (InterruptedException e){
                e.printStackTrace();
            }
+
+           compteur.repaint();
        }
     }
 }

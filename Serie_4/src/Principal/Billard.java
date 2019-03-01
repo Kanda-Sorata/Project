@@ -16,6 +16,9 @@ public class Billard  extends JPanel {
     private ArrayList<Balle> arrayBalles = new ArrayList();
     private List<Balle> balles = Collections.synchronizedList(arrayBalles);
 
+    private ArrayList<Piege> arrayPieges = new ArrayList<>();
+    private List<Piege> pieges = Collections.synchronizedList(arrayPieges);
+
     private int totalPoints;
 
     public Billard(){
@@ -27,17 +30,17 @@ public class Billard  extends JPanel {
         paroisVerticales.add(new Paroi(240, 60, 5, 600, 0));
 
         //obstacles
-        paroisVerticales.add(new Paroi(400, 300, 5, 120, 2));
-        paroisHorizontales.add(new Paroi(400, 295, 5, 5, 2));
-        paroisHorizontales.add(new Paroi(400, 420, 5, 5, 2));
+        paroisVerticales.add(new Paroi(400, 315, 5, 120, 2));
+        paroisHorizontales.add(new Paroi(400, 310, 5, 5, 2));
+        paroisHorizontales.add(new Paroi(400, 435, 5, 5, 2));
 
-        paroisVerticales.add(new Paroi(720, 450, 5, 120, 2));
-        paroisHorizontales.add(new Paroi(720, 445, 5, 5, 2));
-        paroisHorizontales.add(new Paroi(720, 570, 5, 5, 2));
+        paroisVerticales.add(new Paroi(720, 185, 5, 120, 2));
+        paroisHorizontales.add(new Paroi(720, 180, 5, 5, 2));
+        paroisHorizontales.add(new Paroi(720, 305, 5, 5, 2));
 
-        paroisHorizontales.add(new Paroi(680, 336, 210, 5, 2));
-        paroisVerticales.add(new Paroi(675, 336, 5, 5, 2));
-        paroisVerticales.add(new Paroi(890, 336, 5, 5, 2));
+        paroisHorizontales.add(new Paroi(480, 540, 210, 5, 2));
+        paroisVerticales.add(new Paroi(475, 540, 5, 5, 2));
+        paroisVerticales.add(new Paroi(690, 540, 5, 5, 2));
 
 
         //Balles
@@ -50,6 +53,10 @@ public class Billard  extends JPanel {
         //Color balle
         Thread colorBale = new ThreadCouleur(this);
         colorBale.start();
+
+        //Pieges
+        pieges.add(new Piege(800, 449, 25, 25));
+        pieges.add(new Piege(350, 143, 25, 25));
 
     }
 
@@ -67,8 +74,14 @@ public class Billard  extends JPanel {
             p.dessine(g);
         }
 
-        for(Balle b: balles)
-        b.dessine(g);
+        for(Balle b: balles) {
+            b.dessine(g);
+        }
+
+        for(Piege p: pieges){
+            p.dessine(g);
+        }
+
     }
 
     public List<Paroi> getParoisVerticales(){
@@ -85,5 +98,9 @@ public class Billard  extends JPanel {
 
     public String getTotalPoints(){
         return String.valueOf(totalPoints);
+    }
+
+    public List<Piege> getPieges(){
+        return pieges;
     }
 }

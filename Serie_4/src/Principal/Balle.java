@@ -11,6 +11,8 @@ public class Balle {
     private int deltaY = 2;
     private int posColors;
     private Color color;
+    private boolean aSupprimer;
+
     private static Color [] colors = {Color.RED, Color.GREEN, Color.CYAN, Color.YELLOW, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.BLUE };
 
     public Balle(Billard billard, int x, int y, int width, int height){
@@ -19,6 +21,7 @@ public class Balle {
         this.billard = billard;
         rect = new Rectangle(x, y, width, height);
         posColors = 0;
+        aSupprimer = false;
     }
 
     public void dessine(Graphics g){
@@ -34,15 +37,38 @@ public class Balle {
             }
         }
 
-        for(Paroi p: billard.getParoisHorizontales()){
-            if(p.collision(this)){
+        for(Paroi p: billard.getParoisHorizontales()) {
+            if (p.collision(this)) {
                 deltaY = -deltaY;
                 billard.setTotalPoint(p.getPoints());
+            }
+        }
+        if(billard.getBalles().size() > 1) {
+            for (Balle b : billard.getBalles()) {
+                if(b != this) {
+                    if (this.collision(b.getBalleRect())) {
+                        deltaX = -deltaX;
+                        deltaY = -deltaY;
+                    }
+                }
+            }
+        }
+
+        for(Piege p: billard.getPieges()){
+            if(p.disparition(this)){
+                this.aSupprimer = true;
             }
         }
 
         rect.x -= deltaX;
         rect.y -= deltaY;
+
+        if(this.getBalleRect().x <= 240 || this.getBalleRect().x >= 1040){
+            this.getBalleRect().x = 640;
+        }
+        if(this.getBalleRect().y <= 60 || this.getBalleRect().y >= 660){
+            this.getBalleRect().y = 330;
+        }
 
     }
 
@@ -58,5 +84,13 @@ public class Balle {
 
         color = colors[posColors];
         posColors += 1;
+    }
+
+    public boolean collision(Rectangle r){
+        return this.getBalleRect().intersects(r);
+    }
+
+    public boolean getASupprimer(){
+        return aSupprimer;
     }
 }

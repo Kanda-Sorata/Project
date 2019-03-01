@@ -10,14 +10,22 @@ public class ThreadMouvement extends Thread{
     public void run(){
         while(true) {
             try {
-                Thread.sleep(5);
-                for(Balle b: billard.getBalles()) {
-                    b.bouge();
-                }
-                billard.repaint();
+                Thread.sleep(7);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+            for(Balle b: billard.getBalles()) {
+                b.bouge();
+            }
+
+            for(int i = 0; i < billard.getBalles().size(); i++){
+                if(billard.getBalles().get(i).getASupprimer()){
+                    billard.getBalles().remove(i);
+                }
+            }
+
+            billard.repaint();
         }
     }
 }
