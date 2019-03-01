@@ -7,15 +7,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class FenetrePrincipale extends JFrame implements ActionListener {
+public class FenetrePrincipale extends JFrame {
     private Billard billard;
     private Container containeur;
     private FenetrePoints fenCompteur;
     private JPanel panel;
     private JButton buttonStart;
-    private boolean posChange;
 
-    public FenetrePrincipale(){
+    public FenetrePrincipale() {
         super("Billard"); //Title
         setBounds(320, 180, 1280, 760); //Possition + taille
         addWindowListener(new WindowAdapter() { //Fermer la fenetre
@@ -26,7 +25,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
         });
 
         billard = new Billard(); //panel billard
-
 
         createPanel();
 
@@ -42,26 +40,18 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
         setResizable(false); //Suprimer la redimension
     }
 
-    public void createPanel(){
+    public void createPanel() {
         buttonStart = new JButton("Start");
-        buttonStart.addActionListener(this);
+        buttonStart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                billard.ajoutBalle();
+            }
+        });
+        buttonStart.setToolTipText("Envoyer une balle");
 
         panel = new JPanel();
         panel.setLayout(new FlowLayout());
         panel.add(buttonStart, BorderLayout.SOUTH);
-    }
-
-    public void actionPerformed(ActionEvent e){
-            if(posChange){
-                posChange = false;
-                createBalle(800, 540);
-            }else{
-                posChange = true;
-                createBalle(800, 389);
-            }
-    }
-
-    public void createBalle(int x, int y){
-        billard.getBalles().add(new Balle(billard, x, y, 24, 24));
     }
 }

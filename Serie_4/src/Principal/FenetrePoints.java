@@ -12,10 +12,10 @@ public class FenetrePoints extends JFrame {
     private Compteur compteur;
 
     public FenetrePoints(Billard billard) {
-        super("Point(s)"); //Title
+        super(""); //Title
         this.billard = billard;
+        setBounds(215, 180, 100, 100); //Possition + taille
 
-        setBounds(320, 180, 100, 100); //Possition + taille
         addWindowListener(new WindowAdapter() { //Fermer la fenetre
             @Override
             public void windowClosing(WindowEvent windowEvent) {

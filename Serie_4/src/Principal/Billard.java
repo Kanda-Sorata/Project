@@ -34,13 +34,17 @@ public class Billard  extends JPanel {
         paroisHorizontales.add(new Paroi(400, 310, 5, 5, 2));
         paroisHorizontales.add(new Paroi(400, 435, 5, 5, 2));
 
-        paroisVerticales.add(new Paroi(720, 185, 5, 120, 2));
-        paroisHorizontales.add(new Paroi(720, 180, 5, 5, 2));
-        paroisHorizontales.add(new Paroi(720, 305, 5, 5, 2));
+        paroisVerticales.add(new Paroi(821, 185, 5, 120, 2));
+        paroisHorizontales.add(new Paroi(821, 180, 5, 5, 2));
+        paroisHorizontales.add(new Paroi(821, 305, 5, 5, 2));
 
-        paroisHorizontales.add(new Paroi(480, 540, 210, 5, 2));
-        paroisVerticales.add(new Paroi(475, 540, 5, 5, 2));
-        paroisVerticales.add(new Paroi(690, 540, 5, 5, 2));
+        paroisHorizontales.add(new Paroi(480, 580, 210, 5, 2));
+        paroisVerticales.add(new Paroi(475, 580, 5, 5, 2));
+        paroisVerticales.add(new Paroi(690, 795, 5, 5, 2));
+
+        paroisHorizontales.add(new Paroi(556, 452, 120, 5, 2));
+        paroisVerticales.add(new Paroi(551, 452, 5, 5, 2));
+        paroisVerticales.add(new Paroi(676, 452, 5, 5,2));
 
 
         //Balles
@@ -55,9 +59,9 @@ public class Billard  extends JPanel {
         colorBale.start();
 
         //Pieges
-        pieges.add(new Piege(800, 449, 25, 25));
-        pieges.add(new Piege(350, 143, 25, 25));
-
+        pieges.add(new Piege(856, 522, 35, 35));
+        pieges.add(new Piege(286, 157, 35, 35));
+        pieges.add(new Piege(583, 185, 35,35));
     }
 
     public List<Balle> getBalles(){
@@ -102,5 +106,9 @@ public class Billard  extends JPanel {
 
     public List<Piege> getPieges(){
         return pieges;
+    }
+
+    public void ajoutBalle() {
+        balles.add(new Balle(this, 952, 523, 24, 24));
     }
 }
