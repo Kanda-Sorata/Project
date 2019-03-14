@@ -19,4 +19,7 @@ public class Paroi {
         return rectangle.intersects(balle.getBalleRect());
     }
 
+    public int getPoints(){
+        return points;
+    }
 }
