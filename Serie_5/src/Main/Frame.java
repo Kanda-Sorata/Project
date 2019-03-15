@@ -2,10 +2,14 @@ package Main;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Frame extends JFrame {
 
-    public Frame(JMenuBar menu){
+    private Container container;
+
+    public Frame(Menu menu){
         super("My beautiful menu!");
 
         // make the frame half the height and width
@@ -17,8 +21,26 @@ public class Frame extends JFrame {
         // here's the part where i center the jframe on screen
         setLocationRelativeTo(null);
 
-        setJMenuBar(menu);
+        addWindowListener(new WindowAdapter() { //Fermer la fenetre
+            @Override
+            public void windowClosing(WindowEvent windowEvent) {
+                System.exit(0);
+            }
+        });
+
+        container = this.getContentPane();
+
+        menu.setParentWindow(this);
+
+        setJMenuBar(menu.getMenuBar());
 
         setVisible(true);
     }
+
+    public Container getContainer(){
+        return  container;
+    }
+
+
+
 }
