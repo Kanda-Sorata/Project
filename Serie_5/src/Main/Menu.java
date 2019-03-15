@@ -60,14 +60,19 @@ public class Menu extends JPanel{
         public void actionPerformed(ActionEvent e){
             System.exit(0);
         }
-
     }
 
     private class IesnListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             parentWindow.getContainer().removeAll();
-            parentWindow.getContainer().add(infoIesn.getPanel());
+            parentWindow.getContainer().add(infoIesn);
             parentWindow.getContainer().repaint();
+        }
+    }
+
+    private class Aide implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            
         }
     }
 
