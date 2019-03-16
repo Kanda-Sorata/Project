@@ -43,6 +43,7 @@ public class Balle {
                 billard.setTotalPoint(p.getPoints());
             }
         }
+        
         if(billard.getBalles().size() > 1) {
             for (Balle b : billard.getBalles()) {
                 if(b != this) {

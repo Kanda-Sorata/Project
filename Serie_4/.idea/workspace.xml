@@ -6,17 +6,92 @@
     </artifacts-to-build>
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/Principal/Billard.java" line="44" />
+    <bookmark url="file://$PROJECT_DIR$/src/Principal/Billard.java" line="52" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0cbe1ce8-726b-44e2-9221-0ec470ae28cb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Serie_4_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Ballons/.idea/Ballons.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../Ballons/.idea/Ballons.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Ballons/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Ballons/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Ballons/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Ballons/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Ballons/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Ballons/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Ballons/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Ballons/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bibliothèque/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Bibliothèque/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bibliothèque/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Bibliothèque/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bibliothèque/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Bibliothèque/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bibliothèque/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Bibliothèque/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bibliothèque/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Bibliothèque/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bibliothèque/Bibliothèque.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../Bibliothèque/Bibliothèque.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bibliothèque/src/Anime.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Bibliothèque/src/Anime.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bibliothèque/src/Film.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Bibliothèque/src/Film.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bibliothèque/src/Genre.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Bibliothèque/src/Genre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bibliothèque/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Bibliothèque/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bibliothèque/src/Manga.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Bibliothèque/src/Manga.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bibliothèque/src/Media.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Bibliothèque/src/Media.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bibliothèque/src/Série.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Bibliothèque/src/Série.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_2/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_2/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_2/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_2/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_2/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_2/Serie_2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_2/Serie_2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_2/src/Exception/SectionException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_2/src/Exception/SectionException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_2/src/Exception/SexeException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_2/src/Exception/SexeException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_2/src/Exception/TooMuchActivities.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_2/src/Exception/TooMuchActivities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_2/src/Exception/WrongNumberActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_2/src/Exception/WrongNumberActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_2/src/Exception/YearBlocException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_2/src/Exception/YearBlocException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_2/src/Exo1/LearningActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_2/src/Exo1/LearningActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_2/src/Exo1/Personne.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_2/src/Exo1/Personne.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_2/src/Exo1/Principale.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_2/src/Exo1/Principale.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_2/src/Exo1/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_2/src/Exo1/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_2/src/Exo1/Teacher.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_2/src/Exo1/Teacher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_3/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_3/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_3/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_3/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_3/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_3/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_3/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_3/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_3/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_3/Serie_3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_3/Serie_3.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_3/src/Exception/YearException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_3/src/Exception/YearException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_3/src/Principale/Consommateur.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_3/src/Principale/Consommateur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_3/src/Principale/Principale.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_3/src/Principale/Principale.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_3/src/Principale/Producteur.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_3/src/Principale/Producteur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_3/src/Principale/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_3/src/Principale/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_3/src/Principale/StudyingYear.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_3/src/Principale/StudyingYear.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Serie_3/src/Principale/ZoneCommune.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Serie_3/src/Principale/ZoneCommune.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Serie_4.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Serie_4.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Principal/Balle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Principal/Balle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Principal/Billard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Principal/Billard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Principal/Compteur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Principal/Compteur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Principal/FenetrePoints.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Principal/FenetrePoints.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Principal/FenetrePrincipale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Principal/FenetrePrincipale.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Principal/Paroi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Principal/Paroi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Principal/Principal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Principal/Principal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Principal/ThreadMouvement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Principal/ThreadMouvement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Série_1/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Série_1/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Série_1/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Série_1/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Série_1/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Série_1/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Série_1/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Série_1/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Série_1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Série_1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Série_1/Série_1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../Série_1/Série_1.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Série_1/src/Exo_1/Author.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Série_1/src/Exo_1/Author.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Série_1/src/Exo_1/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Série_1/src/Exo_1/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Série_1/src/Exo_1/BookException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Série_1/src/Exo_1/BookException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Série_1/src/Exo_1/Editor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Série_1/src/Exo_1/Editor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Série_1/src/Exo_1/IPublication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Série_1/src/Exo_1/IPublication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Série_1/src/Exo_1/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Série_1/src/Exo_1/Location.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Série_1/src/Exo_1/Principale.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Série_1/src/Exo_1/Principale.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Série_1/src/Exo_1/Publication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Série_1/src/Exo_1/Publication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Série_1/src/Exo_1/ScientificPublication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Série_1/src/Exo_1/ScientificPublication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../_windows/git.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../_windows/git.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../_windows/laf.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../_windows/laf.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../_windows/path.macros.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../_windows/path.macros.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../colors.scheme.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../colors.scheme.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../debugger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../debugger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../filetypes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../filetypes.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../github.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../github.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ide.general.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ide.general.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project.default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../project.default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../vcs.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,7 +102,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Principal/ThreadComptagePoints.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="238">
@@ -43,21 +118,16 @@
               <caret line="15" selection-start-line="15" selection-end-line="15" />
               <folding>
                 <element signature="e#349#350#0" expanded="true" />
-                <element signature="e#574#575#0" expanded="true" />
-                <element signature="e#603#604#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Principal/FenetrePrincipale.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="14" column="32" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="352">
+              <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
             </state>
           </provider>
         </entry>
@@ -122,10 +192,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1912" />
-    <option name="y" value="-8" />
-    <option name="width" value="1920" />
-    <option name="height" value="1040" />
+    <option name="x" value="-10" />
+    <option name="y" value="-10" />
+    <option name="width" value="1939" />
+    <option name="height" value="1049" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -133,6 +203,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -155,8 +227,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -210,6 +280,8 @@
       <workItem from="1551347787148" duration="15111000" />
       <workItem from="1551458994570" duration="7035000" />
       <workItem from="1551468997721" duration="7597000" />
+      <workItem from="1551956296522" duration="96000" />
+      <workItem from="1551958965822" duration="96000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <created>1551261011531</created>
@@ -264,12 +336,12 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51171000" />
+    <option name="totallyTimeSpent" value="51363000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17857143" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18389262" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -278,7 +350,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32827735" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32827735" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32827735" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39869988" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -342,27 +414,9 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="jar://E:/Program Files/Java/jdk1.8.0_171/jre/lib/rt.jar!/java/awt/Rectangle.class" />
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_161/jre/lib/rt.jar!/javax/swing/JComponent.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="489" column="20" lean-forward="true" selection-start-line="489" selection-start-column="20" selection-end-line="489" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_161/jre/lib/rt.jar!/java/awt/Component.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1099">
-          <caret line="1373" column="16" selection-start-line="1373" selection-start-column="16" selection-end-line="1373" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_161/jre/lib/rt.jar!/java/awt/Container.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="438" selection-start-line="438" selection-end-line="438" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_161/jre/lib/rt.jar!/javax/swing/JComponent.class" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_161/jre/lib/rt.jar!/java/awt/Component.class" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_161/jre/lib/rt.jar!/java/awt/Container.class" />
     <entry file="file://$PROJECT_DIR$/src/Principal/ThreadCouleur.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -387,18 +441,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Principal/ButtonListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="3" lean-forward="true" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#253#254#0" expanded="true" />
-            <element signature="e#291#292#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Principal/ButtonListener.java" />
     <entry file="file://$PROJECT_DIR$/src/Principal/Balle.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-130">
@@ -410,17 +453,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Principal/ThreadAjoutBalle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="55" selection-start-line="13" selection-start-column="55" selection-end-line="13" selection-end-column="55" />
-          <folding>
-            <element signature="e#161#162#0" expanded="true" />
-            <element signature="e#199#200#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Principal/ThreadAjoutBalle.java" />
     <entry file="file://$PROJECT_DIR$/src/Principal/Compteur.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -447,10 +480,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Principal/ThreadComptagePoints.java">
+    <entry file="file://$PROJECT_DIR$/src/Principal/Paroi.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        <state relative-caret-position="255">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+          <folding>
+            <element signature="e#349#350#0" expanded="true" />
+            <element signature="e#574#575#0" expanded="true" />
+            <element signature="e#603#604#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -458,6 +496,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Principal/FenetrePrincipale.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
         </state>
       </provider>
     </entry>
@@ -472,25 +517,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Principal/Paroi.java">
+    <entry file="file://$PROJECT_DIR$/src/Principal/ThreadComptagePoints.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-          <folding>
-            <element signature="e#349#350#0" expanded="true" />
-            <element signature="e#574#575#0" expanded="true" />
-            <element signature="e#603#604#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Principal/FenetrePrincipale.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="14" column="32" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="238">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
         </state>
       </provider>
     </entry>
