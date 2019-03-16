@@ -1,0 +1,113 @@
+Index: src/Main/InfoIESN.java
+===================================================================
+--- src/Main/InfoIESN.java	(revision 9f0a5b7eb9161016b4a466202210b6c5103b2861)
++++ src/Main/InfoIESN.java	(revision 9f0a5b7eb9161016b4a466202210b6c5103b2861)
+@@ -1,17 +0,0 @@
+-package Main;
+-
+-import javax.swing.*;
+-import java.awt.*;
+-
+-public class InfoIESN extends JPanel {
+-    private JLabel label;
+-
+-    public InfoIESN(){
+-        setLayout(new FlowLayout());
+-
+-        label = new JLabel("<html><p>Rue Joseph Calozet 19<p>5000 Namur</p>" +
+-                "<p>Tél : +32 (0)81 46 86 10</p><p>Fax: +32 (0)81 73 32 17</p>" +
+-                "<p><a href='info.iesn@henallux.be'>Henallux IESN</a></p></html>");
+-        this.add(label);
+-    }
+-}
+Index: src/Main/Menu.java
+===================================================================
+--- src/Main/Menu.java	(revision 9f0a5b7eb9161016b4a466202210b6c5103b2861)
++++ src/Main/Menu.java	(revision 9f0a5b7eb9161016b4a466202210b6c5103b2861)
+@@ -1,86 +0,0 @@
+-package Main;
+-
+-import javax.swing.*;
+-import java.awt.event.ActionEvent;
+-import java.awt.event.ActionListener;
+-import java.awt.event.InputEvent;
+-import java.awt.event.KeyEvent;
+-
+-public class Menu extends JPanel{
+-    private JMenuBar menu;
+-
+-    private JMenu applicationMenu;
+-    private JMenuItem exit;
+-
+-    private JMenu etuMenu;
+-    private JMenuItem inscriptionItem;
+-
+-    private JMenu infoMenu;
+-    private JMenuItem iesnItem;
+-    private JMenuItem helpItem;
+-
+-    private InfoIESN infoIesn;
+-
+-    private Frame parentWindow;
+-
+-    public Menu(InfoIESN infoIesn){
+-        menu = new JMenuBar();
+-
+-        applicationMenu = new JMenu("Applications");
+-        applicationMenu.setMnemonic('a');
+-        exit = new JMenuItem("Exit");
+-        exit.addActionListener(new ExitListener());
+-        exit.setAccelerator(KeyStroke.getKeyStroke(InputEvent.CTRL_MASK, KeyEvent.VK_Q));
+-        applicationMenu.add(exit);
+-
+-
+-        etuMenu = new JMenu("Etudiant");
+-        etuMenu.setMnemonic('e');
+-        inscriptionItem = new JMenuItem("Inscription");
+-
+-        etuMenu.add(inscriptionItem);
+-
+-        infoMenu = new JMenu("Infos");
+-        infoMenu.setMnemonic('i');
+-
+-        iesnItem = new JMenuItem("IESN");
+-        iesnItem.addActionListener(new IesnListener());
+-        helpItem = new JMenuItem("Aide");
+-        infoMenu.add(iesnItem);
+-        infoMenu.add(helpItem);
+-
+-        menu.add(applicationMenu);
+-        menu.add(etuMenu);
+-        menu.add(infoMenu);
+-
+-        this.infoIesn = infoIesn;
+-    }
+-
+-    private class ExitListener implements ActionListener {
+-        public void actionPerformed(ActionEvent e){
+-            System.exit(0);
+-        }
+-    }
+-
+-    private class IesnListener implements ActionListener {
+-        public void actionPerformed(ActionEvent e) {
+-            parentWindow.getContainer().removeAll();
+-            parentWindow.getContainer().add(infoIesn);
+-            parentWindow.getContainer().repaint();
+-        }
+-    }
+-
+-    private class Aide implements ActionListener{
+-        public void actionPerformed(ActionEvent e){
+-            
+-        }
+-    }
+-
+-    public JMenuBar getMenuBar(){
+-        return menu;
+-    }
+-
+-    public void setParentWindow(Frame parentWindow){
+-        this.parentWindow = parentWindow;
+-    }
+-}
