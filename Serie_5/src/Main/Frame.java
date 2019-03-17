@@ -10,6 +10,7 @@ public class Frame extends JFrame {
     private JMenuBar menu;
 
     public Frame(){
+        //Generale
         super("My beautiful menu!");
 
         // make the frame half the height and width
@@ -28,6 +29,8 @@ public class Frame extends JFrame {
             }
         });
 
+        //Contenu
+
         container = this.getContentPane();
 
 
@@ -39,7 +42,7 @@ public class Frame extends JFrame {
         JMenuItem exit;
 
         JMenu etuMenu;
-        JMenuItem inscriptionItem;
+        JMenuItem registerItem;
 
         JMenu infoMenu;
         JMenuItem iesnItem;
@@ -49,15 +52,16 @@ public class Frame extends JFrame {
         applicationMenu.setMnemonic('a');
         exit = new JMenuItem("Exit");
         exit.addActionListener(new ExitListener());
-        exit.setAccelerator(KeyStroke.getKeyStroke(InputEvent.CTRL_MASK, KeyEvent.VK_Q));
+        exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK));
         applicationMenu.add(exit);
 
 
         etuMenu = new JMenu("Etudiant");
         etuMenu.setMnemonic('e');
-        inscriptionItem = new JMenuItem("Inscription");
+        registerItem = new JMenuItem("Inscription");
+        registerItem.addActionListener(new RegisterListener());
 
-        etuMenu.add(inscriptionItem);
+        etuMenu.add(registerItem);
 
         infoMenu = new JMenu("Infos");
         infoMenu.setMnemonic('i');
@@ -65,6 +69,7 @@ public class Frame extends JFrame {
         iesnItem = new JMenuItem("IESN");
         iesnItem.addActionListener(new IesnListener());
         helpItem = new JMenuItem("Aide");
+        helpItem.addActionListener(new HelpListener());
         infoMenu.add(iesnItem);
         infoMenu.add(helpItem);
 
@@ -75,44 +80,51 @@ public class Frame extends JFrame {
         setJMenuBar(menu);
 
         setVisible(true);
-
-
-
-
     }
-        private class ExitListener implements ActionListener {
-            public void actionPerformed(ActionEvent e){
-                System.exit(0);
-            }
+
+    private class RegisterListener implements  ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent event){
+            container.removeAll();
+            container.add(new RegisterForm());
+            container.repaint();
+            setVisible(true);
         }
+    }
 
-        private class IesnListener implements ActionListener {
-            public void actionPerformed(ActionEvent e) {
-                container.removeAll();
-                container.add(new InfoIESN());
-                container.repaint();
-                setVisible(true);
-            }
+    private class ExitListener implements ActionListener {
+        public void actionPerformed(ActionEvent e){
+            System.exit(0);
         }
+    }
 
-        private class Aide implements ActionListener{
-            public void actionPerformed(ActionEvent e){
-
-            }
+    private class IesnListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            container.removeAll();
+            container.add(new InfoIESN());
+            container.repaint();
+            setVisible(true);
         }
+    }
 
-         private class InfoIESN extends JPanel {
-             private JLabel label;
+    private class HelpListener implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            new FrameHelp();
+        }
+    }
 
-             public InfoIESN() {
-                 setLayout(new FlowLayout());
+     private class InfoIESN extends JPanel {
+         private JLabel label;
 
-                 label = new JLabel("<html><p>Rue Joseph Calozet 19<p>5000 Namur</p>" +
-                         "<p>Tél : +32 (0)81 46 86 10</p><p>Fax: +32 (0)81 73 32 17</p>" +
-                         "<p><a href='info.iesn@henallux.be'>Henallux IESN</a></p></html>");
-                 this.add(label);
-             }
+         public InfoIESN() {
+             setLayout(new FlowLayout());
 
+             label = new JLabel("<html><p>Rue Joseph Calozet 19<p>5000 Namur</p>" +
+                     "<p>Tél : +32 (0)81 46 86 10</p><p>Fax: +32 (0)81 73 32 17</p>" +
+                     "<p><a href='info.iesn@henallux.be'>Henallux IESN</a></p></html>");
+             this.add(label);
          }
+
+     }
 
 }
