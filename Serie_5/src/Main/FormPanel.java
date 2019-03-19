@@ -1,6 +1,7 @@
 package Main;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,7 +11,7 @@ import java.awt.event.ItemListener;
 public class FormPanel extends JPanel {
 
     private JLabel[] labels = new JLabel[6];
-    private JTextField matricule;
+
     private JComboBox sectionCombox;
     private String [] sections = {"Technologie", "Informatique de Gestion", "Comptabilité", "Marketing", "Automatique",
             "Droit", "Sécurité des systèmes"};
@@ -22,9 +23,17 @@ public class FormPanel extends JPanel {
 
     private ButtonGroup buttonGroup;
     private JRadioButton newStudent;
+    private JRadioButton reRegistration;
+
+    private JTextField matricule;
+    private JTextField firstName;
+    private JTextField lastName;
+    private JTextField birthDay;
 
     public FormPanel() {
         setLayout(new GridLayout(8, 2, 5, 15));
+
+        setBorder(new EmptyBorder(75, 50, 75, 250));
 
         labels[0] = new JLabel("Matricule :");
         labels[1] = new JLabel("Prénom :");
@@ -37,9 +46,9 @@ public class FormPanel extends JPanel {
         //JTextFields
         matricule = new JFormattedTextField();
         matricule.addActionListener(new TextListener());
-        JTextField firstName = new JTextField();
-        JTextField lastName = new JTextField();
-        JTextField birthDay = new JTextField();
+        firstName = new JTextField();
+        lastName = new JTextField();
+        birthDay = new JTextField();
 
 
         //Combox
@@ -50,7 +59,6 @@ public class FormPanel extends JPanel {
         originCombox = new JComboBox(origins);
         originCombox.setMaximumRowCount(5);
         originCombox.setEnabled(false);
-
 
         //CheckBox
         scholarship = new JCheckBox("Boursier");
@@ -64,7 +72,7 @@ public class FormPanel extends JPanel {
 
         newStudent = new JRadioButton("Nouveau étudiant");
         newStudent.addActionListener(new StudentListener());
-        JRadioButton reRegistration = new JRadioButton("Réinscription");
+        reRegistration = new JRadioButton("Réinscription");
         newStudent.setHorizontalAlignment(SwingConstants.RIGHT);
         reRegistration.setHorizontalAlignment(SwingConstants.RIGHT);
         buttonGroup = new ButtonGroup();
@@ -124,25 +132,25 @@ public class FormPanel extends JPanel {
             if(estEntier(matricule.getText())) {
                 switch (matricule.getText().charAt(0)) {
                     case '1':
-                        sectionCombox.setSelectedItem(sections[0]);
+                        sectionCombox.setSelectedIndex(0);
                         break;
                     case '2':
-                        sectionCombox.setSelectedItem(sections[1]);
+                        sectionCombox.setSelectedIndex(1);
                         break;
                     case '3':
-                        sectionCombox.setSelectedItem(sections[2]);
+                        sectionCombox.setSelectedIndex(2);
                         break;
                     case '4':
-                        sectionCombox.setSelectedItem(sections[3]);
+                        sectionCombox.setSelectedIndex(3);
                         break;
                     case '5':
-                        sectionCombox.setSelectedItem(sections[4]);
+                        sectionCombox.setSelectedIndex(4);
                         break;
                     case '6':
-                        sectionCombox.setSelectedItem(sections[5]);
+                        sectionCombox.setSelectedIndex(5);
                         break;
                     case '7':
-                        sectionCombox.setSelectedItem(sections[6]);
+                        sectionCombox.setSelectedIndex(6);
                         break;
                 }
             }
@@ -155,5 +163,70 @@ public class FormPanel extends JPanel {
             i++;
         }
         return  matricule.length() == 4 && i == matricule.length();
+    }
+
+    public void clearField(){
+        matricule.setText(null);
+        lastName.setText(null);
+        firstName.setText(null);
+        birthDay.setText(null);
+        originCombox.setSelectedIndex(0);
+        sectionCombox.setSelectedIndex(0);
+        stranger.setSelected(false);
+        scholarship.setSelected(false);
+        buttonGroup.clearSelection();
+
+    }
+
+    public FormPanel getFormPanel(){
+        return this;
+    }
+
+    public JComboBox getSectionCombox() {
+        return sectionCombox;
+    }
+
+    public JComboBox getOriginCombox() {
+        return originCombox;
+    }
+
+    public JCheckBox getStranger() {
+        return stranger;
+    }
+
+    public JCheckBox getScholarship() {
+        return scholarship;
+    }
+
+    public JRadioButton getNewStudent() {
+        return newStudent;
+    }
+
+    public JRadioButton getReRegistration() {
+        return reRegistration;
+    }
+
+    public JTextField getMatricule() {
+        return matricule;
+    }
+
+    public JTextField getFirstName() {
+        return firstName;
+    }
+
+    public JTextField getLastName() {
+        return lastName;
+    }
+
+    public JTextField getBirthDay() {
+        return birthDay;
+    }
+
+    public String[] getSections() {
+        return sections;
+    }
+
+    public String[] getOrigins() {
+        return origins;
     }
 }

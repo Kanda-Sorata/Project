@@ -8,6 +8,8 @@ public class Frame extends JFrame {
 
     private Container container;
     private JMenuBar menu;
+    private RegisterForm registerForm;
+    private InfoIESN infoIESN;
 
     public Frame(){
         //Generale
@@ -79,17 +81,12 @@ public class Frame extends JFrame {
 
         setJMenuBar(menu);
 
-        setVisible(true);
-    }
 
-    private class RegisterListener implements  ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent event){
-            container.removeAll();
-            container.add(new RegisterForm());
-            container.repaint();
-            setVisible(true);
-        }
+        //Panel
+        registerForm = new RegisterForm(this);
+        infoIESN = new InfoIESN();
+
+        setVisible(true);
     }
 
     private class ExitListener implements ActionListener {
@@ -101,7 +98,7 @@ public class Frame extends JFrame {
     private class IesnListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             container.removeAll();
-            container.add(new InfoIESN());
+            container.add(infoIESN);
             container.repaint();
             setVisible(true);
         }
@@ -125,6 +122,28 @@ public class Frame extends JFrame {
              this.add(label);
          }
 
+     }
+
+    private class RegisterListener implements  ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent event){
+            container.removeAll();
+            container.add(registerForm);
+            container.repaint();
+            setVisible(true);
+        }
+    }
+
+     public Container getContainer(){
+        return container;
+     }
+
+     public Frame getFrame(){
+        return this;
+     }
+
+     public RegisterForm getRegisterForm(){
+        return registerForm;
      }
 
 }
