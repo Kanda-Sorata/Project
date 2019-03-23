@@ -1,6 +1,7 @@
 package Main;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class RegisterForm extends JPanel {
@@ -16,6 +17,7 @@ public class RegisterForm extends JPanel {
         formPanel = new FormPanel();
         buttonPanel = new ButtonPanel(frame);
 
+        formPanel.setBorder(new EmptyBorder(50, 250, 50, 350));
         add(formPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
