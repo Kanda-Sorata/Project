@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a52ec855-4c4f-4062-ae3e-795bbd24e754" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_03_2019_18_07__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_03_2019_18_07__Default_Changelist_.xml" afterDir="false" />
+    <list default="true" id="ec8294f9-ecad-4acf-a5d3-676bc1bbef05" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Serie_5/Main/ButtonPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Serie_5/Main/ButtonPanel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Serie_5/Main/FormPanel$StrangerListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Serie_5/Main/FormPanel$StrangerListener.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Serie_5/Main/FormPanel$StudentListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Serie_5/Main/FormPanel$StudentListener.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Serie_5/Main/FormPanel$TextListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Serie_5/Main/FormPanel$TextListener.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Serie_5/Main/FormPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Serie_5/Main/FormPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Serie_5/Main/Frame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Serie_5/Main/Frame$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Serie_5/Main/Frame$ExitListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Serie_5/Main/Frame$ExitListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Serie_5/Main/Frame$HelpListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Serie_5/Main/Frame$HelpListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Serie_5/Main/Frame$IesnListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Serie_5/Main/Frame$IesnListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Serie_5/Main/Frame$InfoIESN.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Serie_5/Main/Frame$InfoIESN.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Serie_5/Main/Frame$RegisterListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Serie_5/Main/Frame$RegisterListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Serie_5/Main/Frame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Serie_5/Main/Frame.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Serie_5/Main/RegisterForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Serie_5/Main/RegisterForm.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main/FormPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/FormPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main/RegisterForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/RegisterForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/Frame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Frame.java" afterDir="false" />
     </list>
     <ignored path="C:\Users\Weazy\IdeaProjects\Serie_5\.idea\shelf/" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -22,47 +28,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main/Frame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1547">
-              <caret line="97" column="9" selection-start-line="97" selection-start-column="9" selection-end-line="97" selection-end-column="9" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Main/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Main/FormPanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
-              <caret line="37" column="31" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Main/RegisterForm.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" selection-start-line="18" selection-end-line="18" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="365">
+              <caret line="108" column="36" selection-start-line="108" selection-start-column="36" selection-end-line="108" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -90,18 +60,20 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Main/FormPanel.java" />
         <option value="$PROJECT_DIR$/src/Main/RegisterForm.java" />
+        <option value="$PROJECT_DIR$/src/Main/ButtonPanel.java" />
+        <option value="$PROJECT_DIR$/src/Main/FormPanel.java" />
+        <option value="$PROJECT_DIR$/src/Main/Student.java" />
+        <option value="$PROJECT_DIR$/src/Main/Frame.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-10" />
-    <option name="y" value="-10" />
-    <option name="width" value="1939" />
-    <option name="height" value="1049" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -136,7 +108,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552855890629" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553017287169" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -164,7 +136,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a52ec855-4c4f-4062-ae3e-795bbd24e754" name="Default Changelist" comment="" />
+      <changelist id="ec8294f9-ecad-4acf-a5d3-676bc1bbef05" name="Default Changelist" comment="" />
       <created>1552756979607</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -172,17 +144,27 @@
       <workItem from="1552756983415" duration="165000" />
       <workItem from="1552837968935" duration="17506000" />
       <workItem from="1552855969294" duration="81000" />
-      <workItem from="1552988812859" duration="73000" />
+      <workItem from="1553013468896" duration="3839000" />
+      <workItem from="1553342147481" duration="170000" />
     </task>
+    <task id="LOCAL-00001" summary="final version">
+      <created>1553017300599</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1553017300599</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="712000" />
+    <option name="totallyTimeSpent" value="4377000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27449664" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16257995" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -191,7 +173,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3286119" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32936078" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -201,7 +183,7 @@
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.3286119" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32936078" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -212,44 +194,14 @@
       <window_info anchor="right" id="Capture Analysis" order="7" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
     </layout>
-    <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25973153" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Image Layers" order="2" />
-      <window_info id="Designer" order="3" />
-      <window_info id="UI Designer" order="4" />
-      <window_info id="Capture Tool" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3286119" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" />
-      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.3286119" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.3286119" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Database" order="4" />
-      <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="right" id="Maven" order="6" />
-      <window_info anchor="right" id="Capture Analysis" order="7" />
-      <window_info anchor="right" id="Palette&#9;" order="8" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="final version" />
+    <option name="LAST_COMMIT_MESSAGE" value="final version" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
@@ -259,40 +211,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/Frame.java">
+    <entry file="file://$PROJECT_DIR$/src/Main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1547">
-          <caret line="97" column="9" selection-start-line="97" selection-start-column="9" selection-end-line="97" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="187">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/Main.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_161/jre/lib/rt.jar!/javax/swing/border/EmptyBorder.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
+        <state relative-caret-position="198">
+          <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main/RegisterForm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="323">
+          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main/ButtonPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="467">
+          <caret line="45" column="52" lean-forward="true" selection-start-line="45" selection-start-column="52" selection-end-line="45" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main/FormPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="37" column="31" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
+        <state relative-caret-position="1564">
+          <caret line="152" column="56" selection-start-line="152" selection-start-column="56" selection-end-line="152" selection-end-column="56" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main/Student.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="93">
+          <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main/Frame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="108" column="36" selection-start-line="108" selection-start-column="36" selection-end-line="108" selection-end-column="36" />
         </state>
       </provider>
     </entry>
