@@ -10,19 +10,21 @@ public class ButtonPanel extends JPanel {
     private JButton validation;
     private JButton reset;
     private Frame frameReference;
+    private ButtonListener buttonListener;
 
     public ButtonPanel(Frame frameReference){
         setLayout(new FlowLayout());
 
         this.frameReference = frameReference;
 
+        buttonListener = new ButtonListener();
         back = new JButton("Retour");
         validation = new JButton("Validation");
         reset = new JButton("Réinitialiser");
 
-        back.addActionListener(new ButtonListener());
-        validation.addActionListener(new ButtonListener());
-        reset.addActionListener(new ButtonListener());
+        back.addActionListener(buttonListener);
+        validation.addActionListener(buttonListener);
+        reset.addActionListener(buttonListener);
 
         add(back);
         add(validation);
@@ -44,20 +46,29 @@ public class ButtonPanel extends JPanel {
                 }
                 else{
                     Student student = new Student();
-                    student.setMatricule(frameReference.getRegisterForm().getFormPanel().getMatricule().getText());
-                    student.setLastName(frameReference.getRegisterForm().getFormPanel().getLastName().getText());
-                    student.setFirstName(frameReference.getRegisterForm().getFormPanel().getFirstName().getText());
-                    student.setBirthDay(frameReference.getRegisterForm().getFormPanel().getBirthDay().getText());
-                    student.setSection(frameReference.getRegisterForm().getFormPanel().getSections()[frameReference.getRegisterForm().getFormPanel().getSectionCombox().getSelectedIndex()]);
-                    student.setScholarship(frameReference.getRegisterForm().getFormPanel().getScholarship().isSelected());
-                    student.setStranger(frameReference.getRegisterForm().getFormPanel().getStranger().isSelected());
-                    student.setOrigins(frameReference.getRegisterForm().getFormPanel().getOrigins()[frameReference.getRegisterForm().getFormPanel().getOriginCombox().getSelectedIndex()]);
-                    student.setNewStudent(frameReference.getRegisterForm().getFormPanel().getNewStudent().isSelected());
-                    student.setReRegistration(frameReference.getRegisterForm().getFormPanel().getReRegistration().isSelected());
+
+                    setStudent(student);
 
                     JOptionPane.showMessageDialog(null, student, "Information", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         }
+    }
+
+    public void setStudent(Student student){
+        student.setMatricule(getFormPanel().getMatricule().getText());
+        student.setLastName(getFormPanel().getLastName().getText());
+        student.setFirstName(getFormPanel().getFirstName().getText());
+        student.setBirthDay(getFormPanel().getBirthDay().getText());
+        student.setSection(getFormPanel().getSections()[getFormPanel().getSectionCombox().getSelectedIndex()]);
+        student.setScholarship(getFormPanel().getScholarship().isSelected());
+        student.setStranger(getFormPanel().getStranger().isSelected());
+        student.setOrigins(getFormPanel().getOrigins()[getFormPanel().getOriginCombox().getSelectedIndex()]);
+        student.setNewStudent(getFormPanel().getNewStudent().isSelected());
+        student.setReRegistration(getFormPanel().getReRegistration().isSelected());
+    }
+
+    public FormPanel getFormPanel(){
+        return frameReference.getRegisterForm().getFormPanel();
     }
 }

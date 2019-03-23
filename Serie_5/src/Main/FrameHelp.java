@@ -9,6 +9,7 @@ import java.awt.event.WindowEvent;
 
 public class FrameHelp extends JFrame {
     private Container container;
+    private BackButtonPanel backButtonPanel;
 
     public FrameHelp(){
         //Generale
@@ -32,31 +33,40 @@ public class FrameHelp extends JFrame {
             }
         });
 
-        //Panel general
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-
-        //Jlabel
-        JLabel labHelp = new JLabel("<html><h1><b>Aide</b></h1><p>Help about SHD Network</p></html>");
-        labHelp.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(labHelp);
-
-        JPanel panelButton = new JPanel();
-        panelButton.setLayout(new FlowLayout());
-        JButton buttonBack = new JButton("Back to home window");
-        buttonBack.addActionListener(new BackListener());
-        panelButton.add(buttonBack);
-
-        container.add(panel, BorderLayout.CENTER);
+        BackButtonPanel panelButton = new BackButtonPanel();
+        PanelGeneralHelp panelGeneralHelp = new PanelGeneralHelp();
+        container.add(panelGeneralHelp, BorderLayout.CENTER);
         container.add(panelButton, BorderLayout.SOUTH);
 
         setVisible(true);
     }
 
+    private class PanelGeneralHelp extends JPanel{
+        private JLabel labHelp;
+
+        public PanelGeneralHelp() {
+            setLayout(new BorderLayout());
+            labHelp = new JLabel("<html><h1><b>Aide</b></h1><p>Help about SHD Network</p></html>");
+            labHelp.setHorizontalAlignment(SwingConstants.CENTER);
+            add(labHelp);
+        }
+    }
+
     private class BackListener implements ActionListener {
         public void actionPerformed(ActionEvent e){
             dispose();
+        }
+    }
+
+    private class BackButtonPanel extends JPanel{
+        private JButton back;
+
+        public BackButtonPanel(){
+            setLayout(new FlowLayout());
+            back = new JButton("Back to home window");
+            back.addActionListener(new BackListener());
+            add(back);
+
         }
     }
 }
