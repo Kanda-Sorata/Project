@@ -7,7 +7,7 @@ public class UniqueNameException extends Exception {
         this.unavailableName = unavailableName;
     }
 
-    public String getUnavailableName() {
+    public String getMessage() {
         return unavailableName;
     }
 }

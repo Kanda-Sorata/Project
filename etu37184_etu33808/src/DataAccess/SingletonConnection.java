@@ -1,13 +1,15 @@
 package DataAccess;
+import Exception.*;
 
+import java.sql.Connection;
 
 public class SingletonConnection {
-    private static Connection uniqueConnection;
+    private static DataConnection uniqueDataConnection;
 
-    public static Connection getInstance(){
-        if(uniqueConnection == null){
-            uniqueConnection = new Connection();
+    public static Connection getInstance() throws ConnectionException{
+        if(uniqueDataConnection == null){
+            uniqueDataConnection = new DataConnection();
         }
-        return uniqueConnection;
+        return uniqueDataConnection.getDataConnection();
     }
 }

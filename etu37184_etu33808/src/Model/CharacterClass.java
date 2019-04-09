@@ -6,13 +6,11 @@ import Exception.NameException;
 public class CharacterClass {
     private String name;
     private String description;
-    private ArrayList<String> usableWeapons;
     private Game game;
 
-    public CharacterClass(String name, String description, ArrayList<String> usableWeapons, Game game) throws NameException{
+    public CharacterClass(String name, String description, Game game) throws NameException{
         this.name = name;
         this.description = description;
-        this.usableWeapons = usableWeapons;
         this.game = game;
     }
 
@@ -45,16 +43,7 @@ public class CharacterClass {
         this.game = game;
     }
 
-    public String getUsableWeapons(){
-        String output = "";
-        for (String weapon: usableWeapons) {
-            output += weapon + "\n";
-        }
-        return output;
-    }
-
-    public void addUsableWeapon(String weapon){
-        usableWeapons.add(weapon);
-    }
-
+    /*public String getUsableWeapons(){
+       Go datBase
+    }*/
 }

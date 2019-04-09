@@ -7,7 +7,7 @@ public class SexException extends Exception {
         this.unavailableSex = unavailableSex;
     }
 
-    public char getUnavailableSex() {
-        return unavailableSex;
+    public String getMessage() {
+        return unavailableSex + "";
     }
 }

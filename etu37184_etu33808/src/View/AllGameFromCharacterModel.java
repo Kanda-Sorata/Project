@@ -15,9 +15,10 @@ public class AllGameFromCharacterModel extends AbstractTableModel {
         columnNames.add("Name");
         columnNames.add("Release Date");
         columnNames.add("Server");
-        //setContents(games); ???
+        setContents(games);
     }
 
+    public void setContents(ArrayList<Game> games){ contents = games; }
     public int getColumnCount( ) { return columnNames.size( ); }
     public int getRowCount( ) { return contents.size( ); }
     public String getColumnName(int column) { return columnNames.get(column); }

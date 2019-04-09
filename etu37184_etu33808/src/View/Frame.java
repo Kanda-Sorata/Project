@@ -15,8 +15,15 @@ public class Frame extends JFrame{
     JMenuItem listSpellsCharacterFromPlayer;
     JMenuItem listEffectsCharacterClassFromGame;
     JMenu character;
+    JMenuItem add;
+    JMenuItem modify;
+    JMenuItem delete;
+    JMenuItem list;
 
     SearchPanelGeneral searchPanelGeneral;
+    FormPanel formPanel;
+    DeletePanel deletePanel;
+    ModifyPanel modifyPanel;
 
     public Frame(){
         //Generale
@@ -29,8 +36,6 @@ public class Frame extends JFrame{
         //Menu
         menu = getMenu();
         setJMenuBar(menu);
-
-        //Panel
 
         setVisible(true);
     }
@@ -56,12 +61,13 @@ public class Frame extends JFrame{
     public JMenuBar getMenu(){
         JMenuBar menu = new JMenuBar();
 
-        application = new JMenu("Applciation");
+        application = new JMenu("Application");
         search = new JMenu("Search");
         character = new JMenu("Character");
         //JMenu Help if we have the time
 
         SearchListener searchListener = new SearchListener();
+        CharacterListener characterListener = new CharacterListener();
 
         //Appplication
         application.setMnemonic('a');
@@ -84,9 +90,20 @@ public class Frame extends JFrame{
         search.add(listEffectsCharacterClassFromGame);
 
         //Character
+        add = new JMenuItem("New");
+        add.addActionListener(characterListener);
+        character.add(add);
+        modify = new JMenuItem("Modifiy");
+        modify.addActionListener(characterListener);
+        character.add(modify);
+        delete = new JMenuItem("Delete");
+        delete.addActionListener(characterListener);
+        character.add(delete);
+        list = new JMenuItem("Display");
+        list.addActionListener(characterListener);
+        character.add(list);
 
-
-
+        //Menu
         menu.add(application);
         menu.add(search);
         menu.add(character);
@@ -103,22 +120,47 @@ public class Frame extends JFrame{
     private class SearchListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent event) {
+            container.removeAll();
           if(event.getSource() == listGamesFromCharacter){
-              container.removeAll();
               searchPanelGeneral = new SearchPanelGeneral(1);
           }
           else{
               if(event.getSource() == listSpellsCharacterFromPlayer){
-                  container.removeAll();
                   searchPanelGeneral = new SearchPanelGeneral(2);
               }
               else{
-                  container.removeAll();
                   searchPanelGeneral = new SearchPanelGeneral(3);
               }
           }
             container.add(searchPanelGeneral);
           setVisible(true); //Forced to repaint the panel
+        }
+    }
+
+    public class CharacterListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            container.removeAll();
+            if(actionEvent.getSource() == add){
+                formPanel = new FormPanel();
+                container.add(formPanel);
+            }
+            else{
+                if(actionEvent.getSource() == modify){
+                    modifyPanel = new ModifyPanel();
+                    container.add(modifyPanel);
+                }
+                else{
+                    if(actionEvent.getSource() == delete){
+                        deletePanel = new DeletePanel();
+                        container.add(deletePanel);
+                    }
+                    else{
+                        //TODO
+                    }
+                }
+            }
+            setVisible(true);
         }
     }
 }

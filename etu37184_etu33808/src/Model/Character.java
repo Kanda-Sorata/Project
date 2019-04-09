@@ -113,10 +113,6 @@ public class Character {
         this.player = player;
     }
 
-    public void addServer(Server server){
-        servers.add(server);
-    }
-
     @Override
     public String toString() {
         return "Character{" +

@@ -2,9 +2,9 @@ package DataAccess;
 import Exception.*;
 import Model.*;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
@@ -12,27 +12,28 @@ import java.util.GregorianCalendar;
 
 public class AccountPlayerDBAccess {
 
-    public static int getNbAccountPlayers() throws SelectException {
-        Connection connection = SingletonConnection.getInstance();
+    public static int getNbAccountPlayers() throws ConnectionException, StatementException {
+        Connection dataConnection = SingletonConnection.getInstance();
         String request = "select count(*) from AccountPlayer;";
-        PreparedStatement statement = connection.prepareStatement(request);
-
+        ResultSet data = null;
         try {
-            ResultSet data = statement.executeQuery();
-        } catch (SQLException sqlException) {
-            throw new SelectException(request);
+            PreparedStatement statement = dataConnection.prepareStatement(request);
+            data = statement.executeQuery();
+            return  data.getInt(1);
         }
-
-        return data.getInt(0);
+        catch(SQLException sqlException){
+            throw new StatementException("getNbAccountPlayers", "DataAccess");
+        }
     }
 
-    public static ArrayList<AccountPlayer> getAllAccountPlayer() throws SelectException, NameException, SexException{
-        Connection connection = SingletonConnection.getInstance();
+    public static ArrayList<AccountPlayer> getAllAccountPlayer() throws NameException, SexException, ConnectionException, StatementException{
+        Connection dataConnection = SingletonConnection.getInstance();
         String request = "select * from AccountPlayer where colone1 = ? and colonne2 = ? and colone3 = ? and colone4 =";
                 request += " ? and colone5 = ? and colone6 = ? and colone7 = ?;";
-        PreparedStatement statement = connection.prepareStatement(request);
+        ArrayList<AccountPlayer> accountPlayers = new ArrayList<>();
 
         try {
+            PreparedStatement statement = dataConnection.prepareStatement(request);
             statement.setInt(1, 100);
             statement.setString(2, "");
             statement.setInt(3, 100);
@@ -42,13 +43,7 @@ public class AccountPlayerDBAccess {
             statement.setDate(5, sqlDate);
             statement.setString(6, "");
             statement.setString(7, "");
-        }catch(SQLException sqlException){
-            throw new SelectException(request);
-        }
 
-        ArrayList<AccountPlayer> accountPlayers = new ArrayList<>();
-
-        try {
             ResultSet data = statement.executeQuery();
             AccountPlayer accountPlayer;
             String city;
@@ -58,7 +53,7 @@ public class AccountPlayerDBAccess {
                         data.getString("country"));
 
                 java.sql.Date creationDate = data.getDate("creationDate");
-                GregorianCalendar calendar = new GregorianCalendar();
+                calendar = new GregorianCalendar();
                 calendar.setTime(creationDate);
                 accountPlayer.setCreationDate(calendar);
 
@@ -68,10 +63,10 @@ public class AccountPlayerDBAccess {
                 }
                 accountPlayers.add(accountPlayer);
             }
+            return accountPlayers;
         }
         catch (SQLException sqlException) {
-            throw new SelectException(request);
+            throw new StatementException("getAllAccountPlayer", "DataAccess");
         }
-        return accountPlayers;
     }
 }

@@ -7,7 +7,7 @@ public class HealthPointsException extends Exception {
         this.unavailableHealthPoints = unavailableHealthPoints;
     }
 
-    public Integer getUnavailableHealthPoints() {
-        return unavailableHealthPoints;
+    public String getMessage() {
+        return unavailableHealthPoints + "";
     }
 }

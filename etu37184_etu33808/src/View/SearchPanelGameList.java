@@ -32,11 +32,11 @@ public class SearchPanelGameList extends JPanel {
         number.setHorizontalAlignment(SwingConstants.RIGHT);
         characterName = new JLabel("Character");
         characterName.setHorizontalAlignment(SwingConstants.RIGHT);
-        dateEnd = new JLabel("Date de fin");
+        dateEnd = new JLabel("Date of end");
         dateEnd.setHorizontalAlignment(SwingConstants.RIGHT);
 
         //Fill tables
-        setPseudos();
+        //setPseudos();
         pseudoPlayerCombo = new JComboBox(pseudos);
         numberPlayerCombo = new JComboBox(numberPlayers);
         characterNameCombo = new JComboBox(characterNames);
@@ -59,17 +59,23 @@ public class SearchPanelGameList extends JPanel {
             for (int iPseudo = 0; iPseudo < nbMaxPlayer; iPseudo++) {
                 try {
                     pseudos[iPseudo] = Controller.AccountPlayerController.getAllAccountPlayer().get(iPseudo).getPseudo();
-                } catch (SelectException selectException) {
-                    JOptionPane.showMessageDialog(null, "Error request sql", selectException.getRequest(), JOptionPane.ERROR_MESSAGE);
+                } catch (StatementException statementException) {
+                    JOptionPane.showMessageDialog(null, "Error request sql", statementException.getMessage(), JOptionPane.ERROR_MESSAGE);
                 } catch (NameException nameException) {
-                    JOptionPane.showMessageDialog(null, "Error name", nameException.getUnavailableName(), JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error name", nameException.getMessage(), JOptionPane.ERROR_MESSAGE);
                 } catch (SexException sexException) {
-                    JOptionPane.showMessageDialog(null, "Error sex", sexException.getUnavailableSex()+"", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Error sex", sexException.getMessage()+"", JOptionPane.ERROR_MESSAGE);
+                }
+                catch (ConnectionException connectionException){
+                    JOptionPane.showMessageDialog(null, "Error SQL DataConnection", connectionException.getMessage(), JOptionPane.ERROR_MESSAGE);;
                 }
             }
         }
-        catch(SelectException selectException){
-            selectException.getRequest();
+        catch(StatementException statementException){
+            JOptionPane.showMessageDialog(null, "Error SQL select inavailable",  statementException.getMessage(), JOptionPane.ERROR_MESSAGE);;
+        }
+        catch (ConnectionException connectionException){
+            JOptionPane.showMessageDialog(null, "Error SQL DataConnection", connectionException.getMessage(), JOptionPane.ERROR_MESSAGE);;
         }
     }
 }

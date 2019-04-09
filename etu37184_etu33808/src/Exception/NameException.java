@@ -7,7 +7,7 @@ public class NameException extends Exception {
         this.unavailableName = unavailableName;
     }
 
-    public String getUnavailableName() {
+    public String getMessage() {
         return unavailableName;
     }
 }

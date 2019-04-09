@@ -1,4 +1,7 @@
 package View;
 
-public class FormPanel {
+import javax.swing.*;
+
+public class FormPanel extends JPanel {
+
 }
