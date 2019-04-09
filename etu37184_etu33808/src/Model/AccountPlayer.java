@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import Exception.NameException;
 import Exception.SexException;
-import Exception.DateException;
 
-import BusinessLogic.Utilitie;
-
-public class PlayerAccount {
+public class AccountPlayer {
     private Integer id;
     private String pseudo;
     private Integer number;
-    private char sex;
+    private String sex;
     private GregorianCalendar creationDate;
     private String city;
     private String country;
@@ -20,13 +17,14 @@ public class PlayerAccount {
 
     private ArrayList<Game> games;
 
-    public PlayerAccount(String pseudo, char sex, int year, int month, int day, String city, String country) throws NameException, SexException, DateException {
-        setId();
+    public AccountPlayer(Integer id, String pseudo, Integer number, String sex, GregorianCalendar creationDate, String country) throws NameException,
+            SexException {
+        setId(id);
         setPseudo(pseudo);
-        setNbPlayers();
+        setNumber(number);
         setSex(sex);
-        setCreationDate(year, month-1, day);
-        setCity(city);
+        setCreationDate(creationDate);
+        setCity(null);
         setCountry(country);
         setNbPlayers();
         games = new ArrayList<>();
@@ -36,8 +34,8 @@ public class PlayerAccount {
         return id;
     }
 
-    public void setId() {
-        this.id = getNbPlayers();
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getPseudo() {
@@ -57,17 +55,15 @@ public class PlayerAccount {
         return number;
     }
 
-    public void setNumber() {
-        this.number = Utilitie.random(0, 9000);
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 
-    public char getSex() {
-        return sex;
-    }
+    public String getSex() { return sex; }
 
-    public void setSex(char sex) throws SexException{
-        if(sex != 'f' || sex != 'm'){
-            throw new SexException(sex);
+    public void setSex(String sex) throws SexException{
+        if(sex.charAt(0) != 'f' || sex.charAt(0) != 'm'){
+            throw new SexException(sex.charAt(0));
         }
         else {
             this.sex = sex;
@@ -78,13 +74,8 @@ public class PlayerAccount {
         return creationDate;
     }
 
-    public void setCreationDate(int year, int month, int day) throws DateException { //Add validationTest
-        if(!Utilitie.dateAvailable(year, month, day)){
-            throw new DateException(year, month, day);
-        }
-        else{
-            creationDate = new GregorianCalendar(year, month, day);
-        }
+    public void setCreationDate(GregorianCalendar creationDate) { //Add validationTest
+        this.creationDate = creationDate;
     }
 
     public String getCity() {
@@ -129,7 +120,7 @@ public class PlayerAccount {
 
     @Override
     public String toString() {
-        return "PlayerAccount{" +
+        return "AccountPlayer{" +
                 "id=" + id +
                 ", pseudo='" + pseudo + '\'' +
                 ", number=" + number +

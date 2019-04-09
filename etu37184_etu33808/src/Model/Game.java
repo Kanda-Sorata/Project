@@ -1,11 +1,9 @@
 package Model;
 
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import BusinessLogic.Utilitie;
 import Exception.UniqueNameException;
-import Exception.DateException;
 
 public class Game {
 
@@ -14,9 +12,9 @@ public class Game {
     private boolean haveMultiLanguages;
     private Double price;
 
-    public Game(String name, int year, int month, int day, boolean haveMultiLanguages, double price) throws UniqueNameException, DateException {
+    public Game(String name, GregorianCalendar releaseDaze, boolean haveMultiLanguages, double price) throws UniqueNameException {
         setName(name);
-        setReleaseDaze(year, month, day);
+        setReleaseDaze(releaseDaze);
         setHaveMultiLanguages(haveMultiLanguages);
         setPrice(price);
     }
@@ -38,14 +36,10 @@ public class Game {
         return releaseDaze;
     }
 
-    public void setReleaseDaze(int year, int month, int day) throws DateException {
-        if(!Utilitie.dateAvailable(year, month, day)){
-            throw new DateException(year, month, day);
-        }
-        else{
-            releaseDaze = new GregorianCalendar(year, month, day);
-        }
+    public void setReleaseDaze(GregorianCalendar releaseDaze) { //Add validationTest
+        this.releaseDaze = releaseDaze;
     }
+
 
     public boolean isHaveMultiLanguages() {
         return haveMultiLanguages;
@@ -55,7 +49,7 @@ public class Game {
         this.haveMultiLanguages = haveMultiLanguages;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price != null ? price : null;
     }
 

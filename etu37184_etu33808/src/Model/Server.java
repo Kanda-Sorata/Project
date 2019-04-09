@@ -4,7 +4,6 @@ import java.util.GregorianCalendar;
 
 import BusinessLogic.Utilitie;
 import Exception.UniqueNameException;
-import Exception.DateException;
 
 public class Server {
     private String name;
@@ -14,9 +13,9 @@ public class Server {
     private static final int MIN_PLAYER = 0;
     private static final int MAX_PLAYER = 10;
 
-    public Server(String name, int year, int month, int day, boolean playerVersusPlayer, Integer nbPlayersMax) throws UniqueNameException, DateException {
+    public Server(String name, GregorianCalendar creationDate, boolean playerVersusPlayer, Integer nbPlayersMax) throws UniqueNameException {
         setName(name);
-        setCreationDate(year, month-1, day);
+        setCreationDate(creationDate);
         setPlayerVersusPlayer(playerVersusPlayer);
         setNbPlayersMax(nbPlayersMax);
     }
@@ -38,14 +37,10 @@ public class Server {
         return creationDate;
     }
 
-    public void setCreationDate(int year, int month, int day) throws DateException{
-        if(!Utilitie.dateAvailable(year, month, day)){
-            throw new DateException(year, month, day);
-        }
-        else{
-            creationDate = new GregorianCalendar(year, month, day);
-        }
+    public void setCreationDate(GregorianCalendar creationDate) { //Add validationTest
+        this.creationDate = creationDate;
     }
+
 
     public boolean isPlayerVersusPlayer() {
         return playerVersusPlayer;

@@ -16,18 +16,18 @@ public class Character {
 
     private ArrayList<Server> servers;
     private CharacterClass characterClass;
-    private PlayerAccount player;
+    private AccountPlayer player;
 
     private static final int MIN_HP = 0;
     private static final int MAX_HP = 50000;
 
-    public Character(String name, Integer healthPoints, boolean isStuffed, int year, int month, int day,
-                     String petName, Integer damagePerSecond, CharacterClass characterClass, PlayerAccount player) throws NameException, HealthPointsException,
-                     DamagePerSecondException, DateException {
+    public Character(String name, Integer healthPoints, boolean isStuffed, GregorianCalendar creationDate, String petName,
+                     Integer damagePerSecond, CharacterClass characterClass, AccountPlayer player) throws NameException,
+                     HealthPointsException, DamagePerSecondException {
         setName(name);
         setHealthPoints(healthPoints);
         this.isStuffed = isStuffed;
-        setCreationDate(year, month-1, day);
+        setCreationDate(creationDate);
         setName(petName);
         setDamagePerSecond(damagePerSecond);
         servers = new ArrayList<>();
@@ -69,13 +69,8 @@ public class Character {
         return creationDate;
     }
 
-    public void setCreationDate(int year, int month, int day) throws DateException{ //Add validationTest
-        if(!Utilitie.dateAvailable(year, month, day)){
-            throw new DateException(year, month, day);
-        }
-        else{
-            creationDate = new GregorianCalendar(year, month, day);
-        }
+    public void setCreationDate(GregorianCalendar creationDate) { //Add validationTest
+        this.creationDate = creationDate;
     }
 
     public String getPetName() {
@@ -110,11 +105,11 @@ public class Character {
         this.characterClass = characterClass;
     }
 
-    public PlayerAccount getPlayer() {
+    public AccountPlayer getPlayer() {
         return player;
     }
 
-    public void setPlayer(PlayerAccount player) {
+    public void setPlayer(AccountPlayer player) {
         this.player = player;
     }
 

@@ -6,7 +6,17 @@ import java.awt.event.*;
 
 public class Frame extends JFrame{
     private Container container;
+
     private JMenuBar menu;
+    JMenu application;
+    JMenuItem exit;
+    JMenu search;
+    JMenuItem listGamesFromCharacter;
+    JMenuItem listSpellsCharacterFromPlayer;
+    JMenuItem listEffectsCharacterClassFromGame;
+    JMenu character;
+
+    SearchPanelGeneral searchPanelGeneral;
 
     public Frame(){
         //Generale
@@ -21,7 +31,6 @@ public class Frame extends JFrame{
         setJMenuBar(menu);
 
         //Panel
-
 
         setVisible(true);
     }
@@ -47,21 +56,36 @@ public class Frame extends JFrame{
     public JMenuBar getMenu(){
         JMenuBar menu = new JMenuBar();
 
-        JMenu application = new JMenu("Applciation");
-        JMenu search = new JMenu("Search");
-        JMenu character = new JMenu("Character");
-        //JMenu Helph; if we have the time
+        application = new JMenu("Applciation");
+        search = new JMenu("Search");
+        character = new JMenu("Character");
+        //JMenu Help if we have the time
+
+        SearchListener searchListener = new SearchListener();
 
         //Appplication
         application.setMnemonic('a');
-        JMenuItem exit = new JMenuItem("Exit");
+        exit = new JMenuItem("Exit");
         exit.addActionListener(new ExitListener());
         exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK));
         application.add(exit);
 
         //Search
-        //TODO
+        listGamesFromCharacter = new JMenuItem("List of games from character");
+        listGamesFromCharacter.addActionListener(searchListener);
+        search.add(listGamesFromCharacter);
+
+        listSpellsCharacterFromPlayer = new JMenuItem("List spells of character from player");
+        listSpellsCharacterFromPlayer.addActionListener(searchListener);
+        search.add(listSpellsCharacterFromPlayer);
+
+        listEffectsCharacterClassFromGame = new JMenuItem("List effects of character class from a game");
+        listEffectsCharacterClassFromGame.addActionListener(searchListener);
+        search.add(listEffectsCharacterClassFromGame);
+
         //Character
+
+
 
         menu.add(application);
         menu.add(search);
@@ -70,8 +94,31 @@ public class Frame extends JFrame{
     }
 
     private class ExitListener implements ActionListener {
-        public void actionPerformed(ActionEvent e){
+        @Override
+        public void actionPerformed(ActionEvent event){
             System.exit(0);
+        }
+    }
+
+    private class SearchListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent event) {
+          if(event.getSource() == listGamesFromCharacter){
+              container.removeAll();
+              searchPanelGeneral = new SearchPanelGeneral(1);
+          }
+          else{
+              if(event.getSource() == listSpellsCharacterFromPlayer){
+                  container.removeAll();
+                  searchPanelGeneral = new SearchPanelGeneral(2);
+              }
+              else{
+                  container.removeAll();
+                  searchPanelGeneral = new SearchPanelGeneral(3);
+              }
+          }
+            container.add(searchPanelGeneral);
+          setVisible(true); //Forced to repaint the panel
         }
     }
 }
