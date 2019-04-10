@@ -1,4 +1,5 @@
 package DataAccess;
+import BusinessLogic.AccountPlayerDataAccess;
 import Exception.*;
 import Model.*;
 
@@ -10,9 +11,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-public class AccountPlayerDBAccess {
+public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
 
-    public static int getNbAccountPlayers() throws ConnectionException, StatementException {
+    public AccountPlayerDBAccess(){}
+
+    public int getNbAccountPlayers() throws ConnectionException, StatementException {
         Connection dataConnection = SingletonConnection.getInstance();
         String request = "select count(*) from AccountPlayer;";
         ResultSet data = null;
@@ -26,7 +29,7 @@ public class AccountPlayerDBAccess {
         }
     }
 
-    public static ArrayList<AccountPlayer> getAllAccountPlayer() throws NameException, SexException, ConnectionException, StatementException{
+    public ArrayList<AccountPlayer> getAllAccountPlayer() throws NameException, SexException, ConnectionException, StatementException{
         Connection dataConnection = SingletonConnection.getInstance();
         String request = "select * from AccountPlayer where colone1 = ? and colonne2 = ? and colone3 = ? and colone4 =";
                 request += " ? and colone5 = ? and colone6 = ? and colone7 = ?;";

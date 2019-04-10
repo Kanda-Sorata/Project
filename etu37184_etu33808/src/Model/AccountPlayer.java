@@ -17,8 +17,8 @@ public class AccountPlayer {
 
     private ArrayList<Game> games;
 
-    public AccountPlayer(Integer id, String pseudo, Integer number, String sex, GregorianCalendar creationDate, String country) throws NameException,
-            SexException {
+    public AccountPlayer(Integer id, String pseudo, Integer number, String sex, GregorianCalendar creationDate,
+                         String country) throws NameException, SexException {
         setId(id);
         setPseudo(pseudo);
         setNumber(number);

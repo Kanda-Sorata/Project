@@ -22,6 +22,8 @@ public class SearchPanelGameList extends JPanel {
     JLabel characterName;
     JLabel dateEnd;
 
+    private AccountPlayerController accountPlayerController;
+
     public SearchPanelGameList(){
 
         setLayout(new GridLayout(4, 2, 5, 15));
@@ -54,11 +56,11 @@ public class SearchPanelGameList extends JPanel {
 
     public void setPseudos() {
         try {
-            int nbMaxPlayer = AccountPlayerController.getNbAccountPlayers();
+            int nbMaxPlayer = accountPlayerController.getNbAccountPlayers();
 
             for (int iPseudo = 0; iPseudo < nbMaxPlayer; iPseudo++) {
                 try {
-                    pseudos[iPseudo] = Controller.AccountPlayerController.getAllAccountPlayer().get(iPseudo).getPseudo();
+                    pseudos[iPseudo] = accountPlayerController.getAllAccountPlayer().get(iPseudo).getPseudo();
                 } catch (StatementException statementException) {
                     JOptionPane.showMessageDialog(null, "Error request sql", statementException.getMessage(), JOptionPane.ERROR_MESSAGE);
                 } catch (NameException nameException) {
@@ -72,7 +74,7 @@ public class SearchPanelGameList extends JPanel {
             }
         }
         catch(StatementException statementException){
-            JOptionPane.showMessageDialog(null, "Error SQL select inavailable",  statementException.getMessage(), JOptionPane.ERROR_MESSAGE);;
+            JOptionPane.showMessageDialog(null, "Error SQL select unavailable",  statementException.getMessage(), JOptionPane.ERROR_MESSAGE);;
         }
         catch (ConnectionException connectionException){
             JOptionPane.showMessageDialog(null, "Error SQL DataConnection", connectionException.getMessage(), JOptionPane.ERROR_MESSAGE);;
