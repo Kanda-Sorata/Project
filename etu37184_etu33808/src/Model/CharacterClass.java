@@ -42,8 +42,4 @@ public class CharacterClass {
     public void setGame(Game game) {
         this.game = game;
     }
-
-    /*public String getUsableWeapons(){
-       Go datBase
-    }*/
 }

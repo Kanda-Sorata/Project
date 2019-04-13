@@ -61,6 +61,8 @@ public class SearchPanelGameList extends JPanel {
             for (int iPseudo = 0; iPseudo < nbMaxPlayer; iPseudo++) {
                 try {
                     pseudos[iPseudo] = accountPlayerController.getAllAccountPlayer().get(iPseudo).getPseudo();
+                } catch (ConnectionException connectionException){
+                    JOptionPane.showMessageDialog(null, "Error SQL DataConnection", connectionException.getMessage(), JOptionPane.ERROR_MESSAGE);;
                 } catch (StatementException statementException) {
                     JOptionPane.showMessageDialog(null, "Error request sql", statementException.getMessage(), JOptionPane.ERROR_MESSAGE);
                 } catch (NameException nameException) {
@@ -68,16 +70,11 @@ public class SearchPanelGameList extends JPanel {
                 } catch (SexException sexException) {
                     JOptionPane.showMessageDialog(null, "Error sex", sexException.getMessage()+"", JOptionPane.ERROR_MESSAGE);
                 }
-                catch (ConnectionException connectionException){
-                    JOptionPane.showMessageDialog(null, "Error SQL DataConnection", connectionException.getMessage(), JOptionPane.ERROR_MESSAGE);;
-                }
             }
-        }
-        catch(StatementException statementException){
-            JOptionPane.showMessageDialog(null, "Error SQL select unavailable",  statementException.getMessage(), JOptionPane.ERROR_MESSAGE);;
-        }
-        catch (ConnectionException connectionException){
+        } catch (ConnectionException connectionException){
             JOptionPane.showMessageDialog(null, "Error SQL DataConnection", connectionException.getMessage(), JOptionPane.ERROR_MESSAGE);;
+        } catch(StatementException statementException){
+            JOptionPane.showMessageDialog(null, "Error SQL select unavailable",  statementException.getMessage(), JOptionPane.ERROR_MESSAGE);;
         }
     }
 }

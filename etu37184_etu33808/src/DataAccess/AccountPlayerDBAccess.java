@@ -18,7 +18,7 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
     public int getNbAccountPlayers() throws ConnectionException, StatementException {
         Connection dataConnection = SingletonConnection.getInstance();
         String request = "select count(*) from AccountPlayer;";
-        ResultSet data = null;
+        ResultSet data;
         try {
             PreparedStatement statement = dataConnection.prepareStatement(request);
             data = statement.executeQuery();

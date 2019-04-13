@@ -1,4 +1,6 @@
 package View;
 
-public class ButtonsPanel {
+import javax.swing.*;
+
+public class ButtonsPanel extends JPanel {
 }

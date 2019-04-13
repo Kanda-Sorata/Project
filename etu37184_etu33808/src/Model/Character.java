@@ -14,7 +14,6 @@ public class Character {
     private String petName;
     private Integer damagePerSecond;
 
-    private ArrayList<Server> servers;
     private CharacterClass characterClass;
     private AccountPlayer player;
 
@@ -30,7 +29,6 @@ public class Character {
         setCreationDate(creationDate);
         setName(petName);
         setDamagePerSecond(damagePerSecond);
-        servers = new ArrayList<>();
         setCharacterClass(characterClass);
         setPlayer(player);
     }
@@ -122,7 +120,6 @@ public class Character {
                 ", creationDate=" + creationDate +
                 ", petName='" + petName + '\'' +
                 ", damagePerSecond=" + damagePerSecond +
-                ", servers=" + servers +
                 ", characterClass=" + characterClass +
                 ", player=" + player +
                 '}';

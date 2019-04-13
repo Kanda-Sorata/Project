@@ -1,5 +1,7 @@
 package View;
 
-public class RegistrationPanel {
+import javax.swing.*;
+
+public class RegistrationPanel extends JPanel {
 
 }

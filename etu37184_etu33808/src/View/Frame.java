@@ -114,7 +114,7 @@ public class Frame extends JFrame{
         @Override
         public void actionPerformed(ActionEvent event){
             System.exit(0);
-        }
+        } //Add !connection.isClosed() => close the connection
     }
 
     private class SearchListener implements ActionListener{

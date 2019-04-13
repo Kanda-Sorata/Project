@@ -39,7 +39,7 @@ public class AllGameFromCharacterModel extends AbstractTableModel {
                 break;
             case 1: c = Date.class;
                 break;
-            case 2: c = String.class;
+            case 2: c = Double.class;
                 break;
             default: c = String.class;
         }

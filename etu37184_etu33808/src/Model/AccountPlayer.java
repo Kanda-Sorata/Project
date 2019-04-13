@@ -15,8 +15,6 @@ public class AccountPlayer {
     private String country;
     private static int nbPlayers = 0;
 
-    private ArrayList<Game> games;
-
     public AccountPlayer(Integer id, String pseudo, Integer number, String sex, GregorianCalendar creationDate,
                          String country) throws NameException, SexException {
         setId(id);
@@ -27,7 +25,6 @@ public class AccountPlayer {
         setCity(null);
         setCountry(country);
         setNbPlayers();
-        games = new ArrayList<>();
     }
 
     public Integer getId() {
@@ -43,12 +40,12 @@ public class AccountPlayer {
     }
 
     public void setPseudo(String pseudo) throws NameException {
-            if(pseudo.matches("[^a-zA-Z]")){
-                this.pseudo = pseudo;
-            }
-            else {
-                throw new NameException(pseudo);
-            }
+        if(pseudo.matches("[^a-zA-Z]")){
+            this.pseudo = pseudo;
+        }
+        else {
+            throw new NameException(pseudo);
+        }
     }
 
     public Integer getNumber() {
@@ -61,7 +58,7 @@ public class AccountPlayer {
 
     public String getSex() { return sex; }
 
-    public void setSex(String sex) throws SexException{
+    public void setSex(String sex) throws SexException{ //Add tolower
         if(sex.charAt(0) != 'f' || sex.charAt(0) != 'm'){
             throw new SexException(sex.charAt(0));
         }
@@ -102,22 +99,6 @@ public class AccountPlayer {
         nbPlayers += 1;
     }
 
-    public void addGame(Game game){
-        games.add(game);
-    }
-
-    public Game getGame(int index){
-        return games.get(index);
-    }
-
-    public String getGames(){
-        String output = new String();
-        for (Game game :games) {
-            output += game.toString() + "\n";
-        };
-        return output;
-    }
-
     @Override
     public String toString() {
         return "AccountPlayer{" +
@@ -128,7 +109,6 @@ public class AccountPlayer {
                 ", creationDate=" + creationDate +
                 ", city='" + city + '\'' +
                 ", country='" + country + '\'' +
-                ", games=" + getGames() +
                 '}';
     }
 

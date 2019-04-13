@@ -11,13 +11,14 @@ public class SearchPanelGeneral extends JPanel {
     private SearchPanelSpellList searchPanelSpellList;
     private JTable table;
     private  JScrollPane scrollPane;
+
     public SearchPanelGeneral(int numberPanel){
         setLayout(new BorderLayout());
         switch(numberPanel) {
             case 1:
                 searchPanelGameList = new SearchPanelGameList();
                 add(searchPanelGameList, BorderLayout.WEST);
-                /*AllGameFromCharacterModel model = new AllGameFromCharacterModel(); SQL request
+               /* AllGameFromCharacterModel model = new AllGameFromCharacterModel(); SQL request
                 table = new JTable(model);*/
                 break;
             case 2:
