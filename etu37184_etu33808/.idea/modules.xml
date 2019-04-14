@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/etu37184_etu33808.iml" filepath="$PROJECT_DIR$/etu37184_etu33808.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ressources/mysql-connector-java-5.1.46/mysql-connector-java-5.1.46/mysql-connector-java-5.1.46.iml" filepath="$PROJECT_DIR$/ressources/mysql-connector-java-5.1.46/mysql-connector-java-5.1.46/mysql-connector-java-5.1.46.iml" />
+    </modules>
+  </component>
+</project>
