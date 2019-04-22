@@ -3,7 +3,7 @@ package DataAccess;
 import Exception.*;
 import java.sql.*;
 
-public class DataConnection {
+public class DataConnection {  
     private static Connection dataConnection = null;
 
     public DataConnection() throws ConnectionException{
