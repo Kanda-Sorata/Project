@@ -3,6 +3,7 @@ import BusinessLogic.AccountPlayerDataAccess;
 import Exception.*;
 import Model.*;
 
+import java.lang.Character;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,8 +13,6 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
-
-    public AccountPlayerDBAccess(){}
 
     public int getNbAccountPlayers() throws ConnectionException, StatementException {
         Connection dataConnection = SingletonConnection.getInstance();
