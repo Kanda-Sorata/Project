@@ -19,7 +19,7 @@ public class CharacterClass {
     }
 
     public void setName(String name) throws NameException{
-        if(name.matches("[^a-zA-Z]")){
+        if(name.matches("^[a-zA-Z]")){
             this.name = name;
         }
         else {

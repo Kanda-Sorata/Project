@@ -4,7 +4,7 @@ import Exception.*;
 import java.sql.Connection;
 
 public class SingletonConnection {
-    private static DataConnection uniqueDataConnection;
+    private static Connection uniqueDataConnection;
 
     public static Connection getInstance() throws ConnectionException{
         if(uniqueDataConnection == null){

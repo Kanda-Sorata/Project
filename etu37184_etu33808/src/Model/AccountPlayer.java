@@ -40,7 +40,7 @@ public class AccountPlayer {
     }
 
     public void setPseudo(String pseudo) throws NameException {
-        if(pseudo.matches("[^a-zA-Z]")){
+        if(pseudo.matches("^[a-zA-Z0-9]")){
             this.pseudo = pseudo;
         }
         else {
