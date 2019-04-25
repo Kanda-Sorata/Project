@@ -25,7 +25,4 @@ public class AccountPlayerBusinessLogic {
         return dao.getAllAccountPlayer();
     }
 
-
-
-
 }
