@@ -15,7 +15,7 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
 
     public AccountPlayerDBAccess(){}
 
-    public int getNbAccountPlayers() throws ConnectionException, StatementException {
+    public int getNbAccountPlayers() throws NbAccountException {
         Connection dataConnection = SingletonConnection.getInstance();
         String request = "select count(*) from AccountPlayer;";
         ResultSet data;
@@ -25,11 +25,11 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
             return  data.getInt(1);
         }
         catch(SQLException sqlException){
-            throw new StatementException("getNbAccountPlayers", "DataAccess");
+            throw new NbAccountException();
         }
     }
 
-    public ArrayList<AccountPlayer> getAllAccountPlayer() throws NameException, SexException, ConnectionException, StatementException{
+    public ArrayList<AccountPlayer> getAllAccountPlayer() throws AllAccountException {
         Connection dataConnection = SingletonConnection.getInstance();
         String request = "select * from AccountPlayer where colone1 = ? and colonne2 = ? and colone3 = ? and colone4 =";
                 request += " ? and colone5 = ? and colone6 = ? and colone7 = ?;";
@@ -69,7 +69,10 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
             return accountPlayers;
         }
         catch (SQLException sqlException) {
-            throw new StatementException("getAllAccountPlayer", "DataAccess");
+            throw new AllAccountException();
+        }
+        catch (NameException nameException){
+            throw new AllAccountException();
         }
     }
 }

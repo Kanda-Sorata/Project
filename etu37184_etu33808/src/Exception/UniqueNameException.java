@@ -8,6 +8,6 @@ public class UniqueNameException extends Exception {
     }
 
     public String getMessage() {
-        return unavailableName;
+        return "Code 5."  + "Values :"  + unavailableName;
     }
 }

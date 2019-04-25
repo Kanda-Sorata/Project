@@ -17,11 +17,11 @@ public class AccountPlayerBusinessLogic {
         this.dao = dao;
     }
 
-    public int getNbAccountPlayers() throws StatementException, ConnectionException {
+    public int getNbAccountPlayers() throws NbAccountException{
         return dao.getNbAccountPlayers();
     }
 
-    public ArrayList<AccountPlayer> getAllAccountPlayer() throws StatementException, NameException, SexException, ConnectionException{
+    public ArrayList<AccountPlayer> getAllAccountPlayer() throws AllAccountException{
         return dao.getAllAccountPlayer();
     }
 

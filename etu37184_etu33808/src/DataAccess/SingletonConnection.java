@@ -8,8 +8,8 @@ public class SingletonConnection {
 
     public static Connection getInstance() throws ConnectionException{
         if(uniqueDataConnection == null){
-            uniqueDataConnection = new DataConnection();
+            uniqueDataConnection = new DataConnection().getDataConnection();
         }
-        return uniqueDataConnection.getDataConnection();
+        return uniqueDataConnection;
     }
 }

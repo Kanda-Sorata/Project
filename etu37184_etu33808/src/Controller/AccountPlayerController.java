@@ -11,11 +11,11 @@ public class AccountPlayerController {
     public AccountPlayerController(AccountPlayerBusinessLogic accountPlayerBusinessLogic){
         this.accountPlayerBusinessLogic = accountPlayerBusinessLogic;
     }
-    public int getNbAccountPlayers() throws StatementException, ConnectionException {
+    public int getNbAccountPlayers() throws NbAccountException{
             return accountPlayerBusinessLogic.getNbAccountPlayers();
     }
 
-    public ArrayList<AccountPlayer> getAllAccountPlayer() throws StatementException, NameException, SexException, ConnectionException{
+    public ArrayList<AccountPlayer> getAllAccountPlayer() throws AllAccountException{
         return accountPlayerBusinessLogic.getAllAccountPlayer();
     }
 

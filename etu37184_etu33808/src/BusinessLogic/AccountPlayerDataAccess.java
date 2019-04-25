@@ -3,9 +3,10 @@ package BusinessLogic;
 import Model.AccountPlayer;
 import Exception.*;
 
+import java.rmi.NotBoundException;
 import java.util.ArrayList;
 
 public interface AccountPlayerDataAccess {
-    int getNbAccountPlayers() throws ConnectionException, StatementException;
-    ArrayList<AccountPlayer> getAllAccountPlayer() throws NameException, SexException, ConnectionException, StatementException;
+    int getNbAccountPlayers() throws NbAccountException;
+    ArrayList<AccountPlayer> getAllAccountPlayer() throws AllAccountException;
 }

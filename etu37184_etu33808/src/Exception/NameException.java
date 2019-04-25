@@ -8,6 +8,6 @@ public class NameException extends Exception {
     }
 
     public String getMessage() {
-        return unavailableName;
+        return "Code 1. " + "values :" + unavailableName;
     }
 }
