@@ -24,6 +24,7 @@ public class Frame extends JFrame{
     FormPanel formPanel;
     DeletePanel deletePanel;
     ModifyPanel modifyPanel;
+    DisplayPanel displayPanel;
 
     public Frame(){
         //Generale
@@ -140,23 +141,29 @@ public class Frame extends JFrame{
     public class CharacterListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
+            //Add JOPTINPANEdialogue JBomboBox pseudo & number if(non null utiliser pseudo et nuber
             container.removeAll();
             if(actionEvent.getSource() == add){
                 formPanel = new FormPanel();
+                //formPanel.setPlayer();
                 container.add(formPanel);
             }
             else{
                 if(actionEvent.getSource() == modify){
                     modifyPanel = new ModifyPanel();
+                    //modifyPanel.setPlayer();
                     container.add(modifyPanel);
                 }
                 else{
                     if(actionEvent.getSource() == delete){
                         deletePanel = new DeletePanel();
+                        //deletePanel.setPlayer();
                         container.add(deletePanel);
                     }
                     else{
-                        //TODO
+                        displayPanel = new DisplayPanel();
+                        //displayPanel.setPlayer();
+                        container.add(displayPanel);
                     }
                 }
             }
