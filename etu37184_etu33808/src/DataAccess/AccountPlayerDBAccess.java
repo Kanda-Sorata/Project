@@ -69,10 +69,13 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
             return accountPlayers;
         }
         catch (SQLException sqlException) {
-            throw new AllAccountException();
+            throw new AllAccountException(0);
         }
         catch (NameException nameException){
-            throw new AllAccountException();
+            throw new AllAccountException(1);
+        }
+        catch (SexException sexException){
+            throw  new AllAccountException(2);
         }
     }
 }

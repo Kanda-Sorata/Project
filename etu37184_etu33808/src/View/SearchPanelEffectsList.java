@@ -17,7 +17,6 @@ public class SearchPanelEffectsList extends JPanel {
         gameName = new JLabel("Game name");
         gameNameCombo = new JComboBox(games);
 
-
         add(gameName);
         add(gameNameCombo);
     }
