@@ -15,16 +15,17 @@ public class SearchPanelGameList extends JPanel {
     private JComboBox pseudoPlayerCombo;
     private JComboBox numberPlayerCombo;
     private JComboBox characterNameCombo;
-
-    //Add date picker
+    private JSpinner dateEndSpinner;
 
     private String [] pseudos;
-    private String [] numberPlayers;
+    private int [] numberPlayers;
     private String [] characterNames;
     JLabel pseudo;
     JLabel number;
     JLabel characterName;
     JLabel dateEnd;
+
+    ArrayList<AccountPlayer> players;
 
     private AccountPlayerController accountPlayerController;
 
@@ -47,7 +48,7 @@ public class SearchPanelGameList extends JPanel {
         pseudoPlayerCombo = new JComboBox(pseudos);
         numberPlayerCombo = new JComboBox(numberPlayers);
         characterNameCombo = new JComboBox(characterNames);
-        //Date
+        dateEndSpinner = new JSpinner();
 
         add(pseudo);
         add(pseudoPlayerCombo);
@@ -56,6 +57,7 @@ public class SearchPanelGameList extends JPanel {
         add(characterName);
         add(characterNameCombo);
         add(dateEnd);
+        add(dateEndSpinner);
         setVisible(true);
     }
 
@@ -76,17 +78,30 @@ public class SearchPanelGameList extends JPanel {
     public List<String> setListPseudo(){
         List<String> listPseudos = new ArrayList<>();
         try {
-            ArrayList<AccountPlayer> players = accountPlayerController.getAllAccountPlayer();
+           players = accountPlayerController.getAllAccountPlayer();
             for (AccountPlayer player : players) {
                 listPseudos.add(player.getPseudo());
             }
             return  listPseudos.stream().distinct().collect(Collectors.toList());
         }catch (AllAccountException allAccountException){
-            JOptionPane.showMessageDialog(null, "Error", allAccountException.getMessage(), JOptionPane.ERROR_MESSAGE);;
+            JOptionPane.showMessageDialog(null, "Error", allAccountException.getMessage(), JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public void setNumbers(){
-
+    public void setNumbers(String pseudo){
+        try{
+            ArrayList<Integer> numbers = new ArrayList<>();
+            ArrayList<AccountPlayer> players = accountPlayerController.getAllAccountPlayer();
+            for(AccountPlayer player : players){
+                if(player.getPseudo().equals(pseudo)){
+                    numbers.add(player.getNumber());
+                }
+            }
+            for(int iNumbers = 0; iNumbers < numbers.size(); iNumbers++){
+                numberPlayers[iNumbers] = numbers.get(iNumbers);
+            }
+        }catch(AllAccountException allAccountException){
+            JOptionPane.showMessageDialog(null, "Error", allAccountException.getMessage(), JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
