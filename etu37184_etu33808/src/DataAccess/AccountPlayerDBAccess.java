@@ -31,8 +31,10 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
 
     public ArrayList<AccountPlayer> getAllAccountPlayer() throws AllAccountException {
         Connection dataConnection = SingletonConnection.getInstance();
-        String request = "select * from AccountPlayer where colone1 = ? and colonne2 = ? and colone3 = ? and colone4 =";
-        request += " ? and colone5 = ? and colone6 = ? and colone7 = ?;";
+        String request;
+        request = "select * from AccountPlayer where colonne1 = ? and colonne2 = ? and colonne3 = ? and colonne4 =";
+        request += " ? and colonne5 = ? and colonne6 = ? and colonne7 = ?;";
+
         ArrayList<AccountPlayer> accountPlayers = new ArrayList<>();
 
         try {
@@ -75,4 +77,6 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
             throw new AllAccountException(2);
         }
     }
+
+
 }
