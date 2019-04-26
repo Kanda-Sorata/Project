@@ -18,14 +18,16 @@ public class SearchPanelGameList extends JPanel {
     private JSpinner dateEndSpinner;
 
     private String [] pseudos;
-    private int [] numberPlayers;
+    private String [] numberPlayers;
     private String [] characterNames;
-    JLabel pseudo;
-    JLabel number;
-    JLabel characterName;
-    JLabel dateEnd;
+    private JLabel pseudo;
+    private JLabel number;
+    private JLabel characterName;
+    private JLabel dateEnd;
 
-    ArrayList<AccountPlayer> players;
+    private ArrayList<AccountPlayer> players;
+    private List<String> listPseudos;
+    private String pseudoChoice;
 
     private AccountPlayerController accountPlayerController;
 
@@ -44,8 +46,8 @@ public class SearchPanelGameList extends JPanel {
 
         //Fill tables
         setPseudos();
-        setNumbers();
         pseudoPlayerCombo = new JComboBox(pseudos);
+        setNumbers(pseudoChoice);
         numberPlayerCombo = new JComboBox(numberPlayers);
         characterNameCombo = new JComboBox(characterNames);
         dateEndSpinner = new JSpinner();
@@ -61,11 +63,15 @@ public class SearchPanelGameList extends JPanel {
         setVisible(true);
     }
 
+    public void setPseudoChoice(String pseudo){
+        this.pseudoChoice = pseudo;
+    }
+
     public void setPseudos() {
         try {
             int nbMaxPlayer = accountPlayerController.getNbAccountPlayers();
 
-            List<String> listPseudos = setListPseudo();
+            setListPseudo();
 
             for (int iPseudo = 0; iPseudo < nbMaxPlayer; iPseudo++) {
                 pseudos[iPseudo] = listPseudos.get(iPseudo);
@@ -75,14 +81,14 @@ public class SearchPanelGameList extends JPanel {
         }
     }
 
-    public List<String> setListPseudo(){
-        List<String> listPseudos = new ArrayList<>();
+    public void setListPseudo(){
+        listPseudos = new ArrayList<>();
         try {
            players = accountPlayerController.getAllAccountPlayer();
             for (AccountPlayer player : players) {
                 listPseudos.add(player.getPseudo());
             }
-            return  listPseudos.stream().distinct().collect(Collectors.toList());
+            listPseudos.stream().distinct().collect(Collectors.toList()); //Need documentation
         }catch (AllAccountException allAccountException){
             JOptionPane.showMessageDialog(null, "Error", allAccountException.getMessage(), JOptionPane.ERROR_MESSAGE);
         }
@@ -98,7 +104,7 @@ public class SearchPanelGameList extends JPanel {
                 }
             }
             for(int iNumbers = 0; iNumbers < numbers.size(); iNumbers++){
-                numberPlayers[iNumbers] = numbers.get(iNumbers);
+                numberPlayers[iNumbers] = numbers.get(iNumbers).toString();
             }
         }catch(AllAccountException allAccountException){
             JOptionPane.showMessageDialog(null, "Error", allAccountException.getMessage(), JOptionPane.ERROR_MESSAGE);
