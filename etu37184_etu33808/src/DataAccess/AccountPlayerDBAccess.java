@@ -32,7 +32,7 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
     public ArrayList<AccountPlayer> getAllAccountPlayer() throws AllAccountException {
         Connection dataConnection = SingletonConnection.getInstance();
         String request = "select * from AccountPlayer where colone1 = ? and colonne2 = ? and colone3 = ? and colone4 =";
-                request += " ? and colone5 = ? and colone6 = ? and colone7 = ?;";
+        request += " ? and colone5 = ? and colone6 = ? and colone7 = ?;";
         ArrayList<AccountPlayer> accountPlayers = new ArrayList<>();
 
         try {
@@ -50,7 +50,7 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
             ResultSet data = statement.executeQuery();
             AccountPlayer accountPlayer;
             String city;
-            while(data.next()){
+            while (data.next()) {
                 accountPlayer = new AccountPlayer(data.getInt("id"), data.getString("pseudo"),
                         data.getInt("number"), data.getString("sex"), null,
                         data.getString("country"));
@@ -61,21 +61,18 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
                 accountPlayer.setCreationDate(calendar);
 
                 city = data.getString("city");
-                if(!data.wasNull()){
+                if (!data.wasNull()) {
                     accountPlayer.setCity(city);
                 }
                 accountPlayers.add(accountPlayer);
             }
             return accountPlayers;
-        }
-        catch (SQLException sqlException) {
+        } catch (SQLException sqlException) {
             throw new AllAccountException(0);
-        }
-        catch (NameException nameException){
+        } catch (NameException nameException) {
             throw new AllAccountException(1);
-        }
-        catch (SexException sexException){
-            throw  new AllAccountException(2);
+        } catch (SexException sexException) {
+            throw new AllAccountException(2);
         }
     }
 }

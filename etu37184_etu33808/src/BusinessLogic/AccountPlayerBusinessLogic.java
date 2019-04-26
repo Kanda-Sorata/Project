@@ -24,5 +24,4 @@ public class AccountPlayerBusinessLogic {
     public ArrayList<AccountPlayer> getAllAccountPlayer() throws AllAccountException{
         return dao.getAllAccountPlayer();
     }
-
 }

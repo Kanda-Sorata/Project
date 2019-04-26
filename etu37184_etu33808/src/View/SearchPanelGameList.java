@@ -2,9 +2,13 @@ package View;
 
 import Controller.*;
 import Exception.*;
+import Model.AccountPlayer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class SearchPanelGameList extends JPanel {
@@ -38,7 +42,8 @@ public class SearchPanelGameList extends JPanel {
         dateEnd.setHorizontalAlignment(SwingConstants.RIGHT);
 
         //Fill tables
-        //setPseudos();
+        setPseudos();
+        setNumbers();
         pseudoPlayerCombo = new JComboBox(pseudos);
         numberPlayerCombo = new JComboBox(numberPlayers);
         characterNameCombo = new JComboBox(characterNames);
@@ -58,23 +63,30 @@ public class SearchPanelGameList extends JPanel {
         try {
             int nbMaxPlayer = accountPlayerController.getNbAccountPlayers();
 
+            List<String> listPseudos = setListPseudo();
+
             for (int iPseudo = 0; iPseudo < nbMaxPlayer; iPseudo++) {
-                try {
-                    pseudos[iPseudo] = accountPlayerController.getAllAccountPlayer().get(iPseudo).getPseudo();
-                } catch (ConnectionException connectionException){
-                    JOptionPane.showMessageDialog(null, "Error SQL DataConnection", connectionException.getMessage(), JOptionPane.ERROR_MESSAGE);;
-                } catch (StatementException statementException) {
-                    JOptionPane.showMessageDialog(null, "Error request sql", statementException.getMessage(), JOptionPane.ERROR_MESSAGE);
-                } catch (NameException nameException) {
-                    JOptionPane.showMessageDialog(null, "Error name", nameException.getMessage(), JOptionPane.ERROR_MESSAGE);
-                } catch (SexException sexException) {
-                    JOptionPane.showMessageDialog(null, "Error sex", sexException.getMessage()+"", JOptionPane.ERROR_MESSAGE);
-                }
+                pseudos[iPseudo] = listPseudos.get(iPseudo);
             }
-        } catch (ConnectionException connectionException){
-            JOptionPane.showMessageDialog(null, "Error SQL DataConnection", connectionException.getMessage(), JOptionPane.ERROR_MESSAGE);;
-        } catch(StatementException statementException){
-            JOptionPane.showMessageDialog(null, "Error SQL select unavailable",  statementException.getMessage(), JOptionPane.ERROR_MESSAGE);;
+        } catch (NbAccountException nbAccountException){
+            JOptionPane.showMessageDialog(null, "Error", nbAccountException.getMessage(), JOptionPane.ERROR_MESSAGE);;
         }
+    }
+
+    public List<String> setListPseudo(){
+        List<String> listPseudos = new ArrayList<>();
+        try {
+            ArrayList<AccountPlayer> players = accountPlayerController.getAllAccountPlayer();
+            for (AccountPlayer player : players) {
+                listPseudos.add(player.getPseudo());
+            }
+            return  listPseudos.stream().distinct().collect(Collectors.toList());
+        }catch (AllAccountException allAccountException){
+            JOptionPane.showMessageDialog(null, "Error", allAccountException.getMessage(), JOptionPane.ERROR_MESSAGE);;
+        }
+    }
+
+    public void setNumbers(){
+
     }
 }
