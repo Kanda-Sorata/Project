@@ -6,18 +6,21 @@ import Model.AccountPlayer;
 import Model.Character;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
 public class SearchPanelGameList extends JPanel {
     private JComboBox pseudoPlayerCombo;
     private JComboBox characterNameCombo;
-    private JSpinner dateEndSpinner;
+    private JSpinner.DateEditor dateEndSpinner;
 
-    private String [] pseudos;
-    private String [] characterNames;
+    private String [] pseudos = {"Test", "TestDeux", "TestTrois", "TestQuattre"};;
+    private String [] characterNames = {"Character Un", "Character Deux", "Character Trois", "Character Quattre"};;
     private JLabel pseudo;
     private JLabel characterName;
     private JLabel dateEnd;
@@ -30,7 +33,7 @@ public class SearchPanelGameList extends JPanel {
 
     public SearchPanelGameList(){
         setLayout(new GridLayout(4, 2, 5, 15));
-
+        setBorder(new EmptyBorder(150, 0, 250, 250)); //top, left, bottom, right
         pseudo = new JLabel("Pseudo");
         pseudo.setHorizontalAlignment(SwingConstants.RIGHT);
         characterName = new JLabel("Character");
@@ -38,12 +41,18 @@ public class SearchPanelGameList extends JPanel {
         dateEnd = new JLabel("Date of end");
         dateEnd.setHorizontalAlignment(SwingConstants.RIGHT);
 
-
-        setPseudos();
+        //setPseudos();
         pseudoPlayerCombo = new JComboBox(pseudos);
-        setCharacterName();
+        pseudoPlayerCombo.setSelectedIndex(0);
+        pseudoPlayerCombo.setMaximumRowCount(3);
+        //setCharacterName();
         characterNameCombo = new JComboBox(characterNames);
-        dateEndSpinner = new JSpinner();
+        characterNameCombo.setSelectedIndex(0);
+        characterNameCombo.setMaximumRowCount(3);
+
+
+        setJSpinner();
+
 
         add(pseudo);
         add(pseudoPlayerCombo);
@@ -52,6 +61,11 @@ public class SearchPanelGameList extends JPanel {
         add(dateEnd);
         add(dateEndSpinner);
         setVisible(true);
+    }
+
+    public void setJSpinner(){
+        SpinnerDateModel mod = new SpinnerDateModel(new Date(), null, null, Calendar.HOUR_OF_DAY);
+        dateEndSpinner = new JSpinner.DateEditor(new JSpinner(mod), "DD / MMMM / YYYY");
     }
 
     public void setPseudoChoice(String pseudoChoice){
@@ -78,6 +92,7 @@ public class SearchPanelGameList extends JPanel {
 
     public void setCharacterName(){
         try{
+
             ArrayList<Character> characters = characterController.getAllCharacter(pseudoChoice, numberChoice);
             for(int iCharacter = 0; iCharacter < characters.size(); iCharacter++){
                 characterNames[iCharacter] = characters.get(iCharacter).getName();

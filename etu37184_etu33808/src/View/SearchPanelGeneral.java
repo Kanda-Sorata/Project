@@ -1,8 +1,11 @@
 package View;
 
+import Model.Game;
+
 import javax.swing.*;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.util.ArrayList;
 
 
 public class SearchPanelGeneral extends JPanel {
@@ -11,6 +14,7 @@ public class SearchPanelGeneral extends JPanel {
     private SearchPanelSpellList searchPanelSpellList;
     private JTable table;
     private  JScrollPane scrollPane;
+    private ArrayList<Game> games;
 
     public SearchPanelGeneral(int numberPanel){
         setLayout(new BorderLayout());
@@ -18,7 +22,8 @@ public class SearchPanelGeneral extends JPanel {
             case 1:
                 searchPanelGameList = new SearchPanelGameList();
                 add(searchPanelGameList, BorderLayout.WEST);
-               /* AllGameFromCharacterModel model = new AllGameFromCharacterModel(); SQL request
+                //setGames();
+               /* AllGameFromCharacterModel model = new AllGameFromCharacterModel();
                 table = new JTable(model);*/
                 break;
             case 2:
@@ -34,9 +39,11 @@ public class SearchPanelGeneral extends JPanel {
                 table = new JTable(model);*/
                 break;
         }
-
-        scrollPane = new JScrollPane(table);
-        add(table, BorderLayout.CENTER);
+        /*scrollPane = new JScrollPane(table);
+        add(table, BorderLayout.CENTER);*/
         setVisible(true);
     }
+
+
+
 }

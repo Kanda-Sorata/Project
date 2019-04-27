@@ -16,29 +16,30 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
     public AccountPlayerDBAccess(){}
 
     public int getNbAccountPlayers() throws NbAccountException {
-        Connection dataConnection = SingletonConnection.getInstance();
-        String request = "select count(*) from AccountPlayer;";
-        ResultSet data;
         try {
-            PreparedStatement statement = dataConnection.prepareStatement(request);
+            Connection dataConnection = SingletonConnection.getInstance();
+            String querry = "select count(*) from AccountPlayer;";
+            ResultSet data;
+            PreparedStatement statement = dataConnection.prepareStatement(querry);
             data = statement.executeQuery();
             return  data.getInt(1);
         }
         catch(SQLException sqlException){
             throw new NbAccountException();
+        }catch (ConnectionException connexionException){
+            throw new NbAccountException();
         }
     }
 
     public ArrayList<AccountPlayer> getAllAccountPlayer() throws AllAccountException {
-        Connection dataConnection = SingletonConnection.getInstance();
-        String request;
-        request = "select * from AccountPlayer where colonne1 = ? and colonne2 = ? and colonne3 = ? and colonne4 =";
-        request += " ? and colonne5 = ? and colonne6 = ? and colonne7 = ?;";
-
-        ArrayList<AccountPlayer> accountPlayers = new ArrayList<>();
-
         try {
-            PreparedStatement statement = dataConnection.prepareStatement(request);
+            Connection dataConnection = SingletonConnection.getInstance();
+            String querry;
+            querry = "select * from AccountPlayer where colonne1 = ? and colonne2 = ? and colonne3 = ? and colonne4 =";
+            querry += " ? and colonne5 = ? and colonne6 = ? and colonne7 = ?;";
+
+            ArrayList<AccountPlayer> accountPlayers = new ArrayList<>();
+            PreparedStatement statement = dataConnection.prepareStatement(querry);
             statement.setInt(1, 100);
             statement.setString(2, "");
             statement.setInt(3, 100);
@@ -75,6 +76,8 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
             throw new AllAccountException(1);
         } catch (SexException sexException) {
             throw new AllAccountException(2);
+        }catch (ConnectionException connexionException){
+            throw new AllAccountException(0);
         }
     }
 

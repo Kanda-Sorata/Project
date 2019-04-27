@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import BusinessLogic.Utilitie;
@@ -12,11 +13,13 @@ public class Game {
     private boolean haveMultiLanguages;
     private Double price;
 
-    public Game(String name, GregorianCalendar releaseDaze, boolean haveMultiLanguages, double price) throws UniqueNameException {
+    private ArrayList<Server> serveurs;
+
+    public Game(String name, GregorianCalendar releaseDaze, boolean haveMultiLanguages) throws UniqueNameException {
         setName(name);
-        setReleaseDaze(releaseDaze);
+        setReleaseDate(releaseDaze);
         setHaveMultiLanguages(haveMultiLanguages);
-        setPrice(price);
+        serveurs = new ArrayList<>();
     }
 
     public String getName() {
@@ -36,7 +39,7 @@ public class Game {
         return releaseDaze;
     }
 
-    public void setReleaseDaze(GregorianCalendar releaseDaze) { //Add validationTest
+    public void setReleaseDate(GregorianCalendar releaseDaze) { //Add validationTest
         this.releaseDaze = releaseDaze;
     }
 
@@ -55,5 +58,9 @@ public class Game {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public void addServer(Server server){
+        serveurs.add(server);
     }
 }

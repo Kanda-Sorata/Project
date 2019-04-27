@@ -17,10 +17,10 @@ public class CharacterDBAccess implements CharacterDataAccess {
     public ArrayList<Character> getAllCharacter(String pseudo, String number) throws AllCharacterException{
         try{
             Connection dataConnection = SingletonConnection.getInstance();
-            String request = "select * from Character where colonne1 = ? and colonne 2 = ? and colonne3 = ? and colonne4 = ?";
-            request += " and colonne5 = ? and colonne6 = ? and  pseudo = " + pseudo + " and number = " + number + ";";
+            String querry = "select * from Character where colonne1 = ? and colonne 2 = ? and colonne3 = ? and colonne4 = ?";
+            querry += " and colonne5 = ? and colonne6 = ? and  pseudo = " + pseudo + " and number = " + number + ";";
 
-            PreparedStatement statement = dataConnection.prepareStatement(request);
+            PreparedStatement statement = dataConnection.prepareStatement(querry);
 
             statement.setString(1, "");
             statement.setInt(2, 100);
@@ -67,6 +67,8 @@ public class CharacterDBAccess implements CharacterDataAccess {
             throw new AllCharacterException(2);
         }catch(DamagePerSecondException damagePerSecondException){
             throw new AllCharacterException(3);
+        }catch (ConnectionException connexionException){
+            throw new AllCharacterException(0);
         }
     }
 }

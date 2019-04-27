@@ -26,7 +26,7 @@ public class SearchPanelSpellList extends JPanel {
 
         //fill table
 
-        setPeudos(pseudos);
+        //setPseudos(pseudos);
         pseudoCombo = new JComboBox(pseudos);
         numberCombo = new JComboBox(numbers);
 
