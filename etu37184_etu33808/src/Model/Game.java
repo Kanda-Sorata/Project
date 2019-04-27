@@ -13,13 +13,13 @@ public class Game {
     private boolean haveMultiLanguages;
     private Double price;
 
-    private ArrayList<Server> serveurs;
+    private ArrayList<Server> servers;
 
     public Game(String name, GregorianCalendar releaseDaze, boolean haveMultiLanguages) throws UniqueNameException {
         setName(name);
         setReleaseDate(releaseDaze);
         setHaveMultiLanguages(haveMultiLanguages);
-        serveurs = new ArrayList<>();
+        servers = new ArrayList<>();
     }
 
     public String getName() {
@@ -61,6 +61,6 @@ public class Game {
     }
 
     public void addServer(Server server){
-        serveurs.add(server);
+        servers.add(server);
     }
 }

@@ -1,6 +1,6 @@
 package DataAccess;
 
-
+import BusinessLogic.GameDataAccess;
 import Model.Game;
 import Exception.*;
 import Model.Server;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 
-public class GameDBAccess {
+public class GameDBAccess implements GameDataAccess {
 
     public HashMap<Game, ArrayList<Server>> getAllGames() throws AllGamesException{
         try {
@@ -42,7 +42,7 @@ public class GameDBAccess {
             HashMap<Game, ArrayList<Server>> games = new HashMap<>();
             Game game;
             Server server;
-            double price;
+            Double price;
 
             while(data.next()){
                 game = new Game(data.getString("name"), null, data.getBoolean("haveMultiLanguages"));
@@ -57,10 +57,11 @@ public class GameDBAccess {
                 calendar.setTime(releaseDate);
                 game.setReleaseDate(calendar);
 
-                server = new Server();
-                game.addServer();
-
+              /*server = new Server();
+                game.addServer();*/
             }
+
+            return games;
 
         }catch (ConnectionException connectionException){
             throw new AllGamesException(0);

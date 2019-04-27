@@ -92,7 +92,6 @@ public class SearchPanelGameList extends JPanel {
 
     public void setCharacterName(){
         try{
-
             ArrayList<Character> characters = characterController.getAllCharacter(pseudoChoice, numberChoice);
             for(int iCharacter = 0; iCharacter < characters.size(); iCharacter++){
                 characterNames[iCharacter] = characters.get(iCharacter).getName();
