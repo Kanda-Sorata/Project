@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 
 public class SearchPanelGeneral extends JPanel {
@@ -22,7 +23,7 @@ public class SearchPanelGeneral extends JPanel {
             case 1:
                 searchPanelGameList = new SearchPanelGameList();
                 add(searchPanelGameList, BorderLayout.WEST);
-                //setGames();
+                getAllGames(searchPanelGameList.getPseudoChoice(), searchPanelGameList.getNumberChoice(), searchPanelGameList.getCharacterNameChoice(), searchPanelGameList.getDateEnd());
                /* AllGameFromCharacterModel model = new AllGameFromCharacterModel();
                 table = new JTable(model);*/
                 break;
@@ -44,6 +45,8 @@ public class SearchPanelGeneral extends JPanel {
         setVisible(true);
     }
 
-
+    public void getAllGames(String pseudo, String number, String character, GregorianCalendar dateEnd){
+        
+    }
 
 }

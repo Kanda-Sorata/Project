@@ -7,10 +7,14 @@ import Model.Character;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.*;
 import java.util.List;
 
 
@@ -27,13 +31,20 @@ public class SearchPanelGameList extends JPanel {
 
     private String pseudoChoice;
     private String numberChoice;
+    private String characterNameChoice;
+    private GregorianCalendar dateChoice;
 
     private AccountPlayerController accountPlayerController;
     private CharacterController characterController;
 
+    private ComboBox comboBoxListener;
+
     public SearchPanelGameList(){
+        //Add propeties
         setLayout(new GridLayout(4, 2, 5, 15));
         setBorder(new EmptyBorder(150, 0, 250, 250)); //top, left, bottom, right
+
+        //add component
         pseudo = new JLabel("Pseudo");
         pseudo.setHorizontalAlignment(SwingConstants.RIGHT);
         characterName = new JLabel("Character");
@@ -49,10 +60,13 @@ public class SearchPanelGameList extends JPanel {
         characterNameCombo = new JComboBox(characterNames);
         characterNameCombo.setSelectedIndex(0);
         characterNameCombo.setMaximumRowCount(3);
-
-
         setJSpinner();
 
+        //Add listener
+        comboBoxListener = new ComboBox();
+        pseudoPlayerCombo.addItemListener(comboBoxListener);
+        characterNameCombo.addItemListener(comboBoxListener);
+        dateEndSpinner.getSpinner().addChangeListener(new SpinnerListener());
 
         add(pseudo);
         add(pseudoPlayerCombo);
@@ -74,6 +88,30 @@ public class SearchPanelGameList extends JPanel {
 
     public void setNumberChoice(String numberChoice){
         this.numberChoice = numberChoice;
+    }
+
+    public String getPseudoChoice() {
+        return pseudoChoice;
+    }
+
+    public String getNumberChoice() {
+        return numberChoice;
+    }
+
+    public String getCharacterNameChoice() {
+        return characterNameChoice;
+    }
+
+    public void setCharacterNameChoice(String characterNameChoice) {
+        this.characterNameChoice = characterNameChoice;
+    }
+
+    public GregorianCalendar getDateEnd(){
+        return  dateChoice; //
+    }
+
+    public void setDateChoice(GregorianCalendar dateChoice){
+        this.dateChoice = dateChoice;
     }
 
     public void setPseudos() {
@@ -98,6 +136,29 @@ public class SearchPanelGameList extends JPanel {
             }
         }catch (AllCharacterException allCharacterException){
             JOptionPane.showMessageDialog(null, "Error", allCharacterException.getMessage(), JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private class ComboBox implements ItemListener{
+        @Override
+        public void itemStateChanged(ItemEvent itemEvent) {
+            if(itemEvent.getItem() == pseudoPlayerCombo){
+                setPseudoChoice(pseudoPlayerCombo.getSelectedItem().toString().split("#")[0]);
+                setNumberChoice(pseudoPlayerCombo.getSelectedItem().toString().split("#")[2]);
+            }
+            else{
+                setCharacterNameChoice(characterNameCombo.getSelectedItem().toString());
+            }
+        }
+    }
+
+    private class SpinnerListener implements ChangeListener{
+        @Override
+        public void stateChanged(ChangeEvent changeEvent) {
+            Date date = ((SpinnerDateModel)changeEvent.getSource()).getDate();
+            GregorianCalendar calendar = new GregorianCalendar();
+            calendar.setTime(date);
+            setDateChoice(calendar);
         }
     }
 }
