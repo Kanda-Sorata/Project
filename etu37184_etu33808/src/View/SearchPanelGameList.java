@@ -1,31 +1,42 @@
 package View;
 
-import Controller.*;
-import Exception.*;
-import Model.AccountPlayer;
+import Controller.AccountPlayerController;
+import Controller.CharacterController;
+import Exception.AllCharacterException;
+import  Exception.AllAccountException;
+import Exception.NbAccountException;
 import Model.Character;
 
 import javax.swing.*;
+import javax.swing.JSpinner.DateEditor;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.text.DefaultFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.*;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 
 public class SearchPanelGameList extends JPanel {
-    private JComboBox pseudoPlayerCombo;
+    private JComboBox playerAccountCombo;
     private JComboBox characterNameCombo;
-    private JSpinner.DateEditor dateEndSpinner;
+    private JSpinner dateEndSpinner;
+    private SpinnerModel spinnerModel;
+    private DateEditor dateEditor;
 
-    private String [] pseudos = {"Test", "TestDeux", "TestTrois", "TestQuattre"};;
-    private String [] characterNames = {"Character Un", "Character Deux", "Character Trois", "Character Quattre"};;
-    private JLabel pseudo;
+    private String [] playerAccounts = {"Test", "TestDeux", "TestTrois", "TestQuattre"};
+    private String [] characterNames = {"Character Un", "Character Deux", "Character Trois", "Character Quattre"};
+    private JLabel playerAcocunt;
     private JLabel characterName;
     private JLabel dateEnd;
 
@@ -36,50 +47,70 @@ public class SearchPanelGameList extends JPanel {
 
     private AccountPlayerController accountPlayerController;
     private CharacterController characterController;
+    private UtilitiesPanelMethode utilitiesPanelMethode;
 
     private ComboBox comboBoxListener;
+    private SpinnerListener spinnerListener;
 
-    public SearchPanelGameList(){
+    ArrayList<Character> characters;
+
+    public SearchPanelGameList()throws AllCharacterException, NbAccountException, AllAccountException {
+        accountPlayerController = new AccountPlayerController();
+        characterController = new CharacterController();
+        utilitiesPanelMethode = new UtilitiesPanelMethode();
+
         //Add propeties
         setLayout(new GridLayout(4, 2, 5, 15));
         setBorder(new EmptyBorder(150, 0, 250, 250)); //top, left, bottom, right
 
         //add component
-        pseudo = new JLabel("Pseudo");
-        pseudo.setHorizontalAlignment(SwingConstants.RIGHT);
+        playerAcocunt = new JLabel("Player Account");
+        playerAcocunt.setHorizontalAlignment(SwingConstants.RIGHT);
         characterName = new JLabel("Character");
         characterName.setHorizontalAlignment(SwingConstants.RIGHT);
         dateEnd = new JLabel("Date of end");
         dateEnd.setHorizontalAlignment(SwingConstants.RIGHT);
 
-        //setPseudos();
-        pseudoPlayerCombo = new JComboBox(pseudos);
-        pseudoPlayerCombo.setSelectedIndex(0);
-        pseudoPlayerCombo.setMaximumRowCount(3);
+        //playerAccounts = utilitiesPanelMethode.setPseudos();
+        playerAccountCombo = new JComboBox(playerAccounts);
+        playerAccountCombo.setSelectedIndex(0);
+        playerAccountCombo.setMaximumRowCount(3);
         //setCharacterName();
         characterNameCombo = new JComboBox(characterNames);
         characterNameCombo.setSelectedIndex(0);
         characterNameCombo.setMaximumRowCount(3);
-        setJSpinner();
+
+        dateEndSpinner = new JSpinner();
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(calendar.YEAR, -5);
+        Date earliestDate = calendar.getTime();
+        setJSpinner(earliestDate);
 
         //Add listener
         comboBoxListener = new ComboBox();
-        pseudoPlayerCombo.addItemListener(comboBoxListener);
+        playerAccountCombo.addItemListener(comboBoxListener);
         characterNameCombo.addItemListener(comboBoxListener);
-        dateEndSpinner.getSpinner().addChangeListener(new SpinnerListener());
+        spinnerListener = new SpinnerListener();
+        dateEndSpinner.addChangeListener(spinnerListener);
 
-        add(pseudo);
-        add(pseudoPlayerCombo);
+
+        add(playerAcocunt);
+        add(playerAccountCombo);
         add(characterName);
         add(characterNameCombo);
         add(dateEnd);
         add(dateEndSpinner);
-        setVisible(true);
     }
 
-    public void setJSpinner(){
-        SpinnerDateModel mod = new SpinnerDateModel(new Date(), null, null, Calendar.HOUR_OF_DAY);
-        dateEndSpinner = new JSpinner.DateEditor(new JSpinner(mod), "DD / MMMM / YYYY");
+    public void setJSpinner(Date earliestDate){
+        Calendar calendar = Calendar.getInstance();
+        Date initDate = calendar.getTime();
+        calendar.add(calendar.YEAR, 20);
+        Date latestDate = calendar.getTime();
+
+        spinnerModel = new SpinnerDateModel(initDate, earliestDate, latestDate, Calendar.MONTH);
+        dateEndSpinner.setModel(spinnerModel);
+        dateEndSpinner.setEditor(new JSpinner.DateEditor(dateEndSpinner, "dd/MMMM/yyyy"));
     }
 
     public void setPseudoChoice(String pseudoChoice){
@@ -114,51 +145,44 @@ public class SearchPanelGameList extends JPanel {
         this.dateChoice = dateChoice;
     }
 
-    public void setPseudos() {
-        try {
-            int nbMaxPlayer = accountPlayerController.getNbAccountPlayers();
-            ArrayList<AccountPlayer> players = accountPlayerController.getAllAccountPlayer();
-            for (int iPseudo = 0; iPseudo < nbMaxPlayer; iPseudo++) {
-                pseudos[iPseudo] = players.get(iPseudo).getPseudo() + "#" + players.get(iPseudo).getNumber();
-            }
-        } catch (NbAccountException nbAccountException){
-            JOptionPane.showMessageDialog(null, "Error", nbAccountException.getMessage(), JOptionPane.ERROR_MESSAGE);;
-        }catch(AllAccountException allAccountException){
-            JOptionPane.showMessageDialog(null, "Error", allAccountException.getMessage(), JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    public void setCharacterName(){
-        try{
-            ArrayList<Character> characters = characterController.getAllCharacter(pseudoChoice, numberChoice);
-            for(int iCharacter = 0; iCharacter < characters.size(); iCharacter++){
+    public void setCharacterName() throws AllCharacterException {
+            characters = characterController.getAllCharacter(pseudoChoice, numberChoice);
+            for (int iCharacter = 0; iCharacter < characters.size(); iCharacter++) {
                 characterNames[iCharacter] = characters.get(iCharacter).getName();
             }
-        }catch (AllCharacterException allCharacterException){
-            JOptionPane.showMessageDialog(null, "Error", allCharacterException.getMessage(), JOptionPane.ERROR_MESSAGE);
-        }
     }
 
-    private class ComboBox implements ItemListener{
+    private class ComboBox implements ItemListener {
+
         @Override
         public void itemStateChanged(ItemEvent itemEvent) {
-            if(itemEvent.getItem() == pseudoPlayerCombo){
-                setPseudoChoice(pseudoPlayerCombo.getSelectedItem().toString().split("#")[0]);
-                setNumberChoice(pseudoPlayerCombo.getSelectedItem().toString().split("#")[2]);
+            if(itemEvent.getItem() == playerAccountCombo){
+                setPseudoChoice(playerAccounts[playerAccountCombo.getSelectedIndex()].split("#")[0]);
+                setNumberChoice(playerAccounts[playerAccountCombo.getSelectedIndex()].split("#")[1]);
             }
             else{
-                setCharacterNameChoice(characterNameCombo.getSelectedItem().toString());
+                setCharacterNameChoice(characterNames[characterNameCombo.getSelectedIndex()]);
             }
+            //setJSpinner(getCharacterByName(characterNameChoice).getCreationDate().getTime());
         }
     }
 
     private class SpinnerListener implements ChangeListener{
         @Override
-        public void stateChanged(ChangeEvent changeEvent) {
-            Date date = ((SpinnerDateModel)changeEvent.getSource()).getDate();
-            GregorianCalendar calendar = new GregorianCalendar();
-            calendar.setTime(date);
-            setDateChoice(calendar);
+        public void stateChanged(ChangeEvent changeEvent){
+            if(changeEvent.getSource() == dateEndSpinner) {
+                Date date = (Date) dateEndSpinner.getValue();
+                GregorianCalendar calendar = new GregorianCalendar();
+                calendar.setTime(date);
+                setDateChoice(calendar);
+            }
         }
+    }
+
+    public Character getCharacterByName(String name){
+        int iChar = 0;
+        while(iChar < characters.size() && !name.equals(characters.get(iChar))){ iChar++; }
+
+        return characters.get(iChar);
     }
 }

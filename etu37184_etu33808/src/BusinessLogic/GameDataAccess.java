@@ -1,12 +1,12 @@
 package BusinessLogic;
 
-import Model.Game;
-import Model.Server;
-import Exception.*;
+import Exception.AllGamesException;
+import Model.SearchGameList;
+
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.GregorianCalendar;
 
 public interface GameDataAccess {
-    HashMap<Game, ArrayList<Server>> getAllGames() throws AllGamesException;
+    ArrayList<SearchGameList>  getSearchAllGamesListCharacter(String pseudo, String number, String character, GregorianCalendar dateEnd) throws AllGamesException;
 
 }

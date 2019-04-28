@@ -1,6 +1,8 @@
 package Controller;
-import BusinessLogic.*;
-import Exception.*;
+
+import BusinessLogic.AccountPlayerBusinessLogic;
+import Exception.AllAccountException;
+import Exception.NbAccountException;
 import Model.AccountPlayer;
 
 import java.util.ArrayList;
@@ -8,8 +10,8 @@ import java.util.ArrayList;
 public class AccountPlayerController {
     private AccountPlayerBusinessLogic accountPlayerBusinessLogic;
 
-    public AccountPlayerController(AccountPlayerBusinessLogic accountPlayerBusinessLogic){
-        this.accountPlayerBusinessLogic = accountPlayerBusinessLogic;
+    public AccountPlayerController(){
+        accountPlayerBusinessLogic = new AccountPlayerBusinessLogic();
     }
     public int getNbAccountPlayers() throws NbAccountException{
             return accountPlayerBusinessLogic.getNbAccountPlayers();

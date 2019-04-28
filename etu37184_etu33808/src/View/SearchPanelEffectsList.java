@@ -11,6 +11,7 @@ public class SearchPanelEffectsList extends JPanel {
     private JLabel gameName;
     private String [] games;
 
+
     public SearchPanelEffectsList(){
         //Fill arrayList & array
         setLayout(new GridLayout(characterClass.size(), 2, 5, 15));

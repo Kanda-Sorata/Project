@@ -1,41 +1,34 @@
 package View;
 
+import Controller.AccountPlayerController;
+
 import javax.swing.*;
 import java.awt.*;
 
-import Controller.*;
-import Exception.*;
-
 public class SearchPanelSpellList extends JPanel {
-    private JComboBox pseudoCombo;
-    private JComboBox numberCombo;
+    private JComboBox playerAcocuntCombo;
     private String[] pseudos;
-    private String[] numbers;
-    private JLabel pseudo;
-    private JLabel number;
+    private JLabel playerAcocunt;
+
+    private UtilitiesPanelMethode utilitiesPanelMethode;
 
     private AccountPlayerController accountPlayerController;
 
     public SearchPanelSpellList() {
+        utilitiesPanelMethode = new UtilitiesPanelMethode();
+        accountPlayerController = new AccountPlayerController();
+
         setLayout(new GridLayout(4, 2, 5, 15));
 
-        pseudo = new JLabel("Pseudo");
-        pseudo.setHorizontalAlignment(SwingConstants.RIGHT);
-        number = new JLabel("Number");
-        number.setHorizontalAlignment(SwingConstants.RIGHT);
+        playerAcocunt = new JLabel("Player Account");
+        playerAcocunt.setHorizontalAlignment(SwingConstants.RIGHT);
 
-        //fill table
 
-        //setPseudos(pseudos);
-        pseudoCombo = new JComboBox(pseudos);
-        numberCombo = new JComboBox(numbers);
 
-        add(pseudo);
-        add(pseudoCombo);
-        add(number);
-        add(numberCombo);
-        setVisible(true);
+        //utilitiesPanelMethode.setPseudos(pseudos);
+        playerAcocuntCombo = new JComboBox(pseudos);
+
+        add(playerAcocunt);
+        add(playerAcocuntCombo);
     }
-
-
 }

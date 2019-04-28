@@ -1,9 +1,9 @@
 package BusinessLogic;
 
+import Exception.AllAccountException;
+import Exception.NbAccountException;
 import Model.AccountPlayer;
-import Exception.*;
 
-import java.rmi.NotBoundException;
 import java.util.ArrayList;
 
 public interface AccountPlayerDataAccess {

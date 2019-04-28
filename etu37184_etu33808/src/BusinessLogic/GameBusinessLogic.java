@@ -1,11 +1,11 @@
 package BusinessLogic;
 
 import DataAccess.GameDBAccess;
-import Model.Game;
-import Model.Server;
-import Exception.*;
+import Exception.AllGamesException;
+import Model.SearchGameList;
+
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.GregorianCalendar;
 
 public class GameBusinessLogic implements GameDataAccess {
 
@@ -19,7 +19,7 @@ public class GameBusinessLogic implements GameDataAccess {
         this.dao = dao;
     }
 
-    public HashMap<Game, ArrayList<Server>> getAllGames() throws AllGamesException {
-        return dao.getAllGames();
+    public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, String number, String character, GregorianCalendar dateEnd) throws AllGamesException {
+        return dao.getSearchAllGamesListCharacter(pseudo, number, character, dateEnd);
     }
 }

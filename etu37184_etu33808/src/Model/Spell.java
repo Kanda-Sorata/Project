@@ -1,6 +1,5 @@
 package Model;
 
-import java.util.ArrayList;
 import Exception.NameException;
 
 public class Spell {

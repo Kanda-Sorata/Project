@@ -1,10 +1,10 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-
 import BusinessLogic.Utilitie;
 import Exception.UniqueNameException;
+
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 public class Game {
 
@@ -62,5 +62,9 @@ public class Game {
 
     public void addServer(Server server){
         servers.add(server);
+    }
+
+    public Server getServer(int index){
+        return  servers.get(index);
     }
 }

@@ -1,13 +1,17 @@
 package Controller;
 
-import BusinessLogic.*;
-import DataAccess.CharacterDBAccess;
+import BusinessLogic.CharacterBusinessLogic;
+import Exception.AllCharacterException;
 import Model.Character;
-import Exception.*;
+
 import java.util.ArrayList;
 
 public class CharacterController {
     private CharacterBusinessLogic characterBusinessLogic;
+
+    public CharacterController(){
+        characterBusinessLogic = new CharacterBusinessLogic();
+    }
 
     public CharacterController(CharacterBusinessLogic characterBusinessLogic){
         this.characterBusinessLogic = characterBusinessLogic;

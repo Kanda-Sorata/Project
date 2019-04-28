@@ -1,5 +1,6 @@
 package DataAccess;
-import Exception.*;
+
+import Exception.ConnectionException;
 
 import java.sql.Connection;
 
@@ -11,5 +12,9 @@ public class SingletonConnection {
             uniqueDataConnection = new DataConnection().getDataConnection();
         }
         return uniqueDataConnection;
+    }
+
+    public static boolean isClosed(){
+        return uniqueDataConnection == null;
     }
 }

@@ -1,24 +1,26 @@
 package DataAccess;
 
 import BusinessLogic.GameDataAccess;
-import Model.Game;
-import Exception.*;
-import Model.Server;
+import Exception.AllGamesException;
+import Exception.ConnectionException;
+import Exception.UniqueNameException;
+import Model.SearchGameList;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 
 public class GameDBAccess implements GameDataAccess {
 
-    public HashMap<Game, ArrayList<Server>> getAllGames() throws AllGamesException{
+    public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, String number, String character,
+                                                                    GregorianCalendar dateEnd) throws AllGamesException{
         try {
             Connection dataConnection = SingletonConnection.getInstance();
-            String querry = "select * from Game g, Server s where g.Servername = s.name and colonne1 = ? ";
-            querry += "and colonne2 = ? and colonne3 = ? and colonne4 = ? and colonne5 = ? and colonne6 = ? ";
-            querry += "and colonne7 = ? and colonne8 = ? and colonne9 = ? and colonne10 = ? and colonne11 = ? ";
-            querry += "and colonne12 = ?";
+            String querry = "select g.name, g.releaseDate, s.name from AccountPlayer a, Game g, Server s, Character c ";
+            querry += "where a.pseudo = " + pseudo + " and a.number = " + number  + " and c.name = ";
+            querry += character + " and c.PlayerAccountId = a.id ";
+            querry += "and c.ServertechnicalId = s.technicalId and s.name = g.name and g.releaseDate <=" + dateEnd;
+            querry += " and colonne1 = ? and colonne2 = ? and colonne3 = ?;";
 
             PreparedStatement statement = dataConnection.prepareStatement(querry);
 
@@ -26,42 +28,24 @@ public class GameDBAccess implements GameDataAccess {
             GregorianCalendar calendar = new GregorianCalendar();
             java.sql.Date date = new Date(calendar.getTimeInMillis());
             statement.setDate(2, date);
-            statement.setBoolean(3, false);
-            statement.setDouble(4, 1.0);
-            statement.setString(5, "");
-            statement.setString(6, "");
-            statement.setString(7, "");
-            statement.setDate(8, date);
-            statement.setBoolean(9, false);
-            statement.setInt(10, 100);
-            statement.setInt(11, 100);
-            statement.setString(12, "");
+            statement.setString(3, "");
 
             ResultSet data = statement.executeQuery();
 
-            HashMap<Game, ArrayList<Server>> games = new HashMap<>();
-            Game game;
-            Server server;
-            Double price;
+            ArrayList<SearchGameList> searchGameLists = new ArrayList<>();
+            SearchGameList searchGameList;
 
             while(data.next()){
-                game = new Game(data.getString("name"), null, data.getBoolean("haveMultiLanguages"));
-
-                price = data.getDouble("price");
-                if(!data.wasNull()){
-                    game.setPrice(price);
-                }
-
+                searchGameList = new SearchGameList(data.getString("name"), null,
+                        data.getString("server"));
                 java.sql.Date releaseDate = data.getDate("releaseDate");
                 calendar = new GregorianCalendar();
                 calendar.setTime(releaseDate);
-                game.setReleaseDate(calendar);
+                searchGameList.setReleaseDate(calendar);
 
-              /*server = new Server();
-                game.addServer();*/
+                searchGameLists.add(searchGameList);
             }
-
-            return games;
+            return searchGameLists;
 
         }catch (ConnectionException connectionException){
             throw new AllGamesException(0);

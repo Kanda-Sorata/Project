@@ -1,9 +1,9 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import Exception.NameException;
 import Exception.SexException;
+
+import java.util.GregorianCalendar;
 
 public class AccountPlayer {
     private Integer id;

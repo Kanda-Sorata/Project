@@ -11,7 +11,7 @@ public class AllCharacterException extends Exception {
         String output = "";
         switch(code) {
             case 0:
-                output = "Désolé, il y a eu une erreur lors de l'accès à la source des données.";
+                output = "Désolé, une erreur c'est produite lors de la tentative d'accès à la source de données.";
                 break;
             case 1: case 2: case 3:
                 output = "Désolé, certaines données sont corrompues, impossible de continuer.";

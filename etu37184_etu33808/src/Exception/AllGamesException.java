@@ -1,7 +1,5 @@
 package Exception;
 
-import View.AllGameFromCharacterModel;
-
 public class AllGamesException extends Exception {
     private int code;
 
@@ -10,7 +8,16 @@ public class AllGamesException extends Exception {
     }
 
     public String getMessage(){
-        return "";
+        String output = "";
+        switch(code) {
+            case 0:
+                output = "Désolé, une erreur c'est produite lors de la tentative d'accès à la source de données.";
+                break;
+            case 1:
+                output = "Désolé, certaines données sont corrompues, impossible de continuer.";
+                break;
+        }
+        return output + "\n";
     }
 
 }

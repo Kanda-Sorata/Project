@@ -1,10 +1,10 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
+import Exception.DamagePerSecondException;
+import Exception.HealthPointsException;
+import Exception.NameException;
 
-import Exception.*;
-import BusinessLogic.Utilitie;
+import java.util.GregorianCalendar;
 
 public class Character {
     private String name;

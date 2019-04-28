@@ -1,9 +1,9 @@
 package Model;
 
-import java.util.GregorianCalendar;
-
 import BusinessLogic.Utilitie;
 import Exception.UniqueNameException;
+
+import java.util.GregorianCalendar;
 
 public class Server {
     private String name;

@@ -1,6 +1,6 @@
 package BusinessLogic;
 
-import Exception.*;
+import Exception.AllCharacterException;
 import Model.Character;
 
 import java.util.ArrayList;
