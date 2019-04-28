@@ -19,7 +19,7 @@ public class GameDBAccess implements GameDataAccess {
             String querry = "select g.name, g.releaseDate, s.name from AccountPlayer a, Game g, Server s, Character c ";
             querry += "where a.pseudo = " + pseudo + " and a.number = " + number  + " and c.name = ";
             querry += character + " and c.PlayerAccountId = a.id ";
-            querry += "and c.ServertechnicalId = s.technicalId and s.name = g.name and g.releaseDate <=" + dateEnd;
+            querry += "and c.ServertechnicalId = s.technicalId and s.Gamename = g.name and g.releaseDate <=" + dateEnd;
             querry += " and colonne1 = ? and colonne2 = ? and colonne3 = ?;";
 
             PreparedStatement statement = dataConnection.prepareStatement(querry);

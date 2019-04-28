@@ -34,8 +34,8 @@ public class SearchPanelGameList extends JPanel {
     private SpinnerModel spinnerModel;
     private DateEditor dateEditor;
 
-    private String [] playerAccounts = {"Test", "TestDeux", "TestTrois", "TestQuattre"};
-    private String [] characterNames = {"Character Un", "Character Deux", "Character Trois", "Character Quattre"};
+    private String [] playerAccounts;
+    private String [] characterNames;
     private JLabel playerAcocunt;
     private JLabel characterName;
     private JLabel dateEnd;
@@ -71,11 +71,11 @@ public class SearchPanelGameList extends JPanel {
         dateEnd = new JLabel("Date of end");
         dateEnd.setHorizontalAlignment(SwingConstants.RIGHT);
 
-        //playerAccounts = utilitiesPanelMethode.setPseudos();
+        playerAccounts = utilitiesPanelMethode.setPseudos();
         playerAccountCombo = new JComboBox(playerAccounts);
         playerAccountCombo.setSelectedIndex(0);
         playerAccountCombo.setMaximumRowCount(3);
-        //setCharacterName();
+        setCharacterName();
         characterNameCombo = new JComboBox(characterNames);
         characterNameCombo.setSelectedIndex(0);
         characterNameCombo.setMaximumRowCount(3);
@@ -163,7 +163,7 @@ public class SearchPanelGameList extends JPanel {
             else{
                 setCharacterNameChoice(characterNames[characterNameCombo.getSelectedIndex()]);
             }
-            //setJSpinner(getCharacterByName(characterNameChoice).getCreationDate().getTime());
+            setJSpinner(getCharacterByName(characterNameChoice).getCreationDate().getTime());
         }
     }
 

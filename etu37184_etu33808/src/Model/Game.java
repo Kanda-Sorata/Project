@@ -60,11 +60,5 @@ public class Game {
         this.price = price;
     }
 
-    public void addServer(Server server){
-        servers.add(server);
-    }
 
-    public Server getServer(int index){
-        return  servers.get(index);
-    }
 }

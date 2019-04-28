@@ -8,7 +8,7 @@ public class DataConnection {
 
     public DataConnection() throws ConnectionException{
         try {
-            dataConnection = DriverManager.getConnection("JDBC", "root","1234");
+            dataConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/javaproject", "root","Rc648pPy");
         }
         catch(SQLException exception){
             throw new ConnectionException();
