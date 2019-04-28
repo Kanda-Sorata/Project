@@ -21,13 +21,13 @@ public class Character {
     private static final int MAX_HP = 50000;
 
     public Character(String name, Integer healthPoints, boolean isStuffed, GregorianCalendar creationDate, String petName,
-                     Integer damagePerSecond, CharacterClass characterClass, AccountPlayer player) throws NameException,
-                     HealthPointsException, DamagePerSecondException {
+                     Integer damagePerSecond, CharacterClass characterClass, AccountPlayer player)
+                     throws HealthPointsException, DamagePerSecondException {
         setName(name);
         setHealthPoints(healthPoints);
         this.isStuffed = isStuffed;
         setCreationDate(creationDate);
-        setName(petName);
+        setPetName(petName);
         setDamagePerSecond(damagePerSecond);
         setCharacterClass(characterClass);
         setPlayer(player);
@@ -37,13 +37,8 @@ public class Character {
         return name;
     }
 
-    public void setName(String name) throws NameException{
-        if(name.matches("^[a-zA-Z0-9]")){
-            this.name = name;
-        }
-        else {
-            throw new NameException(name);
-        }
+    public void setName(String name){
+        this.name = name;
     }
 
     public Integer getHealthPoints() {
@@ -72,27 +67,23 @@ public class Character {
     }
 
     public String getPetName() {
-        return petName != null ? petName : null;
+        return petName;
     }
 
-    public void setPetName(String petName) throws NameException{
-        if(petName != null && !name.matches("[^a-zA-Z]")) {
-            throw new NameException(petName);
-        }
-        else{
+    public void setPetName(String petName){
             this.petName = petName;
-        }
     }
 
     public Integer getDamagePerSecond() { return damagePerSecond != null ? damagePerSecond : null; }
 
     public void setDamagePerSecond(Integer damagePerSecond) throws DamagePerSecondException{
-        if(damagePerSecond < MIN_HP || damagePerSecond > MAX_HP){
-            throw new DamagePerSecondException(damagePerSecond);
+        if(damagePerSecond != null) {
+            if (damagePerSecond < MIN_HP || damagePerSecond > MAX_HP) {
+                throw new DamagePerSecondException(damagePerSecond);
+            }
         }
-        else{
-            this.damagePerSecond = damagePerSecond;
-        }
+
+        this.damagePerSecond = damagePerSecond;
     }
 
     public CharacterClass getCharacterClass() {

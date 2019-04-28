@@ -13,7 +13,7 @@ public class AccountPlayerController {
     public AccountPlayerController(){
         accountPlayerBusinessLogic = new AccountPlayerBusinessLogic();
     }
-    public int getNbAccountPlayers() throws NbAccountException{
+    public Integer getNbAccountPlayers() throws NbAccountException{
             return accountPlayerBusinessLogic.getNbAccountPlayers();
     }
 

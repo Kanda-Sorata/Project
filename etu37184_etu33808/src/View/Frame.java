@@ -1,5 +1,8 @@
 package View;
 
+import Model.Game;
+import Model.Spell;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -20,7 +23,9 @@ public class Frame extends JFrame{
     JMenuItem delete;
     JMenuItem list;
 
-    SearchPanelGeneral searchPanelGeneral;
+    GamePanel gamePanel;
+    SpellPanel spellPanel;
+    EffectPanel effectPanel;
     FormPanel formPanel;
     DeletePanel deletePanel;
     ModifyPanel modifyPanel;
@@ -50,6 +55,8 @@ public class Frame extends JFrame{
 
         // here's the part where i center the jframe on screen
         setLocationRelativeTo(null);
+
+        setResizable(false);
 
         addWindowListener(new WindowAdapter() { //Fermer la fenetre
             @Override
@@ -123,17 +130,20 @@ public class Frame extends JFrame{
         public void actionPerformed(ActionEvent event) {
             container.removeAll();
           if(event.getSource() == listGamesFromCharacter){
-              searchPanelGeneral = new SearchPanelGeneral(1);
+              gamePanel = new GamePanel();
+              container.add(gamePanel);
           }
           else{
               if(event.getSource() == listSpellsCharacterFromPlayer){
-                  searchPanelGeneral = new SearchPanelGeneral(2);
+                  spellPanel = new SpellPanel();
+                  container.add(spellPanel);
               }
               else{
-                  searchPanelGeneral = new SearchPanelGeneral(3);
+                  effectPanel = new EffectPanel();
+                  container.add(effectPanel);
               }
           }
-            container.add(searchPanelGeneral);
+
           setVisible(true); //Forced to repaint the panel
         }
     }

@@ -16,7 +16,7 @@ public class AccountPlayer {
     private static int nbPlayers = 0;
 
     public AccountPlayer(Integer id, String pseudo, Integer number, String sex, GregorianCalendar creationDate,
-                         String country) throws NameException, SexException {
+                         String country) throws SexException {
         setId(id);
         setPseudo(pseudo);
         setNumber(number);
@@ -39,13 +39,8 @@ public class AccountPlayer {
         return pseudo;
     }
 
-    public void setPseudo(String pseudo) throws NameException {
-        if(pseudo.matches("^[a-zA-Z0-9]")){
+    public void setPseudo(String pseudo) {
             this.pseudo = pseudo;
-        }
-        else {
-            throw new NameException(pseudo);
-        }
     }
 
     public Integer getNumber() {
@@ -59,11 +54,11 @@ public class AccountPlayer {
     public String getSex() { return sex; }
 
     public void setSex(String sex) throws SexException{ //Add tolower
-        if(sex.charAt(0) != 'f' || sex.charAt(0) != 'm'){
-            throw new SexException(sex.charAt(0));
+        if(sex.equals("f") || sex.equals("m")){
+          this.sex = sex;
         }
         else {
-            this.sex = sex;
+           throw new SexException(sex.charAt(0));
         }
     }
 

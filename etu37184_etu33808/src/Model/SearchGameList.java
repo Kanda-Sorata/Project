@@ -12,19 +12,14 @@ public class SearchGameList {
     private GregorianCalendar releaseDate;
     private String server;
 
-    public SearchGameList(String name, GregorianCalendar releaseDate, String server) throws UniqueNameException{
+    public SearchGameList(String name, GregorianCalendar releaseDate, String server){
         setName(name);
         setReleaseDate(releaseDate);
         setServer(server);
     }
 
-    public void setName(String name)throws UniqueNameException {
-        if(!Utilitie.estUnique("Server", name)){
-            throw new UniqueNameException(name);
-        }
-        else{
-            this.name =  name;
-        }
+    public void setName(String name) {
+        this.name =  name;
     }
 
     public void setReleaseDate(GregorianCalendar releaseDate) {
@@ -48,7 +43,7 @@ public class SearchGameList {
     }
 
     public String getReleaseDateStringFormat(){
-        DateFormat dateFormat = new SimpleDateFormat("DD/MMMM/YYYY");
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return dateFormat.format(releaseDate.getTime());
     }
 }

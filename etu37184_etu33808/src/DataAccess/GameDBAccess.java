@@ -16,19 +16,19 @@ public class GameDBAccess implements GameDataAccess {
                                                                     GregorianCalendar dateEnd) throws AllGamesException{
         try {
             Connection dataConnection = SingletonConnection.getInstance();
-            String querry = "select g.name, g.releaseDate, s.name from AccountPlayer a, Game g, Server s, Character c ";
-            querry += "where a.pseudo = " + pseudo + " and a.number = " + number  + " and c.name = ";
-            querry += character + " and c.PlayerAccountId = a.id ";
-            querry += "and c.ServertechnicalId = s.technicalId and s.Gamename = g.name and g.releaseDate <=" + dateEnd;
-            querry += " and colonne1 = ? and colonne2 = ? and colonne3 = ?;";
+            java.sql.Date date = new java.sql.Date(dateEnd.getTimeInMillis());
 
+            String querry = "select `game`.`name`, `game`.`releasedate`, `server`.`name` as 'nameServer' from `game`, `server`, ";
+                   querry += "`character`, `playeraccount` where `game`.`name` = `server`.`gamename` and ";
+                   querry += "`character`.`serverTechnicalId` = `server`.`technicalid` ";
+                   querry += "and `character`.`playeraccountid` = (select id from `playeraccount` where `pseudo` = ? ";
+                   querry += " and `number` = ? ) and `character`.`name` = ? and  `game`.`releaseDate` <= ? ;";
             PreparedStatement statement = dataConnection.prepareStatement(querry);
 
-            statement.setString(1, "");
-            GregorianCalendar calendar = new GregorianCalendar();
-            java.sql.Date date = new Date(calendar.getTimeInMillis());
-            statement.setDate(2, date);
-            statement.setString(3, "");
+            statement.setString(1, pseudo);
+            statement.setString(2, number);
+            statement.setString(3, character);
+            statement.setDate(4, date);
 
             ResultSet data = statement.executeQuery();
 
@@ -37,9 +37,9 @@ public class GameDBAccess implements GameDataAccess {
 
             while(data.next()){
                 searchGameList = new SearchGameList(data.getString("name"), null,
-                        data.getString("server"));
+                        data.getString("nameServer"));
                 java.sql.Date releaseDate = data.getDate("releaseDate");
-                calendar = new GregorianCalendar();
+                GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime(releaseDate);
                 searchGameList.setReleaseDate(calendar);
 
@@ -51,8 +51,6 @@ public class GameDBAccess implements GameDataAccess {
             throw new AllGamesException(0);
         } catch (SQLException sqlException) {
             throw new AllGamesException(0);
-        }catch (UniqueNameException uniqueNameException){
-            throw new AllGamesException(1);
         }
     }
 

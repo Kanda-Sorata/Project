@@ -7,7 +7,7 @@ public class CharacterClass {
     private String description;
     private Game game;
 
-    public CharacterClass(String name, String description, Game game) throws NameException{
+    public CharacterClass(String name, String description, Game game){
         this.name = name;
         this.description = description;
         this.game = game;
@@ -17,13 +17,8 @@ public class CharacterClass {
         return name;
     }
 
-    public void setName(String name) throws NameException{
-        if(name.matches("^[a-zA-Z]")){
+    public void setName(String name) {
             this.name = name;
-        }
-        else {
-            throw new NameException(name);
-        }
 }
 
     public String getDescription() {

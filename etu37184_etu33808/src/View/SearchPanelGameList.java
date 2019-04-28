@@ -12,19 +12,13 @@ import javax.swing.JSpinner.DateEditor;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.text.DefaultFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
-import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
-import static javax.swing.JOptionPane.showMessageDialog;
 
 
 public class SearchPanelGameList extends JPanel {
@@ -49,7 +43,8 @@ public class SearchPanelGameList extends JPanel {
     private CharacterController characterController;
     private UtilitiesPanelMethode utilitiesPanelMethode;
 
-    private ComboBox comboBoxListener;
+    private ComboBoxPlayer comboBoxPlayerListener;
+    private ComboBoxCharacter comboBoxCharacterListener;
     private SpinnerListener spinnerListener;
 
     ArrayList<Character> characters;
@@ -75,10 +70,12 @@ public class SearchPanelGameList extends JPanel {
         playerAccountCombo = new JComboBox(playerAccounts);
         playerAccountCombo.setSelectedIndex(0);
         playerAccountCombo.setMaximumRowCount(3);
-        setCharacterName();
-        characterNameCombo = new JComboBox(characterNames);
+
+        String [] temp = {"Aucune selection"};
+        characterNameCombo = new JComboBox(temp);
         characterNameCombo.setSelectedIndex(0);
         characterNameCombo.setMaximumRowCount(3);
+        characterNameCombo.setEnabled(false);
 
         dateEndSpinner = new JSpinner();
         Calendar calendar = Calendar.getInstance();
@@ -87,12 +84,12 @@ public class SearchPanelGameList extends JPanel {
         setJSpinner(earliestDate);
 
         //Add listener
-        comboBoxListener = new ComboBox();
-        playerAccountCombo.addItemListener(comboBoxListener);
-        characterNameCombo.addItemListener(comboBoxListener);
+        comboBoxPlayerListener = new ComboBoxPlayer();
+        playerAccountCombo.addActionListener(comboBoxPlayerListener);
+        comboBoxCharacterListener = new ComboBoxCharacter();
+        characterNameCombo.addActionListener(comboBoxCharacterListener);
         spinnerListener = new SpinnerListener();
         dateEndSpinner.addChangeListener(spinnerListener);
-
 
         add(playerAcocunt);
         add(playerAccountCombo);
@@ -110,7 +107,7 @@ public class SearchPanelGameList extends JPanel {
 
         spinnerModel = new SpinnerDateModel(initDate, earliestDate, latestDate, Calendar.MONTH);
         dateEndSpinner.setModel(spinnerModel);
-        dateEndSpinner.setEditor(new JSpinner.DateEditor(dateEndSpinner, "dd/MMMM/yyyy"));
+        dateEndSpinner.setEditor(new JSpinner.DateEditor(dateEndSpinner, "dd/MM/yyyy"));
     }
 
     public void setPseudoChoice(String pseudoChoice){
@@ -138,7 +135,7 @@ public class SearchPanelGameList extends JPanel {
     }
 
     public GregorianCalendar getDateEnd(){
-        return  dateChoice; //
+        return  dateChoice;
     }
 
     public void setDateChoice(GregorianCalendar dateChoice){
@@ -146,24 +143,44 @@ public class SearchPanelGameList extends JPanel {
     }
 
     public void setCharacterName() throws AllCharacterException {
-            characters = characterController.getAllCharacter(pseudoChoice, numberChoice);
-            for (int iCharacter = 0; iCharacter < characters.size(); iCharacter++) {
-                characterNames[iCharacter] = characters.get(iCharacter).getName();
+        characters = characterController.getAllCharacter(pseudoChoice, numberChoice);
+        if(characters.size() > 0) {
+            characterNames = new String[characters.size()+1];
+            characterNames[0] = "Aucune selection";
+            for (int iCharacter = 1; iCharacter < characters.size()+1; iCharacter++) {
+                characterNames[iCharacter] = characters.get(iCharacter-1).getName();
             }
+        }
     }
 
-    private class ComboBox implements ItemListener {
+    private class ComboBoxPlayer implements ActionListener {
 
         @Override
-        public void itemStateChanged(ItemEvent itemEvent) {
-            if(itemEvent.getItem() == playerAccountCombo){
+        public void actionPerformed(ActionEvent actionEvent) {
+            if (playerAccountCombo.getSelectedItem() != null) {
                 setPseudoChoice(playerAccounts[playerAccountCombo.getSelectedIndex()].split("#")[0]);
                 setNumberChoice(playerAccounts[playerAccountCombo.getSelectedIndex()].split("#")[1]);
+                try {
+                    setCharacterName();
+                    if (characterNames.length > 0) {
+                        characterNameCombo.setModel(new DefaultComboBoxModel(characterNames));
+                        repaint();
+                    }
+                } catch (AllCharacterException allCharcacter) {
+                    JOptionPane.showMessageDialog(null, allCharcacter.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                characterNameCombo.setEnabled(true);
             }
-            else{
+        }
+    }
+
+    private class ComboBoxCharacter implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            if (!characterNames[characterNameCombo.getSelectedIndex()].equals(characterNames[0])) {
                 setCharacterNameChoice(characterNames[characterNameCombo.getSelectedIndex()]);
+                setJSpinner(getCharacterByName(characterNameChoice).getCreationDate().getGregorianChange());
             }
-            setJSpinner(getCharacterByName(characterNameChoice).getCreationDate().getTime());
         }
     }
 
@@ -181,8 +198,7 @@ public class SearchPanelGameList extends JPanel {
 
     public Character getCharacterByName(String name){
         int iChar = 0;
-        while(iChar < characters.size() && !name.equals(characters.get(iChar))){ iChar++; }
-
+        while(iChar < characters.size() && !name.equals(characters.get(iChar).getName())){ iChar++; }
         return characters.get(iChar);
     }
 }

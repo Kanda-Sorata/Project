@@ -2,9 +2,15 @@ package Exception;
 
 public class AllAccountException extends Exception{
     private int code;
+    private String messageError;
 
     public AllAccountException(int code){
         this.code = code;
+    }
+
+    public AllAccountException(int code, String messageError){
+        this(code);
+        this.messageError = messageError;
     }
 
     public String getMessage(){
@@ -18,5 +24,9 @@ public class AllAccountException extends Exception{
                 break;
         }
         return output + "\n";
+    }
+
+    public String getMessageError(){
+        return messageError;
     }
 }

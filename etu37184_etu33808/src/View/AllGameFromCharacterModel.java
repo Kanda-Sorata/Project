@@ -26,7 +26,7 @@ public class AllGameFromCharacterModel extends AbstractTableModel {
         switch (column){
             case 0: return searchGameList.getName();
             case 1: return searchGameList.getReleaseDateStringFormat();
-            case 3: return searchGameList.getServer();
+            case 2: return searchGameList.getServer();
             default: return null;
         }
     }

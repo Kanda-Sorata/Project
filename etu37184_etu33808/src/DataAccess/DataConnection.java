@@ -8,10 +8,11 @@ public class DataConnection {
 
     public DataConnection() throws ConnectionException{
         try {
-            dataConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/javaproject", "root","Rc648pPy");
+            dataConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/javaproject?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC", "root","Rc648pPy");
         }
         catch(SQLException exception){
-            throw new ConnectionException();
+            System.out.println(exception.getMessage() + "\n" + exception.getSQLState() + "\n" + exception.getErrorCode());
+            throw new ConnectionException(exception.getMessage(), exception.getSQLState(), exception.getErrorCode());
         }
     }
     public Connection getDataConnection(){

@@ -19,7 +19,7 @@ public class AccountPlayerBusinessLogic {
         this.dao = dao;
     }
 
-    public int getNbAccountPlayers() throws NbAccountException{
+    public Integer getNbAccountPlayers() throws NbAccountException{
         return dao.getNbAccountPlayers();
     }
 

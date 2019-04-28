@@ -14,22 +14,15 @@ public class CharacterDBAccess implements CharacterDataAccess {
 
     public CharacterDBAccess(){}
 
-    public ArrayList<Character> getAllCharacter(String pseudo, String number) throws AllCharacterException{
-        try{
+    public ArrayList<Character> getAllCharacter(String pseudo, String number) throws AllCharacterException {
+        try {
             Connection dataConnection = SingletonConnection.getInstance();
-            String querry = "select * from Character where colonne1 = ? and colonne 2 = ? and colonne3 = ? and colonne4 = ?";
-            querry += " and colonne5 = ? and colonne6 = ? and  pseudo = " + pseudo + " and number = " + number + ";";
+            String querry = "select name, healthPoint, isStuffed, creationDate, petName, damagePerSecond from `character` where `character`.`playeraccountId` = (select id from `playeraccount` where  pseudo = ? and number = ?);";
 
             PreparedStatement statement = dataConnection.prepareStatement(querry);
 
-            statement.setString(1, "");
-            statement.setInt(2, 100);
-            statement.setBoolean(3, false);
-            GregorianCalendar calendar = new GregorianCalendar();
-            java.sql.Date sqlDate = new java.sql.Date(calendar.getTimeInMillis());
-            statement.setDate(4, sqlDate);
-            statement.setString(5, "");
-            statement.setInt(6, 100);
+            statement.setString(1, pseudo);
+            statement.setString(2, number);
 
             ResultSet data = statement.executeQuery();
             Character character;
@@ -39,11 +32,11 @@ public class CharacterDBAccess implements CharacterDataAccess {
 
             while (data.next()) {
                 character = new Character(data.getString("name"), data.getInt("healthPoint"),
-                        data.getBoolean("isStuffed"),null, null, null,
+                        data.getBoolean("isStuffed"), null, null, null,
                         null, null);
 
                 java.sql.Date creationDate = data.getDate("creationDate");
-                calendar = new GregorianCalendar();
+                GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime(creationDate);
                 character.setCreationDate(calendar);
 
@@ -59,16 +52,14 @@ public class CharacterDBAccess implements CharacterDataAccess {
                 characters.add(character);
             }
             return characters;
-        }catch (SQLException sqlException){
+        } catch (ConnectionException connexionException) {
             throw new AllCharacterException(0);
-        }catch(NameException nameException){
-            throw new AllCharacterException(1);
-        }catch(HealthPointsException healthPointsException){
+        } catch (SQLException sqlException) {
+            throw new AllCharacterException(0);
+        } catch (HealthPointsException healthPointsException) {
             throw new AllCharacterException(2);
-        }catch(DamagePerSecondException damagePerSecondException){
+        } catch (DamagePerSecondException damagePerSecondException) {
             throw new AllCharacterException(3);
-        }catch (ConnectionException connexionException){
-            throw new AllCharacterException(0);
         }
     }
 }
