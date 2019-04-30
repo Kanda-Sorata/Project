@@ -6,6 +6,7 @@ import Exception.NbAccountException;
 import Model.AccountPlayer;
 
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
 import java.rmi.NotBoundException;
 import java.util.ArrayList;
 
@@ -25,5 +26,24 @@ public class UtilitiesPanelMethode {
                 playerAccounts[iPseudo] = players.get(iPseudo).getPseudo() + "#" + players.get(iPseudo).getNumber();
             }
             return playerAccounts;
+    }
+
+    public JTable getJTableModelBlank(){
+        return new JTable(new AbstractTableModel() {
+            @Override
+            public int getRowCount() {
+                return 20;
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 5;
+            }
+
+            @Override
+            public Object getValueAt(int i, int i1) {
+                return null;
+            }
+        });
     }
 }

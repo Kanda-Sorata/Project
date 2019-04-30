@@ -5,11 +5,11 @@ import Model.SearchGameList;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
-public class AllGameFromCharacterModel extends AbstractTableModel {
+public class AllGamesFromCharacterModel extends AbstractTableModel {
     private ArrayList<String> columnNames;
     private ArrayList<SearchGameList> contents;
 
-    public AllGameFromCharacterModel(ArrayList<SearchGameList> searchGameLists){
+    public AllGamesFromCharacterModel(ArrayList<SearchGameList> searchGameLists){
         columnNames = new ArrayList<>();
         columnNames.add("Name");
         columnNames.add("Release Date");

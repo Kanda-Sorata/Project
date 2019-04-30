@@ -3,8 +3,9 @@ package View;
 import Controller.AccountPlayerController;
 import Controller.CharacterController;
 import Exception.AllCharacterException;
-import  Exception.AllAccountException;
+import Exception.AllAccountException;
 import Exception.NbAccountException;
+import Exception.AllGamesException;
 import Model.Character;
 
 import javax.swing.*;
@@ -47,15 +48,21 @@ public class SearchPanelGameList extends JPanel {
     private ComboBoxCharacter comboBoxCharacterListener;
     private SpinnerListener spinnerListener;
 
-    ArrayList<Character> characters;
+    private ArrayList<Character> characters;
 
-    public SearchPanelGameList()throws AllCharacterException, NbAccountException, AllAccountException {
+    private GamePanel gamePanel;
+    private JLabel validationLabel;
+    private JButton validation;
+    private ButtonListener buttonListener;
+
+    public SearchPanelGameList(GamePanel gamePanel)throws NbAccountException, AllAccountException {
+        this.gamePanel = gamePanel;
         accountPlayerController = new AccountPlayerController();
         characterController = new CharacterController();
         utilitiesPanelMethode = new UtilitiesPanelMethode();
 
         //Add propeties
-        setLayout(new GridLayout(4, 2, 5, 15));
+        setLayout(new GridLayout(4, 2 , 5, 15));
         setBorder(new EmptyBorder(150, 0, 250, 250)); //top, left, bottom, right
 
         //add component
@@ -91,12 +98,20 @@ public class SearchPanelGameList extends JPanel {
         spinnerListener = new SpinnerListener();
         dateEndSpinner.addChangeListener(spinnerListener);
 
+        validationLabel = new JLabel("Validation");
+        validationLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        validation = new JButton("Validation");
+        buttonListener = new ButtonListener();
+        validation.addActionListener(buttonListener);
+
         add(playerAcocunt);
         add(playerAccountCombo);
         add(characterName);
         add(characterNameCombo);
         add(dateEnd);
         add(dateEndSpinner);
+        add(validationLabel);
+        add(validation);
     }
 
     public void setJSpinner(Date earliestDate){
@@ -200,5 +215,18 @@ public class SearchPanelGameList extends JPanel {
         int iChar = 0;
         while(iChar < characters.size() && !name.equals(characters.get(iChar).getName())){ iChar++; }
         return characters.get(iChar);
+    }
+
+    private class ButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            try {
+                if(getPseudoChoice() != null && getCharacterNameChoice() != null && dateEndSpinner.getValue() != null) {
+                    gamePanel.setJtable();
+                }
+            }catch(AllGamesException allGameException){
+                JOptionPane.showMessageDialog(null, allGameException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 }
