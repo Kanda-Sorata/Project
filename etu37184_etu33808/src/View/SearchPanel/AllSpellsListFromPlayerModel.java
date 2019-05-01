@@ -35,7 +35,7 @@ public class AllSpellsListFromPlayerModel extends AbstractTableModel {
         return false;
     }
 
-    public Class getColumClass(int column){
+    public Class getColumnClass(int column){
         Class c;
         switch(column){
             case 0: c = String.class;
