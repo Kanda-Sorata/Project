@@ -34,7 +34,7 @@ public class SpellDBAccess implements SpellDataAccess {
             ResultSet data = statement.executeQuery();
             ArrayList<SearchSpellList> searchSpellLists = new ArrayList<>();
             SearchSpellList searchSpellList;
-            Integer cooldown = null;
+            Integer cooldown;
 
             while (data.next()){
                 searchSpellList = new SearchSpellList(data.getString("name"), null,

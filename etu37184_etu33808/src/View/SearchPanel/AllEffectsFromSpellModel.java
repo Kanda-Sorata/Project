@@ -1,32 +1,32 @@
 package View.SearchPanel;
 
-import Model.SearchGameList;
+import Model.SearchEffectList;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
-public class AllGamesFromCharacterModel extends AbstractTableModel {
+public class AllEffectsFromSpellModel extends AbstractTableModel {
+
     private ArrayList<String> columnNames;
-    private ArrayList<SearchGameList> contents;
+    private ArrayList<SearchEffectList> contents;
 
-    public AllGamesFromCharacterModel(ArrayList<SearchGameList> searchGameLists){
+    public AllEffectsFromSpellModel(ArrayList<SearchEffectList> searchEffectList){
         columnNames = new ArrayList<>();
-        columnNames.add("Name");
-        columnNames.add("Release Date");
-        columnNames.add("Server");
-        setContents(searchGameLists);
+        columnNames.add("LabelEffect");
+        columnNames.add("SpellName");
+        columnNames.add("Cooldown");
+        setContents(searchEffectList);
     }
-
-    public void setContents(ArrayList<SearchGameList> searchGameLists){ contents = searchGameLists; }
+    public void setContents(ArrayList<SearchEffectList> searchEffectList){ contents = searchEffectList; }
     public int getColumnCount( ) { return columnNames.size( ); }
     public int getRowCount( ) { return contents.size( ); }
     public String getColumnName(int column) { return columnNames.get(column); }
     public Object getValueAt(int row, int column){
-        SearchGameList searchGameList = contents.get(row);
+        SearchEffectList searchEffectList = contents.get(row);
         switch (column){
-            case 0: return searchGameList.getName();
-            case 1: return searchGameList.getReleaseDateStringFormat();
-            case 2: return searchGameList.getServer();
+            case 0: return searchEffectList.getLabelEffect();
+            case 1: return searchEffectList.getSpellName();
+            case 2: return searchEffectList.getCooldown();
             default: return null;
         }
     }
@@ -42,11 +42,10 @@ public class AllGamesFromCharacterModel extends AbstractTableModel {
                 break;
             case 1: c = String.class;
                 break;
-            case 2: c = String.class;
+            case 2: c = Integer.class;
                 break;
             default: c = String.class;
         }
-
         return c;
     }
 }

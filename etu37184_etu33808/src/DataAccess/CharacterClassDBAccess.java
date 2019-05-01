@@ -3,6 +3,7 @@ package DataAccess;
 import BusinessLogic.CharacterClassDataAccess;
 import Exception.ConnectionException;
 import Exception.DataException;
+import Exception.DataAccessException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 
 
 public class CharacterClassDBAccess implements CharacterClassDataAccess {
-    public ArrayList<String> getClassesInAGame(String game) throws DataException {
+    public ArrayList<String> getClassesInAGame(String game) throws DataException, DataAccessException {
         try {
             Connection dataConnection = SingletonConnection.getInstance();
             String querry = "select characterClass.name from characterClass, game ";
@@ -34,7 +35,7 @@ public class CharacterClassDBAccess implements CharacterClassDataAccess {
         } catch (ConnectionException connexionException) {
             throw new DataException(0);
         } catch (SQLException sqlException) {
-            throw new DataException(1);
+            throw new DataAccessException();
         }
     }
 }

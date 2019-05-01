@@ -3,6 +3,7 @@ package View.SearchPanel;
 import Controller.CharacterClassController;
 import Controller.GameController;
 import Exception.DataException;
+import Exception.DataAccessException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -22,8 +23,9 @@ public class SearchEffectPanel extends JPanel {
     private ArrayList<String> characterClassesTemp;
     private GameController gameController;
     private CharacterClassController characterClassController;
-    private ComboBoxGame comboBoxGameListener;
+    private ComboBoxListener comboBoxListener;
 
+    private String classChoice;
     private String gameChoice;
     private ResultEffectPanel resultEffectPanel;
 
@@ -45,8 +47,8 @@ public class SearchEffectPanel extends JPanel {
             for(int iGame = 0; iGame < size; iGame++){ games.add(gamesTemp.get(iGame)); }
 
             gameCombo = new JComboBox(games.toArray());
-            comboBoxGameListener = new ComboBoxGame();
-            gameCombo.addActionListener(comboBoxGameListener);
+            comboBoxListener = new ComboBoxListener();
+            gameCombo.addActionListener(comboBoxListener);
 
 
             characterClassLabel = new JLabel("Character classes");
@@ -54,7 +56,7 @@ public class SearchEffectPanel extends JPanel {
             characterClasses = new ArrayList<>();
             characterClasses.add("No Selection");
             characterClassCombo = new JComboBox(characterClasses.toArray());
-            characterClassCombo.addActionListener(comboBoxGameListener);
+            characterClassCombo.addActionListener(comboBoxListener);
             characterClassCombo.setEnabled(false);
 
 
@@ -65,10 +67,12 @@ public class SearchEffectPanel extends JPanel {
 
         } catch (DataException dataException){
             JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (DataAccessException dataAccessException){
+            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private class ComboBoxGame implements ActionListener {
+    private class ComboBoxListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             if (actionEvent.getSource() == gameCombo) {
@@ -85,10 +89,19 @@ public class SearchEffectPanel extends JPanel {
                         characterClassCombo.setEnabled(true);
                     } catch (DataException dataException) {
                         JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    } catch (DataAccessException dataAccessException){
+                        JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else{
-               // resultEffectPanel.setJTable(); //Prévooir la méthode dans le panel en question...
+                setClassChoice(characterClassCombo.getSelectedItem().toString());
+                try{
+                    resultEffectPanel.setJTable(gameChoice, classChoice);
+                } catch(DataException dataException){
+
+                } catch(DataAccessException dataAccessException){
+
+                }
             }
         }
         //Add class
@@ -96,6 +109,10 @@ public class SearchEffectPanel extends JPanel {
 
     public void setGameChoice(String gameChoice){
         this.gameChoice = gameChoice;
+    }
+
+    public void setClassChoice(String classChoice){
+        this.classChoice = classChoice;
     }
 
 }
