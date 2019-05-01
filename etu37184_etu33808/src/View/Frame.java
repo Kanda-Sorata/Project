@@ -4,6 +4,7 @@ import View.CharacterPanel.DeletePanel;
 import View.CharacterPanel.DisplayPanel;
 import View.CharacterPanel.ModifyPanel;
 import View.CharacterPanel.FormPanel;
+import View.SearchPanel.EffectPanel;
 import View.SearchPanel.GamePanel;
 import View.SearchPanel.ResultEffectPanel;
 import View.SearchPanel.SpellPanel;
@@ -31,7 +32,7 @@ public class Frame extends JFrame{
 
     GamePanel gamePanel;
     SpellPanel spellPanel;
-    ResultEffectPanel resultEffectPanel;
+    EffectPanel effectPanel;
     FormPanel formPanel;
     DeletePanel deletePanel;
     ModifyPanel modifyPanel;
@@ -163,8 +164,8 @@ public class Frame extends JFrame{
                   container.add(spellPanel);
               }
               else{
-                  resultEffectPanel = new ResultEffectPanel();
-                  container.add(resultEffectPanel);
+                  effectPanel = new EffectPanel();
+                  container.add(effectPanel);
               }
           }
 

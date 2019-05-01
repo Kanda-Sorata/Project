@@ -3,6 +3,7 @@ package View.SearchPanel;
 import Controller.GameController;
 import javax.swing.*;
 import java.awt.*;
+import Exception.AllGamesException;
 
 public class ResultEffectPanel extends JPanel {
 
@@ -12,7 +13,7 @@ public class ResultEffectPanel extends JPanel {
     private  JScrollPane scrollPane;
     private GameController gameController;
 
-    public ResultEffectPanel(){
+    public ResultEffectPanel() {
         gameController = new GameController();
         setLayout(new FlowLayout(FlowLayout.RIGHT));
 

@@ -11,7 +11,7 @@ public class AllGamesException extends Exception {
         String output = "";
         switch(code) {
             case 0:
-                output = "Désolé, une erreur c'est produite lors de la tentative d'accès à la source de données.";
+                output = "Désolé, une erreur s'est produite lors de la tentative d'accès à la source de données.";
                 break;
             case 1:
                 output = "Désolé, certaines données sont corrompues, impossible de continuer.";

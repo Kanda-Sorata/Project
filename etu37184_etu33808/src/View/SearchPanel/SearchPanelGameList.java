@@ -1,5 +1,5 @@
-package View.SearchPanel;
-
+package View;
+//todo changer les tableaux et mettre arraylist.toArray()
 import Controller.AccountPlayerController;
 import Controller.CharacterController;
 import Exception.AllCharacterException;

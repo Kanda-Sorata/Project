@@ -17,4 +17,8 @@ public class GameController {
     public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, String number, String character, GregorianCalendar dateEnd) throws AllGamesException {
         return gameBusinessLogic.getSearchAllGamesListCharacter(pseudo, number, character, dateEnd);
     }
+
+    public ArrayList<String>  getAllGames() throws AllGamesException {
+        return gameBusinessLogic.getAllGames();
+    }
 }

@@ -1,5 +1,7 @@
-package View.SearchPanel;
+package View;
 
+import Controller.AccountPlayerController;
+//todo changer les tableaux et mettre arraylist.toArray()
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;

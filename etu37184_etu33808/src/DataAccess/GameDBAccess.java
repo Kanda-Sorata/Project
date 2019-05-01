@@ -59,4 +59,28 @@ public class GameDBAccess implements GameDataAccess {
         }
     }
 
+    public ArrayList<String> getAllGames() throws AllGamesException{
+        try{
+            Connection dataConnection = SingletonConnection.getInstance();
+
+            String querry = "select game.name from game";
+            PreparedStatement statement = dataConnection .prepareStatement(querry);
+
+            ResultSet data = statement.executeQuery();
+            ArrayList<String> allGames = new ArrayList<>();
+
+            String game;
+            while(data.next()){
+                    game = data.getString("name");
+                    allGames.add(game);
+            }
+            return allGames;
+
+        } catch (ConnectionException connectionException){
+            throw new AllGamesException(0);
+        } catch (SQLException sqlException){
+            throw new AllGamesException(1);
+        }
+    }
+
 }
