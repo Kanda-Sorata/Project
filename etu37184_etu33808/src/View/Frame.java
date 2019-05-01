@@ -1,5 +1,13 @@
 package View;
 
+import View.CharacterPanel.DeletePanel;
+import View.CharacterPanel.DisplayPanel;
+import View.CharacterPanel.FormPanel;
+import View.CharacterPanel.ModifyPanel;
+import View.SearchPanel.EffectPanel;
+import View.SearchPanel.GamePanel;
+import View.SearchPanel.SpellPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -9,6 +17,7 @@ public class Frame extends JFrame{
 
     private JMenuBar menu;
     JMenu application;
+    JMenuItem home;
     JMenuItem exit;
     JMenu search;
     JMenuItem listGamesFromCharacter;
@@ -20,10 +29,14 @@ public class Frame extends JFrame{
     JMenuItem delete;
     JMenuItem list;
 
-    SearchPanelGeneral searchPanelGeneral;
+    GamePanel gamePanel;
+    SpellPanel spellPanel;
+    EffectPanel effectPanel;
     FormPanel formPanel;
     DeletePanel deletePanel;
     ModifyPanel modifyPanel;
+    DisplayPanel displayPanel;
+    HomePanel homePanel;
 
     public Frame(){
         //Generale
@@ -37,6 +50,10 @@ public class Frame extends JFrame{
         menu = getMenu();
         setJMenuBar(menu);
 
+        //add panel home
+        homePanel = new HomePanel();
+
+        add(homePanel);
         setVisible(true);
     }
 
@@ -49,6 +66,8 @@ public class Frame extends JFrame{
 
         // here's the part where i center the jframe on screen
         setLocationRelativeTo(null);
+
+        setResizable(false);
 
         addWindowListener(new WindowAdapter() { //Fermer la fenetre
             @Override
@@ -68,12 +87,16 @@ public class Frame extends JFrame{
 
         SearchListener searchListener = new SearchListener();
         CharacterListener characterListener = new CharacterListener();
+        ApplicationListner applicationListener = new ApplicationListner();
 
         //Appplication
         application.setMnemonic('a');
+        home = new JMenuItem("Home");
+        home.addActionListener(applicationListener);
         exit = new JMenuItem("Exit");
-        exit.addActionListener(new ExitListener());
-        exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK));
+        exit.addActionListener(applicationListener);
+        exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK));
+        application.add(home);
         application.add(exit);
 
         //Search
@@ -110,11 +133,20 @@ public class Frame extends JFrame{
         return menu;
     }
 
-    private class ExitListener implements ActionListener {
+    private class ApplicationListner implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
-            System.exit(0);
-        } //Add !connection.isClosed() => close the connection
+            if(event.getSource() == exit) {
+                System.exit(0);
+                //Add !connection.isClosed() => close the connection
+            }
+            else{
+                container.removeAll();
+                homePanel = new HomePanel();
+                container.add(homePanel);
+                setVisible(true);
+            }
+        }
     }
 
     private class SearchListener implements ActionListener{
@@ -122,17 +154,20 @@ public class Frame extends JFrame{
         public void actionPerformed(ActionEvent event) {
             container.removeAll();
           if(event.getSource() == listGamesFromCharacter){
-              searchPanelGeneral = new SearchPanelGeneral(1);
+              gamePanel = new GamePanel();
+              container.add(gamePanel);
           }
           else{
               if(event.getSource() == listSpellsCharacterFromPlayer){
-                  searchPanelGeneral = new SearchPanelGeneral(2);
+                  spellPanel = new SpellPanel();
+                  container.add(spellPanel);
               }
               else{
-                  searchPanelGeneral = new SearchPanelGeneral(3);
+                  effectPanel = new EffectPanel();
+                  container.add(effectPanel);
               }
           }
-            container.add(searchPanelGeneral);
+
           setVisible(true); //Forced to repaint the panel
         }
     }
@@ -140,23 +175,29 @@ public class Frame extends JFrame{
     public class CharacterListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
+            //Add JOPTINPANEdialogue JBomboBox pseudo & number if(non null utiliser pseudo et nuber
             container.removeAll();
             if(actionEvent.getSource() == add){
                 formPanel = new FormPanel();
+                //formPanel.setPlayer();
                 container.add(formPanel);
             }
             else{
                 if(actionEvent.getSource() == modify){
                     modifyPanel = new ModifyPanel();
+                    //modifyPanel.setPlayer();
                     container.add(modifyPanel);
                 }
                 else{
                     if(actionEvent.getSource() == delete){
                         deletePanel = new DeletePanel();
+                        //deletePanel.setPlayer();
                         container.add(deletePanel);
                     }
                     else{
-                        //TODO
+                        displayPanel = new DisplayPanel();
+                        //displayPanel.setPlayer();
+                        container.add(displayPanel);
                     }
                 }
             }

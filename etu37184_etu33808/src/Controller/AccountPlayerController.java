@@ -1,6 +1,8 @@
 package Controller;
-import BusinessLogic.*;
-import Exception.*;
+
+import BusinessLogic.AccountPlayerBusinessLogic;
+import Exception.DataAccessException;
+import Exception.DataException;
 import Model.AccountPlayer;
 
 import java.util.ArrayList;
@@ -8,14 +10,14 @@ import java.util.ArrayList;
 public class AccountPlayerController {
     private AccountPlayerBusinessLogic accountPlayerBusinessLogic;
 
-    public AccountPlayerController(AccountPlayerBusinessLogic accountPlayerBusinessLogic){
-        this.accountPlayerBusinessLogic = accountPlayerBusinessLogic;
+    public AccountPlayerController(){
+        accountPlayerBusinessLogic = new AccountPlayerBusinessLogic();
     }
-    public int getNbAccountPlayers() throws StatementException, ConnectionException {
+    public Integer getNbAccountPlayers() throws DataException, DataAccessException {
             return accountPlayerBusinessLogic.getNbAccountPlayers();
     }
 
-    public ArrayList<AccountPlayer> getAllAccountPlayer() throws StatementException, NameException, SexException, ConnectionException{
+    public ArrayList<AccountPlayer> getAllAccountPlayer() throws DataException, DataAccessException {
         return accountPlayerBusinessLogic.getAllAccountPlayer();
     }
 

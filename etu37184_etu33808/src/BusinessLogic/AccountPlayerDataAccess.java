@@ -1,11 +1,12 @@
 package BusinessLogic;
 
+import Exception.DataAccessException;
+import Exception.DataException;
 import Model.AccountPlayer;
-import Exception.*;
 
 import java.util.ArrayList;
 
 public interface AccountPlayerDataAccess {
-    int getNbAccountPlayers() throws ConnectionException, StatementException;
-    ArrayList<AccountPlayer> getAllAccountPlayer() throws NameException, SexException, ConnectionException, StatementException;
+    Integer getNbAccountPlayers() throws DataException, DataAccessException;
+    ArrayList<AccountPlayer> getAllAccountPlayer() throws DataException, DataAccessException;
 }

@@ -1,13 +1,16 @@
 package DataAccess;
+
 import BusinessLogic.AccountPlayerDataAccess;
-import Exception.*;
-import Model.*;
+import Exception.ConnectionException;
+import Exception.DataAccessException;
+import Exception.DataException;
+import Exception.SexException;
+import Model.AccountPlayer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -15,61 +18,63 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
 
     public AccountPlayerDBAccess(){}
 
-    public int getNbAccountPlayers() throws ConnectionException, StatementException {
-        Connection dataConnection = SingletonConnection.getInstance();
-        String request = "select count(*) from AccountPlayer;";
-        ResultSet data;
+    public Integer getNbAccountPlayers() throws DataException, DataAccessException {
         try {
-            PreparedStatement statement = dataConnection.prepareStatement(request);
-            data = statement.executeQuery();
-            return  data.getInt(1);
-        }
-        catch(SQLException sqlException){
-            throw new StatementException("getNbAccountPlayers", "DataAccess");
+            Connection dataConnection = SingletonConnection.getInstance();
+            String querry = "select count(*) from playeraccount;";
+            PreparedStatement statement = dataConnection.prepareStatement(querry);
+            ResultSet data = statement.executeQuery();
+            Integer nbPlayerAccount = null;
+            if(data.next()) {
+                nbPlayerAccount = data.getInt(1);
+            }
+            return nbPlayerAccount;
+        } catch (ConnectionException connexionException) {
+            throw new DataException(0);
+        } catch (SQLException sqlException) {
+            throw new DataAccessException();
         }
     }
 
-    public ArrayList<AccountPlayer> getAllAccountPlayer() throws NameException, SexException, ConnectionException, StatementException{
-        Connection dataConnection = SingletonConnection.getInstance();
-        String request = "select * from AccountPlayer where colone1 = ? and colonne2 = ? and colone3 = ? and colone4 =";
-                request += " ? and colone5 = ? and colone6 = ? and colone7 = ?;";
-        ArrayList<AccountPlayer> accountPlayers = new ArrayList<>();
-
+    public ArrayList<AccountPlayer> getAllAccountPlayer() throws DataException, DataAccessException {
         try {
-            PreparedStatement statement = dataConnection.prepareStatement(request);
-            statement.setInt(1, 100);
-            statement.setString(2, "");
-            statement.setInt(3, 100);
-            statement.setString(4, "");
-            GregorianCalendar calendar = new GregorianCalendar();
-            java.sql.Date sqlDate = new java.sql.Date(calendar.getTimeInMillis());
-            statement.setDate(5, sqlDate);
-            statement.setString(6, "");
-            statement.setString(7, "");
+            Connection dataConnection = SingletonConnection.getInstance();
+            String querry;
+            querry = "select * from playeraccount";
+
+            ArrayList<AccountPlayer> accountPlayers = new ArrayList<>();
+            PreparedStatement statement = dataConnection.prepareStatement(querry);
 
             ResultSet data = statement.executeQuery();
             AccountPlayer accountPlayer;
             String city;
-            while(data.next()){
+            String sex;
+
+            while (data.next()) {
                 accountPlayer = new AccountPlayer(data.getInt("id"), data.getString("pseudo"),
                         data.getInt("number"), data.getString("sex"), null,
                         data.getString("country"));
 
+                GregorianCalendar calendar = new GregorianCalendar();
                 java.sql.Date creationDate = data.getDate("creationDate");
-                calendar = new GregorianCalendar();
                 calendar.setTime(creationDate);
                 accountPlayer.setCreationDate(calendar);
 
                 city = data.getString("city");
-                if(!data.wasNull()){
+                if (!data.wasNull()) {
                     accountPlayer.setCity(city);
                 }
                 accountPlayers.add(accountPlayer);
             }
             return accountPlayers;
-        }
-        catch (SQLException sqlException) {
-            throw new StatementException("getAllAccountPlayer", "DataAccess");
+        } catch (ConnectionException connexionException){
+            throw new DataException(0);
+        } catch (SQLException sqlException) {
+            throw new DataAccessException();
+        } catch (SexException sexException) {
+            throw new DataException(4);
         }
     }
+
+
 }

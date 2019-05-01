@@ -1,6 +1,4 @@
-package View;
-
-import Model.Character;
+package View.CharacterPanel;
 
 import javax.swing.*;
 

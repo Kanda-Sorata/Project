@@ -1,9 +1,8 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import Exception.NameException;
 import Exception.SexException;
+
+import java.util.GregorianCalendar;
 
 public class AccountPlayer {
     private Integer id;
@@ -14,9 +13,11 @@ public class AccountPlayer {
     private String city;
     private String country;
     private static int nbPlayers = 0;
+    private final static int MIN_NUMBER = 10000;
+    private final static int MAX_NUMBER = 99999;
 
     public AccountPlayer(Integer id, String pseudo, Integer number, String sex, GregorianCalendar creationDate,
-                         String country) throws NameException, SexException {
+                         String country) throws SexException {
         setId(id);
         setPseudo(pseudo);
         setNumber(number);
@@ -39,13 +40,8 @@ public class AccountPlayer {
         return pseudo;
     }
 
-    public void setPseudo(String pseudo) throws NameException {
-        if(pseudo.matches("^[a-zA-Z0-9]")){
+    public void setPseudo(String pseudo) {
             this.pseudo = pseudo;
-        }
-        else {
-            throw new NameException(pseudo);
-        }
     }
 
     public Integer getNumber() {
@@ -56,14 +52,18 @@ public class AccountPlayer {
         this.number = number;
     }
 
+    public void setNumberInsert(){
+        this.number = MIN_NUMBER + (int)(Math.random()  * ((MAX_NUMBER - MIN_NUMBER) + 1)) + MIN_NUMBER;
+    }
+
     public String getSex() { return sex; }
 
     public void setSex(String sex) throws SexException{ //Add tolower
-        if(sex.charAt(0) != 'f' || sex.charAt(0) != 'm'){
-            throw new SexException(sex.charAt(0));
+        if(sex.equals("f") || sex.equals("m")){
+          this.sex = sex;
         }
         else {
-            this.sex = sex;
+           throw new SexException(sex.charAt(0));
         }
     }
 

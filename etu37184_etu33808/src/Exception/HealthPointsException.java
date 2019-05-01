@@ -8,6 +8,6 @@ public class HealthPointsException extends Exception {
     }
 
     public String getMessage() {
-        return unavailableHealthPoints + "";
+        return "Code 3."  + "Values :" + unavailableHealthPoints;
     }
 }

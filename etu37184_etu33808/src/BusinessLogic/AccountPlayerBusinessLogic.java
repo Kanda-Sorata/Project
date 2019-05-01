@@ -1,6 +1,8 @@
 package BusinessLogic;
-import DataAccess.*;
-import Exception.*;
+
+import DataAccess.AccountPlayerDBAccess;
+import Exception.DataAccessException;
+import Exception.DataException;
 import Model.AccountPlayer;
 
 import java.util.ArrayList;
@@ -17,15 +19,11 @@ public class AccountPlayerBusinessLogic {
         this.dao = dao;
     }
 
-    public int getNbAccountPlayers() throws StatementException, ConnectionException {
+    public Integer getNbAccountPlayers() throws DataException, DataAccessException {
         return dao.getNbAccountPlayers();
     }
 
-    public ArrayList<AccountPlayer> getAllAccountPlayer() throws StatementException, NameException, SexException, ConnectionException{
+    public ArrayList<AccountPlayer> getAllAccountPlayer() throws DataException, DataAccessException {
         return dao.getAllAccountPlayer();
     }
-
-
-
-
 }
