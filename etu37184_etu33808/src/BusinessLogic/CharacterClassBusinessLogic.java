@@ -1,8 +1,8 @@
 package BusinessLogic;
 
 import DataAccess.CharacterClassDBAccess;
-import Exception.ConflictDataException;
 import Exception.DataAccessException;
+import Exception.DataException;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ public class CharacterClassBusinessLogic {
 
     public void setDAO(CharacterClassDBAccess characterClassDBAccess){ dao = characterClassDBAccess;}
 
-    public ArrayList<String> getClassesInAGame(String game) throws ConflictDataException, DataAccessException {
+    public ArrayList<String> getClassesInAGame(String game) throws DataException, DataAccessException {
         return dao.getClassesInAGame(game);
     }
 }

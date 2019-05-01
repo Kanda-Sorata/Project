@@ -2,7 +2,7 @@ package View.CharacterPanel;
 
 import Controller.GameController;
 import Controller.ServerController;
-import Exception.ConflictDataException;
+import Exception.DataException;
 import View.SearchPanel.UtilitiesPanelMethode;
 
 import javax.swing.*;
@@ -43,8 +43,8 @@ public class FormPanel extends JPanel {
         try {
             pseudos = utilitiesPanelMethode.setPlayerAccountsPseudo();
             playerAccountCombo = new JComboBox(pseudos.toArray());
-        }catch(ConflictDataException conflictDataException){
-            JOptionPane.showMessageDialog(null, conflictDataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }catch(DataException dataException){
+            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -56,14 +56,14 @@ public class FormPanel extends JPanel {
         this.numberChoice = numberChoice;
     }
 
-    public void setGamesName(String pseudoChoice, String numberChoice) throws ConflictDataException {
+    public void setGamesName(String pseudoChoice, String numberChoice) throws DataException {
         ArrayList<String> temp = gameController.getAllGamesName(pseudoChoice, numberChoice);
         temp.add("No selection");
         int size = temp.size();
         for(int iGame = 0; iGame < size; iGame++){ games.add(temp.get(iGame)); }
     }
 
-    public void setServersName(String pseudoChoice, String numberChoice, String game) throws ConflictDataException {
+    public void setServersName(String pseudoChoice, String numberChoice, String game) throws DataException {
         ArrayList<String> temp = serverController.getAllServersName(pseudoChoice, numberChoice, game);
         temp.add("No selection");
         int size = temp.size();

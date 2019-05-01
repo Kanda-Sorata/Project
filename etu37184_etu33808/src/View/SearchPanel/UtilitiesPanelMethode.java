@@ -1,7 +1,7 @@
 package View.SearchPanel;
 
 import Controller.AccountPlayerController;
-import Exception.ConflictDataException;
+import Exception.DataException;
 import Model.AccountPlayer;
 
 import javax.swing.*;
@@ -14,7 +14,7 @@ public class UtilitiesPanelMethode {
         accountPlayerController = new AccountPlayerController();
     }
 
-    public ArrayList<String> setPlayerAccountsPseudo() throws ConflictDataException {
+    public ArrayList<String> setPlayerAccountsPseudo() throws DataException {
         ArrayList<String> playerAccounts = new ArrayList<>();
         Integer nbMaxPlayer = accountPlayerController.getNbAccountPlayers();
         ArrayList<AccountPlayer> players = accountPlayerController.getAllAccountPlayer();

@@ -1,9 +1,9 @@
 package DataAccess;
 
 import BusinessLogic.GameDataAccess;
-import Exception.ConflictDataException;
 import Exception.ConnectionException;
 import Exception.DataAccessException;
+import Exception.DataException;
 import Model.SearchGameList;
 
 import java.sql.Connection;
@@ -18,7 +18,7 @@ import java.util.GregorianCalendar;
 public class GameDBAccess implements GameDataAccess {
 
     public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, String number, String character,
-                                        GregorianCalendar dateEnd) throws ConflictDataException, DataAccessException{
+                                        GregorianCalendar dateEnd) throws DataException, DataAccessException{
         try {
             Connection dataConnection = SingletonConnection.getInstance();
 
@@ -57,13 +57,13 @@ public class GameDBAccess implements GameDataAccess {
             return searchGameLists;
 
         }catch (ConnectionException connectionException){
-            throw new ConflictDataException(0);
+            throw new DataException(0);
         } catch (SQLException sqlException) {
             throw new DataAccessException();
         }
     }
 
-    public ArrayList<String> getAllGames() throws ConflictDataException, DataAccessException{
+    public ArrayList<String> getAllGames() throws DataException, DataAccessException{
         try{
             Connection dataConnection = SingletonConnection.getInstance();
 
@@ -81,7 +81,7 @@ public class GameDBAccess implements GameDataAccess {
             return allGames;
 
         } catch (ConnectionException connectionException){
-            throw new ConflictDataException(0);
+            throw new DataException(0);
         } catch (SQLException sqlException){
             throw new DataAccessException();
         }

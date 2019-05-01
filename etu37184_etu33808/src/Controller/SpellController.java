@@ -1,7 +1,8 @@
 package Controller;
 
 import BusinessLogic.SpellBusinessLogic;
-import Exception.ConflictDataException;
+import Exception.DataAccessException;
+import Exception.DataException;
 import Model.SearchSpellList;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class SpellController {
         spellBusinessLogic = new SpellBusinessLogic();
     }
 
-    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, String numberChoice)throws ConflictDataException {
+    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, String numberChoice)throws DataException, DataAccessException {
         return spellBusinessLogic.getSearchSpellList(pseudoChoice, numberChoice);
     }
 }

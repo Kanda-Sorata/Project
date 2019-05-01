@@ -2,7 +2,7 @@ package View.SearchPanel;
 
 import Controller.CharacterClassController;
 import Controller.GameController;
-import Exception.ConflictDataException;
+import Exception.DataException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -63,8 +63,8 @@ public class SearchEffectPanel extends JPanel {
             add(characterClassLabel);
             add(characterClassCombo);
 
-        } catch (ConflictDataException conflictDataException){
-            JOptionPane.showMessageDialog(null, conflictDataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (DataException dataException){
+            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -83,8 +83,8 @@ public class SearchEffectPanel extends JPanel {
                         characterClassCombo.setModel(new DefaultComboBoxModel(characterClasses.toArray()));
                         repaint();
                         characterClassCombo.setEnabled(true);
-                    } catch (ConflictDataException conflictDataException) {
-                        JOptionPane.showMessageDialog(null, conflictDataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    } catch (DataException dataException) {
+                        JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             } else{

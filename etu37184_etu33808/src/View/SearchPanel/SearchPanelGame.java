@@ -3,7 +3,7 @@ package View.SearchPanel;
 
 import Controller.AccountPlayerController;
 import Controller.CharacterController;
-import Exception.ConflictDataException;
+import Exception.DataException;
 import Model.Character;
 
 import javax.swing.*;
@@ -53,7 +53,7 @@ public class SearchPanelGame extends JPanel {
     private JButton validation;
     private ButtonListener buttonListener;
 
-    public SearchPanelGame(GamePanel gamePanel)throws ConflictDataException {
+    public SearchPanelGame(GamePanel gamePanel)throws DataException {
         this.gamePanel = gamePanel;
         accountPlayerController = new AccountPlayerController();
         characterController = new CharacterController();
@@ -155,7 +155,7 @@ public class SearchPanelGame extends JPanel {
         this.dateChoice = dateChoice;
     }
 
-    public void setCharacterName() throws ConflictDataException {
+    public void setCharacterName() throws DataException {
         characters = characterController.getAllCharacter(pseudoChoice, numberChoice);
         if(characters.size() > 0) {
             characterNames = new String[characters.size()+1];
@@ -179,8 +179,8 @@ public class SearchPanelGame extends JPanel {
                         characterNameCombo.setModel(new DefaultComboBoxModel(characterNames));
                         repaint();
                     }
-                } catch (ConflictDataException conflictDataException) {
-                    JOptionPane.showMessageDialog(null, conflictDataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (DataException dataException) {
+                    JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 characterNameCombo.setEnabled(true);
             }
@@ -222,8 +222,8 @@ public class SearchPanelGame extends JPanel {
                 if(getPseudoChoice() != null && getCharacterNameChoice() != null && dateEndSpinner.getValue() != null) {
                     gamePanel.setJtable();
                 }
-            }catch(ConflictDataException conflictDataException){
-                JOptionPane.showMessageDialog(null, conflictDataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }catch(DataException dataException){
+                JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

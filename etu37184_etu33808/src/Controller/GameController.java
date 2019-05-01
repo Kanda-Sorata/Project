@@ -1,7 +1,8 @@
 package Controller;
 
 import BusinessLogic.GameBusinessLogic;
-import Exception.ConflictDataException;
+import Exception.DataAccessException;
+import Exception.DataException;
 import Model.SearchGameList;
 
 import java.util.ArrayList;
@@ -14,15 +15,15 @@ public class GameController {
         gameBusinessLogic = new GameBusinessLogic();
     }
 
-    public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, String number, String character, GregorianCalendar dateEnd) throws ConflictDataException {
+    public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, String number, String character, GregorianCalendar dateEnd) throws DataException, DataAccessException{
         return gameBusinessLogic.getSearchAllGamesListCharacter(pseudo, number, character, dateEnd);
     }
 
-    public ArrayList<String> getAllGamesName(String pseudoChoice, String numberChoice)throws ConflictDataException {
+    public ArrayList<String> getAllGamesName(String pseudoChoice, String numberChoice)throws DataException, DataAccessException {
         return gameBusinessLogic.getAllGamesName(pseudoChoice, numberChoice);
     }
 
-    public ArrayList<String> getAllGames()throws ConflictDataException {
+    public ArrayList<String> getAllGames()throws DataException, DataAccessException {
         return gameBusinessLogic.getAllGames();
     }
 }

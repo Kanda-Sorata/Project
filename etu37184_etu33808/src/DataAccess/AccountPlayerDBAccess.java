@@ -1,9 +1,9 @@
 package DataAccess;
 
 import BusinessLogic.AccountPlayerDataAccess;
-import Exception.ConflictDataException;
 import Exception.ConnectionException;
 import Exception.DataAccessException;
+import Exception.DataException;
 import Exception.SexException;
 import Model.AccountPlayer;
 
@@ -18,7 +18,7 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
 
     public AccountPlayerDBAccess(){}
 
-    public Integer getNbAccountPlayers() throws ConflictDataException, DataAccessException {
+    public Integer getNbAccountPlayers() throws DataException, DataAccessException {
         try {
             Connection dataConnection = SingletonConnection.getInstance();
             String querry = "select count(*) from playeraccount;";
@@ -30,13 +30,13 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
             }
             return nbPlayerAccount;
         } catch (ConnectionException connexionException) {
-            throw new ConflictDataException(0);
+            throw new DataException(0);
         } catch (SQLException sqlException) {
             throw new DataAccessException();
         }
     }
 
-    public ArrayList<AccountPlayer> getAllAccountPlayer() throws  ConflictDataException, DataAccessException {
+    public ArrayList<AccountPlayer> getAllAccountPlayer() throws DataException, DataAccessException {
         try {
             Connection dataConnection = SingletonConnection.getInstance();
             String querry;
@@ -68,11 +68,11 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
             }
             return accountPlayers;
         } catch (ConnectionException connexionException){
-            throw new ConflictDataException(0);
+            throw new DataException(0);
         } catch (SQLException sqlException) {
             throw new DataAccessException();
         } catch (SexException sexException) {
-            throw new ConflictDataException(4);
+            throw new DataException(4);
         }
     }
 

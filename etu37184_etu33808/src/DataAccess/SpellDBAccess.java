@@ -1,9 +1,9 @@
 package DataAccess;
 
 import BusinessLogic.SpellDataAccess;
-import Exception.ConflictDataException;
 import Exception.ConnectionException;
 import Exception.DataAccessException;
+import Exception.DataException;
 import Model.SearchSpellList;
 
 import java.sql.Connection;
@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SpellDBAccess implements SpellDataAccess {
-    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, String numberChoice)throws ConflictDataException,DataAccessException{
+    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, String numberChoice)throws DataException,DataAccessException{
         try {
             Connection connection = SingletonConnection.getInstance();
 
@@ -49,7 +49,7 @@ public class SpellDBAccess implements SpellDataAccess {
             }
             return searchSpellLists;
         }catch(ConnectionException connectionEwception){
-            throw new ConflictDataException(0);
+            throw new DataException(0);
         }catch(SQLException sqlException){
             throw new DataAccessException();
         }

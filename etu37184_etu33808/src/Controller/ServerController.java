@@ -1,7 +1,8 @@
 package Controller;
 
 import BusinessLogic.ServerBusinessLogic;
-import Exception.ConflictDataException;
+import Exception.DataAccessException;
+import Exception.DataException;
 
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ public class ServerController {
         this.serverBusinessLogic = new ServerBusinessLogic();
     }
 
-    public ArrayList<String> getAllServersName(String pseudoChoice, String numberChoice, String game) throws ConflictDataException {
+    public ArrayList<String> getAllServersName(String pseudoChoice, String numberChoice, String game) throws DataException, DataAccessException {
         return serverBusinessLogic.getAllServersName(pseudoChoice, numberChoice, game);
     }
 

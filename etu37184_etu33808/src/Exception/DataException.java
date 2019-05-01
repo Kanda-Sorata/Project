@@ -1,9 +1,9 @@
 package Exception;
 
-public class ConflictDataException extends Exception {
+public class DataException extends Exception {
     private int code;
 
-    public ConflictDataException(int code) {
+    public DataException(int code) {
         this.code = code;
     } //0 : connection, 2 : HealthPoint, 3 : NameException 4 : SexException, 5 : UniqueNameException, 6 : DamagePerSecond
 

@@ -1,8 +1,8 @@
 package BusinessLogic;
 
 import DataAccess.GameDBAccess;
-import Exception.ConflictDataException;
 import Exception.DataAccessException;
+import Exception.DataException;
 import Model.SearchGameList;
 
 import java.util.ArrayList;
@@ -20,14 +20,14 @@ public class GameBusinessLogic implements GameDataAccess {
         this.dao = dao;
     }
 
-    public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, String number, String character, GregorianCalendar dateEnd) throws ConflictDataException, DataAccessException {
+    public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, String number, String character, GregorianCalendar dateEnd) throws DataException, DataAccessException {
         return dao.getSearchAllGamesListCharacter(pseudo, number, character, dateEnd);
     }
 
-    public ArrayList<String> getAllGamesName(String pseudoChoice, String numberChoice) throws ConflictDataException, DataAccessException {
+    public ArrayList<String> getAllGamesName(String pseudoChoice, String numberChoice) throws DataException, DataAccessException {
         return dao.getAllGamesName(pseudoChoice, numberChoice);
     }
-    public ArrayList<String> getAllGames()throws ConflictDataException, DataAccessException {
+    public ArrayList<String> getAllGames()throws DataException, DataAccessException {
         return dao.getAllGames();
     }
 }

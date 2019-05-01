@@ -1,8 +1,8 @@
 package BusinessLogic;
 
 import DataAccess.CharacterDBAccess;
-import Exception.ConflictDataException;
 import Exception.DataAccessException;
+import Exception.DataException;
 import Model.Character;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class CharacterBusinessLogic {
         this.dao = dao;
     }
 
-    public ArrayList<Character> getAllCharacter(String pseudo, String number) throws ConflictDataException, DataAccessException {
+    public ArrayList<Character> getAllCharacter(String pseudo, String number) throws DataException, DataAccessException {
         return dao.getAllCharacter(pseudo, number);
     }
 }

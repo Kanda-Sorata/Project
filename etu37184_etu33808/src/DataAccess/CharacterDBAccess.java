@@ -14,7 +14,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
 
     public CharacterDBAccess(){}
 
-    public ArrayList<Character> getAllCharacter(String pseudo, String number) throws ConflictDataException, DataAccessException {
+    public ArrayList<Character> getAllCharacter(String pseudo, String number) throws DataException, DataAccessException {
         try {
             Connection dataConnection = SingletonConnection.getInstance();
             String querry = "select name, healthPoint, isStuffed, creationDate, petName, damagePerSecond ";
@@ -57,11 +57,11 @@ public class CharacterDBAccess implements CharacterDataAccess {
         } catch (ConnectionException connexionException) {
             throw new DataAccessException();
         } catch (SQLException sqlException) {
-            throw new ConflictDataException(0);
+            throw new DataException(0);
         } catch (HealthPointsException healthPointsException) {
-            throw new ConflictDataException(2);
+            throw new DataException(2);
         } catch (DamagePerSecondException damagePerSecondException) {
-            throw new ConflictDataException(6);
+            throw new DataException(6);
         }
     }
 }
