@@ -1,4 +1,4 @@
-package View;
+package View.SearchPanel;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;

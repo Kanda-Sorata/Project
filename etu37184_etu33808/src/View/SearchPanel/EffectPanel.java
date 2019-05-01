@@ -1,4 +1,4 @@
-package View;
+package View.SearchPanel;
 
 import javax.swing.*;
 import java.awt.*;

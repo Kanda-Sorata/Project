@@ -1,4 +1,4 @@
-package View;
+package View.SearchPanel;
 
 import Controller.AccountPlayerController;
 import Exception.AllAccountException;
@@ -17,14 +17,14 @@ public class UtilitiesPanelMethode {
         accountPlayerController = new AccountPlayerController();
     }
 
-    public String [] setPseudos() throws NbAccountException, AllAccountException{
-        String [] playerAccounts;
+    public ArrayList<String> setPseudos() throws NbAccountException, AllAccountException{
+        ArrayList<String> playerAccounts = new ArrayList<>();
         Integer nbMaxPlayer = accountPlayerController.getNbAccountPlayers();
         ArrayList<AccountPlayer> players = accountPlayerController.getAllAccountPlayer();
-        playerAccounts = new String[nbMaxPlayer+1];
-        playerAccounts[0] = "No selection";
+        playerAccounts.add("No selection");
+
         for (int iPseudo = 0; iPseudo < nbMaxPlayer; iPseudo++) {
-            playerAccounts[iPseudo+1] = players.get(iPseudo).getPseudo() + "#" + players.get(iPseudo).getNumber();
+           playerAccounts.add(players.get(iPseudo).getPseudo() + "#" + players.get(iPseudo).getNumber());
         }
         return playerAccounts;
     }

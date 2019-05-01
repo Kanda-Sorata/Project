@@ -1,4 +1,4 @@
-package View;
+package View.SearchPanel;
 
 import Controller.GameController;
 import javax.swing.*;

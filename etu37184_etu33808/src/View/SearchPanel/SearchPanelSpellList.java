@@ -1,6 +1,4 @@
-package View;
-
-import Controller.AccountPlayerController;
+package View.SearchPanel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

@@ -1,5 +1,13 @@
 package View;
 
+import View.CharacterPanel.DeletePanel;
+import View.CharacterPanel.DisplayPanel;
+import View.CharacterPanel.ModifyPanel;
+import View.CharacterPanel.FormPanel;
+import View.SearchPanel.GamePanel;
+import View.SearchPanel.ResultEffectPanel;
+import View.SearchPanel.SpellPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -9,6 +17,7 @@ public class Frame extends JFrame{
 
     private JMenuBar menu;
     JMenu application;
+    JMenuItem home;
     JMenuItem exit;
     JMenu search;
     JMenuItem listGamesFromCharacter;
@@ -27,6 +36,7 @@ public class Frame extends JFrame{
     DeletePanel deletePanel;
     ModifyPanel modifyPanel;
     DisplayPanel displayPanel;
+    HomePanel homePanel;
 
     public Frame(){
         //Generale
@@ -40,6 +50,10 @@ public class Frame extends JFrame{
         menu = getMenu();
         setJMenuBar(menu);
 
+        //add panel home
+        homePanel = new HomePanel();
+
+        add(homePanel);
         setVisible(true);
     }
 
@@ -73,12 +87,16 @@ public class Frame extends JFrame{
 
         SearchListener searchListener = new SearchListener();
         CharacterListener characterListener = new CharacterListener();
+        ApplicationListner applicationListener = new ApplicationListner();
 
         //Appplication
         application.setMnemonic('a');
+        home = new JMenuItem("Home");
+        home.addActionListener(applicationListener);
         exit = new JMenuItem("Exit");
-        exit.addActionListener(new ExitListener());
-        exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK));
+        exit.addActionListener(applicationListener);
+        exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK));
+        application.add(home);
         application.add(exit);
 
         //Search
@@ -115,11 +133,20 @@ public class Frame extends JFrame{
         return menu;
     }
 
-    private class ExitListener implements ActionListener {
+    private class ApplicationListner implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
-            System.exit(0);
-        } //Add !connection.isClosed() => close the connection
+            if(event.getSource() == exit) {
+                System.exit(0);
+                //Add !connection.isClosed() => close the connection
+            }
+            else{
+                container.removeAll();
+                homePanel = new HomePanel();
+                container.add(homePanel);
+                setVisible(true);
+            }
+        }
     }
 
     private class SearchListener implements ActionListener{

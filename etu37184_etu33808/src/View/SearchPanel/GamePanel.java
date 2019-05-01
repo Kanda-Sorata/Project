@@ -1,10 +1,9 @@
-package View;
+package View.SearchPanel;
 
 import Controller.GameController;
 
 import Exception.*;
 import Model.SearchGameList;
-import com.mysql.cj.exceptions.DeadlockTimeoutRollbackMarker;
 
 import javax.swing.*;
 import java.awt.*;
