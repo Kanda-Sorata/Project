@@ -2,7 +2,6 @@ package Model;
 
 import Exception.DamagePerSecondException;
 import Exception.HealthPointsException;
-import Exception.NameException;
 
 import java.util.GregorianCalendar;
 

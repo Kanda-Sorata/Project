@@ -1,7 +1,7 @@
 package Controller;
 
 import BusinessLogic.CharacterClassBusinessLogic;
-import Exception.AllCommonException;
+import Exception.ConflictDataException;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,7 @@ public class CharacterClassController {
 
     public CharacterClassController(){characterClassBusinessLogic = new CharacterClassBusinessLogic();}
 
-    public ArrayList<String> getClassesInAGame(String game) throws AllCommonException {
+    public ArrayList<String> getClassesInAGame(String game) throws ConflictDataException {
         return characterClassBusinessLogic.getClassesInAGame(game);
     }
 }

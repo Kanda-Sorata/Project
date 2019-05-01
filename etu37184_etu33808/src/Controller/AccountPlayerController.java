@@ -1,8 +1,7 @@
 package Controller;
 
 import BusinessLogic.AccountPlayerBusinessLogic;
-import Exception.AllAccountException;
-import Exception.NbAccountException;
+import Exception.ConflictDataException;
 import Model.AccountPlayer;
 
 import java.util.ArrayList;
@@ -13,11 +12,11 @@ public class AccountPlayerController {
     public AccountPlayerController(){
         accountPlayerBusinessLogic = new AccountPlayerBusinessLogic();
     }
-    public Integer getNbAccountPlayers() throws NbAccountException{
+    public Integer getNbAccountPlayers() throws ConflictDataException {
             return accountPlayerBusinessLogic.getNbAccountPlayers();
     }
 
-    public ArrayList<AccountPlayer> getAllAccountPlayer() throws AllAccountException{
+    public ArrayList<AccountPlayer> getAllAccountPlayer() throws ConflictDataException {
         return accountPlayerBusinessLogic.getAllAccountPlayer();
     }
 

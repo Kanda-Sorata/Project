@@ -1,8 +1,7 @@
 package View.SearchPanel;
 
 import Controller.GameController;
-
-import Exception.*;
+import Exception.ConflictDataException;
 import Model.SearchGameList;
 
 import javax.swing.*;
@@ -29,18 +28,16 @@ public class GamePanel extends JPanel {
             table = utilitiesPanelMethode.getJTableModelBlank();
             scrollPane = new JScrollPane(table);
             add(table);
-        } catch (NbAccountException nbAccountException) {
-            JOptionPane.showMessageDialog(null, nbAccountException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (AllAccountException allAccountException) {
-            JOptionPane.showMessageDialog(null, allAccountException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (ConflictDataException conflictDataException) {
+            JOptionPane.showMessageDialog(null, conflictDataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, String number, String character, GregorianCalendar dateEnd) throws AllGamesException {
+    public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, String number, String character, GregorianCalendar dateEnd) throws ConflictDataException {
         return gameController.getSearchAllGamesListCharacter(pseudo, number, character, dateEnd);
     }
 
-    public void setJtable() throws AllGamesException{
+    public void setJtable() throws ConflictDataException {
         searchAllGamesListCharacter = getSearchAllGamesListCharacter(searchPanelGame.getPseudoChoice(), searchPanelGame.getNumberChoice(), searchPanelGame.getCharacterNameChoice(), searchPanelGame.getDateEnd());
         AllGamesFromCharacterModel model = new AllGamesFromCharacterModel(searchAllGamesListCharacter);
         remove(table);

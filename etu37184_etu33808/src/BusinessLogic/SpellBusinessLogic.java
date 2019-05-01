@@ -1,6 +1,8 @@
 package BusinessLogic;
 
 import DataAccess.SpellDBAccess;
+import Exception.ConflictDataException;
+import Exception.DataAccessException;
 import Model.SearchSpellList;
 
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ public class SpellBusinessLogic {
     public void setDAO(SpellDataAccess dao){
         this.dao = dao;
     }
-    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, String numberChoice) throws AllCommonException {
+    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, String numberChoice) throws ConflictDataException, DataAccessException {
         return  dao.getSearchSpellList(pseudoChoice, numberChoice);
     }
 }

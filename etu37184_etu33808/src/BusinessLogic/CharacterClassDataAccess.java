@@ -1,9 +1,10 @@
 package BusinessLogic;
 
-import Exception.AllCommonException;
+import Exception.ConflictDataException;
+import Exception.DataAccessException;
 
 import java.util.ArrayList;
 
 public interface CharacterClassDataAccess {
-    ArrayList<String> getClassesInAGame(String game) throws AllCommonException;
+    ArrayList<String> getClassesInAGame(String game) throws ConflictDataException, DataAccessException;
 }

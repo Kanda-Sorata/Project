@@ -1,13 +1,10 @@
 package View.SearchPanel;
 
 import Controller.AccountPlayerController;
-import Exception.AllAccountException;
-import Exception.NbAccountException;
+import Exception.ConflictDataException;
 import Model.AccountPlayer;
 
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
-import java.rmi.NotBoundException;
 import java.util.ArrayList;
 
 public class UtilitiesPanelMethode {
@@ -17,7 +14,7 @@ public class UtilitiesPanelMethode {
         accountPlayerController = new AccountPlayerController();
     }
 
-    public ArrayList<String> setPlayerAccountsPseudo() throws NbAccountException, AllAccountException{
+    public ArrayList<String> setPlayerAccountsPseudo() throws ConflictDataException {
         ArrayList<String> playerAccounts = new ArrayList<>();
         Integer nbMaxPlayer = accountPlayerController.getNbAccountPlayers();
         ArrayList<AccountPlayer> players = accountPlayerController.getAllAccountPlayer();

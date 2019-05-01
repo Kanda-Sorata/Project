@@ -2,11 +2,10 @@ package View;
 
 import View.CharacterPanel.DeletePanel;
 import View.CharacterPanel.DisplayPanel;
-import View.CharacterPanel.ModifyPanel;
 import View.CharacterPanel.FormPanel;
+import View.CharacterPanel.ModifyPanel;
 import View.SearchPanel.EffectPanel;
 import View.SearchPanel.GamePanel;
-import View.SearchPanel.ResultEffectPanel;
 import View.SearchPanel.SpellPanel;
 
 import javax.swing.*;

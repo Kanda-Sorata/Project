@@ -1,6 +1,5 @@
 package Model;
 
-import Exception.NameException;
 import Exception.SexException;
 
 import java.util.GregorianCalendar;

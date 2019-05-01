@@ -1,14 +1,14 @@
 package View.SearchPanel;
 
-import Controller.AccountPlayerController;
 //todo changer les tableaux et mettre arraylist.toArray()
+
+import Exception.ConflictDataException;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import Exception.*;
 
 
 public class SearchPanelSpell extends JPanel {
@@ -22,7 +22,7 @@ public class SearchPanelSpell extends JPanel {
     private UtilitiesPanelMethode utilitiesPanelMethode;
     private SpellPanel spellPanel;
 
-    public SearchPanelSpell(SpellPanel spellPanel) throws AllAccountException, NbAccountException{
+    public SearchPanelSpell(SpellPanel spellPanel) throws ConflictDataException {
         utilitiesPanelMethode = new UtilitiesPanelMethode();
         this.spellPanel = spellPanel;
 
@@ -66,8 +66,8 @@ public class SearchPanelSpell extends JPanel {
                 setNumberChoice(pseudos[playerAccountCombo.getSelectedIndex()].split("#")[1]);
                 try {
                     spellPanel.setJtable();
-                }catch(AllSpellsException allSpellsException) {
-                    JOptionPane.showMessageDialog(null, allSpellsException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }catch(ConflictDataException conflictDataException) {
+                    JOptionPane.showMessageDialog(null, conflictDataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }

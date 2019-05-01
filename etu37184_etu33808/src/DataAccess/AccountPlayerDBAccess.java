@@ -1,8 +1,9 @@
 package DataAccess;
 
 import BusinessLogic.AccountPlayerDataAccess;
-import Exception.AllCommonException;
+import Exception.ConflictDataException;
 import Exception.ConnectionException;
+import Exception.DataAccessException;
 import Exception.SexException;
 import Model.AccountPlayer;
 
@@ -17,7 +18,7 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
 
     public AccountPlayerDBAccess(){}
 
-    public Integer getNbAccountPlayers() throws AllCommonException {
+    public Integer getNbAccountPlayers() throws ConflictDataException, DataAccessException {
         try {
             Connection dataConnection = SingletonConnection.getInstance();
             String querry = "select count(*) from playeraccount;";
@@ -29,13 +30,13 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
             }
             return nbPlayerAccount;
         } catch (ConnectionException connexionException) {
-            throw new AllCommonException(0);
+            throw new ConflictDataException(0);
         } catch (SQLException sqlException) {
-            throw new AllCommonException(1);
+            throw new DataAccessException();
         }
     }
 
-    public ArrayList<AccountPlayer> getAllAccountPlayer() throws AllAccountException {
+    public ArrayList<AccountPlayer> getAllAccountPlayer() throws  ConflictDataException, DataAccessException {
         try {
             Connection dataConnection = SingletonConnection.getInstance();
             String querry;
@@ -67,11 +68,11 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
             }
             return accountPlayers;
         } catch (ConnectionException connexionException){
-            throw new AllAccountException(0);
+            throw new ConflictDataException(0);
         } catch (SQLException sqlException) {
-            throw new AllAccountException(0, sqlException.getMessage());
+            throw new DataAccessException();
         } catch (SexException sexException) {
-            throw new AllAccountException(2);
+            throw new ConflictDataException(4);
         }
     }
 

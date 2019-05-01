@@ -1,7 +1,9 @@
 package DataAccess;
 
 import BusinessLogic.GameDataAccess;
+import Exception.ConflictDataException;
 import Exception.ConnectionException;
+import Exception.DataAccessException;
 import Model.SearchGameList;
 
 import java.sql.Connection;
@@ -16,7 +18,7 @@ import java.util.GregorianCalendar;
 public class GameDBAccess implements GameDataAccess {
 
     public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, String number, String character,
-                                                                    GregorianCalendar dateEnd) throws AllGamesException{
+                                        GregorianCalendar dateEnd) throws ConflictDataException, DataAccessException{
         try {
             Connection dataConnection = SingletonConnection.getInstance();
 
@@ -55,41 +57,13 @@ public class GameDBAccess implements GameDataAccess {
             return searchGameLists;
 
         }catch (ConnectionException connectionException){
-            throw new AllGamesException(0);
-        }catch (SQLException sqlException) {
-            throw new AllGamesException(1);
+            throw new ConflictDataException(0);
+        } catch (SQLException sqlException) {
+            throw new DataAccessException();
         }
     }
 
-    public ArrayList<String> getAllGamesName(String pseudoChoice, String numberChoice) throws AllGamesException{
-        try{
-            Connection dataConnection = SingletonConnection.getInstance();
-
-            String querry = "select game.name from game, playeraccount where playeraccount.id = ";
-                   querry += "(select id from playeraccount where pseudo = ? and `number` = ?)";
-
-            PreparedStatement statement = dataConnection.prepareStatement(querry);
-
-            statement.setString(1, pseudoChoice);
-            statement.setString(2, numberChoice);
-
-            ResultSet data = statement.executeQuery();
-            ArrayList<String> gamesName = new ArrayList<>();
-
-            while(data.next()){
-                gamesName.add(data.getString("name"));
-            }
-
-            return gamesName;
-
-        }catch (ConnectionException connectionException){
-            throw new AllGamesException(0);
-        }catch (SQLException sqlException) {
-            throw new AllGamesException(1);
-        }
-    }
-
-    public ArrayList<String> getAllGames() throws AllGamesException{
+    public ArrayList<String> getAllGames() throws ConflictDataException, DataAccessException{
         try{
             Connection dataConnection = SingletonConnection.getInstance();
 
@@ -107,9 +81,9 @@ public class GameDBAccess implements GameDataAccess {
             return allGames;
 
         } catch (ConnectionException connectionException){
-            throw new AllGamesException(0);
+            throw new ConflictDataException(0);
         } catch (SQLException sqlException){
-            throw new AllGamesException(1);
+            throw new DataAccessException();
         }
     }
 

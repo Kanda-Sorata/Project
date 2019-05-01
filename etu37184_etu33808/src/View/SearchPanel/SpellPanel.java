@@ -1,7 +1,7 @@
 package View.SearchPanel;
 
 import Controller.SpellController;
-import Exception.*;
+import Exception.ConflictDataException;
 import Model.SearchSpellList;
 
 import javax.swing.*;
@@ -27,18 +27,16 @@ public class SpellPanel extends JPanel {
             scrollPane = new JScrollPane(table);
             add(searchPanelSpell);
             add(table);
-        }catch(NbAccountException nbAccountException){
-            JOptionPane.showMessageDialog(null, nbAccountException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }catch (AllAccountException allAccountException){
-            JOptionPane.showMessageDialog(null, allAccountException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }catch(ConflictDataException conflictDataException){
+            JOptionPane.showMessageDialog(null, conflictDataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, String numberChoice)throws AllSpellsException{
+    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, String numberChoice)throws ConflictDataException {
         return spellController.getSearchSpellList(pseudoChoice, numberChoice);
     }
 
-    public void setJtable() throws AllSpellsException{
+    public void setJtable() throws ConflictDataException {
         searchSpellLists = getSearchSpellList(searchPanelSpell.getPseudoChoice(), searchPanelSpell.getNumberChoice());
         AllSpellsListFromPlayerModel model = new AllSpellsListFromPlayerModel(searchSpellLists);
         remove(table);

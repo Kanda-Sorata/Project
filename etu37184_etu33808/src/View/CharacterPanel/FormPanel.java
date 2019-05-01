@@ -1,13 +1,13 @@
 package View.CharacterPanel;
 
 import Controller.GameController;
+import Controller.ServerController;
+import Exception.ConflictDataException;
 import View.SearchPanel.UtilitiesPanelMethode;
 
 import javax.swing.*;
-import Exception.*;
-import com.mysql.cj.admin.ServerController;
-
 import java.util.ArrayList;
+
 
 public class FormPanel extends JPanel {
     private JComboBox playerAccountCombo;
@@ -43,13 +43,8 @@ public class FormPanel extends JPanel {
         try {
             pseudos = utilitiesPanelMethode.setPlayerAccountsPseudo();
             playerAccountCombo = new JComboBox(pseudos.toArray());
-
-
-
-        }catch(NbAccountException nbAccountException){
-            JOptionPane.showMessageDialog(null, nbAccountException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }catch(AllAccountException allAccountException){
-            JOptionPane.showMessageDialog(null, allAccountException.getMessage(), "Errot", JOptionPane.ERROR_MESSAGE);
+        }catch(ConflictDataException conflictDataException){
+            JOptionPane.showMessageDialog(null, conflictDataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -61,15 +56,15 @@ public class FormPanel extends JPanel {
         this.numberChoice = numberChoice;
     }
 
-    public void setGamesName(String pseudoChoice, String numberChoice) throws AllGamesException {
+    public void setGamesName(String pseudoChoice, String numberChoice) throws ConflictDataException {
         ArrayList<String> temp = gameController.getAllGamesName(pseudoChoice, numberChoice);
         temp.add("No selection");
         int size = temp.size();
         for(int iGame = 0; iGame < size; iGame++){ games.add(temp.get(iGame)); }
     }
 
-    public void setServersName(String pseudoChoice, String numberChoice, String Game) throws AllServerException {
-        ArrayList<String> temp = serverController.getAllServersName(pseudoChoice, numberChoice);
+    public void setServersName(String pseudoChoice, String numberChoice, String game) throws ConflictDataException {
+        ArrayList<String> temp = serverController.getAllServersName(pseudoChoice, numberChoice, game);
         temp.add("No selection");
         int size = temp.size();
         for(int iServer = 0; iServer < size; iServer++){ servers.add(temp.get(iServer)); }

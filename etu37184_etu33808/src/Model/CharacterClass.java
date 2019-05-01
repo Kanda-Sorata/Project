@@ -1,7 +1,5 @@
 package Model;
 
-import Exception.NameException;
-
 public class CharacterClass {
     private String name;
     private String description;

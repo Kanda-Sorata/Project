@@ -1,9 +1,9 @@
 package View.SearchPanel;
 //todo changer les tableaux et mettre arraylist.toArray()
+
 import Controller.AccountPlayerController;
 import Controller.CharacterController;
-import Exception.AllAccountException;
-import Exception.NbAccountException;
+import Exception.ConflictDataException;
 import Model.Character;
 
 import javax.swing.*;
@@ -53,7 +53,7 @@ public class SearchPanelGame extends JPanel {
     private JButton validation;
     private ButtonListener buttonListener;
 
-    public SearchPanelGame(GamePanel gamePanel)throws NbAccountException, AllAccountException {
+    public SearchPanelGame(GamePanel gamePanel)throws ConflictDataException {
         this.gamePanel = gamePanel;
         accountPlayerController = new AccountPlayerController();
         characterController = new CharacterController();
@@ -155,7 +155,7 @@ public class SearchPanelGame extends JPanel {
         this.dateChoice = dateChoice;
     }
 
-    public void setCharacterName() throws AllCharacterException {
+    public void setCharacterName() throws ConflictDataException {
         characters = characterController.getAllCharacter(pseudoChoice, numberChoice);
         if(characters.size() > 0) {
             characterNames = new String[characters.size()+1];
@@ -179,8 +179,8 @@ public class SearchPanelGame extends JPanel {
                         characterNameCombo.setModel(new DefaultComboBoxModel(characterNames));
                         repaint();
                     }
-                } catch (AllCharacterException allCharcacter) {
-                    JOptionPane.showMessageDialog(null, allCharcacter.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (ConflictDataException conflictDataException) {
+                    JOptionPane.showMessageDialog(null, conflictDataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 characterNameCombo.setEnabled(true);
             }
@@ -222,8 +222,8 @@ public class SearchPanelGame extends JPanel {
                 if(getPseudoChoice() != null && getCharacterNameChoice() != null && dateEndSpinner.getValue() != null) {
                     gamePanel.setJtable();
                 }
-            }catch(AllGamesException allGameException){
-                JOptionPane.showMessageDialog(null, allGameException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }catch(ConflictDataException conflictDataException){
+                JOptionPane.showMessageDialog(null, conflictDataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

@@ -1,6 +1,7 @@
 package Controller;
 
 import BusinessLogic.CharacterBusinessLogic;
+import Exception.ConflictDataException;
 import Model.Character;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class CharacterController {
         this.characterBusinessLogic = characterBusinessLogic;
     }
 
-    public ArrayList<Character> getAllCharacter(String pseudo, String number) throws AllCharacterException{
+    public ArrayList<Character> getAllCharacter(String pseudo, String number) throws ConflictDataException {
         return characterBusinessLogic.getAllCharacter(pseudo, number);
     }
 }

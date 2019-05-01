@@ -1,21 +1,19 @@
 package Model;
 
-import Exception.NameException;
-
 public class Spell {
     private String name;
     private Integer cooldown;
     private boolean atRange;
     private Integer damageValue;
 
-    public Spell(String name, Integer cooldown, boolean atRange, Integer damageValue) throws NameException{
+    public Spell(String name, Integer cooldown, boolean atRange, Integer damageValue) {
         setName(name);
         setCooldown(cooldown);
         setAtRange(atRange);
         setDamageValue(damageValue);
     }
 
-    public Spell(String name, boolean atRange, Integer damageValue) throws NameException{
+    public Spell(String name, boolean atRange, Integer damageValue) {
        this(name, null, atRange, damageValue);
     }
 
