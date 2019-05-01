@@ -59,9 +59,9 @@ public class CharacterDBAccess implements CharacterDataAccess {
         } catch (SQLException sqlException) {
             throw new AllCharacterException(0);
         } catch (HealthPointsException healthPointsException) {
-            throw new AllCharacterException(2);
+            throw new AllCharacterException(1);
         } catch (DamagePerSecondException damagePerSecondException) {
-            throw new AllCharacterException(3);
+            throw new AllCharacterException(2);
         }
     }
 }
