@@ -4,7 +4,6 @@ import BusinessLogic.AccountPlayerDataAccess;
 import Exception.*;
 import Model.AccountPlayer;
 
-import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,9 +19,8 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
         try {
             Connection dataConnection = SingletonConnection.getInstance();
             String querry = "select count(*) from playeraccount;";
-            ResultSet data;
             PreparedStatement statement = dataConnection.prepareStatement(querry);
-            data = statement.executeQuery();
+            ResultSet data = statement.executeQuery();
             Integer nbPlayerAccount = null;
             if(data.next()) {
                 nbPlayerAccount = data.getInt(1);

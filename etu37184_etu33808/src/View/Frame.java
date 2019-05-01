@@ -1,8 +1,5 @@
 package View;
 
-import Model.Game;
-import Model.Spell;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -25,7 +22,7 @@ public class Frame extends JFrame{
 
     GamePanel gamePanel;
     SpellPanel spellPanel;
-    EffectPanel effectPanel;
+    ResultEffectPanel resultEffectPanel;
     FormPanel formPanel;
     DeletePanel deletePanel;
     ModifyPanel modifyPanel;
@@ -139,8 +136,8 @@ public class Frame extends JFrame{
                   container.add(spellPanel);
               }
               else{
-                  effectPanel = new EffectPanel();
-                  container.add(effectPanel);
+                  resultEffectPanel = new ResultEffectPanel();
+                  container.add(resultEffectPanel);
               }
           }
 

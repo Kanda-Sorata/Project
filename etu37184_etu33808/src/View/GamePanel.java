@@ -4,6 +4,7 @@ import Controller.GameController;
 
 import Exception.*;
 import Model.SearchGameList;
+import com.mysql.cj.exceptions.DeadlockTimeoutRollbackMarker;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,6 +44,10 @@ public class GamePanel extends JPanel {
     public void setJtable() throws AllGamesException{
         searchAllGamesListCharacter = getSearchAllGamesListCharacter(searchPanelGameList.getPseudoChoice(), searchPanelGameList.getNumberChoice(), searchPanelGameList.getCharacterNameChoice(), searchPanelGameList.getDateEnd());
         AllGamesFromCharacterModel model = new AllGamesFromCharacterModel(searchAllGamesListCharacter);
-        table.setModel(model);
+        remove(table);
+        table = new JTable(model);
+        add(table);
+        revalidate();
+        repaint();
     }
 }

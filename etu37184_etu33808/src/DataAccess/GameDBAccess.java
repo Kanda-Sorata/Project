@@ -3,10 +3,11 @@ package DataAccess;
 import BusinessLogic.GameDataAccess;
 import Exception.AllGamesException;
 import Exception.ConnectionException;
-import Exception.UniqueNameException;
 import Model.SearchGameList;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -16,19 +17,23 @@ public class GameDBAccess implements GameDataAccess {
                                                                     GregorianCalendar dateEnd) throws AllGamesException{
         try {
             Connection dataConnection = SingletonConnection.getInstance();
-            java.sql.Date date = new java.sql.Date(dateEnd.getTimeInMillis());
 
-            String querry = "select `game`.`name`, `game`.`releasedate`, `server`.`name` as 'nameServer' from `game`, `server`, ";
-                   querry += "`character`, `playeraccount` where `game`.`name` = `server`.`gamename` and ";
-                   querry += "`character`.`serverTechnicalId` = `server`.`technicalid` ";
-                   querry += "and `character`.`playeraccountid` = (select id from `playeraccount` where `pseudo` = ? ";
-                   querry += " and `number` = ? ) and `character`.`name` = ? and  `game`.`releaseDate` <= ? ;";
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date dateDate = new java.sql.Date(dateEnd.getTimeInMillis());
+
+            String querry = "select game.name, game.releasedate, server.name as serverName ";
+            querry += "from playeraccount, `character`, server, game ";
+            querry += "where playeraccount.id = (select id from playeraccount where pseudo = ? and `number` = ?) ";
+            querry += "and `character`.name = ? and `character`.playeraccountid = playeraccount.id ";
+            querry += "and server.technicalId = `character`.servertechnicalid and game.name = server.gamename";
+            querry += "and game.releaseDate <= STR_TO_DATE(?, '%Y-%m-%d');";
+
             PreparedStatement statement = dataConnection.prepareStatement(querry);
 
             statement.setString(1, pseudo);
             statement.setString(2, number);
             statement.setString(3, character);
-            statement.setDate(4, date);
+            statement.setString(4, dateFormat.format(dateDate));
 
             ResultSet data = statement.executeQuery();
 
@@ -50,7 +55,7 @@ public class GameDBAccess implements GameDataAccess {
         }catch (ConnectionException connectionException){
             throw new AllGamesException(0);
         } catch (SQLException sqlException) {
-            throw new AllGamesException(0);
+            throw new AllGamesException(1);
         }
     }
 

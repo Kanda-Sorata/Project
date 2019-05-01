@@ -161,9 +161,9 @@ public class SearchPanelGameList extends JPanel {
         characters = characterController.getAllCharacter(pseudoChoice, numberChoice);
         if(characters.size() > 0) {
             characterNames = new String[characters.size()+1];
-            characterNames[0] = "Aucune selection";
-            for (int iCharacter = 1; iCharacter < characters.size()+1; iCharacter++) {
-                characterNames[iCharacter] = characters.get(iCharacter-1).getName();
+            characterNames[0] = "No selection";
+            for (int iCharacter = 0; iCharacter < characters.size(); iCharacter++) {
+                characterNames[iCharacter+1] = characters.get(iCharacter).getName();
             }
         }
     }

@@ -1,27 +1,16 @@
 package View;
 
-import Controller.GameController;
 import javax.swing.*;
 import java.awt.*;
 
-public class EffectPanel extends JPanel {
-
-    private SearchPanelEffectsList searchPanelEffectsList;
-
-    private JTable table;
-    private  JScrollPane scrollPane;
-    private GameController gameController;
+public class EffectPanel extends JPanel{
+    private SearchEffectPanel searchEffectPanel;
+    private ResultEffectPanel resultEffectPanel;
 
     public EffectPanel(){
-        gameController = new GameController();
-        setLayout(new GridLayout(1, 2));
+        setLayout(new GridLayout(1, 2, 5, 15));
 
-        searchPanelEffectsList = new SearchPanelEffectsList();
-        add(searchPanelEffectsList);
-        /*add model
-        table = new JTable(model);*/
-        scrollPane = new JScrollPane(table);
-        add(table);
+        searchEffectPanel = new SearchEffectPanel();
+        resultEffectPanel = new ResultEffectPanel();
     }
 }
-

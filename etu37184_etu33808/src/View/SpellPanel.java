@@ -14,35 +14,38 @@ public class SpellPanel extends JPanel {
     private JScrollPane scrollPane;
     private SpellController spellController;
     private ArrayList<SearchSpellList> searchSpellLists;
+    private UtilitiesPanelMethode utilitiesPanelMethode;
 
     public SpellPanel(){
+        utilitiesPanelMethode = new UtilitiesPanelMethode();
         spellController = new SpellController();
-        //Add properties
-        setLayout(new GridLayout(1, 2, 5, 15));
-
+        setLayout(new FlowLayout());
         //Add components
         try {
-            searchPanelSpellList = new SearchPanelSpellList();
-            add(searchPanelSpellList, BorderLayout.WEST);
-                /*add model
-                table = new JTable(model);*/
-           // scrollPane = new JScrollPane(table);
-            add(table, BorderLayout.CENTER);
+            searchPanelSpellList = new SearchPanelSpellList(this);
+            table = utilitiesPanelMethode.getJTableModelBlank();
+            scrollPane = new JScrollPane(table);
+            add(searchPanelSpellList);
+            add(table);
         }catch(NbAccountException nbAccountException){
-            JOptionPane.showConfirmDialog(null, nbAccountException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, nbAccountException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }catch (AllAccountException allAccountException){
-            JOptionPane.showConfirmDialog(null, allAccountException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, allAccountException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, String numberchoice){
-        return spellController.getSearchSpellList(pseudoChoice, numberchoice);
+    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, String numberChoice)throws AllSpellsException{
+        return spellController.getSearchSpellList(pseudoChoice, numberChoice);
     }
 
-    public void setJtable() throws {
+    public void setJtable() throws AllSpellsException{
         searchSpellLists = getSearchSpellList(searchPanelSpellList.getPseudoChoice(), searchPanelSpellList.getNumberChoice());
-        AllSpellsFromPlayersModel model = new AllSpellsFromPlayersModel(searchSpellLists);
-        table.setModel(model);
+        AllSpellsListFromPlayerModel model = new AllSpellsListFromPlayerModel(searchSpellLists);
+        remove(table);
+        table = new JTable(model);
+        add(table);
+        revalidate();
+        repaint();
     }
 
 

@@ -14,6 +14,8 @@ public class AccountPlayer {
     private String city;
     private String country;
     private static int nbPlayers = 0;
+    private final static int MIN_NUMBER = 10000;
+    private final static int MAX_NUMBER = 99999;
 
     public AccountPlayer(Integer id, String pseudo, Integer number, String sex, GregorianCalendar creationDate,
                          String country) throws SexException {
@@ -49,6 +51,10 @@ public class AccountPlayer {
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public void setNumberInsert(){
+        this.number = MIN_NUMBER + (int)(Math.random()  * ((MAX_NUMBER - MIN_NUMBER) + 1)) + MIN_NUMBER;
     }
 
     public String getSex() { return sex; }

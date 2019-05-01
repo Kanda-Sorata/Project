@@ -19,31 +19,19 @@ public class UtilitiesPanelMethode {
 
     public String [] setPseudos() throws NbAccountException, AllAccountException{
         String [] playerAccounts;
-            Integer nbMaxPlayer = accountPlayerController.getNbAccountPlayers();
-            ArrayList<AccountPlayer> players = accountPlayerController.getAllAccountPlayer();
-            playerAccounts = new String[nbMaxPlayer];
-            for (int iPseudo = 0; iPseudo < nbMaxPlayer; iPseudo++) {
-                playerAccounts[iPseudo] = players.get(iPseudo).getPseudo() + "#" + players.get(iPseudo).getNumber();
-            }
-            return playerAccounts;
+        Integer nbMaxPlayer = accountPlayerController.getNbAccountPlayers();
+        ArrayList<AccountPlayer> players = accountPlayerController.getAllAccountPlayer();
+        playerAccounts = new String[nbMaxPlayer+1];
+        playerAccounts[0] = "No selection";
+        for (int iPseudo = 0; iPseudo < nbMaxPlayer; iPseudo++) {
+            playerAccounts[iPseudo+1] = players.get(iPseudo).getPseudo() + "#" + players.get(iPseudo).getNumber();
+        }
+        return playerAccounts;
     }
 
     public JTable getJTableModelBlank(){
-        return new JTable(new AbstractTableModel() {
-            @Override
-            public int getRowCount() {
-                return 20;
-            }
-
-            @Override
-            public int getColumnCount() {
-                return 5;
-            }
-
-            @Override
-            public Object getValueAt(int i, int i1) {
-                return null;
-            }
-        });
+        String [] columns = {"Colonne 1", "Colonne 2", "Colonne 3"};
+        Object [][] data = {{"", "", ""}, {"", "", ""}, {"", "", ""}, {"", "", ""}, {"", "", ""}, {"", "", ""}};
+       return new JTable(data, columns);
     }
 }

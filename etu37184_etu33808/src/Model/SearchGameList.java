@@ -46,4 +46,6 @@ public class SearchGameList {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return dateFormat.format(releaseDate.getTime());
     }
+
+
 }

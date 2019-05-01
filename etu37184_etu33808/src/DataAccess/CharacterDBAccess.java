@@ -17,7 +17,9 @@ public class CharacterDBAccess implements CharacterDataAccess {
     public ArrayList<Character> getAllCharacter(String pseudo, String number) throws AllCharacterException {
         try {
             Connection dataConnection = SingletonConnection.getInstance();
-            String querry = "select name, healthPoint, isStuffed, creationDate, petName, damagePerSecond from `character` where `character`.`playeraccountId` = (select id from `playeraccount` where  pseudo = ? and number = ?);";
+            String querry = "select name, healthPoint, isStuffed, creationDate, petName, damagePerSecond ";
+            querry += "from `character` where `character`.`playeraccountId` = (select id from `playeraccount` ";
+            querry += "where  pseudo = ? and number = ?);";
 
             PreparedStatement statement = dataConnection.prepareStatement(querry);
 

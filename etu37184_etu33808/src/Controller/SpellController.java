@@ -1,7 +1,7 @@
 package Controller;
 import BusinessLogic.*;
 import Model.SearchSpellList;
-
+import Exception.AllSpellsException;
 import java.util.ArrayList;
 
 public class SpellController {
@@ -11,7 +11,7 @@ public class SpellController {
         spellBusinessLogic = new SpellBusinessLogic();
     }
 
-    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, String numberchoice){
-        return spellBusinessLogic.getSearchSpellList(pseudoChoice, numberchoice);
+    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, String numberChoice)throws AllSpellsException {
+        return spellBusinessLogic.getSearchSpellList(pseudoChoice, numberChoice);
     }
 }
