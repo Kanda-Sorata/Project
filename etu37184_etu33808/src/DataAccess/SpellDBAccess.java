@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SpellDBAccess implements SpellDataAccess {
-    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, String numberChoice)throws DataException,DataAccessException{
+    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, String numberChoice)throws DataException, DataAccessException{
         try {
             Connection connection = SingletonConnection.getInstance();
 

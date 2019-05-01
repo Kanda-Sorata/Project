@@ -11,10 +11,10 @@ public class DataException extends Exception {
         String output = "";
         switch (code) {
             case 0:
-                output = "Désolé, une erreur s'est produite lors de la tentative d'accès à la source de données.";
+                output = "Sorry an error has been occured, when you tried to access at the source of data";
                 break;
             case 2: case 3: case 4: case 5: case 6: case 7 :
-                output = "Désolé, des données sont non répertoriées ou non accessibles, impossible de continuer.";
+                output = "Sorry, the data has not indexed or not available at this time, impossible to continue.";
                 break;
         }
         return output + "\n";

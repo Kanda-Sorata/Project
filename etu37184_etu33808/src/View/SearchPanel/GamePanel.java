@@ -1,6 +1,7 @@
 package View.SearchPanel;
 
 import Controller.GameController;
+import Exception.DataAccessException;
 import Exception.DataException;
 import Model.SearchGameList;
 
@@ -21,24 +22,20 @@ public class GamePanel extends JPanel {
         utilitiesPanelMethode = new UtilitiesPanelMethode();
         gameController = new GameController();
         setLayout(new FlowLayout());
-        try {
-            searchPanelGame = new SearchPanelGame(this);
-            add(searchPanelGame);
+        searchPanelGame = new SearchPanelGame(this);
+        add(searchPanelGame);
 
-            table = utilitiesPanelMethode.getJTableModelBlank();
-            scrollPane = new JScrollPane(table);
-            add(table);
-        } catch (DataException dataException) {
-            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        table = utilitiesPanelMethode.getJTableModelBlank();
+        scrollPane = new JScrollPane(table);
+        add(table);
     }
 
-    public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, String number, String character, GregorianCalendar dateEnd) throws DataException {
+    public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, String number, String character, GregorianCalendar dateEnd) throws DataException, DataAccessException {
         return gameController.getSearchAllGamesListCharacter(pseudo, number, character, dateEnd);
     }
 
-    public void setJtable() throws DataException {
-        searchAllGamesListCharacter = getSearchAllGamesListCharacter(searchPanelGame.getPseudoChoice(), searchPanelGame.getNumberChoice(), searchPanelGame.getCharacterNameChoice(), searchPanelGame.getDateEnd());
+    public void setJtable(String pseudoChoice, String numberchoice, String character, GregorianCalendar dateEnd) throws DataException, DataAccessException {
+        searchAllGamesListCharacter = getSearchAllGamesListCharacter(pseudoChoice, numberchoice, character, dateEnd);
         AllGamesFromCharacterModel model = new AllGamesFromCharacterModel(searchAllGamesListCharacter);
         remove(table);
         table = new JTable(model);

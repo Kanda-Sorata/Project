@@ -1,6 +1,7 @@
 package View.SearchPanel;
 
 import Controller.AccountPlayerController;
+import Exception.DataAccessException;
 import Exception.DataException;
 import Model.AccountPlayer;
 
@@ -14,7 +15,7 @@ public class UtilitiesPanelMethode {
         accountPlayerController = new AccountPlayerController();
     }
 
-    public ArrayList<String> setPlayerAccountsPseudo() throws DataException {
+    public ArrayList<String> setPlayerAccountsPseudo() throws DataException, DataAccessException {
         ArrayList<String> playerAccounts = new ArrayList<>();
         Integer nbMaxPlayer = accountPlayerController.getNbAccountPlayers();
         ArrayList<AccountPlayer> players = accountPlayerController.getAllAccountPlayer();

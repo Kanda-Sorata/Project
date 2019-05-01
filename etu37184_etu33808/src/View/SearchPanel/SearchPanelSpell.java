@@ -1,6 +1,8 @@
 package View.SearchPanel;
 
 //todo changer les tableaux et mettre arraylist.toArray()
+
+import Exception.DataAccessException;
 import Exception.DataException;
 
 import javax.swing.*;
@@ -21,24 +23,30 @@ public class SearchPanelSpell extends JPanel {
     private UtilitiesPanelMethode utilitiesPanelMethode;
     private SpellPanel spellPanel;
 
-    public SearchPanelSpell(SpellPanel spellPanel) throws DataException {
-        utilitiesPanelMethode = new UtilitiesPanelMethode();
-        this.spellPanel = spellPanel;
+    public SearchPanelSpell(SpellPanel spellPanel){
+        try {
+            utilitiesPanelMethode = new UtilitiesPanelMethode();
+            utilitiesPanelMethode.setPlayerAccountsPseudo();
+            this.spellPanel = spellPanel;
 
-        //Add properties
-        setLayout(new GridLayout(1, 2, 5, 15));
-        setBorder(new EmptyBorder(150, 0, 250, 250)); //top, left, bottom, right
+            //Add properties
+            setLayout(new GridLayout(1, 2, 5, 15));
+            setBorder(new EmptyBorder(150, 0, 250, 250)); //top, left, bottom, right
 
-        //Add components
-        playerAccount = new JLabel("Player Account");
-        playerAccount.setHorizontalAlignment(SwingConstants.RIGHT);
+            //Add components
+            playerAccount = new JLabel("Player Account");
+            playerAccount.setHorizontalAlignment(SwingConstants.RIGHT);
 
-       // pseudos = utilitiesPanelMethode.setPseudos();
-        playerAccountCombo = new JComboBox(pseudos);
-        playerAccountCombo.addActionListener(new ComboBocListener());
+            playerAccountCombo = new JComboBox(pseudos);
+            playerAccountCombo.addActionListener(new ComboBocListener());
 
-        add(playerAccount);
-        add(playerAccountCombo);
+            add(playerAccount);
+            add(playerAccountCombo);
+        }catch(DataException dataException){
+            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }catch(DataAccessException dataAccessException){
+            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public String getPseudoChoice() {
@@ -64,9 +72,11 @@ public class SearchPanelSpell extends JPanel {
                 setPseudoChoice(pseudos[playerAccountCombo.getSelectedIndex()].split("#")[0]);
                 setNumberChoice(pseudos[playerAccountCombo.getSelectedIndex()].split("#")[1]);
                 try {
-                    spellPanel.setJtable();
+                    spellPanel.setJtable(pseudoChoice, numberChoice);
                 }catch(DataException dataException) {
                     JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }catch (DataAccessException dataAccessException){
+                    JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }

@@ -1,6 +1,7 @@
 package View.SearchPanel;
 
 import Controller.SpellController;
+import Exception.DataAccessException;
 import Exception.DataException;
 import Model.SearchSpellList;
 
@@ -21,23 +22,19 @@ public class SpellPanel extends JPanel {
         spellController = new SpellController();
         setLayout(new FlowLayout());
         //Add components
-        try {
-            searchPanelSpell = new SearchPanelSpell(this);
-            table = utilitiesPanelMethode.getJTableModelBlank();
-            scrollPane = new JScrollPane(table);
-            add(searchPanelSpell);
-            add(table);
-        }catch(DataException dataException){
-            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        searchPanelSpell = new SearchPanelSpell(this);
+        table = utilitiesPanelMethode.getJTableModelBlank();
+        scrollPane = new JScrollPane(table);
+        add(searchPanelSpell);
+        add(table);
     }
 
-    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, String numberChoice)throws DataException {
+    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, String numberChoice)throws DataException, DataAccessException {
         return spellController.getSearchSpellList(pseudoChoice, numberChoice);
     }
 
-    public void setJtable() throws DataException {
-        searchSpellLists = getSearchSpellList(searchPanelSpell.getPseudoChoice(), searchPanelSpell.getNumberChoice());
+    public void setJtable(String pseudoChoice, String numberCoice) throws DataException, DataAccessException {
+        searchSpellLists = getSearchSpellList(pseudoChoice, numberCoice);
         AllSpellsListFromPlayerModel model = new AllSpellsListFromPlayerModel(searchSpellLists);
         remove(table);
         table = new JTable(model);

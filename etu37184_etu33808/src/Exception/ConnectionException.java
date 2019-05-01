@@ -16,6 +16,6 @@ public class ConnectionException extends Exception {
     }
 
     public String getMessage(){
-        return  "Désolé, une erreur c'est produite lors de l'accès  à la source de données.\n" + getInformation();
+        return  "Sorry an error has been occured, when you tried to access at the source of data";
     }
 }

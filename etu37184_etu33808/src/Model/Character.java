@@ -15,6 +15,7 @@ public class Character {
 
     private CharacterClass characterClass;
     private AccountPlayer player;
+    private Server server;
 
     private static final int MIN_HP = 0;
     private static final int MAX_HP = 50000;
@@ -99,6 +100,14 @@ public class Character {
 
     public void setPlayer(AccountPlayer player) {
         this.player = player;
+    }
+
+    public Server getServer() {
+        return server;
+    }
+
+    public void setServer(Server server) {
+        this.server = server;
     }
 
     @Override
