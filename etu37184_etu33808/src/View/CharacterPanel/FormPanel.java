@@ -5,6 +5,7 @@ import View.SearchPanel.UtilitiesPanelMethode;
 
 import javax.swing.*;
 import Exception.*;
+import com.mysql.cj.admin.ServerController;
 
 import java.util.ArrayList;
 
@@ -32,10 +33,12 @@ public class FormPanel extends JPanel {
 
     private UtilitiesPanelMethode utilitiesPanelMethode;
     private GameController gameController;
+    private ServerController serverController;
 
     public FormPanel(){
         utilitiesPanelMethode = new UtilitiesPanelMethode();
         gameController = new GameController();
+        serverController = new ServerController();
 
         try {
             pseudos = utilitiesPanelMethode.setPlayerAccountsPseudo();
@@ -65,9 +68,12 @@ public class FormPanel extends JPanel {
         for(int iGame = 0; iGame < size; iGame++){ games.add(temp.get(iGame)); }
     }
 
-   /* public void setServersName(String pseudoChoice, String numberChoice, String Game) throws AllServerException {
-
-    }*/
+    public void setServersName(String pseudoChoice, String numberChoice, String Game) throws AllServerException {
+        ArrayList<String> temp = serverController.getAllServersName(pseudoChoice, numberChoice);
+        temp.add("No selection");
+        int size = temp.size();
+        for(int iServer = 0; iServer < size; iServer++){ servers.add(temp.get(iServer)); }
+    }
 
 
 
