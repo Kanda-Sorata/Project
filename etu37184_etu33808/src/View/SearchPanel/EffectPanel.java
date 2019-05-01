@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import Exception.AllGamesException;
 
-public class EffectPanel extends JPanel{
+public class EffectPanel extends JPanel {
     private SearchEffectPanel searchEffectPanel;
     private ResultEffectPanel resultEffectPanel;
 
