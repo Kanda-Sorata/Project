@@ -54,7 +54,35 @@ public class GameDBAccess implements GameDataAccess {
 
         }catch (ConnectionException connectionException){
             throw new AllGamesException(0);
-        } catch (SQLException sqlException) {
+        }catch (SQLException sqlException) {
+            throw new AllGamesException(1);
+        }
+    }
+
+    public ArrayList<String> getAllGamesName(String pseudoChoice, String numberChoice) throws AllGamesException{
+        try{
+            Connection dataConnection = SingletonConnection.getInstance();
+
+            String querry = "select game.name from game, playeraccount where playeraccount.id = ";
+                   querry += "(select id from playeraccount where pseudo = ? and `number` = ?)";
+
+            PreparedStatement statement = dataConnection.prepareStatement(querry);
+
+            statement.setString(1, pseudoChoice);
+            statement.setString(2, numberChoice);
+
+            ResultSet data = statement.executeQuery();
+            ArrayList<String> gamesName = new ArrayList<>();
+
+            while(data.next()){
+                gamesName.add(data.getString("name"));
+            }
+
+            return gamesName;
+
+        }catch (ConnectionException connectionException){
+            throw new AllGamesException(0);
+        }catch (SQLException sqlException) {
             throw new AllGamesException(1);
         }
     }

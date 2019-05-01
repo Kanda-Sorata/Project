@@ -17,7 +17,7 @@ public class UtilitiesPanelMethode {
         accountPlayerController = new AccountPlayerController();
     }
 
-    public ArrayList<String> setPseudos() throws NbAccountException, AllAccountException{
+    public ArrayList<String> setPlayerAccountsPseudo() throws NbAccountException, AllAccountException{
         ArrayList<String> playerAccounts = new ArrayList<>();
         Integer nbMaxPlayer = accountPlayerController.getNbAccountPlayers();
         ArrayList<AccountPlayer> players = accountPlayerController.getAllAccountPlayer();

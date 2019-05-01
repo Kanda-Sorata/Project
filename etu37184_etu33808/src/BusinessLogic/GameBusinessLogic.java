@@ -23,7 +23,7 @@ public class GameBusinessLogic implements GameDataAccess {
         return dao.getSearchAllGamesListCharacter(pseudo, number, character, dateEnd);
     }
 
-    public ArrayList<String> getAllGames() throws AllGamesException  {
-        return dao.getAllGames();
+    public ArrayList<String> getAllGamesName(String pseudoChoice, String numberChoice) throws AllGamesException{
+        return dao.getAllGamesName(pseudoChoice, numberChoice);
     }
 }

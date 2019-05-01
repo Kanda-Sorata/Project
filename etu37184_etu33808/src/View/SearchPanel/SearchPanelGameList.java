@@ -73,7 +73,7 @@ public class SearchPanelGameList extends JPanel {
         dateEnd = new JLabel("Date of end");
         dateEnd.setHorizontalAlignment(SwingConstants.RIGHT);
 
-        playerAccounts = utilitiesPanelMethode.setPseudos();
+        playerAccounts = utilitiesPanelMethode.setPlayerAccountsPseudo();
         playerAccountCombo = new JComboBox(playerAccounts);
         playerAccountCombo.setSelectedIndex(0);
         playerAccountCombo.setMaximumRowCount(3);

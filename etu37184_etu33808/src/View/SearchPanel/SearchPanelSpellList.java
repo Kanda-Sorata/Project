@@ -34,7 +34,7 @@ public class SearchPanelSpellList extends JPanel {
         playerAccount = new JLabel("Player Account");
         playerAccount.setHorizontalAlignment(SwingConstants.RIGHT);
 
-        pseudos = utilitiesPanelMethode.setPseudos();
+        pseudos = utilitiesPanelMethode.setPlayerAccountsPseudo();
         playerAccountCombo = new JComboBox(pseudos);
         playerAccountCombo.addActionListener(new ComboBocListener());
 
