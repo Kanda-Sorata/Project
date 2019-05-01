@@ -2,8 +2,8 @@ package View.SearchPanel;
 
 import Controller.CharacterClassController;
 import Controller.GameController;
-import Exception.DataException;
 import Exception.DataAccessException;
+import Exception.DataException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -76,31 +76,35 @@ public class SearchEffectPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             if (actionEvent.getSource() == gameCombo) {
-                if (!gameCombo.getSelectedItem().equals(games.get(0))) {
+                if (!gameCombo.getSelectedItem().toString().equals(games.get(0))) {
                     setGameChoice(gameCombo.getSelectedItem().toString());
                     try {
                         characterClassesTemp = characterClassController.getClassesInAGame(gameChoice);
                         int size = characterClassesTemp.size();
-                        for (int iClasses = 0; iClasses < size; iClasses++) {
-                            characterClasses.add(characterClassesTemp.get(iClasses));
+                        characterClasses = new ArrayList<>();
+                        characterClasses.add("No selection");
+                        if(size > 0) {
+                            for (int iClasses = 0; iClasses < size; iClasses++) {
+                                characterClasses.add(characterClassesTemp.get(iClasses));
+                            }
+                            characterClassCombo.setModel(new DefaultComboBoxModel(characterClasses.toArray()));
+                            characterClassCombo.repaint();
                         }
-                        characterClassCombo.setModel(new DefaultComboBoxModel(characterClasses.toArray()));
-                        repaint();
-                        characterClassCombo.setEnabled(true);
                     } catch (DataException dataException) {
                         JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     } catch (DataAccessException dataAccessException){
                         JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
+                    characterClassCombo.setEnabled(true);
                 }
             } else{
                 setClassChoice(characterClassCombo.getSelectedItem().toString());
                 try{
                     resultEffectPanel.setJTable(gameChoice, classChoice);
                 } catch(DataException dataException){
-
-                } catch(DataAccessException dataAccessException){
-
+                    JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }catch(DataAccessException dataAccessException){
+                    JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }

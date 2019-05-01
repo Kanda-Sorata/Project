@@ -29,15 +29,15 @@ public class GameDBAccess implements GameDataAccess {
             querry += "from playeraccount, `character`, server, game ";
             querry += "where playeraccount.id = (select id from playeraccount where pseudo = ? and `number` = ?) ";
             querry += "and `character`.name = ? and `character`.playeraccountid = playeraccount.id ";
-            querry += "and server.technicalId = `character`.servertechnicalid and game.name = server.gamename";
-            querry += "and game.releaseDate <= STR_TO_DATE(?, '%Y-%m-%d');";
+            querry += "and server.technicalId = `character`.servertechnicalid and game.name = server.gamename;";
+            //querry += "and game.releaseDate <= STR_TO_DATE(?, '%Y-%m-%d');";
 
             PreparedStatement statement = dataConnection.prepareStatement(querry);
 
             statement.setString(1, pseudo);
             statement.setString(2, number);
             statement.setString(3, character);
-            statement.setString(4, dateFormat.format(dateDate));
+            //statement.setString(4, dateFormat.format(dateDate));
 
             ResultSet data = statement.executeQuery();
 
@@ -46,7 +46,7 @@ public class GameDBAccess implements GameDataAccess {
 
             while(data.next()){
                 searchGameList = new SearchGameList(data.getString("name"), null,
-                        data.getString("nameServer"));
+                        data.getString("serverName"));
                 java.sql.Date releaseDate = data.getDate("releaseDate");
                 GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime(releaseDate);

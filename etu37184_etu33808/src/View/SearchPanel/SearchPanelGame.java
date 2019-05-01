@@ -55,12 +55,12 @@ public class SearchPanelGame extends JPanel {
 
     public SearchPanelGame(GamePanel gamePanel) {
         try {
-            playerAccounts = utilitiesPanelMethode.setPlayerAccountsPseudo();
-
             this.gamePanel = gamePanel;
             accountPlayerController = new AccountPlayerController();
             characterController = new CharacterController();
             utilitiesPanelMethode = new UtilitiesPanelMethode();
+
+            playerAccounts = utilitiesPanelMethode.setPlayerAccountsPseudo();
 
             //Add propeties
             setLayout(new GridLayout(4, 2, 5, 15));
@@ -166,9 +166,10 @@ public class SearchPanelGame extends JPanel {
     public void setCharacterName() throws DataException, DataAccessException {
         characters = characterController.getAllCharacter(pseudoChoice, numberChoice);
         if(characters.size() > 0) {
+            charactersName = new ArrayList<>();
             charactersName.add("No Selection");
             for (int iCharacter = 0; iCharacter < characters.size(); iCharacter++) {
-                charactersName.set(iCharacter+1, characters.get(iCharacter).getName());
+                charactersName.add(characters.get(iCharacter).getName());
             }
         }
     }
@@ -228,7 +229,7 @@ public class SearchPanelGame extends JPanel {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             try {
-                if(getPseudoChoice() != null && getCharacterNameChoice() != null && dateEndSpinner.getValue() != null) {
+                if(playerAccountCombo.getSelectedIndex() != 0 && characterNameCombo.getSelectedIndex() != 0 && dateChoice != null) {
                     gamePanel.setJtable(pseudoChoice, numberChoice, characterNameChoice, dateChoice);
                 }
             }catch(DataException dataException){

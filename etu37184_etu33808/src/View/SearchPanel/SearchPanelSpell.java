@@ -10,11 +10,12 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 
 public class SearchPanelSpell extends JPanel {
     private JComboBox playerAccountCombo;
-    private String[] pseudos;
+    private ArrayList<String> pseudos;
     private JLabel playerAccount;
 
     private String pseudoChoice;
@@ -26,7 +27,7 @@ public class SearchPanelSpell extends JPanel {
     public SearchPanelSpell(SpellPanel spellPanel){
         try {
             utilitiesPanelMethode = new UtilitiesPanelMethode();
-            utilitiesPanelMethode.setPlayerAccountsPseudo();
+            pseudos = utilitiesPanelMethode.setPlayerAccountsPseudo();
             this.spellPanel = spellPanel;
 
             //Add properties
@@ -37,7 +38,7 @@ public class SearchPanelSpell extends JPanel {
             playerAccount = new JLabel("Player Account");
             playerAccount.setHorizontalAlignment(SwingConstants.RIGHT);
 
-            playerAccountCombo = new JComboBox(pseudos);
+            playerAccountCombo = new JComboBox(pseudos.toArray());
             playerAccountCombo.addActionListener(new ComboBocListener());
 
             add(playerAccount);
@@ -68,9 +69,9 @@ public class SearchPanelSpell extends JPanel {
     private class ComboBocListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            if(!pseudos[playerAccountCombo.getSelectedIndex()].equals(pseudos[0])){
-                setPseudoChoice(pseudos[playerAccountCombo.getSelectedIndex()].split("#")[0]);
-                setNumberChoice(pseudos[playerAccountCombo.getSelectedIndex()].split("#")[1]);
+            if(!pseudos.get(playerAccountCombo.getSelectedIndex()).equals(pseudos.get(0))){
+                setPseudoChoice(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[0]);
+                setNumberChoice(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[1]);
                 try {
                     spellPanel.setJtable(pseudoChoice, numberChoice);
                 }catch(DataException dataException) {
