@@ -1,6 +1,8 @@
 package View.SearchPanel;
 
+import Controller.CharacterClassController;
 import Controller.GameController;
+import Exception.AllCharacterClassException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -18,35 +20,44 @@ public class SearchEffectPanel extends JPanel {
     private ArrayList<String> games;
     private ArrayList<String> gamesTemp;
     private ArrayList<String> characterClasses;
+    private ArrayList<String> characterClassesTemp;
     private GameController gameController;
-    private ComboBoxClass comboBoxClassListener;
+    private CharacterClassController characterClassController;
+    private ComboBoxGame comboBoxGameListener;
 
-    //private ArrayList<String> gamesName;
-    //private ArrayList<String> characterClassesName;
+    private String gameChoice;
+    private ResultEffectPanel resultEffectPanel;
 
-    public SearchEffectPanel() {
+    public SearchEffectPanel(ResultEffectPanel resultEffectPanel) {
+        this.resultEffectPanel = resultEffectPanel;
         gameController = new GameController();
+        characterClassController = new CharacterClassController();
 
-        setLayout(new FlowLayout(FlowLayout.LEFT));
+        setLayout(new GridLayout(2, 2, 5, 15));
         setBorder(new EmptyBorder(150, 0, 250, 250)); //top, left, bottom, right
 
         try{
+            gameLabel = new JLabel("Game name");
+
             games = new ArrayList<>();
             games.add("No selection");
             gamesTemp = gameController.getAllGames();
+            int size = gamesTemp.size();
+            for(int iGame = 0; iGame < size; iGame++){ games.add(gamesTemp.get(iGame)); }
 
-            for(int iGame = 0; iGame < gamesTemp.size(); iGame++){ games.add(gamesTemp.get(iGame)); }
-
-            gameController.getAllGames();
-            gameLabel = new JLabel("Game name");
             gameCombo = new JComboBox(games.toArray());
-            //eventlistener quand il choisit un truc dans la combo box
-            characterClasses = new ArrayList<>();
-            characterClasses.add("No selection");
+            comboBoxGameListener = new ComboBoxGame();
+            gameCombo.addActionListener(comboBoxGameListener);
+
+
             characterClassLabel = new JLabel("Character classes");
-            characterClassCombo = new JComboBox();
-            comboBoxClassListener = new ComboBoxClass();
-            characterClassCombo.addActionListener(comboBoxClassListener);
+
+            characterClasses = new ArrayList<>();
+            characterClasses.add("No Selection");
+            characterClassCombo = new JComboBox(characterClasses.toArray());
+            characterClassCombo.addActionListener(comboBoxGameListener);
+            characterClassCombo.setEnabled(false);
+
 
             add(gameLabel);
             add(gameCombo);
@@ -55,17 +66,37 @@ public class SearchEffectPanel extends JPanel {
 
         } catch (AllGamesException allGameException){
             JOptionPane.showMessageDialog(null, allGameException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            //je la gère ici donc pas besoin de la throws ailleurs
         }
     }
 
-    private class ComboBoxClass implements ActionListener {
+    private class ComboBoxGame implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            if (characterClassCombo.getSelectedIndex() != 0){
-                //je dois faire une querry avec les character pour les ajouter dans l'arraylist -> combobox
-
+            if (actionEvent.getSource() == gameCombo) {
+                if (!gameCombo.getSelectedItem().equals(games.get(0))) {
+                    setGameChoice(gameCombo.getSelectedItem().toString());
+                    try {
+                        characterClassesTemp = characterClassController.getClassesInAGame(gameChoice);
+                        int size = characterClassesTemp.size();
+                        for (int iClasses = 0; iClasses < size; iClasses++) {
+                            characterClasses.add(characterClassesTemp.get(iClasses));
+                        }
+                        characterClassCombo.setModel(new DefaultComboBoxModel(characterClasses.toArray()));
+                        repaint();
+                        characterClassCombo.setEnabled(true);
+                    } catch (AllCharacterClassException allCharacterClassException) {
+                        JOptionPane.showMessageDialog(null, allCharacterClassException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } else{
+               // resultEffectPanel.setJTable(); //Prévooir la méthode dans le panel en question...
             }
         }
+        //Add class
     }
+
+    public void setGameChoice(String gameChoice){
+        this.gameChoice = gameChoice;
+    }
+
 }

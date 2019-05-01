@@ -17,11 +17,9 @@ public class ResultEffectPanel extends JPanel {
         gameController = new GameController();
         setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        searchEffectPanel = new SearchEffectPanel();
-        add(searchEffectPanel);
         /*add model
         table = new JTable(model);*/
         scrollPane = new JScrollPane(table);
-        add(table);
+        //add(table);
     }
 }

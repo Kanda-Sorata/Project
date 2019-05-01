@@ -1,4 +1,4 @@
-package View;
+package View.SearchPanel;
 
 import Controller.AccountPlayerController;
 //todo changer les tableaux et mettre arraylist.toArray()
@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import Exception.*;
 
 
-public class SearchPanelSpellList extends JPanel {
+public class SearchPanelSpell extends JPanel {
     private JComboBox playerAccountCombo;
     private String[] pseudos;
     private JLabel playerAccount;
@@ -22,7 +22,7 @@ public class SearchPanelSpellList extends JPanel {
     private UtilitiesPanelMethode utilitiesPanelMethode;
     private SpellPanel spellPanel;
 
-    public SearchPanelSpellList(SpellPanel spellPanel) throws AllAccountException, NbAccountException{
+    public SearchPanelSpell(SpellPanel spellPanel) throws AllAccountException, NbAccountException{
         utilitiesPanelMethode = new UtilitiesPanelMethode();
         this.spellPanel = spellPanel;
 
@@ -34,7 +34,7 @@ public class SearchPanelSpellList extends JPanel {
         playerAccount = new JLabel("Player Account");
         playerAccount.setHorizontalAlignment(SwingConstants.RIGHT);
 
-        pseudos = utilitiesPanelMethode.setPlayerAccountsPseudo();
+       // pseudos = utilitiesPanelMethode.setPseudos();
         playerAccountCombo = new JComboBox(pseudos);
         playerAccountCombo.addActionListener(new ComboBocListener());
 

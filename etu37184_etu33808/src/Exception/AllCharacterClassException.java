@@ -1,9 +1,9 @@
 package Exception;
 
-public class AllCharacterException extends Exception {
+public class AllCharacterClassException extends Exception {
     private int code;
 
-    public AllCharacterException(int code){
+    public AllCharacterClassException(int code){
         this.code = code;
     }
 
@@ -13,7 +13,7 @@ public class AllCharacterException extends Exception {
             case 0:
                 output = "Désolé, une erreur s'est produite lors de la tentative d'accès à la source de données.";
                 break;
-            case 1: case 2:
+            case 1:
                 output = "Désolé, certaines données sont corrompues, impossible de continuer.";
                 break;
         }

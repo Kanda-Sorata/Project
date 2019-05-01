@@ -1,4 +1,4 @@
-package View;
+package View.SearchPanel;
 //todo changer les tableaux et mettre arraylist.toArray()
 import Controller.AccountPlayerController;
 import Controller.CharacterController;
@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 
-public class SearchPanelGameList extends JPanel {
+public class SearchPanelGame extends JPanel {
     private JComboBox playerAccountCombo;
     private JComboBox characterNameCombo;
     private JSpinner dateEndSpinner;
@@ -55,7 +55,7 @@ public class SearchPanelGameList extends JPanel {
     private JButton validation;
     private ButtonListener buttonListener;
 
-    public SearchPanelGameList(GamePanel gamePanel)throws NbAccountException, AllAccountException {
+    public SearchPanelGame(GamePanel gamePanel)throws NbAccountException, AllAccountException {
         this.gamePanel = gamePanel;
         accountPlayerController = new AccountPlayerController();
         characterController = new CharacterController();
@@ -73,7 +73,7 @@ public class SearchPanelGameList extends JPanel {
         dateEnd = new JLabel("Date of end");
         dateEnd.setHorizontalAlignment(SwingConstants.RIGHT);
 
-        playerAccounts = utilitiesPanelMethode.setPlayerAccountsPseudo();
+        //playerAccounts = utilitiesPanelMethode.setPlayerAccountsPseudo();
         playerAccountCombo = new JComboBox(playerAccounts);
         playerAccountCombo.setSelectedIndex(0);
         playerAccountCombo.setMaximumRowCount(3);

@@ -65,9 +65,9 @@ public class FormPanel extends JPanel {
         for(int iGame = 0; iGame < size; iGame++){ games.add(temp.get(iGame)); }
     }
 
-    public void setServersName(String pseudoChoice, String numberChoice, String Game) throws AllServerException {
+   /* public void setServersName(String pseudoChoice, String numberChoice, String Game) throws AllServerException {
 
-    }
+    }*/
 
 
 

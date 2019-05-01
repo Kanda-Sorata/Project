@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class SpellPanel extends JPanel {
-    private SearchPanelSpellList searchPanelSpellList;
+    private SearchPanelSpell searchPanelSpell;
     private JTable table;
     private JScrollPane scrollPane;
     private SpellController spellController;
@@ -22,10 +22,10 @@ public class SpellPanel extends JPanel {
         setLayout(new FlowLayout());
         //Add components
         try {
-            searchPanelSpellList = new SearchPanelSpellList(this);
+            searchPanelSpell = new SearchPanelSpell(this);
             table = utilitiesPanelMethode.getJTableModelBlank();
             scrollPane = new JScrollPane(table);
-            add(searchPanelSpellList);
+            add(searchPanelSpell);
             add(table);
         }catch(NbAccountException nbAccountException){
             JOptionPane.showMessageDialog(null, nbAccountException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -39,7 +39,7 @@ public class SpellPanel extends JPanel {
     }
 
     public void setJtable() throws AllSpellsException{
-        searchSpellLists = getSearchSpellList(searchPanelSpellList.getPseudoChoice(), searchPanelSpellList.getNumberChoice());
+        searchSpellLists = getSearchSpellList(searchPanelSpell.getPseudoChoice(), searchPanelSpell.getNumberChoice());
         AllSpellsListFromPlayerModel model = new AllSpellsListFromPlayerModel(searchSpellLists);
         remove(table);
         table = new JTable(model);
@@ -47,7 +47,4 @@ public class SpellPanel extends JPanel {
         revalidate();
         repaint();
     }
-
-
-
 }

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class GamePanel extends JPanel {
-    private SearchPanelGameList searchPanelGameList;
+    private SearchPanelGame searchPanelGame;
     private JTable table;
     private  JScrollPane scrollPane;
     private GameController gameController;
@@ -23,8 +23,8 @@ public class GamePanel extends JPanel {
         gameController = new GameController();
         setLayout(new FlowLayout());
         try {
-            searchPanelGameList = new SearchPanelGameList(this);
-            add(searchPanelGameList);
+            searchPanelGame = new SearchPanelGame(this);
+            add(searchPanelGame);
 
             table = utilitiesPanelMethode.getJTableModelBlank();
             scrollPane = new JScrollPane(table);
@@ -41,7 +41,7 @@ public class GamePanel extends JPanel {
     }
 
     public void setJtable() throws AllGamesException{
-        searchAllGamesListCharacter = getSearchAllGamesListCharacter(searchPanelGameList.getPseudoChoice(), searchPanelGameList.getNumberChoice(), searchPanelGameList.getCharacterNameChoice(), searchPanelGameList.getDateEnd());
+        searchAllGamesListCharacter = getSearchAllGamesListCharacter(searchPanelGame.getPseudoChoice(), searchPanelGame.getNumberChoice(), searchPanelGame.getCharacterNameChoice(), searchPanelGame.getDateEnd());
         AllGamesFromCharacterModel model = new AllGamesFromCharacterModel(searchAllGamesListCharacter);
         remove(table);
         table = new JTable(model);

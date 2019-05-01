@@ -10,9 +10,10 @@ public class EffectPanel extends JPanel{
 
     public EffectPanel() {
         setLayout(new GridLayout(1, 2, 5, 15));
-        searchEffectPanel = new SearchEffectPanel();
-        //resultEffectPanel = new ResultEffectPanel();
+        resultEffectPanel = new ResultEffectPanel();
+        searchEffectPanel = new SearchEffectPanel(resultEffectPanel);
+
         add(searchEffectPanel);
-        //add(resultEffectPanel);
+        add(resultEffectPanel);
     }
 }

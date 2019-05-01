@@ -19,6 +19,10 @@ public class GameController {
     }
 
     public ArrayList<String> getAllGamesName(String pseudoChoice, String numberChoice)throws AllGamesException{
-        return gameBusinessLogic.getAllGamesName();
+        return gameBusinessLogic.getAllGamesName(pseudoChoice, numberChoice);
+    }
+
+    public ArrayList<String> getAllGames()throws AllGamesException{
+        return gameBusinessLogic.getAllGames();
     }
 }
