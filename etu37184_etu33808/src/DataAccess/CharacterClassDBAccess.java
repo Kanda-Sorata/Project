@@ -1,18 +1,18 @@
 package DataAccess;
 
 import BusinessLogic.CharacterClassDataAccess;
+import Exception.AllCommonException;
+import Exception.ConnectionException;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import Exception.ConnectionException;
-import Exception.AllCharacterClassException;
 import java.util.ArrayList;
-import java.sql.Connection;
 
 
 public class CharacterClassDBAccess implements CharacterClassDataAccess {
-    public ArrayList<String> getClassesInAGame(String game) throws AllCharacterClassException {
+    public ArrayList<String> getClassesInAGame(String game) throws AllCommonException {
         try {
             Connection dataConnection = SingletonConnection.getInstance();
             String querry = "select characterClass.name from characterClass, game ";
@@ -32,9 +32,9 @@ public class CharacterClassDBAccess implements CharacterClassDataAccess {
             return allClassesInAGame;
 
         } catch (ConnectionException connexionException) {
-            throw new AllCharacterClassException(0);
+            throw new AllCommonException(0);
         } catch (SQLException sqlException) {
-            throw new AllCharacterClassException(1);
+            throw new AllCommonException(1);
         }
     }
 }

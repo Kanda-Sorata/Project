@@ -1,9 +1,9 @@
 package View.SearchPanel;
 
 import Controller.GameController;
+
 import javax.swing.*;
 import java.awt.*;
-import Exception.AllGamesException;
 
 public class ResultEffectPanel extends JPanel {
 

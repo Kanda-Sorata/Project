@@ -2,7 +2,6 @@ package View.SearchPanel;
 
 import Controller.CharacterClassController;
 import Controller.GameController;
-import Exception.AllCharacterClassException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -10,7 +9,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import Exception.AllGamesException;
 
 public class SearchEffectPanel extends JPanel {
     private JComboBox gameCombo;

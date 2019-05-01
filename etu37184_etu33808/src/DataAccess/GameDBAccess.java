@@ -1,11 +1,13 @@
 package DataAccess;
 
 import BusinessLogic.GameDataAccess;
-import Exception.AllGamesException;
 import Exception.ConnectionException;
 import Model.SearchGameList;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

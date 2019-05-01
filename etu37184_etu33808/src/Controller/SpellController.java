@@ -1,7 +1,8 @@
 package Controller;
-import BusinessLogic.*;
+
+import BusinessLogic.SpellBusinessLogic;
 import Model.SearchSpellList;
-import Exception.AllSpellsException;
+
 import java.util.ArrayList;
 
 public class SpellController {

@@ -1,7 +1,6 @@
 package Controller;
 
 import BusinessLogic.GameBusinessLogic;
-import Exception.AllGamesException;
 import Model.SearchGameList;
 
 import java.util.ArrayList;

@@ -1,9 +1,9 @@
 package BusinessLogic;
 
-import Model.AccountPlayer;
-import Exception.AllCharacterClassException;
+import Exception.AllCommonException;
+
 import java.util.ArrayList;
 
 public interface CharacterClassDataAccess {
-    ArrayList<String> getClassesInAGame(String game) throws AllCharacterClassException;
+    ArrayList<String> getClassesInAGame(String game) throws AllCommonException;
 }

@@ -2,7 +2,6 @@ package View.SearchPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import Exception.AllGamesException;
 
 public class EffectPanel extends JPanel {
     private SearchEffectPanel searchEffectPanel;

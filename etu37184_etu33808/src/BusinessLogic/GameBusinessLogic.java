@@ -1,7 +1,6 @@
 package BusinessLogic;
 
 import DataAccess.GameDBAccess;
-import Exception.AllGamesException;
 import Model.SearchGameList;
 
 import java.util.ArrayList;

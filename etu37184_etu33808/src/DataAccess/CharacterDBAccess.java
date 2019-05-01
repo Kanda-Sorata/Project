@@ -1,7 +1,10 @@
 package DataAccess;
 
 import BusinessLogic.CharacterDataAccess;
-import Exception.*;
+import Exception.AllCommonException;
+import Exception.ConnectionException;
+import Exception.DamagePerSecondException;
+import Exception.HealthPointsException;
 import Model.Character;
 
 import java.sql.Connection;
@@ -14,7 +17,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
 
     public CharacterDBAccess(){}
 
-    public ArrayList<Character> getAllCharacter(String pseudo, String number) throws AllCharacterException {
+    public ArrayList<Character> getAllCharacter(String pseudo, String number) throws AllCommonException {
         try {
             Connection dataConnection = SingletonConnection.getInstance();
             String querry = "select name, healthPoint, isStuffed, creationDate, petName, damagePerSecond ";
@@ -55,13 +58,13 @@ public class CharacterDBAccess implements CharacterDataAccess {
             }
             return characters;
         } catch (ConnectionException connexionException) {
-            throw new AllCharacterException(0);
+            throw new AllCommonException(0);
         } catch (SQLException sqlException) {
-            throw new AllCharacterException(0);
+            throw new AllCommonException(1);
         } catch (HealthPointsException healthPointsException) {
-            throw new AllCharacterException(1);
+            throw new AllCommonException(2);
         } catch (DamagePerSecondException damagePerSecondException) {
-            throw new AllCharacterException(2);
+            throw new AllCommonException(3);
         }
     }
 }

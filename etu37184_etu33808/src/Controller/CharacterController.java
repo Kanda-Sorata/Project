@@ -1,7 +1,6 @@
 package Controller;
 
 import BusinessLogic.CharacterBusinessLogic;
-import Exception.AllCharacterException;
 import Model.Character;
 
 import java.util.ArrayList;

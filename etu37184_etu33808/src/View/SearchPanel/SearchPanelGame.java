@@ -2,10 +2,8 @@ package View.SearchPanel;
 //todo changer les tableaux et mettre arraylist.toArray()
 import Controller.AccountPlayerController;
 import Controller.CharacterController;
-import Exception.AllCharacterException;
 import Exception.AllAccountException;
 import Exception.NbAccountException;
-import Exception.AllGamesException;
 import Model.Character;
 
 import javax.swing.*;

@@ -1,7 +1,9 @@
 package DataAccess;
 
 import BusinessLogic.AccountPlayerDataAccess;
-import Exception.*;
+import Exception.AllCommonException;
+import Exception.ConnectionException;
+import Exception.SexException;
 import Model.AccountPlayer;
 
 import java.sql.Connection;
@@ -15,7 +17,7 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
 
     public AccountPlayerDBAccess(){}
 
-    public Integer getNbAccountPlayers() throws NbAccountException {
+    public Integer getNbAccountPlayers() throws AllCommonException {
         try {
             Connection dataConnection = SingletonConnection.getInstance();
             String querry = "select count(*) from playeraccount;";
@@ -27,9 +29,9 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
             }
             return nbPlayerAccount;
         } catch (ConnectionException connexionException) {
-            throw new NbAccountException(0);
+            throw new AllCommonException(0);
         } catch (SQLException sqlException) {
-            throw new NbAccountException(1);
+            throw new AllCommonException(1);
         }
     }
 

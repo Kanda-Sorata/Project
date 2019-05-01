@@ -1,6 +1,8 @@
 package DataAccess;
 
 import BusinessLogic.SpellDataAccess;
+import Exception.AllCommonException;
+import Exception.ConnectionException;
 import Model.SearchSpellList;
 
 import java.sql.Connection;
@@ -8,10 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import Exception.*;
 
 public class SpellDBAccess implements SpellDataAccess {
-    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, String numberChoice)throws AllSpellsException{
+    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, String numberChoice)throws AllCommonException{
         try {
             Connection connection = SingletonConnection.getInstance();
 
@@ -47,9 +48,9 @@ public class SpellDBAccess implements SpellDataAccess {
             }
             return searchSpellLists;
         }catch(ConnectionException  connectionEwception){
-            throw new AllSpellsException(0);
+            throw new AllCommonException(0);
         }catch(SQLException sqlException){
-            throw new AllSpellsException(1);
+            throw new AllCommonException(1);
         }
     }
 }

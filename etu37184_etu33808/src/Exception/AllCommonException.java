@@ -1,9 +1,9 @@
 package Exception;
 
-public class AllGamesException extends Exception {
+public class AllCommonException extends Exception {
     private int code;
 
-    public AllGamesException(int code){
+    public AllCommonException(int code) {
         this.code = code;
     }
 
@@ -13,11 +13,10 @@ public class AllGamesException extends Exception {
             case 0:
                 output = "Désolé, une erreur s'est produite lors de la tentative d'accès à la source de données.";
                 break;
-            case 1:
+            case 1: case 2: case 3: case 4: case 5:
                 output = "Désolé, certaines données sont corrompues, impossible de continuer.";
                 break;
         }
         return output + "\n";
     }
-
 }

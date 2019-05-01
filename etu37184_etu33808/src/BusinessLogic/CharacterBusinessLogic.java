@@ -1,7 +1,6 @@
 package BusinessLogic;
 
 import DataAccess.CharacterDBAccess;
-import Exception.AllCharacterException;
 import Model.Character;
 
 import java.util.ArrayList;
