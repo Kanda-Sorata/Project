@@ -2,8 +2,8 @@ package DataAccess;
 
 import BusinessLogic.CharacterClassDataAccess;
 import Exception.ConnectionException;
-import Exception.DataException;
 import Exception.DataAccessException;
+import Exception.DataException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,6 +32,36 @@ public class CharacterClassDBAccess implements CharacterClassDataAccess {
             }
             return allClassesInAGame;
 
+        } catch (ConnectionException connexionException) {
+            throw new DataException(0);
+        } catch (SQLException sqlException) {
+            throw new DataAccessException();
+        }
+    }
+
+    @Override
+    public ArrayList<String> getAllClassesName(String pseudo, int number, String game, String server)
+                                                                            throws DataException, DataAccessException {
+        try {
+            Connection dataConnection = SingletonConnection.getInstance();
+
+            String querry = "select characterClass.name from characterClass, game, playeraccount, server "
+                          + "where characterClass.gamename = ? and characterClass.gamename = ? ";
+            //TODO FormPanel JComboBox
+
+            PreparedStatement statement = dataConnection.prepareStatement(querry);
+
+            ResultSet data = statement.executeQuery();
+
+            ArrayList<String> allClasses = new ArrayList<>();
+
+            String characterClass;
+
+            while(data.next()){
+                characterClass = data.getString("name");
+                allClasses.add(characterClass);
+            }
+            return allClasses;
         } catch (ConnectionException connexionException) {
             throw new DataException(0);
         } catch (SQLException sqlException) {

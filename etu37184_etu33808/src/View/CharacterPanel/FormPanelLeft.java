@@ -1,6 +1,6 @@
 package View.CharacterPanel;
 
-import Controller.CharacterController;
+import Controller.CharacterClassController;
 import Controller.GameController;
 import Controller.ServerController;
 import Exception.DataAccessException;
@@ -42,13 +42,13 @@ public class FormPanelLeft extends JPanel {
     private UtilitiesPanelMethode utilitiesPanelMethode;
     private GameController gameController;
     private ServerController serverController;
-    private CharacterController characterController;
+    private CharacterClassController characterClassController;
 
     public FormPanelLeft(){
         utilitiesPanelMethode = new UtilitiesPanelMethode();
         gameController = new GameController();
         serverController = new ServerController();
-        characterController = new CharacterController();
+        characterClassController = new CharacterClassController();
         //Add properties
         setLayout(new GridLayout(2,2, 5, 15));
 
@@ -110,11 +110,11 @@ public class FormPanelLeft extends JPanel {
         for(int iServer = 0; iServer < size; iServer++){ servers.add(temp.get(iServer)); }
     }
 
-    public void setCharacterClasses() {
-        /*ArrayList<String> temp = characterController.getAllCharactersName();
+    public void setCharacterClasses(String pseudoChoice, int numberChoice, String game, String serverChoice) {
+        ArrayList<String> temp = characterClassController.getAllCharactersName(pseudoChoice, numberChoice, game, serverChoice);
         temp.add("No selection");
         int size = temp.size();
-        for(int iServer = 0; iServer < size; iServer++){ servers.add(temp.get(iServer)); }*/
+        for(int iServer = 0; iServer < size; iServer++){ servers.add(temp.get(iServer)); }
     }
 
     private class ComboBoxListener implements ActionListener{
@@ -149,7 +149,7 @@ public class FormPanelLeft extends JPanel {
                         JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }else{
-                  /*  if(actionEvent.getSource() == serverCombo){
+                    if(actionEvent.getSource() == serverCombo){
                         try {
                             set(pseudoChoice, numberChoice, gameChoice);
                             characterClassCombo.setModel(new DefaultComboBoxModel(characterClasses.toArray()));
@@ -164,7 +164,7 @@ public class FormPanelLeft extends JPanel {
                     }
                     else{
 
-                    }*/
+                    }
                 }
             }
         }
