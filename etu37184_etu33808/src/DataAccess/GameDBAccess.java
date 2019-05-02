@@ -10,34 +10,33 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class GameDBAccess implements GameDataAccess {
 
-    public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, String number, String character,
+    public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, int number, String character,
                                         GregorianCalendar dateEnd) throws DataException, DataAccessException{
         try {
             Connection dataConnection = SingletonConnection.getInstance();
 
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            java.util.Date dateDate = new java.sql.Date(dateEnd.getTimeInMillis());
+            java.sql.Date sqlDate = new java.sql.Date(dateEnd.getTimeInMillis());
 
-            String querry = "select game.name, game.releasedate, server.name as serverName ";
-            querry += "from playeraccount, `character`, server, game ";
-            querry += "where playeraccount.id = (select id from playeraccount where pseudo = ? and `number` = ?) ";
-            querry += "and `character`.name = ? and `character`.playeraccountid = playeraccount.id ";
-            querry += "and server.technicalId = `character`.servertechnicalid and game.name = server.gamename;";
-            //querry += "and game.releaseDate <= STR_TO_DATE(?, '%Y-%m-%d');";
+
+            String querry = "select game.name, game.releasedate, server.name as serverName "
+             + "from playeraccount, `character`, server, game "
+             + "where playeraccount.id = (select id from playeraccount where pseudo = ? and `number` = ?) "
+             + "and `character`.name = ? and `character`.playeraccountid = playeraccount.id "
+             + "and server.technicalId = `character`.servertechnicalid and game.name = server.gamename "
+             + "and game.releaseDate <= ?;";
+
 
             PreparedStatement statement = dataConnection.prepareStatement(querry);
 
             statement.setString(1, pseudo);
-            statement.setString(2, number);
+            statement.setInt(2, number);
             statement.setString(3, character);
-            //statement.setString(4, dateFormat.format(dateDate));
+            statement.setDate(4, sqlDate);
 
             ResultSet data = statement.executeQuery();
 
@@ -59,6 +58,7 @@ public class GameDBAccess implements GameDataAccess {
         }catch (ConnectionException connectionException){
             throw new DataException(0);
         } catch (SQLException sqlException) {
+            System.out.println(sqlException.getMessage());
             throw new DataAccessException();
         }
     }

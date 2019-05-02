@@ -26,19 +26,20 @@ public class SpellPanel extends JPanel {
         table = utilitiesPanelMethode.getJTableModelBlank();
         scrollPane = new JScrollPane(table);
         add(searchPanelSpell);
-        add(table);
+        add(scrollPane);
     }
 
-    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, String numberChoice)throws DataException, DataAccessException {
+    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, int numberChoice)throws DataException, DataAccessException {
         return spellController.getSearchSpellList(pseudoChoice, numberChoice);
     }
 
-    public void setJtable(String pseudoChoice, String numberCoice) throws DataException, DataAccessException {
-        searchSpellLists = getSearchSpellList(pseudoChoice, numberCoice);
+    public void setJtable(String pseudoChoice, int numberChoice) throws DataException, DataAccessException {
+        searchSpellLists = getSearchSpellList(pseudoChoice, numberChoice);
         AllSpellsListFromPlayerModel model = new AllSpellsListFromPlayerModel(searchSpellLists);
-        remove(table);
+        remove(scrollPane);
         table = new JTable(model);
-        add(table);
+        scrollPane = new JScrollPane(table);
+        add(scrollPane);
         revalidate();
         repaint();
     }

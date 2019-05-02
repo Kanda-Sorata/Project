@@ -19,7 +19,7 @@ public class EffectDBAccess implements EffectDataAccess{
 
             String querry = "select effect.label as labelEffect, spell.name as spellName, spell.cooldown, game.name as game ";
             querry += "from effect, spell, game, characterClass, bind, debuff ";
-            querry += "where characterClass.Gamename  = game.name and bind.characterClassTechnicalId = ";
+            querry += "where game.name = characterClass.Gamename and bind.characterClassTechnicalId = ";
             querry += "characterClass.technicalId and spell.technicalId = bind.spellTechnicalId ";
             querry += "and debuff.spellTechnicalId = spell.technicalid and debuff.effectLabel = effect.label ";
             querry += "and game.name = ? and characterClass.name = ?;";

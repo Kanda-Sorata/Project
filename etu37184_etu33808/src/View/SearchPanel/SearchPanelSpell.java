@@ -19,7 +19,7 @@ public class SearchPanelSpell extends JPanel {
     private JLabel playerAccount;
 
     private String pseudoChoice;
-    private String numberChoice;
+    private int numberChoice;
 
     private UtilitiesPanelMethode utilitiesPanelMethode;
     private SpellPanel spellPanel;
@@ -58,11 +58,11 @@ public class SearchPanelSpell extends JPanel {
         this.pseudoChoice = pseudoChoice;
     }
 
-    public String getNumberChoice() {
+    public int getNumberChoice() {
         return numberChoice;
     }
 
-    public void setNumberChoice(String numberChoice) {
+    public void setNumberChoice(int numberChoice) {
         this.numberChoice = numberChoice;
     }
 
@@ -71,7 +71,7 @@ public class SearchPanelSpell extends JPanel {
         public void actionPerformed(ActionEvent actionEvent) {
             if(!pseudos.get(playerAccountCombo.getSelectedIndex()).equals(pseudos.get(0))){
                 setPseudoChoice(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[0]);
-                setNumberChoice(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[1]);
+                setNumberChoice(Integer.parseInt(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[1]));
                 try {
                     spellPanel.setJtable(pseudoChoice, numberChoice);
                 }catch(DataException dataException) {

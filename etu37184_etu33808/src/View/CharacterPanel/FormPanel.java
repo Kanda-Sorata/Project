@@ -69,10 +69,20 @@ public class FormPanel extends JPanel {
 
 
             games.add("No selection");
-            gameCombo = new JComboBox();
+            gameCombo = new JComboBox(games.toArray());
+            gameCombo.addActionListener(comboBoxListener);
             gameCombo.addActionListener(comboBoxListener);
             gameCombo.setEnabled(false);
 
+            servers.add("No selection");
+            serverCombo = new JComboBox(servers.toArray());
+            serverCombo.addActionListener(comboBoxListener);
+            serverCombo.setEnabled(false);
+
+            characterClasses.add("No selection");
+            characterClassCombo = new JComboBox(characterClasses.toArray());
+            characterClassCombo.addActionListener(comboBoxListener);
+            characterClassCombo.setEnabled(false);
 
             add(playerAccountLabel);
             add(playerAccountCombo);
@@ -99,7 +109,7 @@ public class FormPanel extends JPanel {
         for(int iGame = 0; iGame < size; iGame++){ games.add(temp.get(iGame)); }
     }
 
-    public void setServersName(String pseudoChoice, String numberChoice, String game) throws DataException, DataAccessException {
+    public void setServersName(String pseudoChoice, int numberChoice, String game) throws DataException, DataAccessException {
         ArrayList<String> temp = serverController.getAllServersName(pseudoChoice, numberChoice, game);
         temp.add("No selection");
         int size = temp.size();
@@ -110,7 +120,10 @@ public class FormPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent actionEvent){
             if(actionEvent.getSource() == playerAccountCombo){
-
+                setPseudoChoice(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[0]);
+                setNumberChoice(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[1]);
+                //TODO
+                gameCombo.setModel(new DefaultComboBoxModel());
             }
         }
     }

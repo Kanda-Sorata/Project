@@ -20,7 +20,7 @@ public class GameBusinessLogic implements GameDataAccess {
         this.dao = dao;
     }
 
-    public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, String number, String character, GregorianCalendar dateEnd) throws DataException, DataAccessException {
+    public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, int number, String character, GregorianCalendar dateEnd) throws DataException, DataAccessException {
         return dao.getSearchAllGamesListCharacter(pseudo, number, character, dateEnd);
     }
 

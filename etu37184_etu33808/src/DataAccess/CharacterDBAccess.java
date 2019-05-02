@@ -14,7 +14,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
 
     public CharacterDBAccess(){}
 
-    public ArrayList<Character> getAllCharacter(String pseudo, String number) throws DataException, DataAccessException {
+    public ArrayList<Character> getAllCharacter(String pseudo, int number) throws DataException, DataAccessException {
         try {
             Connection dataConnection = SingletonConnection.getInstance();
             String querry = "select name, healthPoint, isStuffed, creationDate, petName, damagePerSecond ";
@@ -24,7 +24,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
             PreparedStatement statement = dataConnection.prepareStatement(querry);
 
             statement.setString(1, pseudo);
-            statement.setString(2, number);
+            statement.setInt(2, number);
 
             ResultSet data = statement.executeQuery();
             Character character;

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class ServerDBAccess implements ServerDataAccess {
     @Override
-    public ArrayList<String> getAllServersName(String pseudoChoice, String numberChoice, String game) throws DataException, DataAccessException {
+    public ArrayList<String> getAllServersName(String pseudoChoice, int numberChoice, String game) throws DataException, DataAccessException {
         try{
             Connection dataConnection = SingletonConnection.getInstance();
             String querry = "select  server.name from playeraccount, game, server, acquisition ";
@@ -24,7 +24,7 @@ public class ServerDBAccess implements ServerDataAccess {
             PreparedStatement statement = dataConnection.prepareStatement(querry);
 
             statement.setString(1, pseudoChoice);
-            statement.setString(2, numberChoice);
+            statement.setInt(2, numberChoice);
             statement.setString(3, game);
 
             ResultSet data = statement.executeQuery();

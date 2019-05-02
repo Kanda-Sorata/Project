@@ -20,7 +20,8 @@ public class AllEffectsFromSpellModel extends AbstractTableModel {
     public void setContents(ArrayList<SearchEffectList> searchEffectList){ contents = searchEffectList; }
     public int getColumnCount( ) { return columnNames.size( ); }
     public int getRowCount( ) { return contents.size( ); }
-    public String getColumnName(int column) { return columnNames.get(column); }
+    @Override
+    public String getColumnName(int column) {return columnNames.get(column); }
     public Object getValueAt(int row, int column){
         SearchEffectList searchEffectList = contents.get(row);
         switch (column){

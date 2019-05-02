@@ -18,7 +18,7 @@ public class CharacterBusinessLogic {
         this.dao = dao;
     }
 
-    public ArrayList<Character> getAllCharacter(String pseudo, String number) throws DataException, DataAccessException {
+    public ArrayList<Character> getAllCharacter(String pseudo, int number) throws DataException, DataAccessException {
         return dao.getAllCharacter(pseudo, number);
     }
 }

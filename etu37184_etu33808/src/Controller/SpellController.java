@@ -14,7 +14,7 @@ public class SpellController {
         spellBusinessLogic = new SpellBusinessLogic();
     }
 
-    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, String numberChoice)throws DataException, DataAccessException {
+    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, int numberChoice)throws DataException, DataAccessException {
         return spellBusinessLogic.getSearchSpellList(pseudoChoice, numberChoice);
     }
 }

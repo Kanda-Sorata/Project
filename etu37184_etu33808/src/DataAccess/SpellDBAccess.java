@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SpellDBAccess implements SpellDataAccess {
-    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, String numberChoice)throws DataException, DataAccessException{
+    public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, int numberChoice)throws DataException, DataAccessException{
         try {
             Connection connection = SingletonConnection.getInstance();
 
@@ -29,7 +29,7 @@ public class SpellDBAccess implements SpellDataAccess {
             PreparedStatement statement = connection.prepareStatement(querry);
 
             statement.setString(1, pseudoChoice);
-            statement.setString(2, numberChoice);
+            statement.setInt(2, numberChoice);
 
             ResultSet data = statement.executeQuery();
             ArrayList<SearchSpellList> searchSpellLists = new ArrayList<>();

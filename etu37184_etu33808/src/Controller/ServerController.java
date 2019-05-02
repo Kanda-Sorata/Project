@@ -13,7 +13,7 @@ public class ServerController {
         this.serverBusinessLogic = new ServerBusinessLogic();
     }
 
-    public ArrayList<String> getAllServersName(String pseudoChoice, String numberChoice, String game) throws DataException, DataAccessException {
+    public ArrayList<String> getAllServersName(String pseudoChoice, int numberChoice, String game) throws DataException, DataAccessException {
         return serverBusinessLogic.getAllServersName(pseudoChoice, numberChoice, game);
     }
 

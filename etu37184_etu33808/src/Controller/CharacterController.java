@@ -18,7 +18,7 @@ public class CharacterController {
         this.characterBusinessLogic = characterBusinessLogic;
     }
 
-    public ArrayList<Character> getAllCharacter(String pseudo, String number) throws DataException, DataAccessException {
+    public ArrayList<Character> getAllCharacter(String pseudo, int number) throws DataException, DataAccessException {
         return characterBusinessLogic.getAllCharacter(pseudo, number);
     }
 }

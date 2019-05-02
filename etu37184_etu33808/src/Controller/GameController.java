@@ -15,7 +15,7 @@ public class GameController {
         gameBusinessLogic = new GameBusinessLogic();
     }
 
-    public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, String number, String character, GregorianCalendar dateEnd) throws DataException, DataAccessException{
+    public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, int number, String character, GregorianCalendar dateEnd) throws DataException, DataAccessException{
         return gameBusinessLogic.getSearchAllGamesListCharacter(pseudo, number, character, dateEnd);
     }
 

@@ -36,7 +36,7 @@ public class SearchPanelGame extends JPanel {
     private JLabel dateEnd;
 
     private String pseudoChoice;
-    private String numberChoice;
+    private int numberChoice;
     private String characterNameChoice;
     private GregorianCalendar dateChoice;
 
@@ -135,7 +135,7 @@ public class SearchPanelGame extends JPanel {
         this.pseudoChoice = pseudoChoice;
     }
 
-    public void setNumberChoice(String numberChoice){
+    public void setNumberChoice(int numberChoice){
         this.numberChoice = numberChoice;
     }
 
@@ -143,7 +143,7 @@ public class SearchPanelGame extends JPanel {
         return pseudoChoice;
     }
 
-    public String getNumberChoice() {
+    public int getNumberChoice() {
         return numberChoice;
     }
 
@@ -180,8 +180,8 @@ public class SearchPanelGame extends JPanel {
         public void actionPerformed(ActionEvent actionEvent) {
             if (!playerAccounts.get(playerAccountCombo.getSelectedIndex()).equals(playerAccounts.get(0))) {
                 setPseudoChoice(playerAccounts.get(playerAccountCombo.getSelectedIndex()).split("#")[0]);
-                setNumberChoice(playerAccounts.get(playerAccountCombo.getSelectedIndex()).split("#")[1]);
-                try {
+                setNumberChoice(Integer.parseInt(playerAccounts.get(playerAccountCombo.getSelectedIndex()).split("#")[1]));
+                    try {
                     setCharacterName();
                     if (charactersName.size() > 0) {
                         characterNameCombo.setModel(new DefaultComboBoxModel(charactersName.toArray()));

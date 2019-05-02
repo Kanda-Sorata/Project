@@ -138,7 +138,7 @@ public class Frame extends JFrame{
         public void actionPerformed(ActionEvent event){
             if(event.getSource() == exit) {
                 System.exit(0);
-                //Add !connection.isClosed() => close the connection
+                //todo close
             }
             else{
                 container.removeAll();

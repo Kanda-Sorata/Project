@@ -6,5 +6,5 @@ import Exception.DataException;
 import java.util.ArrayList;
 
 public interface ServerDataAccess {
-    ArrayList<String> getAllServersName(String pseudoChoice, String numberChoice, String game) throws DataException, DataAccessException;
+    ArrayList<String> getAllServersName(String pseudoChoice, int numberChoice, String game) throws DataException, DataAccessException;
 }

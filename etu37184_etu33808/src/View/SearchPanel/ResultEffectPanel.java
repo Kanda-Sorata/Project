@@ -24,15 +24,16 @@ public class ResultEffectPanel extends JPanel {
 
         table = utilitiesPanelMethode.getJTableModelBlank();
         scrollPane = new JScrollPane(table);
-        add(table);
+        add(scrollPane);
     }
 
     public void setJTable(String gameChoice, String classChoice) throws DataException, DataAccessException {
         searchEffectList = effectController.getSearchEffectList(gameChoice, classChoice);
         AllEffectsFromSpellModel model = new AllEffectsFromSpellModel(searchEffectList);
-        remove(table);
+        remove(scrollPane);
         table = new JTable(model);
-        add(table);
+        scrollPane = new JScrollPane(table);
+        add(scrollPane);
         revalidate();
         repaint();
     }
