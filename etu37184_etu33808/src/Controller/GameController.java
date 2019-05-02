@@ -19,7 +19,7 @@ public class GameController {
         return gameBusinessLogic.getSearchAllGamesListCharacter(pseudo, number, character, dateEnd);
     }
 
-    public ArrayList<String> getAllGamesName(String pseudoChoice, String numberChoice)throws DataException, DataAccessException {
+    public ArrayList<String> getAllGamesName(String pseudoChoice, int numberChoice)throws DataException, DataAccessException {
         return gameBusinessLogic.getAllGamesName(pseudoChoice, numberChoice);
     }
 

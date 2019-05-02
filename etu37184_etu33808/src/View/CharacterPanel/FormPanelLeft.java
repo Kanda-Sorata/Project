@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 
-public class FormPanel extends JPanel {
+public class FormPanelLeft extends JPanel {
     private JComboBox playerAccountCombo;
     private JComboBox gameCombo;
     private JComboBox serverCombo;
@@ -25,35 +25,30 @@ public class FormPanel extends JPanel {
     private ArrayList<String> servers;
     private ArrayList<String> characterClasses;
 
-    private JTextField nameField;
-    private JTextField healthPointField;
-    private JCheckBox isStuffedCheckBoc;
-    private JSpinner creationDate;
-    private JTextField petNameField;
-    private JTextField damagePerSecond;
 
     private JLabel playerAccountLabel;
-
+    private JLabel gameLabel;
+    private JLabel serverLabel;
+    private JLabel characterClassLabel;
 
     private ComboBoxListener comboBoxListener;
 
-
-
     private String pseudoChoice;
-    private String numberChoice;
+    private int numberChoice;
     private String gameChoice;
+    private String serverChoice;
+    private String characterClassChoice;
 
     private UtilitiesPanelMethode utilitiesPanelMethode;
     private GameController gameController;
     private ServerController serverController;
     private CharacterController characterController;
 
-    public FormPanel(){
+    public FormPanelLeft(){
         utilitiesPanelMethode = new UtilitiesPanelMethode();
         gameController = new GameController();
         serverController = new ServerController();
         characterController = new CharacterController();
-
         //Add properties
         setLayout(new GridLayout(2,2, 5, 15));
 
@@ -61,24 +56,25 @@ public class FormPanel extends JPanel {
         try{
             comboBoxListener = new ComboBoxListener();
 
-            playerAccountLabel = new JLabel("Plauyer account");
+            playerAccountLabel = new JLabel("Player account");
             pseudos = utilitiesPanelMethode.setPlayerAccountsPseudo();
             playerAccountCombo = new JComboBox(pseudos.toArray());
-
             playerAccountCombo.addActionListener(comboBoxListener);
 
-
+            gameLabel = new JLabel("Game");
             games.add("No selection");
             gameCombo = new JComboBox(games.toArray());
             gameCombo.addActionListener(comboBoxListener);
             gameCombo.addActionListener(comboBoxListener);
             gameCombo.setEnabled(false);
 
+            serverLabel = new JLabel("Server");
             servers.add("No selection");
             serverCombo = new JComboBox(servers.toArray());
             serverCombo.addActionListener(comboBoxListener);
             serverCombo.setEnabled(false);
 
+            characterClassLabel = new JLabel("Character class");
             characterClasses.add("No selection");
             characterClassCombo = new JComboBox(characterClasses.toArray());
             characterClassCombo.addActionListener(comboBoxListener);
@@ -86,6 +82,12 @@ public class FormPanel extends JPanel {
 
             add(playerAccountLabel);
             add(playerAccountCombo);
+            add(gameLabel);
+            add(gameCombo);
+            add(serverLabel);
+            add(serverCombo);
+            add(characterClassLabel);
+            add(characterClassCombo);
 
         }catch(DataException dataException){
             JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -98,11 +100,11 @@ public class FormPanel extends JPanel {
         this.pseudoChoice = pseudoChoice;
     }
 
-    public void setNumberChoice(String numberChoice) {
+    public void setNumberChoice(int numberChoice) {
         this.numberChoice = numberChoice;
     }
 
-    public void setGamesName(String pseudoChoice, String numberChoice) throws DataException, DataAccessException {
+    public void setGamesName(String pseudoChoice, int numberChoice) throws DataException, DataAccessException {
         ArrayList<String> temp = gameController.getAllGamesName(pseudoChoice, numberChoice);
         temp.add("No selection");
         int size = temp.size();
@@ -121,9 +123,17 @@ public class FormPanel extends JPanel {
         public void actionPerformed(ActionEvent actionEvent){
             if(actionEvent.getSource() == playerAccountCombo){
                 setPseudoChoice(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[0]);
-                setNumberChoice(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[1]);
-                //TODO
-                gameCombo.setModel(new DefaultComboBoxModel());
+                setNumberChoice(Integer.parseInt(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[1]));
+                try {
+                    setGamesName(pseudoChoice, numberChoice);
+                    gameCombo.setModel(new DefaultComboBoxModel(games.toArray()));
+                    gameCombo.revalidate();
+                    gameCombo.repaint();
+                }catch(DataException dataException){
+                    JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }catch (DataAccessException dataAcceException){
+                    JOptionPane.showMessageDialog(null, dataAcceException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
     }

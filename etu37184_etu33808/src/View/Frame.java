@@ -2,7 +2,7 @@ package View;
 
 import View.CharacterPanel.DeletePanel;
 import View.CharacterPanel.DisplayPanel;
-import View.CharacterPanel.FormPanel;
+import View.CharacterPanel.FormPanelLeft;
 import View.CharacterPanel.ModifyPanel;
 import View.SearchPanel.EffectPanel;
 import View.SearchPanel.GamePanel;
@@ -32,7 +32,7 @@ public class Frame extends JFrame{
     GamePanel gamePanel;
     SpellPanel spellPanel;
     EffectPanel effectPanel;
-    FormPanel formPanel;
+    FormPanelLeft formPanelLeft;
     DeletePanel deletePanel;
     ModifyPanel modifyPanel;
     DisplayPanel displayPanel;
@@ -179,9 +179,9 @@ public class Frame extends JFrame{
             //Add JOPTINPANEdialogue JBomboBox pseudo & number if(non null utiliser pseudo et nuber
             container.removeAll();
             if(actionEvent.getSource() == add){
-                formPanel = new FormPanel();
-                //formPanel.setPlayer();
-                container.add(formPanel);
+                formPanelLeft = new FormPanelLeft();
+                //formPanelLeft.setPlayer();
+                container.add(formPanelLeft);
             }
             else{
                 if(actionEvent.getSource() == modify){

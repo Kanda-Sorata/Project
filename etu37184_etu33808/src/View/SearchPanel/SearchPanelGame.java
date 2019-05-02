@@ -159,8 +159,11 @@ public class SearchPanelGame extends JPanel {
         return  dateChoice;
     }
 
-    public void setDateChoice(GregorianCalendar dateChoice){
-        this.dateChoice = dateChoice;
+    public void setDateChoice(){
+        Date date = (Date) dateEndSpinner.getValue();
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        this.dateChoice = calendar;
     }
 
     public void setCharacterName() throws DataException, DataAccessException {
@@ -215,10 +218,7 @@ public class SearchPanelGame extends JPanel {
         @Override
         public void stateChanged(ChangeEvent changeEvent){
             if(changeEvent.getSource() == dateEndSpinner) {
-                Date date = (Date) dateEndSpinner.getValue();
-                GregorianCalendar calendar = new GregorianCalendar();
-                calendar.setTime(date);
-                setDateChoice(calendar);
+                setDateChoice();
             }
         }
     }
@@ -233,13 +233,14 @@ public class SearchPanelGame extends JPanel {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             try {
+                setDateChoice();
                 if(playerAccountCombo.getSelectedIndex() != 0 && characterNameCombo.getSelectedIndex() != 0 && dateChoice != null) {
                     resultGamePanel.setJtable(pseudoChoice, numberChoice, characterNameChoice, dateChoice);
                 }
             }catch(DataException dataException){
                 JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }catch (DataAccessException dataAccexException){
-                JOptionPane.showMessageDialog(null, dataAccexException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }catch (DataAccessException dataAcceException){
+                JOptionPane.showMessageDialog(null, dataAcceException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

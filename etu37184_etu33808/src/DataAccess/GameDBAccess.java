@@ -86,7 +86,7 @@ public class GameDBAccess implements GameDataAccess {
         }
     }
 
-    public ArrayList<String> getAllGamesName(String pseudoChoice, String numberChoice) throws DataAccessException, DataException {
+    public ArrayList<String> getAllGamesName(String pseudoChoice, int numberChoice) throws DataAccessException, DataException {
         try{
             Connection dataConnection = SingletonConnection.getInstance();
 
@@ -96,7 +96,7 @@ public class GameDBAccess implements GameDataAccess {
             PreparedStatement statement = dataConnection.prepareStatement(querry);
 
             statement.setString(1, pseudoChoice);
-            statement.setString(2, numberChoice);
+            statement.setInt(2, numberChoice);
 
             ResultSet data = statement.executeQuery();
             ArrayList<String> gamesName = new ArrayList<>();
