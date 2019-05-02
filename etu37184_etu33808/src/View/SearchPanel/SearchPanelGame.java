@@ -64,7 +64,7 @@ public class SearchPanelGame extends JPanel {
 
             //Add propeties
             setLayout(new GridLayout(4, 2, 5, 15));
-            setBorder(new EmptyBorder(150, 0, 250, 250)); //top, left, bottom, right
+            //setBorder(new EmptyBorder(100, 0, 100, 100)); //top, left, bottom, right
 
             //add component
             playerAcocunt = new JLabel("Player Account");
@@ -113,6 +113,7 @@ public class SearchPanelGame extends JPanel {
             add(dateEndSpinner);
             add(validationLabel);
             add(validation);
+            setVisible(true);
         }catch(DataException dataException){
             JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }catch(DataAccessException dataAccessException){

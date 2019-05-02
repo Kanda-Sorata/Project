@@ -62,7 +62,8 @@ public class Frame extends JFrame{
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int height = screenSize.height;
         int width = screenSize.width;
-        setSize(width/2+100, height/2+100);
+        pack();
+        setSize(width/2+200, height/2+200);
 
         // here's the part where i center the jframe on screen
         setLocationRelativeTo(null);
