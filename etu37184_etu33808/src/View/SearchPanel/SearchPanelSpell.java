@@ -22,17 +22,17 @@ public class SearchPanelSpell extends JPanel {
     private int numberChoice;
 
     private UtilitiesPanelMethode utilitiesPanelMethode;
-    private SpellPanel spellPanel;
+    private ResultSpellPanel resultSpellPanel;
 
-    public SearchPanelSpell(SpellPanel spellPanel){
+    public SearchPanelSpell(ResultSpellPanel resultSpellPanel){
         try {
             utilitiesPanelMethode = new UtilitiesPanelMethode();
             pseudos = utilitiesPanelMethode.setPlayerAccountsPseudo();
-            this.spellPanel = spellPanel;
+            this.resultSpellPanel = resultSpellPanel;
 
             //Add properties
             setLayout(new GridLayout(1, 2, 5, 15));
-            setBorder(new EmptyBorder(150, 0, 250, 250)); //top, left, bottom, right
+            setBorder(new EmptyBorder(250, 0, 250, 250)); //top, left, bottom, right
 
             //Add components
             playerAccount = new JLabel("Player Account");
@@ -73,7 +73,7 @@ public class SearchPanelSpell extends JPanel {
                 setPseudoChoice(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[0]);
                 setNumberChoice(Integer.parseInt(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[1]));
                 try {
-                    spellPanel.setJtable(pseudoChoice, numberChoice);
+                    resultSpellPanel.setJtable(pseudoChoice, numberChoice);
                 }catch(DataException dataException) {
                     JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }catch (DataAccessException dataAccessException){

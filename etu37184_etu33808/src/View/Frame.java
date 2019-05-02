@@ -100,6 +100,7 @@ public class Frame extends JFrame{
         application.add(exit);
 
         //Search
+        search.setMnemonic('s');
         listGamesFromCharacter = new JMenuItem("List of games from character");
         listGamesFromCharacter.addActionListener(searchListener);
         search.add(listGamesFromCharacter);

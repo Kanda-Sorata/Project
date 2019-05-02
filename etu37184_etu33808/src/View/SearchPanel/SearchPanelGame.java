@@ -48,14 +48,14 @@ public class SearchPanelGame extends JPanel {
     private ComboBoxCharacter comboBoxCharacterListener;
     private SpinnerListener spinnerListener;
 
-    private GamePanel gamePanel;
+    private ResultGamePanel resultGamePanel;
     private JLabel validationLabel;
     private JButton validation;
     private ButtonListener buttonListener;
 
-    public SearchPanelGame(GamePanel gamePanel) {
+    public SearchPanelGame(ResultGamePanel resultGamePanel) {
         try {
-            this.gamePanel = gamePanel;
+            this.resultGamePanel = resultGamePanel;
             accountPlayerController = new AccountPlayerController();
             characterController = new CharacterController();
             utilitiesPanelMethode = new UtilitiesPanelMethode();
@@ -194,6 +194,10 @@ public class SearchPanelGame extends JPanel {
                 }
                 characterNameCombo.setEnabled(true);
             }
+            else{
+                characterNameCombo.setSelectedIndex(0);
+                characterNameCombo.setEnabled(false);
+            }
         }
     }
 
@@ -230,7 +234,7 @@ public class SearchPanelGame extends JPanel {
         public void actionPerformed(ActionEvent actionEvent) {
             try {
                 if(playerAccountCombo.getSelectedIndex() != 0 && characterNameCombo.getSelectedIndex() != 0 && dateChoice != null) {
-                    gamePanel.setJtable(pseudoChoice, numberChoice, characterNameChoice, dateChoice);
+                    resultGamePanel.setJtable(pseudoChoice, numberChoice, characterNameChoice, dateChoice);
                 }
             }catch(DataException dataException){
                 JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

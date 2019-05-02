@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class EffectPanel extends JPanel {
-    private SearchEffectPanel searchEffectPanel;
+    private SearchPanelEffect searchPanelEffect;
     private ResultEffectPanel resultEffectPanel;
 
     public EffectPanel() {
@@ -13,13 +13,9 @@ public class EffectPanel extends JPanel {
 
         //Add components
         resultEffectPanel = new ResultEffectPanel();
-        searchEffectPanel = new SearchEffectPanel(resultEffectPanel);
+        searchPanelEffect = new SearchPanelEffect(resultEffectPanel);
 
-        add(searchEffectPanel);
+        add(searchPanelEffect);
         add(resultEffectPanel);
-    }
-
-    public ResultEffectPanel getResultEffectPanel(){
-        return resultEffectPanel;
     }
 }

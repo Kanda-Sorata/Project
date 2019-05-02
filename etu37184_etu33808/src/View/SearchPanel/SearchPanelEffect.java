@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class SearchEffectPanel extends JPanel {
+public class SearchPanelEffect extends JPanel {
     private JComboBox gameCombo;
     private JComboBox characterClassCombo;
     private JLabel gameLabel;
@@ -29,16 +29,17 @@ public class SearchEffectPanel extends JPanel {
     private String gameChoice;
     private ResultEffectPanel resultEffectPanel;
 
-    public SearchEffectPanel(ResultEffectPanel resultEffectPanel) {
+    public SearchPanelEffect(ResultEffectPanel resultEffectPanel) {
         this.resultEffectPanel = resultEffectPanel;
         gameController = new GameController();
         characterClassController = new CharacterClassController();
 
         setLayout(new GridLayout(2, 2, 5, 15));
-        setBorder(new EmptyBorder(150, 0, 250, 250)); //top, left, bottom, right
+        setBorder(new EmptyBorder(200, 0, 300, 250)); //top, left, bottom, right
 
         try{
             gameLabel = new JLabel("Game name");
+            gameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
             games = new ArrayList<>();
             games.add("No selection");
@@ -52,6 +53,7 @@ public class SearchEffectPanel extends JPanel {
 
 
             characterClassLabel = new JLabel("Character classes");
+            characterClassLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
             characterClasses = new ArrayList<>();
             characterClasses.add("No Selection");

@@ -58,7 +58,6 @@ public class GameDBAccess implements GameDataAccess {
         }catch (ConnectionException connectionException){
             throw new DataException(0);
         } catch (SQLException sqlException) {
-            System.out.println(sqlException.getMessage());
             throw new DataAccessException();
         }
     }
