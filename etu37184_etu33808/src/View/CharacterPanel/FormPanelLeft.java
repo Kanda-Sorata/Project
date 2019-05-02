@@ -110,12 +110,12 @@ public class FormPanelLeft extends JPanel {
         for(int iServer = 0; iServer < size; iServer++){ servers.add(temp.get(iServer)); }
     }
 
-    public void setCharacterClasses(String pseudoChoice, int numberChoice, String game, String serverChoice) {
+    /*public void setCharacterClasses(String pseudoChoice, int numberChoice, String game, String serverChoice) throws DataException, DataAccessException  {
         ArrayList<String> temp = characterClassController.getAllCharactersName(pseudoChoice, numberChoice, game, serverChoice);
         temp.add("No selection");
         int size = temp.size();
         for(int iServer = 0; iServer < size; iServer++){ servers.add(temp.get(iServer)); }
-    }
+    }*/
 
     private class ComboBoxListener implements ActionListener{
         @Override
@@ -149,9 +149,9 @@ public class FormPanelLeft extends JPanel {
                         JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }else{
-                    if(actionEvent.getSource() == serverCombo){
+                    /*if(actionEvent.getSource() == serverCombo){
                         try {
-                            set(pseudoChoice, numberChoice, gameChoice);
+                            setCharacterClasses(pseudoChoice, numberChoice, gameChoice, serverChoice);
                             characterClassCombo.setModel(new DefaultComboBoxModel(characterClasses.toArray()));
                             characterClassCombo.revalidate();
                             characterClassCombo.repaint();;
@@ -164,7 +164,7 @@ public class FormPanelLeft extends JPanel {
                     }
                     else{
 
-                    }
+                    }*/
                 }
             }
         }
