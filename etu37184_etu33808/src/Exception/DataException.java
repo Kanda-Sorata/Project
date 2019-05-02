@@ -13,10 +13,25 @@ public class DataException extends Exception {
             case 0:
                 output = "Sorry an error has been occured, when you tried to access at the source of data";
                 break;
-            case 2: case 3: case 4: case 5: case 6: case 7 :
+            /*case 2: case 3: case 4: case 5: case 6: case 7 :
                 output = "Sorry, the data has not indexed or not available at this time, impossible to continue.";
+                break;*/
+            case 2:
+                output = "HealthPoint";
+                break;
+            case 3:
+                output = "Name";
+                break;
+            case 4:
+                output = "Sex";
+                break;
+            case 5:
+                output = "UniqueName";
+                break;
+            case 6:
+                output = "Damage per second";
                 break;
         }
-        return output + "\n";
+        return output + " - Exception\n";
     }
 }

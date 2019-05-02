@@ -96,14 +96,6 @@ public class FormPanelLeft extends JPanel {
         }
     }
 
-    public void setPseudoChoice(String pseudoChoice) {
-        this.pseudoChoice = pseudoChoice;
-    }
-
-    public void setNumberChoice(int numberChoice) {
-        this.numberChoice = numberChoice;
-    }
-
     public void setGamesName(String pseudoChoice, int numberChoice) throws DataException, DataAccessException {
         ArrayList<String> temp = gameController.getAllGamesName(pseudoChoice, numberChoice);
         temp.add("No selection");
@@ -118,21 +110,61 @@ public class FormPanelLeft extends JPanel {
         for(int iServer = 0; iServer < size; iServer++){ servers.add(temp.get(iServer)); }
     }
 
+    public void setCharacterClasses() {
+        /*ArrayList<String> temp = characterController.getAllCharactersName();
+        temp.add("No selection");
+        int size = temp.size();
+        for(int iServer = 0; iServer < size; iServer++){ servers.add(temp.get(iServer)); }*/
+    }
+
     private class ComboBoxListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent){
             if(actionEvent.getSource() == playerAccountCombo){
-                setPseudoChoice(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[0]);
-                setNumberChoice(Integer.parseInt(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[1]));
+                pseudoChoice = pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[0];
+                numberChoice = Integer.parseInt(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[1]);
                 try {
                     setGamesName(pseudoChoice, numberChoice);
                     gameCombo.setModel(new DefaultComboBoxModel(games.toArray()));
+                    gameCombo.setEnabled(true);
                     gameCombo.revalidate();
                     gameCombo.repaint();
                 }catch(DataException dataException){
                     JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }catch (DataAccessException dataAcceException){
-                    JOptionPane.showMessageDialog(null, dataAcceException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }catch (DataAccessException dataAccessException){
+                    JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }else{
+                if(actionEvent.getSource() == gameCombo){
+                    gameChoice = gameCombo.getSelectedItem().toString();
+                    try {
+                        setServersName(pseudoChoice, numberChoice, gameChoice);
+                        serverCombo.setModel(new DefaultComboBoxModel(servers.toArray()));
+                        serverCombo.revalidate();
+                        serverCombo.repaint();;
+                        serverCombo.setEnabled(true);
+                    }catch(DataException dataException){
+                        JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }catch (DataAccessException dataAccessException){
+                        JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }else{
+                  /*  if(actionEvent.getSource() == serverCombo){
+                        try {
+                            set(pseudoChoice, numberChoice, gameChoice);
+                            characterClassCombo.setModel(new DefaultComboBoxModel(characterClasses.toArray()));
+                            characterClassCombo.revalidate();
+                            characterClassCombo.repaint();;
+                            characterClassCombo.setEnabled(true);
+                        }catch(DataException dataException){
+                            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        }catch (DataAccessException dataAccessException){
+                            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                    else{
+
+                    }*/
                 }
             }
         }
