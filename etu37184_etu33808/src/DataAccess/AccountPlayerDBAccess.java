@@ -21,8 +21,8 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
     public Integer getNbAccountPlayers() throws DataException, DataAccessException {
         try {
             Connection dataConnection = SingletonConnection.getInstance();
-            String querry = "select count(*) from playeraccount;";
-            PreparedStatement statement = dataConnection.prepareStatement(querry);
+            String query = "select count(*) from playeraccount;";
+            PreparedStatement statement = dataConnection.prepareStatement(query);
             ResultSet data = statement.executeQuery();
             Integer nbPlayerAccount = null;
             if(data.next()) {
@@ -39,13 +39,12 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
     public ArrayList<AccountPlayer> getAllAccountPlayer() throws DataException, DataAccessException {
         try {
             Connection dataConnection = SingletonConnection.getInstance();
-            String querry;
-            querry = "select * from playeraccount";
+            String query = "select * from playeraccount";
 
-            ArrayList<AccountPlayer> accountPlayers = new ArrayList<>();
-            PreparedStatement statement = dataConnection.prepareStatement(querry);
+            PreparedStatement statement = dataConnection.prepareStatement(query);
 
             ResultSet data = statement.executeQuery();
+            ArrayList<AccountPlayer> accountPlayers = new ArrayList<>();
             AccountPlayer accountPlayer;
             String city;
             String sex;

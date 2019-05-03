@@ -1,5 +1,4 @@
 package View.SearchPanel;
-//todo changer les tableaux et mettre arraylist.toArray()
 
 import Controller.AccountPlayerController;
 import Controller.CharacterController;
@@ -64,7 +63,7 @@ public class SearchPanelGame extends JPanel {
 
             //Add propeties
             setLayout(new GridLayout(4, 2, 5, 15));
-            //setBorder(new EmptyBorder(100, 0, 100, 100)); //top, left, bottom, right
+            setBorder(new EmptyBorder(150, 0, 250, 250)); //top, left, bottom, right
 
             //add component
             playerAcocunt = new JLabel("Player Account");
@@ -127,9 +126,10 @@ public class SearchPanelGame extends JPanel {
         calendar.add(calendar.YEAR, 20);
         Date latestDate = calendar.getTime();
 
-        spinnerModel = new SpinnerDateModel(initDate, earliestDate, latestDate, Calendar.MONTH);
+        spinnerModel = new SpinnerDateModel(initDate, earliestDate, latestDate, Calendar.MONTH); //getPrevious & nextvalue method
         dateEndSpinner.setModel(spinnerModel);
-        dateEndSpinner.setEditor(new JSpinner.DateEditor(dateEndSpinner, "dd/MM/yyyy"));
+        dateEditor = new JSpinner.DateEditor(dateEndSpinner, "dd/MM/yyyy");
+        dateEndSpinner.setEditor(dateEditor);
     }
 
     public void setPseudoChoice(String pseudoChoice){
@@ -182,7 +182,7 @@ public class SearchPanelGame extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            if (!playerAccounts.get(playerAccountCombo.getSelectedIndex()).equals(playerAccounts.get(0))) {
+            if(playerAccountCombo.getSelectedIndex() != 0) {
                 setPseudoChoice(playerAccounts.get(playerAccountCombo.getSelectedIndex()).split("#")[0]);
                 setNumberChoice(Integer.parseInt(playerAccounts.get(playerAccountCombo.getSelectedIndex()).split("#")[1]));
                     try {
@@ -240,8 +240,8 @@ public class SearchPanelGame extends JPanel {
                 } //todo else message d'erreur?
             }catch(DataException dataException){
                 JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }catch (DataAccessException dataAcceException){
-                JOptionPane.showMessageDialog(null, dataAcceException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }catch (DataAccessException dataAccessException){
+                JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

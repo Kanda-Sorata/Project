@@ -12,12 +12,12 @@ public class NewPanel extends JPanel {
         //Add properties
         setLayout(new GridLayout(2, 2, 5, 15));
         //Add components
-        formPanelRight = new FormPanelRight();
         formPanelLeft = new FormPanelLeft();
+        formPanelRight = new FormPanelRight();
         buttonsPanel = new ButtonsPanel();
 
-        add(formPanelRight);
         add(formPanelLeft);
+        add(formPanelRight);
         add(buttonsPanel);
     }
 

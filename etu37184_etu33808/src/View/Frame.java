@@ -1,9 +1,6 @@
 package View;
 
-import View.CharacterPanel.DeletePanel;
-import View.CharacterPanel.DisplayPanel;
-import View.CharacterPanel.FormPanelLeft;
-import View.CharacterPanel.ModifyPanel;
+import View.CharacterPanel.*;
 import View.SearchPanel.EffectPanel;
 import View.SearchPanel.GamePanel;
 import View.SearchPanel.SpellPanel;
@@ -32,7 +29,7 @@ public class Frame extends JFrame{
     GamePanel gamePanel;
     SpellPanel spellPanel;
     EffectPanel effectPanel;
-    FormPanelLeft formPanelLeft;
+    NewPanel newPanel;
     DeletePanel deletePanel;
     ModifyPanel modifyPanel;
     DisplayPanel displayPanel;
@@ -63,7 +60,7 @@ public class Frame extends JFrame{
         int height = screenSize.height;
         int width = screenSize.width;
         pack();
-        setSize(width/2+200, height/2+200);
+        setSize(width/2+100, height/2+100);
 
         // here's the part where i center the jframe on screen
         setLocationRelativeTo(null);
@@ -180,9 +177,9 @@ public class Frame extends JFrame{
             //Add JOPTINPANEdialogue JBomboBox pseudo & number if(non null utiliser pseudo et nuber
             container.removeAll();
             if(actionEvent.getSource() == add){
-                formPanelLeft = new FormPanelLeft();
+                newPanel = new NewPanel();
                 //formPanelLeft.setPlayer();
-                container.add(formPanelLeft);
+                container.add(newPanel);
             }
             else{
                 if(actionEvent.getSource() == modify){

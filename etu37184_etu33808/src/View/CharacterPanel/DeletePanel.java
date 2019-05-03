@@ -140,16 +140,14 @@ public class DeletePanel extends JPanel {
     private class ButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            try {
-                if(playerAccountCombo.getSelectedIndex() != 0 && gameCombo.getSelectedIndex() != 0 && characterCombo.getSelectedIndex() != 0) {
-                    characterController.deleteACharacter(pseudoChoice, numberChoice, gameChoice, characterChoice);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Miss one condition", "Error", JOptionPane.ERROR_MESSAGE);
+            if(playerAccountCombo.getSelectedIndex() != 0 && gameCombo.getSelectedIndex() != 0 && characterCombo.getSelectedIndex() != 0) {
+                try {
+                    int state = characterController.deleteACharacter(pseudoChoice, numberChoice, gameChoice, characterChoice);
+                } catch (DataException dataException) {
+                    JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (DataAccessException dataAccessException) {
+                    JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            }catch(DataException dataException){
-                JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }catch (DataAccessException dataAccessException){
-                JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

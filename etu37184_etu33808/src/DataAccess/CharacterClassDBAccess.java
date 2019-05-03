@@ -16,10 +16,10 @@ public class CharacterClassDBAccess implements CharacterClassDataAccess {
     public ArrayList<String> getClassesInAGame(String game) throws DataException, DataAccessException {
         try {
             Connection dataConnection = SingletonConnection.getInstance();
-            String querry = "select characterClass.name from characterClass, game ";
-            querry += "where characterClass.gamename = ? and characterClass.gamename = game.name;";
+            String query = "select characterClass.name from characterClass, game "
+                         + "where characterClass.gamename = ? and characterClass.gamename = game.name;";
 
-            PreparedStatement statement = dataConnection.prepareStatement(querry);
+            PreparedStatement statement = dataConnection.prepareStatement(query);
             statement.setString(1, game);
             ResultSet data = statement.executeQuery();
             ArrayList<String> allClassesInAGame = new ArrayList<>();
@@ -39,17 +39,21 @@ public class CharacterClassDBAccess implements CharacterClassDataAccess {
         }
     }
 
-    @Override
-    public ArrayList<String> getAllClassesName(String pseudo, int number, String game, String server)
+    public ArrayList<String> getAllClassesName(String pseudo, int number, String game)
                                                                             throws DataException, DataAccessException {
         try {
             Connection dataConnection = SingletonConnection.getInstance();
 
-            String querry = "select characterClass.name from characterClass, game, playeraccount, server "
-                          + "where characterClass.gamename = ? and characterClass.gamename = ? ";
-            //TODO FormPanel JComboBox
+            String query = "select characterClass.name from characterClass, game, playeraccount, acquisition "
+                        + "where playeraccount.id = (select id from playeraccount where pseudo = ? and number = ?) "
+                        + "and acquisition.playeraccountid = playeraccount.id and game.name = ? "
+                        + "and acquisition.gamename = game.name and characterClass.gamename = game.name ";
 
-            PreparedStatement statement = dataConnection.prepareStatement(querry);
+            PreparedStatement statement = dataConnection.prepareStatement(query);
+
+            statement.setString(1, pseudo);
+            statement.setInt(2, number);
+            statement.setString(3, game);
 
             ResultSet data = statement.executeQuery();
 

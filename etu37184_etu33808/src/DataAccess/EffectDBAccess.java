@@ -17,14 +17,14 @@ public class EffectDBAccess implements EffectDataAccess{
         try {
             Connection dataConnection = SingletonConnection.getInstance();
 
-            String querry = "select effect.label as labelEffect, spell.name as spellName, spell.cooldown, game.name as game ";
-            querry += "from effect, spell, game, characterClass, bind, debuff ";
-            querry += "where game.name = characterClass.Gamename and bind.characterClassTechnicalId = ";
-            querry += "characterClass.technicalId and spell.technicalId = bind.spellTechnicalId ";
-            querry += "and debuff.spellTechnicalId = spell.technicalid and debuff.effectLabel = effect.label ";
-            querry += "and game.name = ? and characterClass.name = ?;";
+            String query = "select effect.label as labelEffect, spell.name as spellName, spell.cooldown, game.name as game "
+                          + "from effect, spell, game, characterClass, bind, debuff "
+                          + "where game.name = characterClass.Gamename and bind.characterClassTechnicalId = "
+                          + "characterClass.technicalId and spell.technicalId = bind.spellTechnicalId "
+                          + "and debuff.spellTechnicalId = spell.technicalid and debuff.effectLabel = effect.label "
+                          + "and game.name = ? and characterClass.name = ?;";
 
-            PreparedStatement statement = dataConnection.prepareStatement(querry);
+            PreparedStatement statement = dataConnection.prepareStatement(query);
             statement.setString(1, gameChoice);
             statement.setString(2, classChoice);
 

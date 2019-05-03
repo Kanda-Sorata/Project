@@ -16,16 +16,17 @@ public class ServerDBAccess implements ServerDataAccess {
     public ArrayList<String> getAllServersName(String pseudoChoice, int numberChoice, String game) throws DataException, DataAccessException {
         try{
             Connection dataConnection = SingletonConnection.getInstance();
-            String querry = "select  server.name from playeraccount, game, server, acquisition ";
-            querry += "and playeraccount.id = (select id from playeraccount where pseudo = ? and number = ?) ";
-            querry += "where server.gamename = game.name and acquisition.playerzccountid = playeraccount.id ";
-            querry += "an acquisition.Gamename = ?";
+            String query = "select  server.name from playeraccount, game, server, acquisition "
+                         + "where playeraccount.id = (select id from playeraccount where pseudo = ? and number = ?) "
+                         + "and game.name = ? and server.Gamename = game.name "
+                         + "and acquisition.Gamename = ? and acquisition.playeraccountid = playeraccount.id ";
 
-            PreparedStatement statement = dataConnection.prepareStatement(querry);
+            PreparedStatement statement = dataConnection.prepareStatement(query);
 
             statement.setString(1, pseudoChoice);
             statement.setInt(2, numberChoice);
             statement.setString(3, game);
+            statement.setString(4, game);
 
             ResultSet data = statement.executeQuery();
             ArrayList<String> servers = new ArrayList<>();
@@ -35,7 +36,7 @@ public class ServerDBAccess implements ServerDataAccess {
             }
             return servers;
 
-        }catch(ConnectionException connectionEwception){
+        }catch(ConnectionException connectionException){
             throw new DataException(0);
         }catch(SQLException sqlException){
             throw new DataAccessException();

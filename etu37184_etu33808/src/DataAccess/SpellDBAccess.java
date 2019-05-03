@@ -17,16 +17,16 @@ public class SpellDBAccess implements SpellDataAccess {
         try {
             Connection connection = SingletonConnection.getInstance();
 
-            String querry = "select `character`.name as characterName, spell.name, spell.cooldown ";
-            querry += "from playeraccount, `character`, characterclass, bind, spell ";
-            querry += "where playeraccount.id = (select id from playeraccount where pseudo = ? and `number` = ? ) ";
-            querry += "and `character`.playeraccountid = playeraccount.id ";
-            querry += "and `character`.characterclassTechnicalId = characterclass.technicalid ";
-            querry += "and bind.characterclassTechnicalId = characterclass.technicalid ";
-            querry += "and bind.spellTechnicalId = spell.technicalid ";
-            querry += "order by (`character`.name);";
+            String query = "select `character`.name as characterName, spell.name, spell.cooldown "
+                        + "from playeraccount, `character`, characterclass, bind, spell "
+                        + "where playeraccount.id = (select id from playeraccount where pseudo = ? and `number` = ? ) "
+                        + "and `character`.playeraccountid = playeraccount.id "
+                        + "and `character`.characterclassTechnicalId = characterclass.technicalid "
+                        + "and bind.characterclassTechnicalId = characterclass.technicalid "
+                        + "and bind.spellTechnicalId = spell.technicalid "
+                        + "order by (`character`.name);";
 
-            PreparedStatement statement = connection.prepareStatement(querry);
+            PreparedStatement statement = connection.prepareStatement(query);
 
             statement.setString(1, pseudoChoice);
             statement.setInt(2, numberChoice);
