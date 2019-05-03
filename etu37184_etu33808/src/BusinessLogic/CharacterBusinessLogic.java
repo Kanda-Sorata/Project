@@ -21,4 +21,8 @@ public class CharacterBusinessLogic {
     public ArrayList<Character> getAllCharacter(String pseudo, int number) throws DataException, DataAccessException {
         return dao.getAllCharacter(pseudo, number);
     }
+
+    public ArrayList<String> getAllCharactersInAGame(String pseudo, int number, String gameName) throws DataException, DataAccessException{
+        return dao.getAllCharactersInAGame(pseudo, number, gameName);
+    }
 }

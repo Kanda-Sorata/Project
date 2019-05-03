@@ -90,10 +90,11 @@ public class GameDBAccess implements GameDataAccess {
         try{
             Connection dataConnection = SingletonConnection.getInstance();
 
-            String querry = "select game.name from game, playeraccount where playeraccount.id = ";
-            querry += "(select id from playeraccount where pseudo = ? and number = ?)";
+            String query = "select game.name from game, playeraccount, acquisition " +
+                            "where playeraccount.id = (select id from playeraccount where pseudo = ? and number = ?) " +
+                            "and playeraccount.id = acquisition.playeraccountid and acquisition.gamename = game.name;";
 
-            PreparedStatement statement = dataConnection.prepareStatement(querry);
+            PreparedStatement statement = dataConnection.prepareStatement(query);
 
             statement.setString(1, pseudoChoice);
             statement.setInt(2, numberChoice);

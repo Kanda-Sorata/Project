@@ -85,13 +85,13 @@ public class SearchPanelEffect extends JPanel {
                         int size = characterClassesTemp.size();
                         characterClasses = new ArrayList<>();
                         characterClasses.add("No selection");
-                        if(size > 0) {
+                        //if(size > 0) { //todo inutile, la condition de boucle fera d'office ça
                             for (int iClasses = 0; iClasses < size; iClasses++) {
                                 characterClasses.add(characterClassesTemp.get(iClasses));
                             }
                             characterClassCombo.setModel(new DefaultComboBoxModel(characterClasses.toArray()));
                             characterClassCombo.repaint();
-                        }
+                        //}
                     } catch (DataException dataException) {
                         JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     } catch (DataAccessException dataAccessException){

@@ -17,11 +17,11 @@ public class CharacterDBAccess implements CharacterDataAccess {
     public ArrayList<Character> getAllCharacter(String pseudo, int number) throws DataException, DataAccessException {
         try {
             Connection dataConnection = SingletonConnection.getInstance();
-            String querry = "select name, healthPoint, isStuffed, creationDate, petName, damagePerSecond ";
-            querry += "from `character` where `character`.`playeraccountId` = (select id from `playeraccount` ";
-            querry += "where  pseudo = ? and number = ?);";
+            String query = "select name, healthPoint, isStuffed, creationDate, petName, damagePerSecond " +
+                            "from `character` where `character`.`playeraccountId` = (select id from `playeraccount` " +
+                            "where  pseudo = ? and number = ?);";
 
-            PreparedStatement statement = dataConnection.prepareStatement(querry);
+            PreparedStatement statement = dataConnection.prepareStatement(query);
 
             statement.setString(1, pseudo);
             statement.setInt(2, number);
@@ -62,6 +62,38 @@ public class CharacterDBAccess implements CharacterDataAccess {
             throw new DataException(2);
         } catch (DamagePerSecondException damagePerSecondException) {
             throw new DataException(6);
+        }
+    }
+
+    public ArrayList<String> getAllCharactersInAGame(String pseudo, int number, String gameName) throws DataException, DataAccessException {
+        try {
+            Connection dataConnection = SingletonConnection.getInstance();
+
+            String query = "select `character`.name as characName " +
+                    "from playeraccount, acquisition, game, server, `character` " +
+                    "where playeraccount.id = (select id from playeraccount where pseudo = ? and number = ?) " +
+                    "and game.name = ? and acquisition.playeraccountid = playeraccount.id " +
+                    "and acquisition.gamename = game.name and server.gamename = game.name " +
+                    "and `character`.servertechnicalid = server.technicalid;";
+
+            PreparedStatement statement = dataConnection.prepareStatement(query);
+
+            statement.setString(1, pseudo);
+            statement.setInt(2, number);
+            statement.setString(3, gameName);
+
+            ResultSet data = statement.executeQuery();
+            ArrayList<String> characters = new ArrayList<>();
+
+            while(data.next()){
+                characters.add(data.getString("characName"));
+            }
+
+            return characters;
+        } catch (ConnectionException connexionException) {
+            throw new DataAccessException();
+        } catch (SQLException sqlException) {
+            throw new DataException(0); //todo
         }
     }
 }

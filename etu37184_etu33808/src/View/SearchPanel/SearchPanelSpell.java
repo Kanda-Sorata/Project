@@ -79,7 +79,7 @@ public class SearchPanelSpell extends JPanel {
                 }catch (DataAccessException dataAccessException){
                     JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            }
+            } //todo
         }
     }
 }

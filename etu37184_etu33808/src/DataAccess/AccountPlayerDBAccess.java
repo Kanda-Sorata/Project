@@ -75,6 +75,4 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
             throw new DataException(4);
         }
     }
-
-
 }
