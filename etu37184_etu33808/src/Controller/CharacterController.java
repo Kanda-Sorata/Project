@@ -25,4 +25,8 @@ public class CharacterController {
     public ArrayList<String> getAllCharactersInAGame(String pseudo, int number, String gameName) throws DataException, DataAccessException{
         return characterBusinessLogic.getAllCharactersInAGame(pseudo, number, gameName);
     }
+
+    public int deleteACharacter(String pseudo, int number, String gameName, String characterName) throws DataAccessException, DataException{
+        return characterBusinessLogic.deleteACharacter(pseudo, number, gameName, characterName);
+    }
 }

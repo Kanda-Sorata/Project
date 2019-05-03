@@ -237,7 +237,7 @@ public class SearchPanelGame extends JPanel {
                 setDateChoice();
                 if(playerAccountCombo.getSelectedIndex() != 0 && characterNameCombo.getSelectedIndex() != 0 && dateChoice != null) {
                     resultGamePanel.setJtable(pseudoChoice, numberChoice, characterNameChoice, dateChoice);
-                }
+                } //todo else message d'erreur?
             }catch(DataException dataException){
                 JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }catch (DataAccessException dataAcceException){

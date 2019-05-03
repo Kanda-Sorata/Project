@@ -4,6 +4,7 @@ import BusinessLogic.CharacterDataAccess;
 import Exception.*;
 import Model.Character;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -93,7 +94,49 @@ public class CharacterDBAccess implements CharacterDataAccess {
         } catch (ConnectionException connexionException) {
             throw new DataAccessException();
         } catch (SQLException sqlException) {
-            throw new DataException(0); //todo
+            throw new DataException(0); //todo vérifier
+        }
+    }
+
+    public int deleteACharacter(String pseudo, int number, String gameName, String characterName) throws DataAccessException, DataException{
+        try{
+            Connection dataConnection = SingletonConnection.getInstance();
+
+            String queryTechnicalId = "select `character`.technicalid as characterId " +
+                                        "from playeraccount, acquisition, game, server, `character` " +
+                                        "where playeraccount.id = (select id from playeraccount " +
+                                        "where pseudo = ? and number = ?) and game.name = ? " +
+                                        "and `character`.name = ? " +
+                                        "and acquisition.playeraccountid = playeraccount.id " +
+                                        "and acquisition.gamename = game.name " +
+                                        "and server.gamename = game.name " +
+                                        "and `character`.servertechnicalid = server.technicalid " +
+                                        "and `character`.playeraccountid = playeraccount.id;";
+
+            PreparedStatement statementTechnicalId = dataConnection.prepareStatement(queryTechnicalId);
+
+            statementTechnicalId.setString(1, pseudo);
+            statementTechnicalId.setInt(2, number);
+            statementTechnicalId.setString(3, gameName);
+            statementTechnicalId.setString(4, characterName);
+
+            ResultSet data = statementTechnicalId.executeQuery();
+
+            int technicalId = data.getInt("characterId");
+
+            String queryDelete = "delete from `character` where technicalid = ?";
+
+            PreparedStatement statementDelete = dataConnection.prepareStatement(queryDelete);
+
+            statementTechnicalId.setInt(1, technicalId);
+
+            int state = statementDelete.executeUpdate(); //soit 0 si pas de retour soit le nb lignes
+            return state; //todo
+        } catch (ConnectionException connectionException){
+            throw new DataAccessException();
+        } catch (SQLException sqlException){
+            JOptionPane.showMessageDialog(null, sqlException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE); //SUPPRIMER
+            throw new DataException(0); //todo vérifier
         }
     }
 }

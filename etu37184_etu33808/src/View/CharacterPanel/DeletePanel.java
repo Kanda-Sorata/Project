@@ -26,6 +26,8 @@ public class DeletePanel extends JPanel {
     private JLabel playerAccountLabel;
     private JLabel gameLabel;
     private JLabel characterLabel;
+    private JButton validationButton;
+    private ButtonListener buttonListener;
 
     private GameController gameController;
     private CharacterController characterController;
@@ -34,9 +36,10 @@ public class DeletePanel extends JPanel {
     private String pseudoChoice;
     private int numberChoice;
     private String gameChoice;
+    private String characterChoice;
 
     public DeletePanel(){
-        setLayout(new GridLayout(3, 2, 5, 15));
+        setLayout(new GridLayout(4, 2, 5, 15));
         try{
             utilitiesPanelMethode = new UtilitiesPanelMethode();
             comboBoxListener = new ComboBoxListener();
@@ -63,19 +66,23 @@ public class DeletePanel extends JPanel {
             characterCombo.addActionListener(comboBoxListener);
             characterCombo.setEnabled(false);
 
+            validationButton = new JButton("Validation");
+            buttonListener = new ButtonListener();
+            validationButton.addActionListener(buttonListener);
+
             add(playerAccountLabel);
             add(playerAccountCombo);
             add(gameLabel);
             add(gameCombo);
             add(characterLabel);
             add(characterCombo);
+            add(validationButton);
 
         } catch (DataException dataException) {
             JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (DataAccessException dataAccessException) {
             JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-
     }
 
     private class ComboBoxListener implements ActionListener {
@@ -89,7 +96,7 @@ public class DeletePanel extends JPanel {
                     setPseudoChoice(playerAccounts.get(playerAccountCombo.getSelectedIndex()).split("#")[0]);
                     setNumberChoice(Integer.parseInt(playerAccounts.get(playerAccountCombo.getSelectedIndex()).split("#")[1]));
                     try {
-                        gamesTemp = gameController.getAllGamesName(getPseudoChoice(), getNumberChoice());
+                        gamesTemp = gameController.getAllGamesName(pseudoChoice, numberChoice);
                         games = new ArrayList();
                         games.add("No selection");
                         int gameSize = gamesTemp.size();
@@ -125,21 +132,30 @@ public class DeletePanel extends JPanel {
                     characterCombo.setEnabled(true);
                 }
             } else {
-
+                setCharacterChoice(characters.get(characterCombo.getSelectedIndex()));
             }
         }
     }
 
-    public String getPseudoChoice() {
-        return pseudoChoice;
+    private class ButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            try {
+                if(playerAccountCombo.getSelectedIndex() != 0 && gameCombo.getSelectedIndex() != 0 && characterCombo.getSelectedIndex() != 0) {
+                    characterController.deleteACharacter(pseudoChoice, numberChoice, gameChoice, characterChoice);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Miss one condition", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }catch(DataException dataException){
+                JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }catch (DataAccessException dataAccessException){
+                JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     public void setPseudoChoice(String pseudoChoice) {
         this.pseudoChoice = pseudoChoice;
-    }
-
-    public int getNumberChoice() {
-        return numberChoice;
     }
 
     public void setNumberChoice(int numberChoice) {
@@ -150,7 +166,7 @@ public class DeletePanel extends JPanel {
         this.gameChoice = gameChoice;
     }
 
-    public String getGameChoice(){
-        return gameChoice;
+    public void setCharacterChoice(String characterChoice){
+        this.characterChoice = characterChoice;
     }
 }
