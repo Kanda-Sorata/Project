@@ -102,7 +102,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
         try{
             Connection dataConnection = SingletonConnection.getInstance();
 
-            String queryTechnicalId = "select `character`.technicalid " +
+            String queryTechnicalId = "select `character`.technicalid as characterId " +
                                         "from playeraccount, acquisition, game, server, `character` " +
                                         "where playeraccount.id = (select id from playeraccount " +
                                         "where pseudo = ? and number = ?) and game.name = ? " +
@@ -122,25 +122,21 @@ public class CharacterDBAccess implements CharacterDataAccess {
 
             ResultSet data = statementTechnicalId.executeQuery();
 
-            int state = 0;
-            int technicalId ;
-            if(data.next()) {
-                technicalId = data.getInt("technicalId");
+            int technicalId = data.getInt("characterId");
 
-                String queryDelete = "delete from `character` where technicalid = ?";
+            String queryDelete = "delete from `character` where technicalid = ?";
 
-                PreparedStatement statementDelete = dataConnection.prepareStatement(queryDelete);
+            PreparedStatement statementDelete = dataConnection.prepareStatement(queryDelete);
 
-                statementDelete.setInt(1, technicalId);
+            statementTechnicalId.setInt(1, technicalId);
 
-                 state = statementDelete.executeUpdate(); //soit 0 si pas de retour soit le nb lignes modifiée
-                return state;
-            }
-            return state;
+            int state = statementDelete.executeUpdate(); //soit 0 si pas de retour soit le nb lignes
+            return state; //todo
         } catch (ConnectionException connectionException){
             throw new DataAccessException();
-        } catch (SQLException sqlException) {
-            throw new DataException(0);
+        } catch (SQLException sqlException){
+            JOptionPane.showMessageDialog(null, sqlException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE); //SUPPRIMER
+            throw new DataException(0); //todo vérifier
         }
     }
 }

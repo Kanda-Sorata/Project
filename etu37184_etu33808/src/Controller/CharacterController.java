@@ -7,6 +7,7 @@ import Model.Character;
 
 import java.util.ArrayList;
 
+
 public class CharacterController {
     private CharacterBusinessLogic characterBusinessLogic;
 
