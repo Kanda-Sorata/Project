@@ -7,5 +7,5 @@ public class DamagePerSecondException extends Exception {
         DamagePerSecondException = damagePerSecondException;
     }
 
-    public String getMessage() { return "Code 4."  + "Values :" + DamagePerSecondException; }
+    public String getMessage() { return  "Damage per second get a bad value, please check it. - code(4)"; }
 }

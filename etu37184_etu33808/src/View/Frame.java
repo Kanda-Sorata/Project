@@ -8,7 +8,7 @@ import View.SearchPanel.SpellPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-
+import Model.Character;
 public class Frame extends JFrame{
     private Container container;
 
@@ -35,6 +35,9 @@ public class Frame extends JFrame{
     DisplayPanel displayPanel;
     HomePanel homePanel;
 
+    private Character characterForm;
+    private Boolean haveSavedValue;
+
     public Frame(){
         //Generale
         super("Account management");
@@ -49,6 +52,9 @@ public class Frame extends JFrame{
 
         //add panel home
         homePanel = new HomePanel();
+
+        //init for newPanel
+        haveSavedValue = false;
 
         add(homePanel);
         setVisible(true);
@@ -137,7 +143,7 @@ public class Frame extends JFrame{
         public void actionPerformed(ActionEvent event){
             if(event.getSource() == exit) {
                 System.exit(0);
-                //todo close
+                //todo close Connection
             }
             else{
                 container.removeAll();
@@ -174,33 +180,48 @@ public class Frame extends JFrame{
     public class CharacterListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            //Add JOPTINPANEdialogue JBomboBox pseudo & number if(non null utiliser pseudo et nuber
             container.removeAll();
             if(actionEvent.getSource() == add){
-                newPanel = new NewPanel();
-                //formPanelLeft.setPlayer();
+                newPanel = new NewPanel(getFrame());
                 container.add(newPanel);
             }
             else{
                 if(actionEvent.getSource() == modify){
                     modifyPanel = new ModifyPanel();
-                    //modifyPanel.setPlayer();
                     container.add(modifyPanel);
                 }
                 else{
                     if(actionEvent.getSource() == delete){
                         deletePanel = new DeletePanel();
-                        //deletePanel.setPlayer();
                         container.add(deletePanel);
                     }
                     else{
                         displayPanel = new DisplayPanel();
-                        //displayPanel.setPlayer();
                         container.add(displayPanel);
                     }
                 }
             }
             setVisible(true);
         }
+    }
+
+    public Frame getFrame(){
+        return this;
+    }
+
+    public void setCharacterForm(Character characterForm){
+        this.characterForm = characterForm;
+    }
+
+    public Character getCharacterForm() {
+        return characterForm;
+    }
+
+    public Boolean getHaveSavedValue() {
+        return haveSavedValue;
+    }
+
+    public void setHaveSavedValue(Boolean haveSavedValue) {
+        this.haveSavedValue = haveSavedValue;
     }
 }
