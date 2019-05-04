@@ -8,7 +8,7 @@ import java.util.GregorianCalendar;
 public class Character {
     private String name;
     private Integer healthPoints;
-    private boolean isStuffed;
+    private Boolean isStuffed;
     private GregorianCalendar creationDate;
     private String petName;
     private Integer damagePerSecond;
@@ -20,7 +20,7 @@ public class Character {
     private static final int MIN_HP = 0;
     private static final int MAX_HP = 50000;
 
-    public Character(String name, Integer healthPoints, boolean isStuffed, GregorianCalendar creationDate, String petName,
+    public Character(String name, Integer healthPoints, Boolean isStuffed, GregorianCalendar creationDate, String petName,
                      Integer damagePerSecond, CharacterClass characterClass, AccountPlayer player)
                      throws HealthPointsException, DamagePerSecondException {
         setName(name);
@@ -54,7 +54,7 @@ public class Character {
         }
     }
 
-    public boolean isStuffed() {
+    public Boolean isStuffed() {
         return isStuffed;
     }
 

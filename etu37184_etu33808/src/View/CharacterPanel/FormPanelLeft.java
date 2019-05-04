@@ -52,7 +52,7 @@ public class FormPanelLeft extends JPanel {
         characterClassController = new CharacterClassController();
         //Add properties
         setLayout(new GridLayout(2,2, 5, 15));
-        setBorder(new EmptyBorder(250, 100, 250, 100)); //Top, left, bottom, right
+        setBorder(new EmptyBorder(150, 0, 250, 100)); //Top, left, bottom, right
         //Init & add component
         try{
             comboBoxListener = new ComboBoxListener();
