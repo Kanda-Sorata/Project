@@ -20,17 +20,18 @@ public class NewPanel extends JPanel {
         //Add components
         formPanelLeft = new FormPanelLeft();
         buttonsPanel = new ButtonsPanel();
-        buttonsPanel.setParentPanel(this);
         formPanelRight = new FormPanelRight(buttonsPanel);
         buttonsPanel.setFormPanelRight(formPanelRight);
+        buttonsPanel.setFrame(frame);
+        buttonsPanel.setFormPanelLeft(formPanelLeft);
+
+        if(frame.getHaveSavedValue()){
+            buttonsPanel.setFormValue();
+        }
 
         add(formPanelLeft, BorderLayout.WEST);
         add(formPanelRight, BorderLayout.CENTER);
         add(buttonsPanel, BorderLayout.SOUTH);
-    }
-
-    public Frame getFrame(){
-        return frame;
     }
 
 }

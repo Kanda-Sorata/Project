@@ -5,12 +5,11 @@ import Exception.*;
 import Model.Character;
 
 import javax.swing.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.concurrent.Callable;
+
 public class CharacterDBAccess implements CharacterDataAccess {
 
     public CharacterDBAccess(){}
@@ -94,7 +93,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
         } catch (ConnectionException connexionException) {
             throw new DataAccessException();
         } catch (SQLException sqlException) {
-            throw new DataException(0); //todo vérifier
+            throw new DataException(0);
         }
     }
 
@@ -137,6 +136,81 @@ public class CharacterDBAccess implements CharacterDataAccess {
         } catch (SQLException sqlException){
             JOptionPane.showMessageDialog(null, sqlException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE); //SUPPRIMER
             throw new DataException(0); //todo vérifier
+        }
+    }
+
+    @Override
+    public int insertACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataException, DataAccessException {
+        try {
+            Connection connection = SingletonConnection.getInstance();
+            int state = 0;
+
+            String query = "select playeraccount.id from playeraccount where pseudo = ? and number = ?;";
+            PreparedStatement statementPlayer = connection.prepareStatement(query);
+
+            statementPlayer.setString(1, pseudo);
+            statementPlayer.setInt(2, number);
+
+            ResultSet data = statementPlayer.executeQuery();
+            Integer playerAccountId;
+
+            if (data.next()) {
+                playerAccountId = data.getInt(1);
+
+                String queryCharacterClass = "select characterClass.technicalId from characterClass where characterClass.name = ? "
+                        + "and characterClass.Gamename = ?;";
+                PreparedStatement statementCharacterClassId = connection.prepareStatement(queryCharacterClass);
+
+                statementCharacterClassId.setString(1, characterClass);
+                statementCharacterClassId.setString(2, game);
+
+                data = statementPlayer.executeQuery();
+                Integer characterClassTechnicalId;
+
+                if(data.next()) {
+                    characterClassTechnicalId = data.getInt(1);
+
+                    String queryServer = "select server.technicalId from server, game, playeraccount, acquisition "
+                            + "where playeraccount.id = ? and game.name = ? and acquisition.playeraccountid = playeraccount.id "
+                            + "and acquisition.gamename = game.name and server.Gamename = game.name";
+
+                    PreparedStatement statementServer = connection.prepareStatement(queryServer);
+
+                    statementServer.setInt(1, playerAccountId);
+                    statementServer.setString(2, game);
+
+                    data = statementServer.executeQuery();
+                    Integer serverTechnicalId;
+
+                    if (data.next()) {
+                        serverTechnicalId = data.getInt(1);
+
+                        String queryInsert = "insert into `character`(name, healthPoint, isStuffed, creationDate, petName, "
+                                + "damagePerSecond, playeraccountid, characterClassTechnicalId, serverTechnicalId) "
+                                + "values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                        PreparedStatement statementInsert = connection.prepareStatement(queryInsert);
+
+                        statementInsert.setString(1, character.getName());
+                        statementInsert.setInt(2, character.getHealthPoints());
+                        statementInsert.setBoolean(3, character.isStuffed());
+                        java.sql.Date dateSql = new java.sql.Date(character.getCreationDate().getTimeInMillis());
+                        statementInsert.setDate(4, dateSql);
+                        statementInsert.setNull(5, Types.VARCHAR);
+                        statementInsert.setNull(6, Types.INTEGER);
+                        statementInsert.setInt(7, playerAccountId);
+                        statementInsert.setInt(8, characterClassTechnicalId);
+                        statementInsert.setInt(9, serverTechnicalId);
+
+                        state = statementInsert.executeUpdate();
+                    }
+                }
+            }
+            return state;
+            } catch(ConnectionException connectionException){
+                throw new DataAccessException();
+            } catch(SQLException sqlException){
+                throw new DataException(0);
         }
     }
 }

@@ -32,7 +32,7 @@ public class SearchPanelSpell extends JPanel {
 
             //Add properties
             setLayout(new GridLayout(1, 2, 5, 15));
-            setBorder(new EmptyBorder(250, 0, 250, 250)); //top, left, bottom, right
+            setBorder(new EmptyBorder(250, 0, 300, 250)); //top, left, bottom, right
 
             //Add components
             playerAccount = new JLabel("Player Account");
@@ -69,7 +69,7 @@ public class SearchPanelSpell extends JPanel {
     private class ComboBocListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            if(!pseudos.get(playerAccountCombo.getSelectedIndex()).equals(pseudos.get(0))){
+            if(playerAccountCombo.getSelectedIndex() != 0){
                 setPseudoChoice(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[0]);
                 setNumberChoice(Integer.parseInt(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[1]));
                 try {
@@ -79,7 +79,7 @@ public class SearchPanelSpell extends JPanel {
                 }catch (DataAccessException dataAccessException){
                     JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } //todo
+            }
         }
     }
 }

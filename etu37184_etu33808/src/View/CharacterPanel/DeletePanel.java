@@ -20,7 +20,7 @@ public class DeletePanel extends JPanel {
     public DeletePanel(){
 
         //Add properties
-        setLayout(new GridLayout(2, 2, 5, 15));
+        setLayout(new GridLayout(1, 2, 5, 15));
 
         //Add components
         deletePanelTable = new DeletePanelTable();

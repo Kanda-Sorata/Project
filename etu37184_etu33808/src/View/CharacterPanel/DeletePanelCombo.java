@@ -7,6 +7,7 @@ import Exception.DataAccessException;
 import Exception.DataException;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,8 +32,11 @@ public class DeletePanelCombo extends JPanel {
 
 
     public DeletePanelCombo(DeletePanelTable deletePanelTable){
-        setLayout(new GridLayout(3, 2, 5, 15));
+        //Add properties
+        setLayout(new GridLayout(2, 2, 5, 15));
+        setBorder(new EmptyBorder(250, 100, 275, 150)); //Top, left, bottom, right
 
+        //Add components
         try{
             this.deletePanelTable = deletePanelTable;
             utilitiesPanelMethode = new UtilitiesPanelMethode();
@@ -40,12 +44,14 @@ public class DeletePanelCombo extends JPanel {
             gameController = new GameController();
 
             playerAccountLabel = new JLabel("Player account");
+            playerAccountLabel.setHorizontalAlignment(SwingConstants.RIGHT);
             playerAccounts = new ArrayList<>();
             playerAccounts = utilitiesPanelMethode.setPlayerAccountsPseudo();
             playerAccountCombo = new JComboBox(playerAccounts.toArray());
             playerAccountCombo.addActionListener(comboBoxListener);
 
             gameLabel = new JLabel("Game name");
+            gameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
             games = new ArrayList<>();
             games.add("No selection");
             gameCombo = new JComboBox(games.toArray());
@@ -81,6 +87,7 @@ public class DeletePanelCombo extends JPanel {
                         int gameSize = gamesTemp.size();
                         for(int iGame = 0; iGame < gameSize; iGame++){ games.add(gamesTemp.get(iGame)); }
                         gameCombo.setModel(new DefaultComboBoxModel(games.toArray()));
+                        gameCombo.revalidate();
                         gameCombo.repaint();
                     } catch (DataException dataException) {
                         JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

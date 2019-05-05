@@ -1,11 +1,16 @@
 package View.CharacterPanel;
 
+import Model.Character;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.JSpinner;
 
 public class FormPanelRight extends JPanel {
     private JLabel nameLabel;
@@ -16,57 +21,63 @@ public class FormPanelRight extends JPanel {
     private JLabel damagePerSecondLabel;
 
     private JTextField nameField;
-    private JSlider healthPointSlider;  //not editable and setValue
+    private JSlider healthPointSlider;
     private JCheckBox isStuffedCheckBox;
     private JSpinner creationDateSpinner;
     private JTextField petNameField;
-    private JSlider damagePerSecondSlider; //not editable & setValue
+    private JSlider damagePerSecondSlider;
 
     private Hashtable<Integer, JLabel> sliderLabels; //Key must be, Value must been an object
-    private SpinnerDateModel dateModel;
+    private SpinnerDateModel spinnerModel;
     private JSpinner.DateEditor dateEditor;
-    private Date date;
+    private GregorianCalendar dateChoice;
+    private SpinnerListener spinnerListener;
+    private Date initDate;
+    private Date latestDate;
+    private Date earliestDate;
 
     private ButtonsPanel buttonsPanel;
 
-    private SliderListener sliderListener;
+    private SliderListenerDamagePerSecond sliderListenerDamagePerSecond;
+    private SliderListenerHealthPoint sliderListenerHealthPoint;
+
+    private JLabel requiredLabel;
 
 
     public FormPanelRight(ButtonsPanel buttonsPanel){
         //Add propetiers
-        setLayout(new GridLayout(6, 2, 5, 15));
-        setBorder(new EmptyBorder(80, 0, 80, 50)); //Top, left, bottom, right
+        setLayout(new GridLayout(7, 2, 5, 15));
+        setBorder(new EmptyBorder(80, 0, 80, 40)); //Top, left, bottom, right
 
         //Add link panel
         this.buttonsPanel = buttonsPanel;
 
+
         //Add Component
-        nameLabel = new JLabel("Name");
+        nameLabel = new JLabel("<html>Name<font color = 'red'>*</font></html>");
         nameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         nameField = new JTextField();
         nameField.setColumns(15);
         nameField.setToolTipText("Enter the name of your character");
 
 
-        healthPointLabel = new JLabel("Health point");
+        healthPointLabel = new JLabel("<html>Health point<font color = 'red'>*</font></html>");
         healthPointLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         healthPointSlider = new JSlider(JSlider.HORIZONTAL);
-        setHealthPointSlider(0, 50000, 25000); //TODO SLIDERMETHOD
+        setHealthPointSlider(Character.getMinHp(), Character.getMaxHp(), Character.getMinHp());
 
-        isStuffedLabel = new JLabel("");
+        isStuffedLabel = new JLabel("<html>Is already stuffed<font color = 'red'>*</font></html>");
         isStuffedLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        isStuffedCheckBox = new JCheckBox("Is already stuffed");
-        isStuffedCheckBox.setHorizontalAlignment(SwingConstants.RIGHT);
+        isStuffedCheckBox = new JCheckBox();
+        isStuffedCheckBox.setHorizontalAlignment(SwingConstants.LEFT);
 
-        creationDateLabel = new JLabel("Creational date");
+        creationDateLabel = new JLabel("<html>Creational date<font color = 'red'>*</font></html>");
         creationDateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         creationDateSpinner = new JSpinner();
-        date = new GregorianCalendar().getTime();
-        dateModel = new SpinnerDateModel(date, date, date, Calendar.MONTH);
-        creationDateSpinner.setModel(dateModel);
-        dateEditor = new JSpinner.DateEditor(creationDateSpinner, "dd/MM/yyyy");
-        creationDateSpinner.setEditor(dateEditor);
-        creationDateSpinner.setEnabled(false);
+        setCreationDateSpinner();
+        creationDateSpinner.setToolTipText("Date available today to 2039");
+        spinnerListener = new SpinnerListener();
+        creationDateSpinner.addChangeListener(spinnerListener);
 
         petNameLabel = new JLabel("Pet name");
         petNameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -77,26 +88,31 @@ public class FormPanelRight extends JPanel {
         damagePerSecondLabel = new JLabel("Damage per second");
         damagePerSecondLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         damagePerSecondSlider = new JSlider(JSlider.HORIZONTAL);
-        sliderListener = new SliderListener();
-        damagePerSecondSlider.addChangeListener(sliderListener);
-        setDamagePerSecondSlider(0, 5000, 0);
+        setDamagePerSecondSlider(Character.getMinDmg(), Character.getMaxDmg(), Character.getMinDmg());
 
-        if(buttonsPanel.getParentPanel().getFrame().getHaveSavedValue()){
-            buttonsPanel.setFormValue();
-        }
+        requiredLabel = new JLabel("<html>(<font color = 'red'>*</font> required field)</html>");
+        requiredLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+
+
+        //Add listener
+        sliderListenerDamagePerSecond = new SliderListenerDamagePerSecond();
+        sliderListenerHealthPoint = new SliderListenerHealthPoint();
+        healthPointSlider.addChangeListener(sliderListenerHealthPoint);
+        damagePerSecondSlider.addChangeListener(sliderListenerDamagePerSecond);
 
         add(nameLabel);
         add(nameField);
         add(healthPointLabel);
         add(healthPointSlider);
+        add(isStuffedLabel);
         add(isStuffedCheckBox);
-        add(isStuffedLabel); //TODO JLABEL
         add(creationDateLabel);
         add(creationDateSpinner);
         add(petNameLabel);
         add(petNameField);
         add(damagePerSecondLabel);
         add(damagePerSecondSlider);
+        add(requiredLabel);
     }
 
     public void setHealthPointSlider(int minimum, int maximum, int value){
@@ -106,10 +122,9 @@ public class FormPanelRight extends JPanel {
         healthPointSlider.setValue(value);
         healthPointSlider.setLabelTable(sliderLabels);
         healthPointSlider.setPaintLabels(true);
-        healthPointSlider.setMajorTickSpacing(10000);
-        healthPointSlider.setMinorTickSpacing(5000);
+        healthPointSlider.setMajorTickSpacing(maximum/5);
+        healthPointSlider.setMinorTickSpacing(maximum/50);
         healthPointSlider.setPaintTicks(true);
-        healthPointSlider.setEnabled(false);
     }
 
     public void setSliderLabels(int minimum, int maximum, int value){
@@ -126,8 +141,8 @@ public class FormPanelRight extends JPanel {
         damagePerSecondSlider.setValue(value);
         damagePerSecondSlider.setLabelTable(sliderLabels);
         damagePerSecondSlider.setPaintLabels(true);
-        damagePerSecondSlider.setMajorTickSpacing(1000);
-        damagePerSecondSlider.setMinorTickSpacing(500);
+        damagePerSecondSlider.setMajorTickSpacing(maximum/5);
+        damagePerSecondSlider.setMinorTickSpacing(maximum/50);
         damagePerSecondSlider.setPaintTicks(true);
     }
 
@@ -144,13 +159,8 @@ public class FormPanelRight extends JPanel {
     }
 
     public GregorianCalendar getCreationDate() {
-        GregorianCalendar calendar = new  GregorianCalendar();
-        Date date = (Date) creationDateSpinner.getValue();
-        calendar.setTime(date);
-        return calendar;
+        return dateChoice;
     }
-
-    //Set Form
 
     public String getPetNameField() {
         return petNameField.getText();
@@ -160,61 +170,144 @@ public class FormPanelRight extends JPanel {
         return damagePerSecondSlider.getValue();
     }
 
+    public GregorianCalendar getEarliestDate() {
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(earliestDate);
+        return calendar;
+    }
+
+    public GregorianCalendar getLatestDate() {
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(latestDate);
+        return calendar;
+    }
+
+    public void setDateChoice(){
+        Date date = (Date) creationDateSpinner.getValue();
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        this.dateChoice = calendar;
+    }
+
+    //Set Form
+
     public void setNameField(String name) {
         this.nameField.setText(name);
     }
 
-    public void setHealthPointSlider(int healthPoint) {
-        setHealthPointSlider(0, 50000, healthPoint); //TODO
-    }
+    public void setHealthPointSlider(int healthPoint){ setHealthPointSlider(Character.getMinHp(), Character.getMaxHp(), healthPoint);}
 
-    public void setStuffedCheckBox(Boolean isStuffed) {
+    public void setStuffedCheckBox(boolean isStuffed) {
         isStuffedCheckBox.setSelected(isStuffed);
     }
 
-    public void setCreationDateSpinner(GregorianCalendar creationDate) {
+    public void setCreationDateSpinner() {
+        Calendar calendar = Calendar.getInstance();
+        initDate = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_WEEK, -1);
+        earliestDate = calendar.getTime();
+        calendar.add(Calendar.YEAR, 20);
+        latestDate = calendar.getTime();
 
-        date = creationDate.getTime();
-        dateModel = new SpinnerDateModel(date, date, date, Calendar.MONTH);
-        creationDateSpinner.setModel(dateModel);
+        spinnerModel = new SpinnerDateModel(initDate, earliestDate, latestDate, Calendar.MONTH); //getPrevious & nextvalue method
+        creationDateSpinner.setModel(spinnerModel);
         dateEditor = new JSpinner.DateEditor(creationDateSpinner, "dd/MM/yyyy");
         creationDateSpinner.setEditor(dateEditor);
     }
 
-    public void setPetName(String petName) {
+    public void updateCreationDateSpinner(GregorianCalendar calendar){
+        spinnerModel.setValue(calendar.getTime());
+    }
+
+
+    public void setPetNameField(String petName) {
         petNameField.setText(petName);
     }
 
-    public void setDamagePerSecond(int damagePerSecond) {
-        setDamagePerSecondSlider(0, 5000, damagePerSecond); //TODO
+    public void setDamagePerSecondSlider(int damagePerSecond) {
+        setDamagePerSecondSlider(Character.getMinDmg(), Character.getMaxDmg(), damagePerSecond);
     }
 
-
-    //Reset
+    //Reset Form
 
     public void setNameFieldReset() {
-        nameField.setText("Enter the name of your character"); ;
+        nameField.setText("");
+    }
+
+    public void setHealthPointSliderReset(){
+        setHealthPointSlider(Character.getMinHp(), Character.getMaxHp(), Character.getMinHp());
     }
 
     public void setIsStuffedCheckBoxReset() {
         isStuffedCheckBox.setSelected(false);
     }
 
+
     public void setPetNameFieldReset() {
-        petNameField.setText("Name of your pet");
+        petNameField.setText("");
     }
 
     public void setDamagePerSecondSliderReset() {
-        damagePerSecondSlider.setValue(0);
+        setDamagePerSecondSlider(Character.getMinDmg(), Character.getMaxDmg(), Character.getMinDmg());
     }
+
+    //Error form
+    public void setNameLabelError(){
+        nameLabel.setText("<html><font color = 'red'>Name*</font></html>");
+    }
+
+    public void setPetNameLabelError(){
+        petNameLabel.setText("<html><font color = 'red'>Pet name</font></html>");
+    }
+
+    public void setCreationDateLabelError(){
+        creationDateLabel.setText("<html><font color = 'red'>Creational date*</font></html>");
+    }
+
+    //Reset form
+
+    public void setNameLabelReset(){
+        nameLabel.setText("<html>Name<font color = 'red'>*</font></html>");
+    }
+
+    public void setPetNameLabelReset(){
+        petNameLabel.setText("Pet name");
+    }
+
+    public void setCreationDateLabelReset(){
+        creationDateLabel.setText("<html>Creational date<font color = 'red'>*</font></html>");
+    }
+
 
     //Listener
 
-    private class SliderListener implements ChangeListener{
+    private class SliderListenerDamagePerSecond implements ChangeListener {
         @Override
         public void stateChanged(ChangeEvent changeEvent) {
-            if(!damagePerSecondSlider.getValueIsAdjusting()){
-                setDamagePerSecondSlider(0, 5000, damagePerSecondSlider.getValue());
+            if (changeEvent.getSource() == damagePerSecondSlider) {
+                if (!damagePerSecondSlider.getValueIsAdjusting()) {
+                    setDamagePerSecondSlider(damagePerSecondSlider.getValue());
+                }
+            }
+        }
+    }
+
+    private class SliderListenerHealthPoint implements ChangeListener {
+        @Override
+        public void stateChanged(ChangeEvent changeEvent) {
+            if(changeEvent.getSource() == healthPointSlider) {
+                if (!healthPointSlider.getValueIsAdjusting()) {
+                    setHealthPointSlider(healthPointSlider.getValue());
+                }
+            }
+        }
+    }
+
+    private class SpinnerListener implements ChangeListener{
+        @Override
+        public void stateChanged(ChangeEvent changeEvent){
+            if(changeEvent.getSource() == creationDateSpinner) {
+                setDateChoice();
             }
         }
     }

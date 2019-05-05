@@ -76,7 +76,7 @@ public class AccountPlayer {
     }
 
     public String getCity() {
-        return city != null ? city : null;
+        return city;
     }
 
     public void setCity(String city) {

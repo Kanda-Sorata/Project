@@ -37,6 +37,15 @@ public class Frame extends JFrame{
 
     private Character characterForm;
     private Boolean haveSavedValue;
+    private String pseudo;
+    private int number;
+    private String server;
+    private String game;
+    private String characterClass;
+    private int indexPlayerAccount;
+    private int indexGame;
+    private int indexServer;
+    private int indexCharacterClass;
 
     public Frame(){
         //Generale
@@ -118,6 +127,7 @@ public class Frame extends JFrame{
         search.add(listEffectsCharacterClassFromGame);
 
         //Character
+        character.setMnemonic('c');
         add = new JMenuItem("New");
         add.addActionListener(characterListener);
         character.add(add);
@@ -224,4 +234,84 @@ public class Frame extends JFrame{
     public void setHaveSavedValue(Boolean haveSavedValue) {
         this.haveSavedValue = haveSavedValue;
     }
+
+    public Container getContainer(){
+        return container;
+    }
+
+    public String getPseudo() {
+        return pseudo;
+    }
+
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public String getServer() {
+        return server;
+    }
+
+    public void setServer(String server) {
+        this.server = server;
+    }
+
+    public String getGame() {
+        return game;
+    }
+
+    public void setGame(String game) {
+        this.game = game;
+    }
+
+    public String getCharacterClass() {
+        return characterClass;
+    }
+
+    public void setCharacterClass(String characterClass) {
+        this.characterClass = characterClass;
+    }
+
+    public int getIndexPlayerAccount() {
+        return indexPlayerAccount;
+    }
+
+    public int getIndexGame() {
+        return indexGame;
+    }
+
+    public int getIndexServer() {
+        return indexServer;
+    }
+
+    public int getIndexCharacterClass() {
+        return indexCharacterClass;
+    }
+
+    public void setIndexPlayerAccount(int indexPlayerAccount) {
+        this.indexPlayerAccount = indexPlayerAccount;
+    }
+
+    public void setIndexGame(int indexGame) {
+        this.indexGame = indexGame;
+    }
+
+    public void setIndexServer(int indexServer) {
+        this.indexServer = indexServer;
+    }
+
+    public void setIndexCharacterClass(int indexCharacterClass) {
+        this.indexCharacterClass = indexCharacterClass;
+    }
+
+
+
+
 }

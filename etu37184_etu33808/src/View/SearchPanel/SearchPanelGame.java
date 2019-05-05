@@ -30,7 +30,7 @@ public class SearchPanelGame extends JPanel {
     private ArrayList<String> playerAccounts;
     private ArrayList<String> charactersName;
     private ArrayList<Character> characters;
-    private JLabel playerAcocunt;
+    private JLabel playerAccount;
     private JLabel characterName;
     private JLabel dateEnd;
 
@@ -66,8 +66,8 @@ public class SearchPanelGame extends JPanel {
             setBorder(new EmptyBorder(150, 0, 250, 250)); //top, left, bottom, right
 
             //add component
-            playerAcocunt = new JLabel("Player Account");
-            playerAcocunt.setHorizontalAlignment(SwingConstants.RIGHT);
+            playerAccount = new JLabel("Player Account");
+            playerAccount.setHorizontalAlignment(SwingConstants.RIGHT);
             characterName = new JLabel("Character");
             characterName.setHorizontalAlignment(SwingConstants.RIGHT);
             dateEnd = new JLabel("Date of end");
@@ -86,7 +86,7 @@ public class SearchPanelGame extends JPanel {
 
             dateEndSpinner = new JSpinner();
             Calendar calendar = Calendar.getInstance();
-            calendar.add(calendar.YEAR, -5);
+            calendar.add(Calendar.YEAR, -5);
             Date earliestDate = calendar.getTime();
             setJSpinner(earliestDate);
 
@@ -104,7 +104,7 @@ public class SearchPanelGame extends JPanel {
             buttonListener = new ButtonListener();
             validation.addActionListener(buttonListener);
 
-            add(playerAcocunt);
+            add(playerAccount);
             add(playerAccountCombo);
             add(characterName);
             add(characterNameCombo);
@@ -123,7 +123,7 @@ public class SearchPanelGame extends JPanel {
     public void setJSpinner(Date earliestDate){
         Calendar calendar = Calendar.getInstance();
         Date initDate = calendar.getTime();
-        calendar.add(calendar.YEAR, 20);
+        calendar.add(Calendar.YEAR, 20);
         Date latestDate = calendar.getTime();
 
         spinnerModel = new SpinnerDateModel(initDate, earliestDate, latestDate, Calendar.MONTH); //getPrevious & nextvalue method
@@ -237,7 +237,7 @@ public class SearchPanelGame extends JPanel {
                 setDateChoice();
                 if(playerAccountCombo.getSelectedIndex() != 0 && characterNameCombo.getSelectedIndex() != 0 && dateChoice != null) {
                     resultGamePanel.setJtable(pseudoChoice, numberChoice, characterNameChoice, dateChoice);
-                } //todo else message d'erreur?
+                }
             }catch(DataException dataException){
                 JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }catch (DataAccessException dataAccessException){

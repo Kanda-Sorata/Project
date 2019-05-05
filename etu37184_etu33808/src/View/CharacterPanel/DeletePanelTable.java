@@ -7,6 +7,8 @@ import Exception.DataAccessException;
 import Exception.DataException;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -15,21 +17,18 @@ public class DeletePanelTable extends JPanel {
     private ArrayList<String> characters;
     private JTable table;
     private  JScrollPane scrollPane;
-    private String characterChoice;
     private CharacterController characterController;
-    private JButton validationButton;
-    private ButtonListener buttonListener;
     private UtilitiesPanelMethode utilitiesPanelMethode;
     private String pseudoChoice;
     private String gameChoice;
     private int numberChoice;
+    private String characterChoice;
     private TableListener tableListener;
 
     public DeletePanelTable(){
+        setLayout(new FlowLayout());
+
         tableListener = new TableListener();
-        validationButton = new JButton("Validation");
-        buttonListener = new ButtonListener();
-        validationButton.addActionListener(buttonListener);
 
         utilitiesPanelMethode = new UtilitiesPanelMethode();
         setLayout(new FlowLayout());
@@ -37,9 +36,7 @@ public class DeletePanelTable extends JPanel {
 
         table = utilitiesPanelMethode.getJTableModelBlank();
         scrollPane = new JScrollPane(table);
-        table.addMouseListener(tableListener);
         add(scrollPane);
-        add(validationButton);
     }
 
     public void setJTable(String pseudoChoice, int numberChoice, String gameChoice) throws DataException, DataAccessException {
@@ -50,33 +47,35 @@ public class DeletePanelTable extends JPanel {
         remove(scrollPane);
         AllCharactersModel model = new AllCharactersModel(characters);
         table = new JTable(model);
+        table.getSelectionModel().addListSelectionListener(tableListener);
         scrollPane = new JScrollPane(table);
         add(scrollPane);
         revalidate();
         repaint();
     }
 
-    private class ButtonListener implements ActionListener {
+    public class TableListener implements ListSelectionListener {
         @Override
-        public void actionPerformed(ActionEvent actionEvent) {
-     //       if() {
-                try {
-                    characterController.deleteACharacter(pseudoChoice, numberChoice, gameChoice, characterChoice);
-                } catch (DataException dataException) {
-                    JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                } catch (DataAccessException dataAccessException) {
-                    JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        public void valueChanged(ListSelectionEvent listSelectionEvent) {
+            if(!listSelectionEvent.getValueIsAdjusting()){
+                int row = table.getSelectedRow();
+                int column = table.getSelectedColumn();
+                setCharacterChoice(table.getValueAt(row, column).toString());
+                String input = JOptionPane.showInputDialog(null, "Do you really want to delete this character PERMANENTLY?\nInsert \"DELETE\" to continue.", "Delete", JOptionPane.WARNING_MESSAGE);
+                if (input == null || !input.equals("DELETE")) {
+                    JOptionPane.showMessageDialog(null, "Delete has been cancelled.", "Delete - Cancelled", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    if(input.equals("DELETE")) {
+                        try {
+                            characterController.deleteACharacter(pseudoChoice, numberChoice, gameChoice, characterChoice);
+                        } catch (DataException dataException) {
+                            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        } catch (DataAccessException dataAccessException) {
+                            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
                 }
-       //     }
-        }
-    }
-
-    public class TableListener extends MouseAdapter {
-
-        public void mouseClicked(MouseEvent event) {
-            Point point = event.getPoint();
-            int row = table.rowAtPoint(point);
-            //todo listener
+            }
         }
     }
 
@@ -90,5 +89,9 @@ public class DeletePanelTable extends JPanel {
 
     public void setGame(String gameChoice){
         this.gameChoice = gameChoice;
+    }
+
+    public void setCharacterChoice(String characterChoice) {
+        this.characterChoice = characterChoice;
     }
 }

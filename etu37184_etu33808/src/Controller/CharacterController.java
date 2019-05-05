@@ -30,4 +30,8 @@ public class CharacterController {
     public int deleteACharacter(String pseudo, int number, String gameName, String characterName) throws DataAccessException, DataException{
         return characterBusinessLogic.deleteACharacter(pseudo, number, gameName, characterName);
     }
+
+    public int insertACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataAccessException, DataException {
+        return characterBusinessLogic.insertACharacter(character, pseudo, number, game, server, characterClass);
+    }
 }

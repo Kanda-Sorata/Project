@@ -53,7 +53,7 @@ public class Game {
     }
 
     public Double getPrice() {
-        return price != null ? price : null;
+        return price;
     }
 
     public void setPrice(double price) {
