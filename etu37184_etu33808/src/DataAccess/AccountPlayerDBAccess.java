@@ -19,10 +19,11 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
     public AccountPlayerDBAccess(){}
 
     public Integer getNbAccountPlayers() throws DataException, DataAccessException {
+        Connection connection = null;
         try {
-            Connection dataConnection = SingletonConnection.getInstance();
+            connection = SingletonConnection.getInstance();
             String query = "select count(*) from playeraccount;";
-            PreparedStatement statement = dataConnection.prepareStatement(query);
+            PreparedStatement statement = connection.prepareStatement(query);
             ResultSet data = statement.executeQuery();
             Integer nbPlayerAccount = null;
             if(data.next()) {
@@ -30,18 +31,19 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
             }
             return nbPlayerAccount;
         } catch (ConnectionException connexionException) {
-            throw new DataException(0);
+            throw new DataAccessException(1);
         } catch (SQLException sqlException) {
-            throw new DataAccessException();
+            throw new DataException(1);
         }
     }
 
     public ArrayList<AccountPlayer> getAllAccountPlayer() throws DataException, DataAccessException {
+        Connection connection = null;
         try {
-            Connection dataConnection = SingletonConnection.getInstance();
+            connection = SingletonConnection.getInstance();
             String query = "select * from playeraccount";
 
-            PreparedStatement statement = dataConnection.prepareStatement(query);
+            PreparedStatement statement = connection.prepareStatement(query);
 
             ResultSet data = statement.executeQuery();
             ArrayList<AccountPlayer> accountPlayers = new ArrayList<>();
@@ -67,9 +69,9 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
             }
             return accountPlayers;
         } catch (ConnectionException connexionException){
-            throw new DataException(0);
+            throw new DataAccessException(1);
         } catch (SQLException sqlException) {
-            throw new DataAccessException();
+            throw new DataException(1);
         } catch (SexException sexException) {
             throw new DataException(4);
         }

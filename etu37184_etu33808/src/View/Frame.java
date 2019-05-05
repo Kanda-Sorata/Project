@@ -4,6 +4,8 @@ import View.CharacterPanel.*;
 import View.SearchPanel.EffectPanel;
 import View.SearchPanel.GamePanel;
 import View.SearchPanel.SpellPanel;
+import Controller.SingletonController;
+import Exception.DataAccessException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -47,6 +49,8 @@ public class Frame extends JFrame{
     private int indexServer;
     private int indexCharacterClass;
 
+    private SingletonController singletonController;
+
     public Frame(){
         //Generale
         super("Account management");
@@ -64,6 +68,9 @@ public class Frame extends JFrame{
 
         //init for newPanel
         haveSavedValue = false;
+
+        //conection to close
+        singletonController = new SingletonController();
 
         add(homePanel);
         setVisible(true);
@@ -85,6 +92,11 @@ public class Frame extends JFrame{
         addWindowListener(new WindowAdapter() { //Fermer la fenetre
             @Override
             public void windowClosing(WindowEvent windowEvent) {
+                try {
+                    singletonController.close();
+                }catch(DataAccessException dataAccessException){
+                    JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Close error", JOptionPane.ERROR_MESSAGE);
+                }
                 System.exit(0);
             }
         });
@@ -197,7 +209,7 @@ public class Frame extends JFrame{
             }
             else{
                 if(actionEvent.getSource() == modify){
-                    modifyPanel = new ModifyPanel();
+                    modifyPanel = new ModifyPanel(getFrame());
                     container.add(modifyPanel);
                 }
                 else{

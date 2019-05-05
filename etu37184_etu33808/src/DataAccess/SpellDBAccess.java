@@ -14,8 +14,9 @@ import java.util.ArrayList;
 
 public class SpellDBAccess implements SpellDataAccess {
     public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, int numberChoice)throws DataException, DataAccessException{
+        Connection connection = null;
         try {
-            Connection connection = SingletonConnection.getInstance();
+           connection = SingletonConnection.getInstance();
 
             String query = "select `character`.name as characterName, spell.name, spell.cooldown "
                         + "from playeraccount, `character`, characterclass, bind, spell "
@@ -49,9 +50,9 @@ public class SpellDBAccess implements SpellDataAccess {
             }
             return searchSpellLists;
         }catch(ConnectionException connectionEwception){
-            throw new DataException(0);
+            throw new DataAccessException(1);
         }catch(SQLException sqlException){
-            throw new DataAccessException();
+            throw new DataException(1);
         }
     }
 }

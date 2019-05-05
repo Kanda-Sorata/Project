@@ -18,7 +18,7 @@ public class NewPanel extends JPanel {
         this.frame = frame;
 
         //Add components
-        formPanelLeft = new FormPanelLeft();
+        formPanelLeft = new FormPanelLeft(null);
         buttonsPanel = new ButtonsPanel();
         formPanelRight = new FormPanelRight(buttonsPanel);
         buttonsPanel.setFormPanelRight(formPanelRight);

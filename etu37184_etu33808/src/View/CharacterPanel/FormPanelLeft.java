@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.Normalizer;
 import java.util.ArrayList;
 
 
@@ -45,14 +46,20 @@ public class FormPanelLeft extends JPanel {
     private ServerController serverController;
     private CharacterClassController characterClassController;
 
-    public FormPanelLeft(){
+    private FormPanelRight formPanelRight;
+
+    public FormPanelLeft(FormPanelRight formPanelRight){
+        //Add properties
+        setLayout(new GridLayout(4,2, 5, 15));
+        setBorder(new EmptyBorder(150, 50, 175, 125)); //Top, left, bottom, right
+
+        this.formPanelRight = formPanelRight;
         utilitiesPanelMethode = new UtilitiesPanelMethode();
         gameController = new GameController();
         serverController = new ServerController();
         characterClassController = new CharacterClassController();
-        //Add properties
-        setLayout(new GridLayout(4,2, 5, 15));
-        setBorder(new EmptyBorder(150, 50, 175, 125)); //Top, left, bottom, right
+
+
         //Init & add component
         try{
             comboBoxListener = new ComboBoxListener();
@@ -298,8 +305,14 @@ public class FormPanelLeft extends JPanel {
                     }else{
                         if(characterClassCombo.getSelectedIndex() != 0){
                             characterClassChoice = characterClassCombo.getSelectedItem().toString();
+                            if(formPanelRight != null) {
+                                formPanelRight.setFieldWithCharacterValues(pseudoChoice, numberChoice, gameChoice, serverChoice, characterClassChoice);
+                            }
                         }else{
                             characterClassChoice = "No selection";
+                            if(formPanelRight != null) {
+                                formPanelRight.unsetFieldWithCharacterValues();
+                            }
                         }
                     }
                 }

@@ -14,14 +14,15 @@ import java.util.ArrayList;
 public class ServerDBAccess implements ServerDataAccess {
     @Override
     public ArrayList<String> getAllServersName(String pseudoChoice, int numberChoice, String game) throws DataException, DataAccessException {
+        Connection connection = null;
         try{
-            Connection dataConnection = SingletonConnection.getInstance();
+            connection = SingletonConnection.getInstance();
             String query = "select  server.name from playeraccount, game, server, acquisition "
                          + "where playeraccount.id = (select id from playeraccount where pseudo = ? and number = ?) "
                          + "and game.name = ? and server.Gamename = game.name "
                          + "and acquisition.Gamename = ? and acquisition.playeraccountid = playeraccount.id ";
 
-            PreparedStatement statement = dataConnection.prepareStatement(query);
+            PreparedStatement statement = connection.prepareStatement(query);
 
             statement.setString(1, pseudoChoice);
             statement.setInt(2, numberChoice);
@@ -37,9 +38,9 @@ public class ServerDBAccess implements ServerDataAccess {
             return servers;
 
         }catch(ConnectionException connectionException){
-            throw new DataException(0);
+            throw new DataAccessException(1);
         }catch(SQLException sqlException){
-            throw new DataAccessException();
+            throw new DataException(1);
         }
     }
 }

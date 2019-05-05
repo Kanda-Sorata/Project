@@ -17,13 +17,14 @@ public class GameDBAccess implements GameDataAccess {
 
     public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, int number, String character,
                                         GregorianCalendar dateEnd) throws DataException, DataAccessException{
+        Connection connection = null;
         try {
-            Connection dataConnection = SingletonConnection.getInstance();
+            connection = SingletonConnection.getInstance();
 
             java.sql.Date sqlDate = new java.sql.Date(dateEnd.getTimeInMillis());
 
 
-            String querry = "select game.name, game.releasedate, server.name as serverName "
+            String query = "select game.name, game.releasedate, server.name as serverName "
                          + "from playeraccount, `character`, server, game "
                          + "where playeraccount.id = (select id from playeraccount where pseudo = ? and `number` = ?) "
                          + "and `character`.name = ? and `character`.playeraccountid = playeraccount.id "
@@ -31,7 +32,7 @@ public class GameDBAccess implements GameDataAccess {
                          + "and game.releaseDate <= ?;";
 
 
-            PreparedStatement statement = dataConnection.prepareStatement(querry);
+            PreparedStatement statement = connection.prepareStatement(query);
 
             statement.setString(1, pseudo);
             statement.setInt(2, number);
@@ -56,18 +57,19 @@ public class GameDBAccess implements GameDataAccess {
             return searchGameLists;
 
         }catch (ConnectionException connectionException){
-            throw new DataException(0);
+            throw new DataAccessException(1);
         } catch (SQLException sqlException) {
-            throw new DataAccessException();
+            throw new DataException(1);
         }
     }
 
     public ArrayList<String> getAllGames() throws DataException, DataAccessException{
+        Connection connection = null;
         try{
-            Connection dataConnection = SingletonConnection.getInstance();
+            connection = SingletonConnection.getInstance();
 
-            String querry = "select game.name from game";
-            PreparedStatement statement = dataConnection .prepareStatement(querry);
+            String query = "select game.name from game";
+            PreparedStatement statement = connection .prepareStatement(query);
 
             ResultSet data = statement.executeQuery();
             ArrayList<String> allGames = new ArrayList<>();
@@ -80,21 +82,22 @@ public class GameDBAccess implements GameDataAccess {
             return allGames;
 
         } catch (ConnectionException connectionException){
-            throw new DataException(0);
+            throw new DataAccessException(1);
         } catch (SQLException sqlException){
-            throw new DataAccessException();
+            throw new DataException(1);
         }
     }
 
     public ArrayList<String> getAllGamesName(String pseudoChoice, int numberChoice) throws DataAccessException, DataException {
+        Connection connection = null;
         try{
-            Connection dataConnection = SingletonConnection.getInstance();
+            connection = SingletonConnection.getInstance();
 
             String query = "select game.name from game, playeraccount, acquisition " +
                             "where playeraccount.id = (select id from playeraccount where pseudo = ? and number = ?) " +
                             "and playeraccount.id = acquisition.playeraccountid and acquisition.gamename = game.name;";
 
-            PreparedStatement statement = dataConnection.prepareStatement(query);
+            PreparedStatement statement = connection.prepareStatement(query);
 
             statement.setString(1, pseudoChoice);
             statement.setInt(2, numberChoice);
@@ -109,9 +112,9 @@ public class GameDBAccess implements GameDataAccess {
             return gamesName;
 
         }catch (ConnectionException connectionException){
-            throw new DataException(0);
+            throw new DataAccessException(1);
         }catch (SQLException sqlException) {
-            throw new DataAccessException();
+            throw new DataException(1);
         }
     }
 

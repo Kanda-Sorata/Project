@@ -14,8 +14,9 @@ import java.util.ArrayList;
 
 public class EffectDBAccess implements EffectDataAccess{
     public ArrayList<SearchEffectList> getSearchEffectList(String gameChoice, String classChoice) throws DataException, DataAccessException {
+        Connection connection = null;
         try {
-            Connection dataConnection = SingletonConnection.getInstance();
+           connection = SingletonConnection.getInstance();
 
             String query = "select effect.label as labelEffect, spell.name as spellName, spell.cooldown, game.name as game "
                           + "from effect, spell, game, characterClass, bind, debuff "
@@ -24,7 +25,7 @@ public class EffectDBAccess implements EffectDataAccess{
                           + "and debuff.spellTechnicalId = spell.technicalid and debuff.effectLabel = effect.label "
                           + "and game.name = ? and characterClass.name = ?;";
 
-            PreparedStatement statement = dataConnection.prepareStatement(query);
+            PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, gameChoice);
             statement.setString(2, classChoice);
 
@@ -40,9 +41,9 @@ public class EffectDBAccess implements EffectDataAccess{
             return searchEffectLists;
 
         } catch(ConnectionException connectionException){
-            throw new DataException(0);
+            throw new DataAccessException(1);
         }catch(SQLException sqlException){
-            throw new DataAccessException();
+            throw new DataException(1);
         }
     }
 }

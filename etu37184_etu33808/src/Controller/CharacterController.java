@@ -5,6 +5,7 @@ import Exception.DataAccessException;
 import Exception.DataException;
 import Model.Character;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 
 
@@ -33,5 +34,9 @@ public class CharacterController {
 
     public int insertACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataAccessException, DataException {
         return characterBusinessLogic.insertACharacter(character, pseudo, number, game, server, characterClass);
+    }
+
+    public Character getOneCharacter(String pseudo, int number, String game, String server, String characterClass) throws DataException, DataAccessException {
+        return characterBusinessLogic.getOneCharacter(pseudo, number, game, server, characterClass);
     }
 }

@@ -1,7 +1,7 @@
 package DataAccess;
 
 import Exception.ConnectionException;
-
+import Exception.DataAccessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ public class SingletonConnection {
     public static Connection getInstance() throws ConnectionException{
         if(uniqueConnection == null){
             try {
-                uniqueConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/javaproject?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC", "root","Hk954eEg");
+                uniqueConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/javaproject?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC", "root","Rc648pPy");
             }
             catch(SQLException exception){
                 throw new ConnectionException(exception.getMessage(), exception.getSQLState(), exception.getErrorCode());
@@ -21,7 +21,17 @@ public class SingletonConnection {
         return uniqueConnection;
     }
 
-    public static boolean isClosed(){
+    public boolean isClosed(){
         return uniqueConnection == null;
+    }
+
+    public void close() throws DataAccessException{
+        if(!isClosed()){
+            try{
+                uniqueConnection.close();
+            }catch (SQLException sqlException){
+                throw new DataAccessException(2);
+            }
+        }
     }
 }

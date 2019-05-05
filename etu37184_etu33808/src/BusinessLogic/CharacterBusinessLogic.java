@@ -6,6 +6,7 @@ import Exception.DataException;
 import Model.Character;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class CharacterBusinessLogic {
     CharacterDataAccess dao;
@@ -27,9 +28,37 @@ public class CharacterBusinessLogic {
     }
 
     public int deleteACharacter(String pseudo, int number, String gameName, String characterName) throws DataAccessException, DataException{
-        return dao.deleteACharacter(pseudo, number, gameName, characterName);
+        if(isDeleteParametersValide(pseudo, number, gameName, characterName)) {
+            return dao.deleteACharacter(pseudo, number, gameName, characterName);
+        }else{
+            throw new DataException(8);
+        }
     }
     public int insertACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataAccessException, DataException {
-        return dao.insertACharacter(character, pseudo, number, game, server, characterClass);
+        if(isInsertParametersValide(character, pseudo, number, game, server, characterClass)) {
+            return dao.insertACharacter(character, pseudo, number, game, server, characterClass);
+        }else{
+           throw new DataException(7);
+        }
+    }
+
+    public Character getOneCharacter(String pseudo, int number, String game, String server, String characterClass) throws DataException, DataAccessException {
+        return dao.getOneCharacter(pseudo, number, game, server, characterClass);
+    }
+
+    private boolean isInsertParametersValide(Character character, String pseudo, int number, String game, String server, String characterClass){
+        String noSelection = "No selection";
+        return character != null && !character.getName().isEmpty() && Pattern.matches("^[a-zA-Z_-]{4,50}", character.getName())
+                && character.getHealthPoints() >= Character.getMinHp()
+                && character.getHealthPoints() <= Character.getMaxHp() && character.getCreationDate() != null
+                && character.getStuffed() != null && pseudo != null && !pseudo.equals(noSelection) && game != null
+                && !game.equals(noSelection) && server != null && !server.equals(noSelection)
+                && characterClass != null && !characterClass.equals(noSelection);
+    }
+
+    private boolean isDeleteParametersValide(String pseudo, int number, String gameName, String characterName){
+        String noSelection = "No selection";
+        return pseudo != null && !pseudo.equals(noSelection) && gameName != null && !gameName.equals(noSelection)
+                && characterName != null && !characterName.equals(noSelection);
     }
 }

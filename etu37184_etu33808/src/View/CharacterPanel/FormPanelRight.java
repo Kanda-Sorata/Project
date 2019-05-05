@@ -1,12 +1,18 @@
 package View.CharacterPanel;
 
+import Controller.CharacterController;
 import Model.Character;
+import Exception.DataAccessException;
+import Exception.DataException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.time.chrono.IsoChronology;
 import java.util.*;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,6 +24,7 @@ public class FormPanelRight extends JPanel {
     private JLabel isStuffedLabel;
     private JLabel creationDateLabel;
     private JLabel petNameLabel;
+    private JLabel damagePerSecondActivatedLabel;
     private JLabel damagePerSecondLabel;
 
     private JTextField nameField;
@@ -25,6 +32,7 @@ public class FormPanelRight extends JPanel {
     private JCheckBox isStuffedCheckBox;
     private JSpinner creationDateSpinner;
     private JTextField petNameField;
+    private JCheckBox damagePerSecondActivated;
     private JSlider damagePerSecondSlider;
 
     private Hashtable<Integer, JLabel> sliderLabels; //Key must be, Value must been an object
@@ -40,14 +48,17 @@ public class FormPanelRight extends JPanel {
 
     private SliderListenerDamagePerSecond sliderListenerDamagePerSecond;
     private SliderListenerHealthPoint sliderListenerHealthPoint;
+    private CheckBoxListener checkBoxListener;
 
     private JLabel requiredLabel;
+
+    private CharacterController characterController;
 
 
     public FormPanelRight(ButtonsPanel buttonsPanel){
         //Add propetiers
-        setLayout(new GridLayout(7, 2, 5, 15));
-        setBorder(new EmptyBorder(80, 0, 80, 40)); //Top, left, bottom, right
+        setLayout(new GridLayout(8, 2, 5, 15));
+        setBorder(new EmptyBorder(70, 0, 70, 40)); //Top, left, bottom, right
 
         //Add link panel
         this.buttonsPanel = buttonsPanel;
@@ -56,8 +67,7 @@ public class FormPanelRight extends JPanel {
         //Add Component
         nameLabel = new JLabel("<html>Name<font color = 'red'>*</font></html>");
         nameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        nameField = new JTextField();
-        nameField.setColumns(15);
+        nameField = new JTextField(25);
         nameField.setToolTipText("Enter the name of your character");
 
 
@@ -81,13 +91,20 @@ public class FormPanelRight extends JPanel {
 
         petNameLabel = new JLabel("Pet name");
         petNameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        petNameField = new JTextField();
-        petNameField.setColumns(15);
+        petNameField = new JTextField(25);
         petNameField.setToolTipText("Name of your pet if you have one");
+
+        damagePerSecondActivatedLabel = new JLabel("Set up damage per second");
+        damagePerSecondActivatedLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        damagePerSecondActivated = new JCheckBox();
+        damagePerSecondActivated.setHorizontalTextPosition(SwingConstants.LEFT);
+        checkBoxListener = new CheckBoxListener();
+        damagePerSecondActivated.addItemListener(checkBoxListener);
 
         damagePerSecondLabel = new JLabel("Damage per second");
         damagePerSecondLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         damagePerSecondSlider = new JSlider(JSlider.HORIZONTAL);
+        damagePerSecondSlider.setEnabled(false);
         setDamagePerSecondSlider(Character.getMinDmg(), Character.getMaxDmg(), Character.getMinDmg());
 
         requiredLabel = new JLabel("<html>(<font color = 'red'>*</font> required field)</html>");
@@ -110,6 +127,8 @@ public class FormPanelRight extends JPanel {
         add(creationDateSpinner);
         add(petNameLabel);
         add(petNameField);
+        add(damagePerSecondActivatedLabel);
+        add(damagePerSecondActivated);
         add(damagePerSecondLabel);
         add(damagePerSecondSlider);
         add(requiredLabel);
@@ -189,6 +208,10 @@ public class FormPanelRight extends JPanel {
         this.dateChoice = calendar;
     }
 
+    public boolean damagePerSecondIsAvailable(){
+        return damagePerSecondActivated.isSelected();
+    }
+
     //Set Form
 
     public void setNameField(String name) {
@@ -225,7 +248,13 @@ public class FormPanelRight extends JPanel {
     }
 
     public void setDamagePerSecondSlider(int damagePerSecond) {
-        setDamagePerSecondSlider(Character.getMinDmg(), Character.getMaxDmg(), damagePerSecond);
+        if(damagePerSecondActivated.isSelected()) {
+            setDamagePerSecondSlider(Character.getMinDmg(), Character.getMaxDmg(), damagePerSecond);
+        }
+    }
+
+    public void setDamagePerSecondActivated(boolean isSelected){
+        damagePerSecondActivated.setSelected(isSelected);
     }
 
     //Reset Form
@@ -263,6 +292,8 @@ public class FormPanelRight extends JPanel {
     public void setCreationDateLabelError(){
         creationDateLabel.setText("<html><font color = 'red'>Creational date*</font></html>");
     }
+    public void setDamagePerSecondLabelError(){ damagePerSecondLabel.setText("<html><font color = 'red'>Damage per second*</font></html>"); }
+
 
     //Reset form
 
@@ -277,6 +308,7 @@ public class FormPanelRight extends JPanel {
     public void setCreationDateLabelReset(){
         creationDateLabel.setText("<html>Creational date<font color = 'red'>*</font></html>");
     }
+    public void setDamagePerSecondLabelReset(){ damagePerSecondLabel.setText("<html>Damage per second<font color = 'red'>*</font></html>"); }
 
 
     //Listener
@@ -310,5 +342,56 @@ public class FormPanelRight extends JPanel {
                 setDateChoice();
             }
         }
+    }
+
+    private class CheckBoxListener implements ItemListener {
+        @Override
+        public void itemStateChanged(ItemEvent itemEvent) {
+            if(damagePerSecondActivated.isSelected()){
+                damagePerSecondSlider.setEnabled(true);
+            }
+            if(!damagePerSecondActivated.isSelected()){
+                damagePerSecondSlider.setEnabled(false);
+            }
+        }
+    }
+
+    //Modify
+
+    public void setFieldWithCharacterValues(String pseudo, int number, String game, String server, String characterClass){
+        characterController = new CharacterController();
+        try {
+            Character character;
+            character = characterController.getOneCharacter(pseudo, number, game, server, characterClass);
+            setNameField(character.getName());
+            setHealthPointSlider(character.getHealthPoints());
+            setStuffedCheckBox(character.isStuffed());
+            updateCreationDateSpinner(character.getCreationDate());
+            setPetNameField(character.getPetName());
+            if(character.getDamagePerSecond() != null) {
+                setDamagePerSecondActivated(true);
+                setDamagePerSecondSlider(character.getDamagePerSecond());
+            }else{
+                setDamagePerSecondActivated(false);
+                setDamagePerSecondSlider(0);
+            }
+        }catch (DataException dataException) {
+            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error",
+                                                                                            JOptionPane.ERROR_MESSAGE);
+        } catch (DataAccessException dataAccessException) {
+            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error",
+                                                                                            JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    public void unsetFieldWithCharacterValues(){
+        setNameField("");
+        setHealthPointSlider(0);
+        setStuffedCheckBox(false);
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.getTimeZone();
+        updateCreationDateSpinner(calendar);
+        setPetNameField("");
+        setDamagePerSecondActivated(false);
+        setDamagePerSecondSlider(0);
     }
 }
