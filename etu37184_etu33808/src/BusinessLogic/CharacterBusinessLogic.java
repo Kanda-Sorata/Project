@@ -42,8 +42,8 @@ public class CharacterBusinessLogic {
         }
     }
 
-    public Character getOneCharacter(String pseudo, int number, String game, String server, String characterClass) throws DataException, DataAccessException {
-        return dao.getOneCharacter(pseudo, number, game, server, characterClass);
+    public Character getOneCharacter(String pseudo, int number, String game, String server, String characterClass, String character) throws DataException, DataAccessException {
+        return dao.getOneCharacter(pseudo, number, game, server, characterClass, character);
     }
 
     private boolean isInsertParametersValide(Character character, String pseudo, int number, String game, String server, String characterClass){
@@ -60,5 +60,9 @@ public class CharacterBusinessLogic {
         String noSelection = "No selection";
         return pseudo != null && !pseudo.equals(noSelection) && gameName != null && !gameName.equals(noSelection)
                 && characterName != null && !characterName.equals(noSelection);
+    }
+
+    public ArrayList<String> getAllCharactersInAGameInServerWithCharacterClass(String pseudo, int number, String game, String server, String characterClass) throws DataException, DataAccessException{
+        return dao.getAllCharactersInAGameInServerWithCharacterClass(pseudo, number, game, server, characterClass);
     }
 }

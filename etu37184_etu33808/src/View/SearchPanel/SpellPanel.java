@@ -8,10 +8,12 @@ public class SpellPanel extends JPanel {
     private SearchPanelSpell searchPanelSpell;
     private ResultSpellPanel resultSpellPanel;
 
-    public SpellPanel() {
+    public SpellPanel(Frame frame) {
         //Add properties
         setLayout(new GridLayout(1, 2, 5, 15));
 
+        frame.setTitle("");
+        frame.setTitle(frame.getTitle() + "- Search for spell(s)");
         //Add components
         resultSpellPanel = new ResultSpellPanel();
         searchPanelSpell = new SearchPanelSpell(resultSpellPanel);

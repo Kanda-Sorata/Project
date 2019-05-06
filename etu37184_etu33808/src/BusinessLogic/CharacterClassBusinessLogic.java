@@ -16,9 +16,8 @@ public class CharacterClassBusinessLogic {
     public ArrayList<String> getClassesInAGame(String game) throws DataException, DataAccessException {
         return dao.getClassesInAGame(game);
     }
-
-    public ArrayList<String> getAllClassesName(String pseudo, int number, String game) throws
-                                                                                    DataException, DataAccessException{
-        return dao.getAllClassesName(pseudo, number, game);
+    public ArrayList<String> getAllCharactersClassName(String pseudo, int number, String game) throws
+            DataException, DataAccessException{
+        return dao.getAllCharactersClassName(pseudo, number, game);
     }
 }

@@ -7,13 +7,9 @@ import Model.Character;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.concurrent.Callable;
 import java.util.regex.Pattern;
 
 public class CharacterDBAccess implements CharacterDataAccess {
-
-    public CharacterDBAccess(){}
-
     public ArrayList<Character> getAllCharacter(String pseudo, int number) throws DataException, DataAccessException {
         Connection connection = null;
         try {
@@ -100,7 +96,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
     }
 
     public int deleteACharacter(String pseudo, int number, String gameName, String characterName) throws DataAccessException, DataException {
-        if (isDeleteParametersValide(pseudo, number, gameName, characterName)) {
+        if (!isDeleteParametersValide(pseudo, number, gameName, characterName)) {
             throw new DataException(8);
         } else {
             Connection connection = null;
@@ -146,7 +142,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
     }
 
     public int insertACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataException, DataAccessException {
-        if(isInsertParametersValide(character, pseudo, number, game, server, characterClass)){
+        if(!isInsertParametersValide(character, pseudo, number, game, server, characterClass)){
             throw new DataException(7);
         }else {
             Connection connection = null;
@@ -226,7 +222,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
 
     private boolean isInsertParametersValide(Character character, String pseudo, int number, String game, String server, String characterClass){
         String noSelection = "No selection";
-        return character != null && Pattern.matches("^[a-zA-Z_-]{4,50}", character.getName())
+        return character != null && !character.getName().isEmpty() && Pattern.matches("^[a-zA-Z_-]{4,50}", character.getName())
                 && character.getHealthPoints() >= Character.getMinHp()
                 && character.getHealthPoints() <= Character.getMaxHp() && character.getCreationDate() != null
                 && character.getStuffed() != null && pseudo != null && !pseudo.equals(noSelection) && game != null
@@ -240,23 +236,22 @@ public class CharacterDBAccess implements CharacterDataAccess {
                 && characterName != null && !characterName.equals(noSelection);
     }
 
-    public Character getOneCharacter(String pseudo, int number, String game, String server, String characterClass) throws DataException, DataAccessException {
+    public Character getOneCharacter(String pseudo, int number, String game, String server, String characterClass, String character) throws DataException, DataAccessException {
         Connection connection = null;
         try {
             connection = SingletonConnection.getInstance();
 
-            String query = "select `character`.name, `character`.healthPoint, `character`.isStuffed, "
-                        + "`character`.creationDate, `character`.petName, `character`.damagePerSecond "
-                        + "from playeraccount, `character`, server, game, acquisition "
-                        + "where playeraccount.id = (select id from playeraccount where pseudo = ? and number = ?) "
-                        + "and acquisition.playeraccountid = playeraccount.id and game.name = ? "
-                        + "and acquisition.gamename = game.name "
-                        + "and server.technicalId = (select technicalId from server where server.name = ? "
-                        + " and server.gamename = game.name) "
-                        + "and characterClass.technicalId = (select technicalId from characterClass where name = ? and gamename = ?) "
-                        + "and `character`.playeraccountId = playeraccount.id "
-                        + "and `character`.CharacterClassTechnicalId = characterClass.technicalId "
-                        + "and `character`.ServertechnicalId = server.technicalId";
+            String query = "select  `character`.name, `character`.healthPoint, `character`.isStuffed, "
+                    + "`character`.creationDate, `character`.petName, `character`.damagePerSecond "
+                    + "from playeraccount, acquisition, game, server, characterclass, `character` "
+                    + "where playeraccount.id = (select id from playeraccount where pseudo = ? and number = ?) "
+                    + "and acquisition.playeraccountid = playeraccount.id and game.name = ? "
+                    + "and acquisition.gamename = game.name "
+                    + "and server.technicalId = (select technicalId from server where name = ? and gamename = game.name) "
+                    + "and characterclass.technicalId = (select technicalId from characterclass where name = ? and gameName = game.name) "
+                    + "and `character`.ServertechnicalId = server.technicalId "
+                    + "and `character`.characterclassTechnicalId = characterclass.technicalId "
+                    + "and `character`.playeraccountId = playeraccount.id;";
 
             PreparedStatement statement = connection.prepareStatement(query);
 
@@ -264,36 +259,35 @@ public class CharacterDBAccess implements CharacterDataAccess {
             statement.setInt(2, number);
             statement.setString(3, game);
             statement.setString(4, server);
-            statement.setString(5, characterClass);
-            statement.setString(6, game);
+            statement.setString(5, characterClass);;
 
             ResultSet data = statement.executeQuery();
-            Character character = null;
+            Character characterToFill = null;
             String petName;
             Integer damagePerSecond;
 
             while (data.next()) {
-                character = new Character(data.getString("name"), data.getInt("healthPoint"),
+                characterToFill = new Character(data.getString("name"), data.getInt("healthPoint"),
                         data.getBoolean("isStuffed"), null, null, null,
                         null, null);
 
                 java.sql.Date creationDate = data.getDate("creationDate");
                 GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime(creationDate);
-                character.setCreationDate(calendar);
+                characterToFill.setCreationDate(calendar);
 
                 petName = data.getString("petName");
                 if (!data.wasNull()) {
-                    character.setPetName(petName);
+                    characterToFill.setPetName(petName);
                 }
 
                 damagePerSecond = data.getInt("damagePerSecond");
                 if (!data.wasNull()) {
-                    character.setDamagePerSecond(damagePerSecond);
+                    characterToFill.setDamagePerSecond(damagePerSecond);
                 }
             }
 
-            return character;
+            return characterToFill;
         } catch (ConnectionException connectionException) {
             throw new DataAccessException(1);
         } catch (SQLException sqlException) {
@@ -302,6 +296,47 @@ public class CharacterDBAccess implements CharacterDataAccess {
             throw  new DataException(2);
         }catch (DamagePerSecondException damagePerSecondException){
             throw  new DataException(6);
+        }
+    }
+
+    public ArrayList<String> getAllCharactersInAGameInServerWithCharacterClass(String pseudo, int number, String game,
+                                       String server, String characterClass) throws DataException, DataAccessException{
+        Connection connection = null;
+        try {
+            connection = SingletonConnection.getInstance();
+
+            String query = "select `character`.name "
+                    + "from `character`, playeraccount, game, server, characterclass, acquisition "
+                    + "where playeraccount.id = (select id from playeraccount where pseudo = ? and number = ?) "
+                    + "and game.name = ? "
+                    + "and acquisition.playeraccountid = playeraccount.id "
+                    + "and acquisition.gameName = game.name "
+                    + "and server.technicalid = (select technicalid from server where name =  ? and gamename = game.name) "
+                    + "and characterclass.technicalid = (select technicalid from characterclass where name = ? and gamename = game.name) "
+                    + "and `character`.playeraccountid = playeraccount.id "
+                    + "and `character`.servertechnicalid = server.technicalid "
+                    + "and `character`.characterclasstechnicalid = characterclass.technicalid;";
+
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            statement.setString(1, pseudo);
+            statement.setInt(2, number);
+            statement.setString(3, game);
+            statement.setString(4, server);
+            statement.setString(5, characterClass);
+
+            ResultSet data = statement.executeQuery();
+            ArrayList<String> characters = new ArrayList<>();
+
+            while (data.next()) {
+                characters.add(data.getString("name"));
+            }
+
+            return characters;
+        } catch (ConnectionException connectionException) {
+            throw new DataAccessException(1);
+        } catch (SQLException sqlException) {
+            throw new DataException(1);
         }
     }
 }

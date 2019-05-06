@@ -1,9 +1,9 @@
 package View.CharacterPanel;
 
 import Controller.CharacterController;
-import Model.Character;
 import Exception.DataAccessException;
 import Exception.DataException;
+import Model.Character;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -12,11 +12,10 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.time.chrono.IsoChronology;
-import java.util.*;
 import java.util.Calendar;
 import java.util.Date;
-import javax.swing.JSpinner;
+import java.util.GregorianCalendar;
+import java.util.Hashtable;
 
 public class FormPanelRight extends JPanel {
     private JLabel nameLabel;
@@ -58,7 +57,7 @@ public class FormPanelRight extends JPanel {
     public FormPanelRight(ButtonsPanel buttonsPanel){
         //Add propetiers
         setLayout(new GridLayout(8, 2, 5, 15));
-        setBorder(new EmptyBorder(70, 0, 70, 40)); //Top, left, bottom, right
+        setBorder(new EmptyBorder(50, 0, 50, 40)); //Top, left, bottom, right
 
         //Add link panel
         this.buttonsPanel = buttonsPanel;
@@ -97,6 +96,7 @@ public class FormPanelRight extends JPanel {
         damagePerSecondActivatedLabel = new JLabel("Set up damage per second");
         damagePerSecondActivatedLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         damagePerSecondActivated = new JCheckBox();
+        damagePerSecondActivated.setSelected(false);
         damagePerSecondActivated.setHorizontalTextPosition(SwingConstants.LEFT);
         checkBoxListener = new CheckBoxListener();
         damagePerSecondActivated.addItemListener(checkBoxListener);
@@ -224,18 +224,26 @@ public class FormPanelRight extends JPanel {
         isStuffedCheckBox.setSelected(isStuffed);
     }
 
-    public void setCreationDateSpinner() {
+    public void setCreationDateSpinner(Date date){
         Calendar calendar = Calendar.getInstance();
         initDate = calendar.getTime();
+        calendar.setTime(date);
         calendar.add(Calendar.DAY_OF_WEEK, -1);
-        earliestDate = calendar.getTime();
+        date = calendar.getTime();
         calendar.add(Calendar.YEAR, 20);
         latestDate = calendar.getTime();
-
-        spinnerModel = new SpinnerDateModel(initDate, earliestDate, latestDate, Calendar.MONTH); //getPrevious & nextvalue method
+        spinnerModel = new SpinnerDateModel(initDate, date, latestDate, Calendar.MONTH); //getPrevious & nextvalue method
         creationDateSpinner.setModel(spinnerModel);
         dateEditor = new JSpinner.DateEditor(creationDateSpinner, "dd/MM/yyyy");
         creationDateSpinner.setEditor(dateEditor);
+    }
+
+    public void setCreationDateSpinner() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.getTime();
+        calendar.add(Calendar.DAY_OF_WEEK, -1);
+        earliestDate = calendar.getTime();
+        setCreationDateSpinner(earliestDate);
     }
 
     public void updateCreationDateSpinner(GregorianCalendar calendar){
@@ -358,15 +366,15 @@ public class FormPanelRight extends JPanel {
 
     //Modify
 
-    public void setFieldWithCharacterValues(String pseudo, int number, String game, String server, String characterClass){
+    public void setFieldWithCharacterValues(String pseudo, int number, String game, String server, String characterClass, String characterName){
         characterController = new CharacterController();
         try {
             Character character;
-            character = characterController.getOneCharacter(pseudo, number, game, server, characterClass);
+            character = characterController.getOneCharacter(pseudo, number, game, server, characterClass, characterName);
             setNameField(character.getName());
             setHealthPointSlider(character.getHealthPoints());
             setStuffedCheckBox(character.isStuffed());
-            updateCreationDateSpinner(character.getCreationDate());
+            setCreationDateSpinner(character.getCreationDate().getTime());
             setPetNameField(character.getPetName());
             if(character.getDamagePerSecond() != null) {
                 setDamagePerSecondActivated(true);

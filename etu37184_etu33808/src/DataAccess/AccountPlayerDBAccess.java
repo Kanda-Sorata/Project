@@ -26,6 +26,7 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet data = statement.executeQuery();
             Integer nbPlayerAccount = null;
+
             if(data.next()) {
                 nbPlayerAccount = data.getInt(1);
             }

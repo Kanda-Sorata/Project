@@ -8,9 +8,12 @@ public class HomePanel extends JPanel {
     private String message;
     private JLabel messageLabel;
 
-    public HomePanel(){
+    public HomePanel(Frame frame){
         setLayout(new FlowLayout());
         setBorder(new EmptyBorder(20, 250, 250, 250));
+
+        frame.setTitle("");
+        frame.setTitle(frame.getTitle() + "- Home");
 
         //Add component and set them
         setMessage();

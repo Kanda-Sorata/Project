@@ -1,16 +1,19 @@
 package View;
 
-import View.CharacterPanel.*;
+import Controller.SingletonController;
+import Exception.DataAccessException;
+import Model.Character;
+import View.CharacterPanel.DeletePanel;
+import View.CharacterPanel.DisplayPanel;
+import View.CharacterPanel.ModifyPanel;
+import View.CharacterPanel.NewPanel;
 import View.SearchPanel.EffectPanel;
 import View.SearchPanel.GamePanel;
 import View.SearchPanel.SpellPanel;
-import Controller.SingletonController;
-import Exception.DataAccessException;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import Model.Character;
 public class Frame extends JFrame{
     private Container container;
 
@@ -53,7 +56,7 @@ public class Frame extends JFrame{
 
     public Frame(){
         //Generale
-        super("Account management");
+        super("Account management - Home");
         setFrame();
 
         //Contenu
@@ -64,7 +67,7 @@ public class Frame extends JFrame{
         setJMenuBar(menu);
 
         //add panel home
-        homePanel = new HomePanel();
+        homePanel = new HomePanel(this);
 
         //init for newPanel
         haveSavedValue = false;
@@ -140,16 +143,16 @@ public class Frame extends JFrame{
 
         //Character
         character.setMnemonic('c');
-        add = new JMenuItem("New");
+        add = new JMenuItem("Add a new character");
         add.addActionListener(characterListener);
         character.add(add);
-        modify = new JMenuItem("Modifiy");
+        modify = new JMenuItem("Modifiy a new character");
         modify.addActionListener(characterListener);
         character.add(modify);
-        delete = new JMenuItem("Delete");
+        delete = new JMenuItem("Delete a character");
         delete.addActionListener(characterListener);
         character.add(delete);
-        list = new JMenuItem("Display");
+        list = new JMenuItem("Display all characters");
         list.addActionListener(characterListener);
         character.add(list);
 
@@ -164,12 +167,17 @@ public class Frame extends JFrame{
         @Override
         public void actionPerformed(ActionEvent event){
             if(event.getSource() == exit) {
+                try {
+                    singletonController.close();
+                }catch(DataAccessException dataAccessException){
+                    JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Close error", JOptionPane.ERROR_MESSAGE);
+                }
                 System.exit(0);
                 //todo close Connection
             }
             else{
                 container.removeAll();
-                homePanel = new HomePanel();
+                homePanel = new HomePanel(getFrame());
                 container.add(homePanel);
                 setVisible(true);
             }
@@ -181,16 +189,16 @@ public class Frame extends JFrame{
         public void actionPerformed(ActionEvent event) {
             container.removeAll();
           if(event.getSource() == listGamesFromCharacter){
-              gamePanel = new GamePanel();
+              gamePanel = new GamePanel(getFrame());
               container.add(gamePanel);
           }
           else{
               if(event.getSource() == listSpellsCharacterFromPlayer){
-                  spellPanel = new SpellPanel();
+                  spellPanel = new SpellPanel(getFrame());
                   container.add(spellPanel);
               }
               else{
-                  effectPanel = new EffectPanel();
+                  effectPanel = new EffectPanel(getFrame());
                   container.add(effectPanel);
               }
           }
@@ -214,7 +222,7 @@ public class Frame extends JFrame{
                 }
                 else{
                     if(actionEvent.getSource() == delete){
-                        deletePanel = new DeletePanel();
+                        deletePanel = new DeletePanel(getFrame());
                         container.add(deletePanel);
                     }
                     else{
@@ -323,7 +331,9 @@ public class Frame extends JFrame{
         this.indexCharacterClass = indexCharacterClass;
     }
 
-
+    public String getTitle(){
+        return "Account management ";
+    }
 
 
 }

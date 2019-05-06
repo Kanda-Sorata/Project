@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class NewPanel extends JPanel {
     private FormPanelRight formPanelRight;
-    private FormPanelLeft formPanelLeft;
+    private FormPanelLeftNew formPanelLeftNew;
     private ButtonsPanel buttonsPanel;
     private Frame frame;
 
@@ -16,20 +16,22 @@ public class NewPanel extends JPanel {
         setLayout(new BorderLayout());
 
         this.frame = frame;
+        frame.setTitle("");
+        frame.setTitle(frame.getTitle() + "- Add a new character");
 
         //Add components
-        formPanelLeft = new FormPanelLeft(null);
         buttonsPanel = new ButtonsPanel();
         formPanelRight = new FormPanelRight(buttonsPanel);
+        formPanelLeftNew = new FormPanelLeftNew(formPanelRight);
         buttonsPanel.setFormPanelRight(formPanelRight);
         buttonsPanel.setFrame(frame);
-        buttonsPanel.setFormPanelLeft(formPanelLeft);
+        buttonsPanel.setFormPanelLeftModify(formPanelLeftNew);
 
         if(frame.getHaveSavedValue()){
             buttonsPanel.setFormValue();
         }
 
-        add(formPanelLeft, BorderLayout.WEST);
+        add(formPanelLeftNew, BorderLayout.WEST);
         add(formPanelRight, BorderLayout.CENTER);
         add(buttonsPanel, BorderLayout.SOUTH);
     }

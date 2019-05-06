@@ -1,6 +1,7 @@
 package View.CharacterPanel;
 
 import Controller.CharacterClassController;
+import Controller.CharacterController;
 import Controller.GameController;
 import Controller.ServerController;
 import Exception.DataAccessException;
@@ -12,27 +13,28 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.Normalizer;
 import java.util.ArrayList;
 
 
-public class FormPanelLeft extends JPanel {
+public class FormPanelLeftModify extends JPanel {
     private JComboBox playerAccountCombo;
     private JComboBox gameCombo;
     private JComboBox serverCombo;
     private JComboBox characterClassCombo;
+    private JComboBox characterCombo;
 
     private ArrayList<String> pseudos;
     private ArrayList<String> games;
     private ArrayList<String> servers;
     private ArrayList<String> characterClasses;
+    private ArrayList<String> characters;
 
 
     private JLabel playerAccountLabel;
     private JLabel gameLabel;
     private JLabel serverLabel;
     private JLabel characterClassLabel;
-
+    private JLabel characterLabel;
     private ComboBoxListener comboBoxListener;
 
     private String pseudoChoice;
@@ -40,25 +42,29 @@ public class FormPanelLeft extends JPanel {
     private String gameChoice;
     private String serverChoice;
     private String characterClassChoice;
+    private String characterChoice;
 
     private UtilitiesPanelMethode utilitiesPanelMethode;
     private GameController gameController;
     private ServerController serverController;
     private CharacterClassController characterClassController;
+    private CharacterController characterController;
 
     private FormPanelRight formPanelRight;
+    private  boolean isModifyPanel;
 
-    public FormPanelLeft(FormPanelRight formPanelRight){
+    public FormPanelLeftModify(FormPanelRight formPanelRight, boolean isModifyPanel ){
         //Add properties
-        setLayout(new GridLayout(4,2, 5, 15));
-        setBorder(new EmptyBorder(150, 50, 175, 125)); //Top, left, bottom, right
+        setLayout(new GridLayout(5, 2, 5, 15));
+        setBorder(new EmptyBorder(150, 50, 120, 0)); //Top, left, bottom, right
 
-        this.formPanelRight = formPanelRight;
         utilitiesPanelMethode = new UtilitiesPanelMethode();
         gameController = new GameController();
         serverController = new ServerController();
         characterClassController = new CharacterClassController();
-
+        characterController = new CharacterController();
+        this.isModifyPanel  = isModifyPanel;
+        this.formPanelRight = formPanelRight;
 
         //Init & add component
         try{
@@ -103,6 +109,18 @@ public class FormPanelLeft extends JPanel {
             add(characterClassLabel);
             add(characterClassCombo);
 
+            if(isModifyPanel) {
+                characterLabel = new JLabel("Character name");
+                characterLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+                characters = new ArrayList<>();
+                characters.add("No selection");
+                characterCombo = new JComboBox(characters.toArray());
+                characterCombo.setEnabled(false);
+                characterCombo.addActionListener(comboBoxListener);
+                add(characterLabel);
+                add(characterCombo);
+            }
+
         }catch(DataException dataException){
             JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }catch(DataAccessException dataAccessException){
@@ -123,12 +141,17 @@ public class FormPanelLeft extends JPanel {
         for(int iServer = 0; iServer < size; iServer++){ servers.add(temp.get(iServer)); }
     }
 
-    public void setCharacterClasses(String pseudoChoice, int numberChoice, String game) throws DataException, DataAccessException  {
-        ArrayList<String> temp = characterClassController.getAllClassesName(pseudoChoice, numberChoice, game);
+    public void setCharacterClasses(String pseudoChoice, int numberChoice, String gameChoice) throws DataException, DataAccessException {
+        ArrayList<String> temp = characterClassController.getAllCharactersClassName(pseudoChoice, numberChoice, gameChoice);
         int size = temp.size();
         for(int iClass = 0; iClass < size; iClass++){ characterClasses.add(temp.get(iClass)); }
     }
 
+    public void setCharactersName(String pseudoChoice, int numberChoice, String gameChoice, String serverChoice, String characterClassChoice) throws DataException, DataAccessException{
+        ArrayList<String> temp = characterController.getAllCharactersInAGameInServerWithCharacterClass(pseudoChoice, numberChoice, gameChoice, serverChoice, characterClassChoice);
+        int size = temp.size();
+        for(int iCharacter = 0; iCharacter < size; iCharacter++){ characters.add(temp.get(iCharacter)); }
+    }
 
     public String getPseudoChoice() {
         return pseudoChoice;
@@ -148,6 +171,10 @@ public class FormPanelLeft extends JPanel {
 
     public String getCharacterClassChoice() {
         return characterClassChoice;
+    }
+
+    public String getCharacterChoice() {
+        return characterChoice;
     }
 
     public void setPlayerAccountCombo(int index) {
@@ -199,6 +226,11 @@ public class FormPanelLeft extends JPanel {
     public void setCharacterClassLabelError() {
         characterClassLabel.setText("<html><font color = 'red'>Character class*</font></html>");
     }
+
+    public void setCharacterLabelError(){
+        characterLabel.setText("<html><font color = 'red'>Character name*</font></html>\"");
+    }
+
     //Reset
     public void setPlayerAccountLabelReset(){
         playerAccountLabel.setText("<html>Player account<font color = 'red'>*</font></html>");
@@ -216,6 +248,19 @@ public class FormPanelLeft extends JPanel {
         characterClassLabel.setText("<html>Character class<font color = 'red'>*</font></html>");
     }
 
+    public void setCharacterLabelReset(){
+        characterLabel.setText("<html>Character name<font color = 'red'>*</font></html>\"");
+    }
+
+
+
+    public boolean isModifyPanel() {
+        return isModifyPanel;
+    }
+
+    public void setIsModifyPanel(boolean isModifyPanel) {
+        this.isModifyPanel = isModifyPanel;
+    }
 
     private class ComboBoxListener implements ActionListener{
         @Override
@@ -295,6 +340,9 @@ public class FormPanelLeft extends JPanel {
                         }else{
                             if(actionEvent.getSource() == characterClassCombo) {
                                 characterClassChoice = characterClassCombo.getSelectedItem().toString();
+                                if(isModifyPanel){
+                                    characterChoice = null;
+                                }
                             }else{
                                 serverChoice = "No selection";
                                 characterClassCombo.setSelectedIndex(0);
@@ -303,14 +351,39 @@ public class FormPanelLeft extends JPanel {
                             }
                         }
                     }else{
-                        if(characterClassCombo.getSelectedIndex() != 0){
-                            characterClassChoice = characterClassCombo.getSelectedItem().toString();
-                            if(formPanelRight != null) {
-                                formPanelRight.setFieldWithCharacterValues(pseudoChoice, numberChoice, gameChoice, serverChoice, characterClassChoice);
+                        if(actionEvent.getSource() == characterClassCombo){
+                            if(characterClassCombo.getSelectedIndex() != 0){
+                                characterClassChoice = characterClassCombo.getSelectedItem().toString();
+                                if(isModifyPanel) {
+                                    characters = new ArrayList<>();
+                                    characters.add("No selection");
+                                    try {
+                                        setCharactersName(pseudoChoice, numberChoice, gameChoice, serverChoice, characterClassChoice);
+                                        characterCombo.setModel(new DefaultComboBoxModel(characters.toArray()));
+                                        characterCombo.revalidate();
+                                        characterCombo.repaint();
+                                        characterCombo.setEnabled(true);
+                                    } catch (DataAccessException dataAccessException) {
+                                        JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                                    } catch (DataException dataException) {
+                                        JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                                    }
+                                }
+                            }else{
+                                characterClassChoice = "No selection";
+                                if(isModifyPanel) {
+                                    characterCombo.setSelectedIndex(0);
+                                    characterCombo.setEnabled(false);
+                                }
                             }
                         }else{
-                            characterClassChoice = "No selection";
-                            if(formPanelRight != null) {
+                            if (actionEvent.getSource() == characterCombo) {
+                                if (characterCombo.getSelectedIndex() != 0) {
+                                    characterChoice = characterCombo.getSelectedItem().toString();
+                                    formPanelRight.setFieldWithCharacterValues(pseudoChoice, numberChoice, gameChoice,
+                                            serverChoice, characterClassChoice, characterChoice);
+                                }
+                            } else {
                                 formPanelRight.unsetFieldWithCharacterValues();
                             }
                         }

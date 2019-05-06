@@ -7,9 +7,12 @@ public class EffectPanel extends JPanel {
     private SearchPanelEffect searchPanelEffect;
     private ResultEffectPanel resultEffectPanel;
 
-    public EffectPanel() {
+    public EffectPanel(Frame frame) {
         //Add properties
         setLayout(new GridLayout(1, 2, 5, 15));
+
+        frame.setTitle("");
+        frame.setTitle(frame.getTitle() + "- Search for effect(s)");
 
         //Add components
         resultEffectPanel = new ResultEffectPanel();

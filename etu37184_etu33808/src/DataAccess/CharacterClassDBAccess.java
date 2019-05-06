@@ -40,7 +40,7 @@ public class CharacterClassDBAccess implements CharacterClassDataAccess {
         }
     }
 
-    public ArrayList<String> getAllClassesName(String pseudo, int number, String game)
+    public ArrayList<String> getAllCharactersClassName(String pseudo, int number, String game)
                                                                             throws DataException, DataAccessException {
         Connection connection = null;
         try {

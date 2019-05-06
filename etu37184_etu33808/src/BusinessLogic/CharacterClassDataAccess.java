@@ -7,6 +7,6 @@ import java.util.ArrayList;
 
 public interface CharacterClassDataAccess {
     ArrayList<String> getClassesInAGame(String game) throws DataException, DataAccessException;
-    ArrayList<String> getAllClassesName(String pseudo, int number, String game) throws
+    ArrayList<String> getAllCharactersClassName(String pseudo, int number, String game) throws
             DataException, DataAccessException;
 }

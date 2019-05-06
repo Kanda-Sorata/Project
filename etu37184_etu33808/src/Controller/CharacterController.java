@@ -5,7 +5,6 @@ import Exception.DataAccessException;
 import Exception.DataException;
 import Model.Character;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 
 
@@ -14,10 +13,6 @@ public class CharacterController {
 
     public CharacterController(){
         characterBusinessLogic = new CharacterBusinessLogic();
-    }
-
-    public CharacterController(CharacterBusinessLogic characterBusinessLogic){
-        this.characterBusinessLogic = characterBusinessLogic;
     }
 
     public ArrayList<Character> getAllCharacter(String pseudo, int number) throws DataException, DataAccessException {
@@ -36,7 +31,11 @@ public class CharacterController {
         return characterBusinessLogic.insertACharacter(character, pseudo, number, game, server, characterClass);
     }
 
-    public Character getOneCharacter(String pseudo, int number, String game, String server, String characterClass) throws DataException, DataAccessException {
-        return characterBusinessLogic.getOneCharacter(pseudo, number, game, server, characterClass);
+    public Character getOneCharacter(String pseudo, int number, String game, String server, String characterClass, String character) throws DataException, DataAccessException {
+        return characterBusinessLogic.getOneCharacter(pseudo, number, game, server, characterClass, character);
+    }
+
+    public ArrayList<String> getAllCharactersInAGameInServerWithCharacterClass(String pseudo, int number, String game, String server, String characterClass) throws DataException, DataAccessException{
+        return characterBusinessLogic.getAllCharactersInAGameInServerWithCharacterClass(pseudo, number, game, server, characterClass);
     }
 }

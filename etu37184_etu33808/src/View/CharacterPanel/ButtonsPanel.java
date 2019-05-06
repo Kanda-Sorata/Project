@@ -1,19 +1,20 @@
 package View.CharacterPanel;
 
 import Controller.CharacterController;
+import Exception.DamagePerSecondException;
+import Exception.DataAccessException;
+import Exception.DataException;
+import Exception.HealthPointsException;
 import Model.Character;
-import View.HomePanel;
 import View.Frame;
+import View.HomePanel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.regex.Pattern;
-
-import Exception.*;
 
 public class ButtonsPanel extends JPanel {
     private JButton validation;
@@ -24,7 +25,7 @@ public class ButtonsPanel extends JPanel {
     private Character character;
 
     private FormPanelRight formPanelRight;
-    private FormPanelLeft formPanelLeft;
+    private FormPanelLeftModify formPanelLeftModify;
     private Frame frame;
 
     private CharacterController characterController;
@@ -60,11 +61,11 @@ public class ButtonsPanel extends JPanel {
                 if(isFormValide()) {
                     resetLabel();
                     try {
-                        String pseudo = formPanelLeft.getPseudoChoice();
-                        int number = formPanelLeft.getNumberChoice();
-                        String game = formPanelLeft.getGameChoice();
-                        String server = formPanelLeft.getServerChoice();
-                        String characterClass = formPanelLeft.getCharacterClassChoice();
+                        String pseudo = formPanelLeftModify.getPseudoChoice();
+                        int number = formPanelLeftModify.getNumberChoice();
+                        String game = formPanelLeftModify.getGameChoice();
+                        String server = formPanelLeftModify.getServerChoice();
+                        String characterClass = formPanelLeftModify.getCharacterClassChoice();
                         character = new Character(formPanelRight.getNameField(), formPanelRight.getHealthPointSlider(),
                                 formPanelRight.getIsStuffedCheckBox(), formPanelRight.getCreationDate(),
                                 formPanelRight.getPetNameField(), null,
@@ -72,7 +73,21 @@ public class ButtonsPanel extends JPanel {
                         if(formPanelRight.damagePerSecondIsAvailable()) {
                             character.setDamagePerSecond(formPanelRight.getDamagePerSecond());
                         }
-                        characterController.insertACharacter(character, pseudo, number, game, server, characterClass);
+                        int state;
+                        String msg = "The caracter " + character.getName() + " has been ";
+                        if(formPanelLeftModify.isModifyPanel()) {
+                            state = characterController.insertACharacter(character, pseudo, number, game, server, characterClass);
+                            msg += "add ";
+                        }else {
+                            state = characterController.deleteACharacter(pseudo, number, game, character.getName());
+                            msg  += "modify ";
+                        }
+                        msg += "to the player account " + pseudo + "#" + number + ".";
+                        if(state > 0) {
+
+                            JOptionPane.showMessageDialog(null, msg, "Information",
+                                    JOptionPane.INFORMATION_MESSAGE);
+                        }
                     } catch (HealthPointsException healthPointsException) {
                         JOptionPane.showMessageDialog(null, healthPointsException.getMessage(), "Error",
                                                                                             JOptionPane.ERROR_MESSAGE);
@@ -90,25 +105,25 @@ public class ButtonsPanel extends JPanel {
                 }else {
                     JOptionPane.showMessageDialog(null, "Some erroes has been found in the form, " +
                             "please correct this to continue.", "Error form", JOptionPane.ERROR_MESSAGE);
-                    if(noSelection(formPanelLeft.getPseudoChoice())){
-                        formPanelLeft.setPlayerAccountLabelError();
+                    if(noSelection(formPanelLeftModify.getPseudoChoice())){
+                        formPanelLeftModify.setPlayerAccountLabelError();
                     }else{
-                        formPanelLeft.setPlayerAccountLabelReset();;
+                        formPanelLeftModify.setPlayerAccountLabelReset();;
                     }
-                    if(noSelection(formPanelLeft.getGameChoice())){
-                        formPanelLeft.setGameLabelError();
+                    if(noSelection(formPanelLeftModify.getGameChoice())){
+                        formPanelLeftModify.setGameLabelError();
                     }else{
-                        formPanelLeft.setGameLabelReset();
+                        formPanelLeftModify.setGameLabelReset();
                     }
-                    if(noSelection(formPanelLeft.getServerChoice())){
-                        formPanelLeft.setServerLabelError();
+                    if(noSelection(formPanelLeftModify.getServerChoice())){
+                        formPanelLeftModify.setServerLabelError();
                     }else{
-                        formPanelLeft.setServerLabelReset();
+                        formPanelLeftModify.setServerLabelReset();
                     }
-                    if(noSelection(formPanelLeft.getCharacterClassChoice())){
-                        formPanelLeft.setCharacterClassLabelError();
+                    if(noSelection(formPanelLeftModify.getCharacterClassChoice())){
+                        formPanelLeftModify.setCharacterClassLabelError();
                     }else{
-                        formPanelLeft.setCharacterClassLabelReset();
+                        formPanelLeftModify.setCharacterClassLabelReset();
                     }
                     if (formPanelRight.getNameField().isEmpty() || !isNameValide(formPanelRight.getNameField())) {
                         formPanelRight.setNameLabelError();
@@ -148,7 +163,7 @@ public class ButtonsPanel extends JPanel {
                         frame.setHaveSavedValue(true);
                         //update UI
                         frame.getContainer().removeAll();
-                        frame.getContainer().add(new HomePanel());
+                        frame.getContainer().add(new HomePanel(frame));
                         frame.getContainer().revalidate();
                         frame.getContainer().repaint();
                     }catch(HealthPointsException healthPointsException){
@@ -193,27 +208,27 @@ public class ButtonsPanel extends JPanel {
         formPanelRight.setPetNameFieldReset();
         formPanelRight.setDamagePerSecondActivated(false);
         formPanelRight.setDamagePerSecondSliderReset();
-        formPanelLeft.setPlayerAccountCombo(0);
-        formPanelLeft.setGameCombo(0);
-        formPanelLeft.setServerCombo(0);
-        formPanelLeft.setCharacterClassCombo(0);
+        formPanelLeftModify.setPlayerAccountCombo(0);
+        formPanelLeftModify.setGameCombo(0);
+        formPanelLeftModify.setServerCombo(0);
+        formPanelLeftModify.setCharacterClassCombo(0);
     }
 
     public void setFormPanelRight(FormPanelRight formPanelRight){
         this.formPanelRight = formPanelRight;
     }
 
-    public void setFormPanelLeft(FormPanelLeft formPanelLeft) { this.formPanelLeft = formPanelLeft; }
+    public void setFormPanelLeftModify(FormPanelLeftModify formPanelLeftModify) { this.formPanelLeftModify = formPanelLeftModify; }
 
     public void setSaveValue() throws HealthPointsException, DamagePerSecondException{ //Back
         character = new Character(formPanelRight.getNameField(), formPanelRight.getHealthPointSlider(),
             formPanelRight.getIsStuffedCheckBox(), formPanelRight.getCreationDate(), formPanelRight.getPetNameField(),
             formPanelRight.getDamagePerSecond(), null, null);
         frame.setCharacterForm(character);
-        frame.setIndexPlayerAccount(formPanelLeft.getIndexPlayerAccount());
-        frame.setIndexGame(formPanelLeft.getIndexGame());
-        frame.setIndexServer(formPanelLeft.getIndexServer());
-        frame.setIndexCharacterClass(formPanelLeft.getIndexCharacterClass());
+        frame.setIndexPlayerAccount(formPanelLeftModify.getIndexPlayerAccount());
+        frame.setIndexGame(formPanelLeftModify.getIndexGame());
+        frame.setIndexServer(formPanelLeftModify.getIndexServer());
+        frame.setIndexCharacterClass(formPanelLeftModify.getIndexCharacterClass());
     }
 
     public void setFormValue(){
@@ -222,7 +237,11 @@ public class ButtonsPanel extends JPanel {
             formPanelRight.setNameField(character.getName());
             formPanelRight.setHealthPointSlider(character.getHealthPoints());
             formPanelRight.setStuffedCheckBox(character.isStuffed());
-            formPanelRight.updateCreationDateSpinner(character.getCreationDate());
+            if(formPanelLeftModify.isModifyPanel()) {
+                formPanelRight.setCreationDateSpinner(character.getCreationDate().getTime());
+            }else{
+                formPanelRight.setCreationDateSpinner();
+            }
             formPanelRight.setPetNameField(character.getPetName());
             if(character.getDamagePerSecond() != null) {
                 formPanelRight.setDamagePerSecondActivated(true);
@@ -232,17 +251,18 @@ public class ButtonsPanel extends JPanel {
                 formPanelRight.setDamagePerSecondSlider(0);
             }
         }
-        formPanelLeft.setPlayerAccountCombo(frame.getIndexPlayerAccount());
-        formPanelLeft.setGameCombo(frame.getIndexGame());
-        formPanelLeft.setServerCombo(frame.getIndexServer());
-        formPanelLeft.setCharacterClassCombo(frame.getIndexCharacterClass());
+        formPanelLeftModify.setPlayerAccountCombo(frame.getIndexPlayerAccount());
+        formPanelLeftModify.setGameCombo(frame.getIndexGame());
+        formPanelLeftModify.setServerCombo(frame.getIndexServer());
+        formPanelLeftModify.setCharacterClassCombo(frame.getIndexCharacterClass());
     }
 
     public void resetLabel() {
-        formPanelLeft.setPlayerAccountLabelReset();
-        formPanelLeft.setGameLabelReset();
-        formPanelLeft.setServerLabelReset();
-        formPanelLeft.setCharacterClassLabelReset();
+        formPanelLeftModify.setPlayerAccountLabelReset();
+        formPanelLeftModify.setGameLabelReset();
+        formPanelLeftModify.setServerLabelReset();
+        formPanelLeftModify.setCharacterClassLabelReset();
+        if(formPanelLeftModify.isModifyPanel()){ formPanelLeftModify.setCharacterLabelReset(); }
         formPanelRight.setNameLabelReset();
         formPanelRight.setPetNameLabelReset();
         formPanelRight.setCreationDateLabelReset();
@@ -257,10 +277,11 @@ public class ButtonsPanel extends JPanel {
     }
 
     public boolean isFormValide(){
-        return !noSelection(formPanelLeft.getPseudoChoice())
-                && !noSelection(formPanelLeft.getGameChoice())
-                && !noSelection(formPanelLeft.getGameChoice())
-                && !noSelection(formPanelLeft.getCharacterClassChoice())
+        return !noSelection(formPanelLeftModify.getPseudoChoice())
+                && !noSelection(formPanelLeftModify.getGameChoice())
+                && !noSelection(formPanelLeftModify.getGameChoice())
+                && !noSelection(formPanelLeftModify.getCharacterClassChoice())
+                && ((formPanelLeftModify.isModifyPanel() && !noSelection(formPanelLeftModify.getCharacterChoice())) || formPanelLeftModify.getCharacterChoice() == null)
                 && !formPanelRight.getNameField().isEmpty() && isNameValide(formPanelRight.getNameField())
                 && formPanelRight.getHealthPointSlider() >= Character.getMinHp()
                 && formPanelRight.getHealthPointSlider() <= Character.getMaxHp()

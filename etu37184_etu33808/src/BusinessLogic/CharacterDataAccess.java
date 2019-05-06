@@ -14,6 +14,8 @@ public interface CharacterDataAccess {
                                                                                                             DataException;
     int insertACharacter(Character character, String pseudo, int number, String game, String server, String characterClass)
                                                                             throws DataException, DataAccessException;
-    Character getOneCharacter(String pseudo, int number, String game, String server, String characterClass)
+    Character getOneCharacter(String pseudo, int number, String game, String server, String characterClass, String character)
             throws DataException, DataAccessException;
+    ArrayList<String> getAllCharactersInAGameInServerWithCharacterClass(String pseudo, int number, String game, String server, String characterClass)
+                                                                            throws DataException, DataAccessException;
 }
