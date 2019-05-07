@@ -56,7 +56,7 @@ public class FormPanelLeftModify extends JPanel {
     public FormPanelLeftModify(FormPanelRight formPanelRight, boolean isModifyPanel ){
         //Add properties
         setLayout(new GridLayout(5, 2, 5, 15));
-        setBorder(new EmptyBorder(150, 50, 120, 0)); //Top, left, bottom, right
+        setBorder(new EmptyBorder(150, 50, 120, 1)); //Top, left, bottom, right
 
         utilitiesPanelMethode = new UtilitiesPanelMethode();
         gameController = new GameController();

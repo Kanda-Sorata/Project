@@ -24,7 +24,7 @@ public class TopOfClassModel extends AbstractTableModel {
     public Object getValueAt(int row, int column){
         TopOfClass topOfClass = contents.get(row);
         switch (column){
-            case 0: return topOfClass.getServerName();
+            case 0: return topOfClass.getDescription();
             case 1: return topOfClass.getPurcent();
             case 2: return topOfClass.getClassName();
             default: return null;

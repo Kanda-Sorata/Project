@@ -1,16 +1,15 @@
 package View.CharacterPanel;
 
 import Controller.CharacterController;
-import View.SearchPanel.AllCharactersModel;
-import View.SearchPanel.UtilitiesPanelMethode;
 import Exception.DataAccessException;
 import Exception.DataException;
+import View.SearchPanel.AllCharactersModel;
+import View.SearchPanel.UtilitiesPanelMethode;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.ArrayList;
 
 public class DeletePanelTable extends JPanel {
@@ -66,12 +65,19 @@ public class DeletePanelTable extends JPanel {
                     JOptionPane.showMessageDialog(null, "Delete has been cancelled.", "Delete - Cancelled", JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     if(input.equals("DELETE")) {
+                        int state = 0;
                         try {
-                            characterController.deleteACharacter(pseudoChoice, numberChoice, gameChoice, characterChoice);
+                            state = characterController.deleteACharacter(pseudoChoice, numberChoice, gameChoice, characterChoice);
                         } catch (DataException dataException) {
                             JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         } catch (DataAccessException dataAccessException) {
                             JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+
+                        if(state > 0){
+                            table.revalidate();
+                            table.repaint();
+                            JOptionPane.showMessageDialog(null, "The character has been deleted successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
                         }
                     }
                 }

@@ -1,14 +1,23 @@
 package Model;
 
 public class TopOfClass {
+    private int nbCharacters;
     private String className;
-    private String serverName;
+    private String description;
     private double purcent;
 
-    public TopOfClass(String className, String serverName, double purcent) {
+    public TopOfClass(int nbCharacters, String className, String description) {
+        this.nbCharacters = nbCharacters;
         this.className = className;
-        this.serverName = serverName;
-        this.purcent = purcent;
+        this.description = description;
+    }
+
+    public int getNbCharacters() {
+        return nbCharacters;
+    }
+
+    public void setNbCharacters(int nbCharacters) {
+        this.nbCharacters = nbCharacters;
     }
 
     public String getClassName() {
@@ -19,12 +28,12 @@ public class TopOfClass {
         this.className = className;
     }
 
-    public String getServerName() {
-        return serverName;
+    public String getDescription() {
+        return description;
     }
 
-    public void setServerName(String serverName) {
-        this.serverName = serverName;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public double getPurcent() {

@@ -75,11 +75,11 @@ public class ButtonsPanel extends JPanel {
                         }
                         int state;
                         String msg = "The caracter " + character.getName() + " has been ";
-                        if(formPanelLeftModify.isModifyPanel()) {
+                        if(!formPanelLeftModify.isModifyPanel()) {
                             state = characterController.insertACharacter(character, pseudo, number, game, server, characterClass);
                             msg += "add ";
                         }else {
-                            state = characterController.deleteACharacter(pseudo, number, game, character.getName());
+                            state = characterController.modifyACharacter(character, pseudo, number, game, server, characterClass);
                             msg  += "modify ";
                         }
                         msg += "to the player account " + pseudo + "#" + number + ".";
@@ -288,7 +288,7 @@ public class ButtonsPanel extends JPanel {
                 && formPanelRight.getIsStuffedCheckBox() != null
                 && formPanelRight.getCreationDate().after(formPanelRight.getEarliestDate())
                 && formPanelRight.getCreationDate().before(formPanelRight.getLatestDate())
-                && (formPanelRight.getPetNameField().isEmpty() || isNameValide(formPanelRight.getNameField()))
+                && (formPanelRight.getPetNameField().isEmpty() || isNameValide(formPanelRight.getPetNameField()))
                 && formPanelRight.getDamagePerSecond() >= Character.getMinDmg()
                 && formPanelRight.getDamagePerSecond() <= Character.getMaxDmg();
                 //getCreationDate().before(date) true if date is after getCreationDate

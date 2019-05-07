@@ -42,6 +42,14 @@ public class CharacterBusinessLogic {
         }
     }
 
+    public int modifyACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataAccessException, DataException {
+        if(isInsertParametersValide(character, pseudo, number, game, server, characterClass)) {
+            return dao.modifyACharacter(character, pseudo, number, game, server, characterClass);
+        }else{
+            throw new DataException(7);
+        }
+    }
+
     public Character getOneCharacter(String pseudo, int number, String game, String server, String characterClass, String character) throws DataException, DataAccessException {
         return dao.getOneCharacter(pseudo, number, game, server, characterClass, character);
     }
@@ -51,7 +59,10 @@ public class CharacterBusinessLogic {
         return character != null && !character.getName().isEmpty() && Pattern.matches("^[a-zA-Z_-]{4,50}", character.getName())
                 && character.getHealthPoints() >= Character.getMinHp()
                 && character.getHealthPoints() <= Character.getMaxHp() && character.getCreationDate() != null
-                && character.getStuffed() != null && pseudo != null && !pseudo.equals(noSelection) && game != null
+                && character.getStuffed() != null
+                && ((character.getDamagePerSecond() != null && character.getDamagePerSecond() >= Character.getMinDmg()
+                && character.getDamagePerSecond() <= Character.getMaxDmg()) || character.getDamagePerSecond() == null) && pseudo != null
+                && !pseudo.equals(noSelection) && game != null
                 && !game.equals(noSelection) && server != null && !server.equals(noSelection)
                 && characterClass != null && !characterClass.equals(noSelection);
     }

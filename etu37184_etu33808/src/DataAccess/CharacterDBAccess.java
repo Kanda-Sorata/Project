@@ -72,7 +72,8 @@ public class CharacterDBAccess implements CharacterDataAccess {
                     "where playeraccount.id = (select id from playeraccount where pseudo = ? and number = ?) " +
                     "and game.name = ? and acquisition.playeraccountid = playeraccount.id " +
                     "and acquisition.gamename = game.name and server.gamename = game.name " +
-                    "and `character`.servertechnicalid = server.technicalid;";
+                    "and `character`.servertechnicalid = server.technicalid " +
+                    "and `character`.playeraccountid = playeraccount.id;";
 
             PreparedStatement statement = connection.prepareStatement(query);
 
@@ -99,11 +100,12 @@ public class CharacterDBAccess implements CharacterDataAccess {
         if (!isDeleteParametersValide(pseudo, number, gameName, characterName)) {
             throw new DataException(8);
         } else {
+            int state = 0;
             Connection connection = null;
             try {
                 connection = SingletonConnection.getInstance();
 
-                String queryTechnicalId = "select `character`.technicalid as characterId " +
+                String queryTechnicalId = "select `character`.technicalid " +
                         "from playeraccount, acquisition, game, server, `character` " +
                         "where playeraccount.id = (select id from playeraccount " +
                         "where pseudo = ? and number = ?) and game.name = ? " +
@@ -122,16 +124,18 @@ public class CharacterDBAccess implements CharacterDataAccess {
                 statementTechnicalId.setString(4, characterName);
 
                 ResultSet data = statementTechnicalId.executeQuery();
+                if(data.next()) {
 
-                int technicalId = data.getInt("characterId");
+                    int technicalId = data.getInt("technicalId");
 
-                String queryDelete = "delete from `character` where technicalid = ?";
+                    String queryDelete = "delete from `character` where technicalid = ?";
 
-                PreparedStatement statementDelete = connection.prepareStatement(queryDelete);
+                    PreparedStatement statementDelete = connection.prepareStatement(queryDelete);
 
-                statementTechnicalId.setInt(1, technicalId);
+                    statementDelete.setInt(1, technicalId);
 
-                int state = statementDelete.executeUpdate(); //whether 0 no return or nb row modified
+                   state = statementDelete.executeUpdate(); //whether 0 no return or nb row modified
+                }
                 return state;
             } catch (ConnectionException connectionException) {
                 throw new DataAccessException(1);
@@ -169,7 +173,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
                     statementCharacterClassId.setString(1, characterClass);
                     statementCharacterClassId.setString(2, game);
 
-                    data = statementPlayer.executeQuery();
+                    data = statementCharacterClassId.executeQuery();
                     Integer characterClassTechnicalId;
 
                     if (data.next()) {
@@ -177,12 +181,13 @@ public class CharacterDBAccess implements CharacterDataAccess {
 
                         String queryServer = "select server.technicalId from server, game, playeraccount, acquisition "
                                 + "where playeraccount.id = ? and game.name = ? and acquisition.playeraccountid = playeraccount.id "
-                                + "and acquisition.gamename = game.name and server.Gamename = game.name";
+                                + "and acquisition.gamename = game.name and server.Gamename = game.name and server.name = ?";
 
                         PreparedStatement statementServer = connection.prepareStatement(queryServer);
 
                         statementServer.setInt(1, playerAccountId);
                         statementServer.setString(2, game);
+                        statementServer.setString(3, server);
 
                         data = statementServer.executeQuery();
                         Integer serverTechnicalId;
@@ -201,8 +206,16 @@ public class CharacterDBAccess implements CharacterDataAccess {
                             statementInsert.setBoolean(3, character.isStuffed());
                             java.sql.Date dateSql = new java.sql.Date(character.getCreationDate().getTimeInMillis());
                             statementInsert.setDate(4, dateSql);
-                            statementInsert.setNull(5, Types.VARCHAR);
-                            statementInsert.setNull(6, Types.INTEGER);
+                            if(character.getPetName() == null || character.getPetName().isEmpty()) {
+                                statementInsert.setNull(5, Types.VARCHAR);
+                            }else{
+                                statementInsert.setString(5, character.getPetName());
+                            }
+                            if(character.getDamagePerSecond() == null) {
+                                statementInsert.setNull(6, Types.INTEGER);
+                            }else{
+                                statementInsert.setInt(6, character.getDamagePerSecond());
+                            }
                             statementInsert.setInt(7, playerAccountId);
                             statementInsert.setInt(8, characterClassTechnicalId);
                             statementInsert.setInt(9, serverTechnicalId);
@@ -220,12 +233,107 @@ public class CharacterDBAccess implements CharacterDataAccess {
         }
     }
 
+    public int modifyACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataException, DataAccessException {
+        if(!isInsertParametersValide(character, pseudo, number, game, server, characterClass)){
+            throw new DataException(7);
+        }else {
+            Connection connection = null;
+            try {
+                connection = SingletonConnection.getInstance();
+                int state = 0;
+
+                String query = "select playeraccount.id from playeraccount where pseudo = ? and number = ?;";
+                PreparedStatement statementPlayer = connection.prepareStatement(query);
+
+                statementPlayer.setString(1, pseudo);
+                statementPlayer.setInt(2, number);
+
+                ResultSet data = statementPlayer.executeQuery();
+                Integer playerAccountId;
+
+                if (data.next()) {
+                    playerAccountId = data.getInt(1);
+
+                    String queryCharacterClass = "select characterClass.technicalId from characterClass where characterClass.name = ? "
+                            + "and characterClass.Gamename = ?;";
+                    PreparedStatement statementCharacterClassId = connection.prepareStatement(queryCharacterClass);
+
+                    statementCharacterClassId.setString(1, characterClass);
+                    statementCharacterClassId.setString(2, game);
+
+                    data = statementCharacterClassId.executeQuery();
+                    Integer characterClassTechnicalId;
+
+                    if (data.next()) {
+                        characterClassTechnicalId = data.getInt(1);
+
+                        String queryServer = "select server.technicalId from server, game, playeraccount, acquisition "
+                                + "where playeraccount.id = ? and game.name = ? and acquisition.playeraccountid = playeraccount.id "
+                                + "and acquisition.gamename = game.name and server.Gamename = game.name and server.name = ?";
+
+                        PreparedStatement statementServer = connection.prepareStatement(queryServer);
+
+                        statementServer.setInt(1, playerAccountId);
+                        statementServer.setString(2, game);
+                        statementServer.setString(3, server);
+
+                        data = statementServer.executeQuery();
+                        Integer serverTechnicalId;
+
+                        if (data.next()) {
+                            serverTechnicalId = data.getInt(1);
+
+                            String queryInsert = "update `character` set name = ?, healthPoint = ?, isStuffed = ?, creationDate = ?, petName = ?, "
+                                    + "damagePerSecond = ?, playeraccountid = ?, characterClassTechnicalId = ?, serverTechnicalId = ? "
+                                    + "where `character`.playeraccountId = ? and `character`.name = ?";
+
+                            PreparedStatement statementUpdate = connection.prepareStatement(queryInsert);
+
+                            statementUpdate.setString(1, character.getName());
+                            statementUpdate.setInt(2, character.getHealthPoints());
+                            statementUpdate.setBoolean(3, character.isStuffed());
+                            java.sql.Date dateSql = new java.sql.Date(character.getCreationDate().getTimeInMillis());
+                            statementUpdate.setDate(4, dateSql);
+                            if(character.getPetName() == null || character.getPetName().isEmpty()) {
+                                statementUpdate.setNull(5, Types.VARCHAR);
+                            }else{
+                                statementUpdate.setString(5, character.getPetName());
+                            }
+                            if(character.getDamagePerSecond() == null) {
+                                statementUpdate.setNull(6, Types.INTEGER);
+                            }else{
+                                statementUpdate.setInt(6, character.getDamagePerSecond());
+                            }
+                            statementUpdate.setInt(7, playerAccountId);
+                            statementUpdate.setInt(8, characterClassTechnicalId);
+                            statementUpdate.setInt(9, serverTechnicalId);
+                            statementUpdate.setInt(10, playerAccountId);
+                            statementUpdate.setString(11, character.getName());
+
+
+                            state = statementUpdate.executeUpdate();
+                        }
+                    }
+                }
+                return state;
+            } catch (ConnectionException connectionException) {
+                throw new DataAccessException(1);
+            } catch (SQLException sqlException) {
+                throw new DataException(7);
+            }
+        }
+    }
+
+
     private boolean isInsertParametersValide(Character character, String pseudo, int number, String game, String server, String characterClass){
         String noSelection = "No selection";
         return character != null && !character.getName().isEmpty() && Pattern.matches("^[a-zA-Z_-]{4,50}", character.getName())
                 && character.getHealthPoints() >= Character.getMinHp()
                 && character.getHealthPoints() <= Character.getMaxHp() && character.getCreationDate() != null
-                && character.getStuffed() != null && pseudo != null && !pseudo.equals(noSelection) && game != null
+                && character.getStuffed() != null
+                && ((character.getDamagePerSecond() != null && character.getDamagePerSecond() >= Character.getMinDmg()
+                && character.getDamagePerSecond() <= Character.getMaxDmg()) || character.getDamagePerSecond() == null) && pseudo != null
+                && !pseudo.equals(noSelection) && game != null
                 && !game.equals(noSelection) && server != null && !server.equals(noSelection)
                 && characterClass != null && !characterClass.equals(noSelection);
     }
@@ -233,7 +341,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
     private boolean isDeleteParametersValide(String pseudo, int number, String gameName, String characterName){
         String noSelection = "No selection";
         return pseudo != null && !pseudo.equals(noSelection) && gameName != null && !gameName.equals(noSelection)
-                && characterName != null && !characterName.equals(noSelection);
+                && characterName != null && !characterName.equals(noSelection) && String.valueOf(number).length() == 5;
     }
 
     public Character getOneCharacter(String pseudo, int number, String game, String server, String characterClass, String character) throws DataException, DataAccessException {

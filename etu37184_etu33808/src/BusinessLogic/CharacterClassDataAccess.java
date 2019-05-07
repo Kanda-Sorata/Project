@@ -10,5 +10,5 @@ public interface CharacterClassDataAccess {
     ArrayList<String> getClassesInAGame(String game) throws DataException, DataAccessException;
     ArrayList<String> getAllCharactersClassName(String pseudo, int number, String game) throws
                                                                                     DataException, DataAccessException;
-    ArrayList<TopOfClass> getAllCharacterClassOrderServer() throws DataAccessException, DataException;
+    ArrayList<TopOfClass> getAllCharacterClassOrderClass() throws DataAccessException, DataException;
 }

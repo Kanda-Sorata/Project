@@ -21,7 +21,7 @@ public class CharacterClassController {
         return characterClassBusinessLogic.getAllCharactersClassName(pseudo, number, game);
     }
 
-    public ArrayList<TopOfClass> getAllCharacterClassOrderServer() throws DataAccessException, DataException{
-        return  characterClassBusinessLogic.getAllCharacterClassOrderServer();
+    public ArrayList<TopOfClass> getAllCharacterClassOrderClass() throws DataAccessException, DataException{
+        return  characterClassBusinessLogic.getAllCharacterClassOrderClass();
     }
 }

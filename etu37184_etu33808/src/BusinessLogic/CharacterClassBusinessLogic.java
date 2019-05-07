@@ -22,7 +22,13 @@ public class CharacterClassBusinessLogic {
         return dao.getAllCharactersClassName(pseudo, number, game);
     }
 
-    public ArrayList<TopOfClass> getAllCharacterClassOrderServer() throws DataAccessException, DataException {
-        return  dao.getAllCharacterClassOrderServer();
+    public ArrayList<TopOfClass> getAllCharacterClassOrderClass() throws DataAccessException, DataException {
+        try {
+            return  dao.getAllCharacterClassOrderClass();
+        } catch (DataAccessException dataAccessException) {
+            throw new DataAccessException(0);
+        } catch (DataException dataException) {
+            throw new DataException(1);
+        }
     }
 }

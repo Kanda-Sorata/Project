@@ -31,6 +31,10 @@ public class CharacterController {
         return characterBusinessLogic.insertACharacter(character, pseudo, number, game, server, characterClass);
     }
 
+    public int modifyACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataAccessException, DataException {
+        return characterBusinessLogic.modifyACharacter(character, pseudo, number, game, server, characterClass);
+    }
+
     public Character getOneCharacter(String pseudo, int number, String game, String server, String characterClass, String character) throws DataException, DataAccessException {
         return characterBusinessLogic.getOneCharacter(pseudo, number, game, server, characterClass, character);
     }

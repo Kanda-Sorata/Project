@@ -76,23 +76,29 @@ public class CharacterClassDBAccess implements CharacterClassDataAccess {
         }
     }
 
-    public ArrayList<TopOfClass> getAllCharacterClassOrderServer() throws DataAccessException, DataException {
+    public ArrayList<TopOfClass> getAllCharacterClassOrderClass() throws DataAccessException, DataException {
         Connection connection = null;
         try {
             connection = SingletonConnection.getInstance();
 
-            String query = "select server.name, server.gamename, characterclass.name from game, server, characterclass "
-                    + "where server.gamename = game.name and characterclass.gameName = game.name;";
+            String query = "select count(`character`.name) as 'Characters number', characterclass.name, "
+                    + "characterclass.description from `character`, characterClass "
+                    + "where characterClass.technicalId = characterClass.technicalId "
+                    + "and `character`.characterclassTechnicalId = characterclass.technicalId "
+                    + "group by characterClass.name "
+                    + "order by `Character`.name desc, characterclass.name asc;";
 
             PreparedStatement statement = connection.prepareStatement(query);
 
             ResultSet data = statement.executeQuery();
 
             ArrayList<TopOfClass> allClasses = new ArrayList<>();
-
+            TopOfClass topOfClass;
 
             while(data.next()){
-
+                topOfClass = new TopOfClass(data.getInt("Characters number"), data.getString("name"),
+                        data.getString("description"));
+                allClasses.add(topOfClass);
             }
             return allClasses;
         } catch (ConnectionException connexionException) {

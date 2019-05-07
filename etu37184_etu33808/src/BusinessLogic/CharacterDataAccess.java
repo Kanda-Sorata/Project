@@ -18,4 +18,7 @@ public interface CharacterDataAccess {
             throws DataException, DataAccessException;
     ArrayList<String> getAllCharactersInAGameInServerWithCharacterClass(String pseudo, int number, String game, String server, String characterClass)
                                                                             throws DataException, DataAccessException;
+
+    int modifyACharacter(Character character, String pseudo, int number, String game, String server, String characterClass)
+            throws DataException, DataAccessException;
 }

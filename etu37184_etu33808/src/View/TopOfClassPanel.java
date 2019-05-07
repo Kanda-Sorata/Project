@@ -20,7 +20,7 @@ public class TopOfClassPanel extends JPanel {
         setLayout(new FlowLayout());
         characterClassController = new CharacterClassController();
         try {
-            topOfClasses = characterClassController.getAllCharacterClassOrderServer(); //TODO
+            topOfClasses = characterClassController.getAllCharacterClassOrderClass(); //TODO
             topOfClassModel = new TopOfClassModel(topOfClasses);
             table = new JTable(topOfClassModel);
             scrollPane = new JScrollPane(table);

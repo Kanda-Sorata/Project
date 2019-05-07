@@ -42,6 +42,7 @@ public class FormPanelRight extends JPanel {
     private Date initDate;
     private Date latestDate;
     private Date earliestDate;
+    private int healthPointValue;
 
     private ButtonsPanel buttonsPanel;
 
@@ -73,7 +74,9 @@ public class FormPanelRight extends JPanel {
         healthPointLabel = new JLabel("<html>Health point<font color = 'red'>*</font></html>");
         healthPointLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         healthPointSlider = new JSlider(JSlider.HORIZONTAL);
-        setHealthPointSlider(Character.getMinHp(), Character.getMaxHp(), Character.getMinHp());
+        healthPointSlider.setEnabled(false);
+        this.setHealthPointValue(0);
+        setHealthPointSlider(healthPointValue, Character.getMaxHp(), Character.getMinHp());
 
         isStuffedLabel = new JLabel("<html>Is already stuffed<font color = 'red'>*</font></html>");
         isStuffedLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -210,6 +213,10 @@ public class FormPanelRight extends JPanel {
 
     public boolean damagePerSecondIsAvailable(){
         return damagePerSecondActivated.isSelected();
+    }
+
+    public void setHealthPointValue(int healthPointValue) {
+        this.healthPointValue = healthPointValue;
     }
 
     //Set Form
