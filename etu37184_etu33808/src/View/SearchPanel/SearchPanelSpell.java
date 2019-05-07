@@ -43,10 +43,10 @@ public class SearchPanelSpell extends JPanel {
 
             add(playerAccount);
             add(playerAccountCombo);
-        }catch(DataException dataException){
-            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }catch(DataAccessException dataAccessException){
+        }catch (DataAccessException dataAccessException){
             JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }catch(DataException dataException) {
+            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -74,10 +74,10 @@ public class SearchPanelSpell extends JPanel {
                 setNumberChoice(Integer.parseInt(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[1]));
                 try {
                     resultSpellPanel.setJtable(pseudoChoice, numberChoice);
-                }catch(DataException dataException) {
-                    JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }catch (DataAccessException dataAccessException){
                     JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }catch(DataException dataException) {
+                    JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }

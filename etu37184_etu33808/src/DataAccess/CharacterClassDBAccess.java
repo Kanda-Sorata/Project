@@ -4,6 +4,7 @@ import BusinessLogic.CharacterClassDataAccess;
 import Exception.ConnectionException;
 import Exception.DataAccessException;
 import Exception.DataException;
+import Model.TopOfClass;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -66,6 +67,32 @@ public class CharacterClassDBAccess implements CharacterClassDataAccess {
             while(data.next()){
                 characterClass = data.getString("name");
                 allClasses.add(characterClass);
+            }
+            return allClasses;
+        } catch (ConnectionException connexionException) {
+            throw new DataAccessException(1);
+        } catch (SQLException sqlException) {
+            throw new DataException(1);
+        }
+    }
+
+    public ArrayList<TopOfClass> getAllCharacterClassOrderServer() throws DataAccessException, DataException {
+        Connection connection = null;
+        try {
+            connection = SingletonConnection.getInstance();
+
+            String query = "select server.name, server.gamename, characterclass.name from game, server, characterclass "
+                    + "where server.gamename = game.name and characterclass.gameName = game.name;";
+
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            ResultSet data = statement.executeQuery();
+
+            ArrayList<TopOfClass> allClasses = new ArrayList<>();
+
+
+            while(data.next()){
+
             }
             return allClasses;
         } catch (ConnectionException connexionException) {

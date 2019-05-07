@@ -18,27 +18,29 @@ public class Frame extends JFrame{
     private Container container;
 
     private JMenuBar menu;
-    JMenu application;
-    JMenuItem home;
-    JMenuItem exit;
-    JMenu search;
-    JMenuItem listGamesFromCharacter;
-    JMenuItem listSpellsCharacterFromPlayer;
-    JMenuItem listEffectsCharacterClassFromGame;
-    JMenu character;
-    JMenuItem add;
-    JMenuItem modify;
-    JMenuItem delete;
-    JMenuItem list;
+    private JMenu application;
+    private JMenuItem home;
+    private JMenuItem topOfClass;
+    private JMenuItem exit;
+    private JMenu search;
+    private JMenuItem listGamesFromCharacter;
+    private JMenuItem listSpellsCharacterFromPlayer;
+    private JMenuItem listEffectsCharacterClassFromGame;
+    private JMenu character;
+    private JMenuItem add;
+    private JMenuItem modify;
+    private JMenuItem delete;
+    private JMenuItem list;
 
-    GamePanel gamePanel;
-    SpellPanel spellPanel;
-    EffectPanel effectPanel;
-    NewPanel newPanel;
-    DeletePanel deletePanel;
-    ModifyPanel modifyPanel;
-    DisplayPanel displayPanel;
-    HomePanel homePanel;
+    private GamePanel gamePanel;
+    private SpellPanel spellPanel;
+    private EffectPanel effectPanel;
+    private NewPanel newPanel;
+    private DeletePanel deletePanel;
+    private ModifyPanel modifyPanel;
+    private DisplayPanel displayPanel;
+    private HomePanel homePanel;
+    private TopOfClassPanel topOfClassPanel;
 
     private Character characterForm;
     private Boolean haveSavedValue;
@@ -72,8 +74,20 @@ public class Frame extends JFrame{
         //init for newPanel
         haveSavedValue = false;
 
-        //conection to close
+        //connection to close
         singletonController = new SingletonController();
+
+        try
+        {
+            //Set the required look and feel
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+            //Update the component tree - associate the look and feel with the given frame.
+            SwingUtilities.updateComponentTreeUI(this);
+        }//end try
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }//end catch
 
         add(homePanel);
         setVisible(true);
@@ -121,10 +135,13 @@ public class Frame extends JFrame{
         application.setMnemonic('a');
         home = new JMenuItem("Home");
         home.addActionListener(applicationListener);
+        topOfClass = new JMenuItem("Top of class");
+        topOfClass.addActionListener(applicationListener);
         exit = new JMenuItem("Exit");
         exit.addActionListener(applicationListener);
         exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK));
         application.add(home);
+        application.add(topOfClass);
         application.add(exit);
 
         //Search
@@ -177,8 +194,13 @@ public class Frame extends JFrame{
             }
             else{
                 container.removeAll();
-                homePanel = new HomePanel(getFrame());
-                container.add(homePanel);
+                if(event.getSource() == topOfClass){
+                    topOfClassPanel = new TopOfClassPanel();
+                    container.add(topOfClassPanel);
+                }else {
+                    homePanel = new HomePanel(getFrame());
+                    container.add(homePanel);
+                }
                 setVisible(true);
             }
         }

@@ -57,7 +57,7 @@ public class FormPanelRight extends JPanel {
     public FormPanelRight(ButtonsPanel buttonsPanel){
         //Add propetiers
         setLayout(new GridLayout(8, 2, 5, 15));
-        setBorder(new EmptyBorder(50, 0, 50, 40)); //Top, left, bottom, right
+        setBorder(new EmptyBorder(30, 0, 30, 40)); //Top, left, bottom, right
 
         //Add link panel
         this.buttonsPanel = buttonsPanel;
