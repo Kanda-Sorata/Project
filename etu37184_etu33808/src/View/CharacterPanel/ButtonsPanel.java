@@ -108,7 +108,7 @@ public class ButtonsPanel extends JPanel {
                     if(noSelection(formPanelLeftModify.getPseudoChoice())){
                         formPanelLeftModify.setPlayerAccountLabelError();
                     }else{
-                        formPanelLeftModify.setPlayerAccountLabelReset();;
+                        formPanelLeftModify.setPlayerAccountLabelReset();
                     }
                     if(noSelection(formPanelLeftModify.getGameChoice())){
                         formPanelLeftModify.setGameLabelError();
@@ -124,6 +124,13 @@ public class ButtonsPanel extends JPanel {
                         formPanelLeftModify.setCharacterClassLabelError();
                     }else{
                         formPanelLeftModify.setCharacterClassLabelReset();
+                    }
+                    if(formPanelLeftModify.isModifyPanel()){
+                        if(noSelection(formPanelLeftModify.getCharacterChoice())){
+                            formPanelLeftModify.setCharacterLabelError();
+                        }else{
+                            formPanelLeftModify.setCharacterLabelReset();
+                        }
                     }
                     if (formPanelRight.getNameField().isEmpty() || !isNameValide(formPanelRight.getNameField())) {
                         formPanelRight.setNameLabelError();

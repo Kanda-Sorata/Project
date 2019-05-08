@@ -53,6 +53,16 @@ public class FormPanelLeftModify extends JPanel {
     private FormPanelRight formPanelRight;
     private  boolean isModifyPanel;
 
+    private enum Classes{
+        Tank(1),
+        Cleric(2),
+        Archer(3),
+        Wizard(4);
+        private final int id;
+        Classes(int id){ this.id = id; }
+        public int getClassesId(){ return id; }
+    }
+
     public FormPanelLeftModify(FormPanelRight formPanelRight, boolean isModifyPanel ){
         //Add properties
         setLayout(new GridLayout(5, 2, 5, 15));
@@ -266,7 +276,7 @@ public class FormPanelLeftModify extends JPanel {
         @Override
         public void actionPerformed(ActionEvent actionEvent){
             if(actionEvent.getSource() == playerAccountCombo){
-                if(playerAccountCombo.getSelectedIndex() != 0) {
+                if(playerAccountCombo.getSelectedIndex() > 0) {
                     pseudoChoice = pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[0];
                     numberChoice = Integer.parseInt(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[1]);
                     games = new ArrayList<>();
@@ -296,7 +306,7 @@ public class FormPanelLeftModify extends JPanel {
                 }
             }else{
                 if(actionEvent.getSource() == gameCombo){
-                    if(gameCombo.getSelectedIndex() != 0) {
+                    if(gameCombo.getSelectedIndex() > 0) {
                         gameChoice = gameCombo.getSelectedItem().toString();
                         servers = new ArrayList<>();
                         servers.add("No selection");
@@ -322,7 +332,7 @@ public class FormPanelLeftModify extends JPanel {
                     }
                 }else{
                     if(actionEvent.getSource() == serverCombo){
-                        if(serverCombo.getSelectedIndex() != 0){
+                        if(serverCombo.getSelectedIndex() > 0){
                             serverChoice = serverCombo.getSelectedItem().toString();
                             characterClasses = new ArrayList<>();
                             characterClasses.add("No selection");
@@ -352,8 +362,26 @@ public class FormPanelLeftModify extends JPanel {
                         }
                     }else{
                         if(actionEvent.getSource() == characterClassCombo){
-                            if(characterClassCombo.getSelectedIndex() != 0){
+                            if(characterClassCombo.getSelectedIndex() > 0){
                                 characterClassChoice = characterClassCombo.getSelectedItem().toString();
+                             /*   int max = 0; //TODO
+
+                                switch(){
+                                    case "Tank":
+                                        max = 50000;
+                                        break;
+                                    case "Cleric":
+                                        max = 40000;
+                                        break;
+                                    case "Archer":
+                                        max = 20000;
+                                        break;
+                                    case "Wizard":
+                                        max = 20000;
+                                        break;
+
+                                }
+                                formPanelRight.setHealthPointSlider(0, max, max/2);*/
                                 if(isModifyPanel) {
                                     characters = new ArrayList<>();
                                     characters.add("No selection");
@@ -363,6 +391,7 @@ public class FormPanelLeftModify extends JPanel {
                                         characterCombo.revalidate();
                                         characterCombo.repaint();
                                         characterCombo.setEnabled(true);
+                                        characterChoice = null;
                                     } catch (DataAccessException dataAccessException) {
                                         JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                     } catch (DataException dataException) {
@@ -378,13 +407,14 @@ public class FormPanelLeftModify extends JPanel {
                             }
                         }else{
                             if (actionEvent.getSource() == characterCombo) {
-                                if (characterCombo.getSelectedIndex() != 0) {
+                                if (characterCombo.getSelectedIndex() > 0) {
                                     characterChoice = characterCombo.getSelectedItem().toString();
                                     formPanelRight.setFieldWithCharacterValues(pseudoChoice, numberChoice, gameChoice,
                                             serverChoice, characterClassChoice, characterChoice);
+                                }else {
+                                    characterChoice = "No selection";
+                                    formPanelRight.unsetFieldWithCharacterValues();
                                 }
-                            } else {
-                                formPanelRight.unsetFieldWithCharacterValues();
                             }
                         }
                     }

@@ -379,7 +379,7 @@ public class FormPanelRight extends JPanel {
             Character character;
             character = characterController.getOneCharacter(pseudo, number, game, server, characterClass, characterName);
             setNameField(character.getName());
-            setHealthPointSlider(character.getHealthPoints());
+            setHealthPointSlider(Character.getMinHp(), character.getHealthPoints(), character.getHealthPoints());
             setStuffedCheckBox(character.isStuffed());
             setCreationDateSpinner(character.getCreationDate().getTime());
             setPetNameField(character.getPetName());
