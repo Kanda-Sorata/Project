@@ -11,9 +11,9 @@ public class TopOfClassModel extends AbstractTableModel {
 
     public TopOfClassModel(ArrayList<TopOfClass> topOfClasses){
         columnNames = new ArrayList<>();
-        columnNames.add("Server");
+        columnNames.add("Character Class");
         columnNames.add("Purcent");
-        columnNames.add("CharacterClass");
+        columnNames.add("Description");
         setContents(topOfClasses);
     }
     public void setContents(ArrayList<TopOfClass> topOfClasses){ contents = topOfClasses; }
@@ -24,9 +24,9 @@ public class TopOfClassModel extends AbstractTableModel {
     public Object getValueAt(int row, int column){
         TopOfClass topOfClass = contents.get(row);
         switch (column){
-            case 0: return topOfClass.getDescription();
+            case 0: return topOfClass.getClassName();
             case 1: return topOfClass.getPurcent();
-            case 2: return topOfClass.getClassName();
+            case 2: return topOfClass.getDescription();
             default: return null;
         }
     }

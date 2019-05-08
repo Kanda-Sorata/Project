@@ -56,8 +56,8 @@ public class ButtonsPanel extends JPanel {
     private class ButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
+            formPanelRight.setDateChoice();
             if(actionEvent.getSource() == validation){
-                formPanelRight.setDateChoice();
                 if(isFormValide()) {
                     resetLabel();
                     try {
@@ -136,6 +136,12 @@ public class ButtonsPanel extends JPanel {
                         formPanelRight.setNameLabelError();
                     }else{
                         formPanelRight.setNameLabelReset();
+                    }
+                    if(formPanelRight.getHealthPointSlider() > formPanelRight.getHealthPointMax()){
+                        formPanelRight.setHealthPointLabelError();
+                    }
+                    else{
+                        formPanelRight.setHealthPointLabelReset();
                     }
                     if (!formPanelRight.getPetNameField().isEmpty() && !isNameValide(formPanelRight.getPetNameField())) {
                         formPanelRight.setPetNameLabelError();
@@ -230,7 +236,10 @@ public class ButtonsPanel extends JPanel {
     public void setSaveValue() throws HealthPointsException, DamagePerSecondException{ //Back
         character = new Character(formPanelRight.getNameField(), formPanelRight.getHealthPointSlider(),
             formPanelRight.getIsStuffedCheckBox(), formPanelRight.getCreationDate(), formPanelRight.getPetNameField(),
-            formPanelRight.getDamagePerSecond(), null, null);
+            null, null, null);
+        if(formPanelRight.damagePerSecondIsAvailable()){
+            character.setDamagePerSecond(formPanelRight.getDamagePerSecond());
+        }
         frame.setCharacterForm(character);
         frame.setIndexPlayerAccount(formPanelLeftModify.getIndexPlayerAccount());
         frame.setIndexGame(formPanelLeftModify.getIndexGame());
@@ -242,7 +251,7 @@ public class ButtonsPanel extends JPanel {
         character = frame.getCharacterForm();
         if(character != null) {
             formPanelRight.setNameField(character.getName());
-            formPanelRight.setHealthPointSlider(character.getHealthPoints());
+            formPanelRight.setHealthPointSlider(Character.getMinHp(), Character.getMaxHp(), character.getHealthPoints());
             formPanelRight.setStuffedCheckBox(character.isStuffed());
             if(formPanelLeftModify.isModifyPanel()) {
                 formPanelRight.setCreationDateSpinner(character.getCreationDate().getTime());
@@ -291,7 +300,7 @@ public class ButtonsPanel extends JPanel {
                 && ((formPanelLeftModify.isModifyPanel() && !noSelection(formPanelLeftModify.getCharacterChoice())) || formPanelLeftModify.getCharacterChoice() == null)
                 && !formPanelRight.getNameField().isEmpty() && isNameValide(formPanelRight.getNameField())
                 && formPanelRight.getHealthPointSlider() >= Character.getMinHp()
-                && formPanelRight.getHealthPointSlider() <= Character.getMaxHp()
+                && formPanelRight.getHealthPointSlider() <= formPanelRight.getHealthPointMax()
                 && formPanelRight.getIsStuffedCheckBox() != null
                 && formPanelRight.getCreationDate().after(formPanelRight.getEarliestDate())
                 && formPanelRight.getCreationDate().before(formPanelRight.getLatestDate())

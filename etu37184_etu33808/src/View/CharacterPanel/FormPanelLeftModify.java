@@ -43,6 +43,7 @@ public class FormPanelLeftModify extends JPanel {
     private String serverChoice;
     private String characterClassChoice;
     private String characterChoice;
+    private int healthPointMax;
 
     private UtilitiesPanelMethode utilitiesPanelMethode;
     private GameController gameController;
@@ -53,15 +54,6 @@ public class FormPanelLeftModify extends JPanel {
     private FormPanelRight formPanelRight;
     private  boolean isModifyPanel;
 
-    private enum Classes{
-        Tank(1),
-        Cleric(2),
-        Archer(3),
-        Wizard(4);
-        private final int id;
-        Classes(int id){ this.id = id; }
-        public int getClassesId(){ return id; }
-    }
 
     public FormPanelLeftModify(FormPanelRight formPanelRight, boolean isModifyPanel ){
         //Add properties
@@ -303,6 +295,12 @@ public class FormPanelLeftModify extends JPanel {
                     gameCombo.setEnabled(false);
                     serverCombo.setEnabled(false);
                     characterClassCombo.setEnabled(false);
+                    if(isModifyPanel){
+                        characterCombo.setSelectedIndex(0);
+                        characterCombo.setEnabled(false);
+                        characterChoice = null;
+                        formPanelRight.unsetFieldWithCharacterValues();
+                    }
                 }
             }else{
                 if(actionEvent.getSource() == gameCombo){
@@ -329,6 +327,12 @@ public class FormPanelLeftModify extends JPanel {
                         characterClassChoice = "No selection";
                         serverCombo.setEnabled(false);
                         characterClassCombo.setEnabled(false);
+                        if(isModifyPanel){
+                            characterCombo.setSelectedIndex(0);
+                            characterCombo.setEnabled(false);
+                            characterChoice = null;
+                            formPanelRight.unsetFieldWithCharacterValues();
+                        }
                     }
                 }else{
                     if(actionEvent.getSource() == serverCombo){
@@ -347,41 +351,27 @@ public class FormPanelLeftModify extends JPanel {
                             } catch (DataAccessException dataAccessException) {
                                 JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                             }
-                        }else{
-                            if(actionEvent.getSource() == characterClassCombo) {
-                                characterClassChoice = characterClassCombo.getSelectedItem().toString();
-                                if(isModifyPanel){
-                                    characterChoice = null;
-                                }
-                            }else{
-                                serverChoice = "No selection";
-                                characterClassCombo.setSelectedIndex(0);
-                                characterClassChoice = "No selection";
-                                characterClassCombo.setEnabled(false);
+                        }else {
+                            serverChoice = "No selection";
+                            characterClassCombo.setSelectedIndex(0);
+                            characterClassChoice = "No selection";
+                            characterClassCombo.setEnabled(false);
+                            if(isModifyPanel){
+                                characterCombo.setSelectedIndex(0);
+                                characterCombo.setEnabled(false);
+                                characterChoice = null;
+                                formPanelRight.unsetFieldWithCharacterValues();
                             }
                         }
                     }else{
                         if(actionEvent.getSource() == characterClassCombo){
                             if(characterClassCombo.getSelectedIndex() > 0){
                                 characterClassChoice = characterClassCombo.getSelectedItem().toString();
-                             /*   int max = 0; //TODO
-
-                                switch(){
-                                    case "Tank":
-                                        max = 50000;
-                                        break;
-                                    case "Cleric":
-                                        max = 40000;
-                                        break;
-                                    case "Archer":
-                                        max = 20000;
-                                        break;
-                                    case "Wizard":
-                                        max = 20000;
-                                        break;
-
+                                healthPointMax = getHealthPointMax();
+                                if(!isModifyPanel) {
+                                    formPanelRight.setHealthPointSlider(0, healthPointMax, healthPointMax);
                                 }
-                                formPanelRight.setHealthPointSlider(0, max, max/2);*/
+
                                 if(isModifyPanel) {
                                     characters = new ArrayList<>();
                                     characters.add("No selection");
@@ -403,6 +393,8 @@ public class FormPanelLeftModify extends JPanel {
                                 if(isModifyPanel) {
                                     characterCombo.setSelectedIndex(0);
                                     characterCombo.setEnabled(false);
+                                    characterChoice = null;
+                                    formPanelRight.unsetFieldWithCharacterValues();
                                 }
                             }
                         }else{
@@ -410,7 +402,7 @@ public class FormPanelLeftModify extends JPanel {
                                 if (characterCombo.getSelectedIndex() > 0) {
                                     characterChoice = characterCombo.getSelectedItem().toString();
                                     formPanelRight.setFieldWithCharacterValues(pseudoChoice, numberChoice, gameChoice,
-                                            serverChoice, characterClassChoice, characterChoice);
+                                            serverChoice, characterClassChoice, characterChoice, healthPointMax);
                                 }else {
                                     characterChoice = "No selection";
                                     formPanelRight.unsetFieldWithCharacterValues();
@@ -423,6 +415,21 @@ public class FormPanelLeftModify extends JPanel {
         }
     }
 
+    public int getHealthPointMax(){
+        healthPointMax = 0;
+        switch (characterClassCombo.getSelectedIndex()) {
+            case 1:
+                healthPointMax = 50000;
+                break;
+            case 2:
+                healthPointMax = 40000;
+                break;
+            case 3: case 4:
+                healthPointMax = 20000;
+                break;
 
+        }
+        return healthPointMax;
+    }
 
 }
