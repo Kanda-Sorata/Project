@@ -14,6 +14,8 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -43,8 +45,7 @@ public class SearchPanelGame extends JPanel {
     private CharacterController characterController;
     private UtilitiesPanelMethode utilitiesPanelMethode;
 
-    private ComboBoxPlayer comboBoxPlayerListener;
-    private ComboBoxCharacter comboBoxCharacterListener;
+    private ComboBoxListener comboBoxListener;
     private SpinnerListener spinnerListener;
 
     private ResultGamePanel resultGamePanel;
@@ -91,10 +92,9 @@ public class SearchPanelGame extends JPanel {
             setJSpinner(earliestDate);
 
             //Add listener
-            comboBoxPlayerListener = new ComboBoxPlayer();
-            playerAccountCombo.addActionListener(comboBoxPlayerListener);
-            comboBoxCharacterListener = new ComboBoxCharacter();
-            characterNameCombo.addActionListener(comboBoxCharacterListener);
+            comboBoxListener = new ComboBoxListener();
+            playerAccountCombo.addItemListener(comboBoxListener);
+            characterNameCombo.addItemListener(comboBoxListener);
             spinnerListener = new SpinnerListener();
             dateEndSpinner.addChangeListener(spinnerListener);
 
@@ -178,39 +178,35 @@ public class SearchPanelGame extends JPanel {
         }
     }
 
-    private class ComboBoxPlayer implements ActionListener {
+    private class ComboBoxListener implements ItemListener {
 
         @Override
-        public void actionPerformed(ActionEvent actionEvent) {
-            if(playerAccountCombo.getSelectedIndex() != 0) {
-                setPseudoChoice(playerAccounts.get(playerAccountCombo.getSelectedIndex()).split("#")[0]);
-                setNumberChoice(Integer.parseInt(playerAccounts.get(playerAccountCombo.getSelectedIndex()).split("#")[1]));
+        public void itemStateChanged (ItemEvent itemEvent) {
+            if(itemEvent.getSource() == playerAccountCombo) {
+                if (playerAccountCombo.getSelectedIndex() != 0) {
+                    setPseudoChoice(playerAccounts.get(playerAccountCombo.getSelectedIndex()).split("#")[0]);
+                    setNumberChoice(Integer.parseInt(playerAccounts.get(playerAccountCombo.getSelectedIndex()).split("#")[1]));
                     try {
-                    setCharacterName();
-                    if (charactersName.size() > 0) {
-                        characterNameCombo.setModel(new DefaultComboBoxModel(charactersName.toArray()));
-                        repaint();
+                        setCharacterName();
+                        if (charactersName.size() > 0) {
+                            characterNameCombo.setModel(new DefaultComboBoxModel(charactersName.toArray()));
+                            repaint();
+                        }
+                    } catch (DataException dataException) {
+                        JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    } catch (DataAccessException dataAccexException) {
+                        JOptionPane.showMessageDialog(null, dataAccexException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
-                } catch (DataException dataException) {
-                    JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }catch (DataAccessException dataAccexException){
-                    JOptionPane.showMessageDialog(null, dataAccexException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    characterNameCombo.setEnabled(true);
+                } else {
+                    characterNameCombo.setSelectedIndex(0);
+                    characterNameCombo.setEnabled(false);
                 }
-                characterNameCombo.setEnabled(true);
-            }
-            else{
-                characterNameCombo.setSelectedIndex(0);
-                characterNameCombo.setEnabled(false);
-            }
-        }
-    }
-
-    private class ComboBoxCharacter implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent actionEvent) {
-            if (!charactersName.get(characterNameCombo.getSelectedIndex()).equals(charactersName.get(0))) {
-                setCharacterNameChoice(charactersName.get(characterNameCombo.getSelectedIndex()));
-                setJSpinner(getCharacterByName(characterNameChoice).getCreationDate().getGregorianChange());
+            }else{
+                if (!charactersName.get(characterNameCombo.getSelectedIndex()).equals(charactersName.get(0))) {
+                    setCharacterNameChoice(charactersName.get(characterNameCombo.getSelectedIndex()));
+                    setJSpinner(getCharacterByName(characterNameChoice).getCreationDate().getGregorianChange());
+                }
             }
         }
     }

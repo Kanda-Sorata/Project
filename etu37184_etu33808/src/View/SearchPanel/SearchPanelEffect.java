@@ -8,8 +8,8 @@ import Exception.DataException;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 public class SearchPanelEffect extends JPanel {
@@ -45,11 +45,13 @@ public class SearchPanelEffect extends JPanel {
             games.add("No selection");
             gamesTemp = gameController.getAllGames();
             int size = gamesTemp.size();
-            for(int iGame = 0; iGame < size; iGame++){ games.add(gamesTemp.get(iGame)); }
+            for (String game: gamesTemp) {
+                games.add(game);
+            }
 
             gameCombo = new JComboBox(games.toArray());
             comboBoxListener = new ComboBoxListener();
-            gameCombo.addActionListener(comboBoxListener);
+            gameCombo.addItemListener(comboBoxListener);
 
 
             characterClassLabel = new JLabel("Character classes");
@@ -58,7 +60,7 @@ public class SearchPanelEffect extends JPanel {
             characterClasses = new ArrayList<>();
             characterClasses.add("No Selection");
             characterClassCombo = new JComboBox(characterClasses.toArray());
-            characterClassCombo.addActionListener(comboBoxListener);
+            characterClassCombo.addItemListener(comboBoxListener);
             characterClassCombo.setEnabled(false);
 
 
@@ -74,10 +76,10 @@ public class SearchPanelEffect extends JPanel {
         }
     }
 
-    private class ComboBoxListener implements ActionListener {
+    private class ComboBoxListener implements ItemListener {
         @Override
-        public void actionPerformed(ActionEvent actionEvent) {
-            if (actionEvent.getSource() == gameCombo) {
+        public void itemStateChanged (ItemEvent itemEvent) {
+            if (itemEvent.getSource() == gameCombo) {
                 if (!gameCombo.getSelectedItem().toString().equals(games.get(0))) {
                     setGameChoice(gameCombo.getSelectedItem().toString());
                     try {

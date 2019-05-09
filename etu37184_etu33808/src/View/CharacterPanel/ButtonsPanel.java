@@ -280,6 +280,7 @@ public class ButtonsPanel extends JPanel {
         formPanelLeftModify.setCharacterClassLabelReset();
         if(formPanelLeftModify.isModifyPanel()){ formPanelLeftModify.setCharacterLabelReset(); }
         formPanelRight.setNameLabelReset();
+        formPanelRight.setHealthPointLabelReset();
         formPanelRight.setPetNameLabelReset();
         formPanelRight.setCreationDateLabelReset();
     }

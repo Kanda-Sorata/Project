@@ -8,8 +8,8 @@ import View.SearchPanel.UtilitiesPanelMethode;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 public class DeletePanelCombo extends JPanel {
@@ -33,7 +33,7 @@ public class DeletePanelCombo extends JPanel {
     public DeletePanelCombo(DeletePanelTable deletePanelTable){
         //Add properties
         setLayout(new GridLayout(2, 2, 5, 15));
-        setBorder(new EmptyBorder(250, 100, 275, 150)); //Top, left, bottom, right
+        setBorder(new EmptyBorder(225, 100, 275, 150)); //Top, left, bottom, right
 
         //Add components
         try{
@@ -47,14 +47,14 @@ public class DeletePanelCombo extends JPanel {
             playerAccounts = new ArrayList<>();
             playerAccounts = utilitiesPanelMethode.setPlayerAccountsPseudo();
             playerAccountCombo = new JComboBox(playerAccounts.toArray());
-            playerAccountCombo.addActionListener(comboBoxListener);
+            playerAccountCombo.addItemListener(comboBoxListener);
 
             gameLabel = new JLabel("Game name");
             gameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
             games = new ArrayList<>();
             games.add("No selection");
             gameCombo = new JComboBox(games.toArray());
-            gameCombo.addActionListener(comboBoxListener);
+            gameCombo.addItemListener(comboBoxListener);
             gameCombo.setEnabled(false);
 
             add(playerAccountLabel);
@@ -69,10 +69,10 @@ public class DeletePanelCombo extends JPanel {
         }
     }
 
-    private class ComboBoxListener implements ActionListener {
+    private class ComboBoxListener implements ItemListener {
         @Override
-        public void actionPerformed(ActionEvent actionEvent) {
-            if(actionEvent.getSource() == playerAccountCombo){
+        public void itemStateChanged(ItemEvent itemEvent) {
+            if(itemEvent.getSource() == playerAccountCombo){
                 if (playerAccountCombo.getSelectedIndex() == 0) {
                     gameCombo.setSelectedIndex(0);
                     gameCombo.setEnabled(false);
@@ -95,7 +95,7 @@ public class DeletePanelCombo extends JPanel {
                     }
                     gameCombo.setEnabled(true);
                 }
-            } else if(actionEvent.getSource() == gameCombo){
+            } else if(itemEvent.getSource() == gameCombo){
                 if(gameCombo.getSelectedIndex() != 0){
                     setGameChoice(games.get(gameCombo.getSelectedIndex()));
                     try {

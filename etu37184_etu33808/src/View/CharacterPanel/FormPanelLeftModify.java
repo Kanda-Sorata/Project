@@ -11,8 +11,8 @@ import View.SearchPanel.UtilitiesPanelMethode;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 
@@ -76,14 +76,14 @@ public class FormPanelLeftModify extends JPanel {
             playerAccountLabel.setHorizontalAlignment(SwingConstants.RIGHT);
             pseudos = utilitiesPanelMethode.setPlayerAccountsPseudo();
             playerAccountCombo = new JComboBox(pseudos.toArray());
-            playerAccountCombo.addActionListener(comboBoxListener);
+            playerAccountCombo.addItemListener(comboBoxListener);
 
             gameLabel = new JLabel("<html>Game name<font color = 'red'>*</font></html>");
             gameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
             games = new ArrayList<>();
             games.add("No selection");
             gameCombo = new JComboBox(games.toArray());
-            gameCombo.addActionListener(comboBoxListener);
+            gameCombo.addItemListener(comboBoxListener);
             gameCombo.setEnabled(false);
 
             serverLabel = new JLabel("<html>Server name<font color = 'red'>*</font></html>");
@@ -91,7 +91,7 @@ public class FormPanelLeftModify extends JPanel {
             servers = new ArrayList<>();
             servers.add("No selection");
             serverCombo = new JComboBox(servers.toArray());
-            serverCombo.addActionListener(comboBoxListener);
+            serverCombo.addItemListener(comboBoxListener);
             serverCombo.setEnabled(false);
 
             characterClassLabel = new JLabel("<html>Character class<font color = 'red'>*</font></html>");
@@ -99,7 +99,7 @@ public class FormPanelLeftModify extends JPanel {
             characterClasses = new ArrayList<>();
             characterClasses.add("No selection");
             characterClassCombo = new JComboBox(characterClasses.toArray());
-            characterClassCombo.addActionListener(comboBoxListener);
+            characterClassCombo.addItemListener(comboBoxListener);
             characterClassCombo.setEnabled(false);
 
             add(playerAccountLabel);
@@ -118,7 +118,7 @@ public class FormPanelLeftModify extends JPanel {
                 characters.add("No selection");
                 characterCombo = new JComboBox(characters.toArray());
                 characterCombo.setEnabled(false);
-                characterCombo.addActionListener(comboBoxListener);
+                characterCombo.addItemListener(comboBoxListener);
                 add(characterLabel);
                 add(characterCombo);
             }
@@ -264,21 +264,20 @@ public class FormPanelLeftModify extends JPanel {
         this.isModifyPanel = isModifyPanel;
     }
 
-    private class ComboBoxListener implements ActionListener{
+    private class ComboBoxListener implements ItemListener {
         @Override
-        public void actionPerformed(ActionEvent actionEvent){
-            if(actionEvent.getSource() == playerAccountCombo){
+        public void itemStateChanged (ItemEvent itemEvent){
+            if(itemEvent.getSource() == playerAccountCombo){
                 if(playerAccountCombo.getSelectedIndex() > 0) {
                     pseudoChoice = pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[0];
                     numberChoice = Integer.parseInt(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[1]);
+
                     games = new ArrayList<>();
                     games.add("No selection");
-                    try {
+                   try {
                         setGamesName(pseudoChoice, numberChoice);
                         gameCombo.setModel(new DefaultComboBoxModel(games.toArray()));
                         gameCombo.setEnabled(true);
-                        gameCombo.revalidate();
-                        gameCombo.repaint();
                     } catch (DataException dataException) {
                         JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     } catch (DataAccessException dataAccessException) {
@@ -303,7 +302,7 @@ public class FormPanelLeftModify extends JPanel {
                     }
                 }
             }else{
-                if(actionEvent.getSource() == gameCombo){
+                if(itemEvent.getSource() == gameCombo){
                     if(gameCombo.getSelectedIndex() > 0) {
                         gameChoice = gameCombo.getSelectedItem().toString();
                         servers = new ArrayList<>();
@@ -311,8 +310,6 @@ public class FormPanelLeftModify extends JPanel {
                         try {
                             setServersName(pseudoChoice, numberChoice, gameChoice);
                             serverCombo.setModel(new DefaultComboBoxModel(servers.toArray()));
-                            serverCombo.revalidate();
-                            serverCombo.repaint();
                             serverCombo.setEnabled(true);
                         } catch (DataException dataException) {
                             JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -335,7 +332,7 @@ public class FormPanelLeftModify extends JPanel {
                         }
                     }
                 }else{
-                    if(actionEvent.getSource() == serverCombo){
+                    if(itemEvent.getSource() == serverCombo){
                         if(serverCombo.getSelectedIndex() > 0){
                             serverChoice = serverCombo.getSelectedItem().toString();
                             characterClasses = new ArrayList<>();
@@ -364,13 +361,12 @@ public class FormPanelLeftModify extends JPanel {
                             }
                         }
                     }else{
-                        if(actionEvent.getSource() == characterClassCombo){
+                        if(itemEvent.getSource() == characterClassCombo){
                             if(characterClassCombo.getSelectedIndex() > 0){
                                 characterClassChoice = characterClassCombo.getSelectedItem().toString();
                                 healthPointMax = getHealthPointMax();
-                                if(!isModifyPanel) {
-                                    formPanelRight.setHealthPointSlider(0, healthPointMax, healthPointMax);
-                                }
+                                formPanelRight.setHealthPointSlider(0, healthPointMax, healthPointMax);
+                                formPanelRight.setHealthPointMax(healthPointMax);
 
                                 if(isModifyPanel) {
                                     characters = new ArrayList<>();
@@ -398,11 +394,11 @@ public class FormPanelLeftModify extends JPanel {
                                 }
                             }
                         }else{
-                            if (actionEvent.getSource() == characterCombo) {
+                            if (itemEvent.getSource() == characterCombo) {
                                 if (characterCombo.getSelectedIndex() > 0) {
                                     characterChoice = characterCombo.getSelectedItem().toString();
                                     formPanelRight.setFieldWithCharacterValues(pseudoChoice, numberChoice, gameChoice,
-                                            serverChoice, characterClassChoice, characterChoice, healthPointMax);
+                                            serverChoice, characterClassChoice, characterChoice);
                                 }else {
                                     characterChoice = "No selection";
                                     formPanelRight.unsetFieldWithCharacterValues();

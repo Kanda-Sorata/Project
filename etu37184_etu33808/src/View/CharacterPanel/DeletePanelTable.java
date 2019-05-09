@@ -93,8 +93,9 @@ public class DeletePanelTable extends JPanel {
         AllCharactersModel model = new AllCharactersModel(characters);
         table = new JTable(model);
         scrollPane = new JScrollPane(table);
-        scrollPane.revalidate();
-        scrollPane.repaint();
+        add(scrollPane);
+        revalidate();
+        repaint();
     }
 
     public void setPseudo(String pseudoChoice){

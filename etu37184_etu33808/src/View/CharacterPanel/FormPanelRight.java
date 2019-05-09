@@ -154,7 +154,7 @@ public class FormPanelRight extends JPanel {
         sliderLabels = new Hashtable<>();
         sliderLabels.put(minimum, new JLabel(String.valueOf(minimum)));
         sliderLabels.put(maximum, new JLabel(String.valueOf(maximum)));
-        sliderLabels.put(value, new JLabel("(current):" + value));
+        sliderLabels.put(value, new JLabel(String.valueOf(value)));
     }
 
     public void setDamagePerSecondSlider(int minimum, int maximum, int value){
@@ -372,10 +372,9 @@ public class FormPanelRight extends JPanel {
 
     //Modify
 
-    public void setFieldWithCharacterValues(String pseudo, int number, String game, String server, String characterClass, String characterName, int healthPointMax){
+    public void setFieldWithCharacterValues(String pseudo, int number, String game, String server, String characterClass, String characterName){
         characterController = new CharacterController();
         try {
-            this.healthPointMax = healthPointMax;
             character = characterController.getOneCharacter(pseudo, number, game, server, characterClass, characterName);
             setNameField(character.getName());
             setHealthPointSlider(Character.getMinHp(), healthPointMax, character.getHealthPoints());
@@ -413,5 +412,9 @@ public class FormPanelRight extends JPanel {
 
     public int getHealthPointMax() {
         return healthPointMax;
+    }
+
+    public void setHealthPointMax(int healthPointMax) {
+        this.healthPointMax = healthPointMax;
     }
 }

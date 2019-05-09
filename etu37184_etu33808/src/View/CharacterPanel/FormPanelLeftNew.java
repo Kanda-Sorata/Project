@@ -9,7 +9,7 @@ public class FormPanelLeftNew extends FormPanelLeftModify {
         super(formPanelRight, false);
         setIsModifyPanel(false);
         setLayout(new GridLayout(4, 2, 5, 15));
-        setBorder(new EmptyBorder(150, 50, 175, 0));
+        setBorder(new EmptyBorder(150, 1, 175, 0));
         revalidate();
         repaint();
     }
