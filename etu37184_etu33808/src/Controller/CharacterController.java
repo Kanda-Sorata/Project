@@ -4,6 +4,7 @@ import BusinessLogic.CharacterBusinessLogic;
 import Exception.DataAccessException;
 import Exception.DataException;
 import Model.Character;
+import Model.DisplayCharacter;
 
 import java.util.ArrayList;
 
@@ -41,5 +42,9 @@ public class CharacterController {
 
     public ArrayList<String> getAllCharactersInAGameInServerWithCharacterClass(String pseudo, int number, String game, String server, String characterClass) throws DataException, DataAccessException{
         return characterBusinessLogic.getAllCharactersInAGameInServerWithCharacterClass(pseudo, number, game, server, characterClass);
+    }
+
+    public ArrayList<DisplayCharacter> getAllInfosCharacters(String pseudoChoice, int numberChoice) throws DataAccessException, DataException {
+        return characterBusinessLogic.getAllInfosCharacters(pseudoChoice, numberChoice);
     }
 }

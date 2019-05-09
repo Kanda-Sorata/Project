@@ -12,7 +12,7 @@ public class TopOfClassModel extends AbstractTableModel {
     public TopOfClassModel(ArrayList<TopOfClass> topOfClasses){
         columnNames = new ArrayList<>();
         columnNames.add("Character Class");
-        columnNames.add("Purcent");
+        columnNames.add("Purcent of utilisation on all character");
         columnNames.add("Description");
         setContents(topOfClasses);
     }

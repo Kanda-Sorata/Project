@@ -4,6 +4,7 @@ import DataAccess.CharacterDBAccess;
 import Exception.DataAccessException;
 import Exception.DataException;
 import Model.Character;
+import Model.DisplayCharacter;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -75,5 +76,9 @@ public class CharacterBusinessLogic {
 
     public ArrayList<String> getAllCharactersInAGameInServerWithCharacterClass(String pseudo, int number, String game, String server, String characterClass) throws DataException, DataAccessException{
         return dao.getAllCharactersInAGameInServerWithCharacterClass(pseudo, number, game, server, characterClass);
+    }
+
+    public ArrayList<DisplayCharacter> getAllInfosCharacters(String pseudoChoice, int numberChoice) throws DataException, DataAccessException {
+        return dao.getAllInfosCharacters(pseudoChoice, numberChoice);
     }
 }

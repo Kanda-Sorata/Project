@@ -3,6 +3,7 @@ package DataAccess;
 import BusinessLogic.CharacterDataAccess;
 import Exception.*;
 import Model.Character;
+import Model.DisplayCharacter;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -408,7 +409,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
     }
 
     public ArrayList<String> getAllCharactersInAGameInServerWithCharacterClass(String pseudo, int number, String game,
-                                       String server, String characterClass) throws DataException, DataAccessException{
+                                                                               String server, String characterClass) throws DataException, DataAccessException{
         Connection connection = null;
         try {
             connection = SingletonConnection.getInstance();
@@ -438,6 +439,56 @@ public class CharacterDBAccess implements CharacterDataAccess {
 
             while (data.next()) {
                 characters.add(data.getString("name"));
+            }
+
+            return characters;
+        } catch (ConnectionException connectionException) {
+            throw new DataAccessException(1);
+        } catch (SQLException sqlException) {
+            throw new DataException(1);
+        }
+    }
+
+    public ArrayList<DisplayCharacter> getAllInfosCharacters(String pseudoChoice, int numberChoice) throws DataException, DataAccessException {
+        Connection connection = null;
+
+        try {
+            ArrayList<DisplayCharacter> characters = new ArrayList<>();
+            connection = SingletonConnection.getInstance();
+
+            String query = "select game.name as GameName, server.name as ServerName, `character`.name as CharacterName, " +
+                    "characterclass.name as CharacterClassName, `character`.healthpoint, `character`.isStuffed, " +
+                    "`character`.creationDate, `character`.petname, `character`.damagepersecond " +
+                    "from `character`, playeraccount, server, characterclass, game " +
+                    "where playeraccount.pseudo = ? and playeraccount.number = ? " +
+                    "and characterclass.name in (select characterclass.name from characterclass, `character` " +
+                    "where `character`.characterclasstechnicalid = characterclass.technicalid) " +
+                    "and server.name in (select server.name from server, `character` where `character`.servertechnicalid = server.technicalid) " +
+                    "and `character`.characterclasstechnicalid = characterclass.technicalid " +
+                    "and `character`.playeraccountid = playeraccount.id " +
+                    "and `character`.servertechnicalid = server.technicalid " +
+                    "and game.name in (select game.name from game, server where server.gamename = game.name) " +
+                    "and server.gamename = game.name";
+
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            statement.setString(1, pseudoChoice);
+            statement.setInt(2, numberChoice);
+
+            ResultSet data = statement.executeQuery();
+            DisplayCharacter currentChar;
+            while (data.next()) {
+                currentChar = new DisplayCharacter(data.getString("GameName"), data.getString("ServerName"), data.getString("CharacterName"),
+                        data.getString("CharacterClassName"), data.getInt("healthPoint"),
+                        data.getBoolean("isStuffed"), null, data.getString("petName"),
+                        data.getInt("damagepersecond")); //todo
+
+                java.sql.Date creationDate = data.getDate("creationDate");
+                GregorianCalendar calendar = new GregorianCalendar();
+                calendar.setTime(creationDate);
+                currentChar.setCreationDate(calendar);
+
+                characters.add(currentChar);
             }
 
             return characters;

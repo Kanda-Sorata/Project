@@ -3,6 +3,7 @@ package BusinessLogic;
 import Exception.DataAccessException;
 import Exception.DataException;
 import Model.Character;
+import Model.DisplayCharacter;
 
 import java.util.ArrayList;
 
@@ -21,4 +22,6 @@ public interface CharacterDataAccess {
 
     int modifyACharacter(Character character, String pseudo, int number, String game, String server, String characterClass)
             throws DataException, DataAccessException;
+
+    ArrayList<DisplayCharacter> getAllInfosCharacters(String pseudoChoice, int numberChoice) throws DataException, DataAccessException;
 }

@@ -247,7 +247,7 @@ public class Frame extends JFrame{
                         container.add(deletePanel);
                     }
                     else{
-                        displayPanel = new DisplayPanel();
+                        displayPanel = new DisplayPanel(getFrame());
                         container.add(displayPanel);
                     }
                 }
