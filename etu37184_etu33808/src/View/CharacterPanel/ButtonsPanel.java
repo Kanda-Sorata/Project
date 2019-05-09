@@ -167,8 +167,11 @@ public class ButtonsPanel extends JPanel {
                     frame.setHaveSavedValue(false);
                     try {
                         clearValueSaved();
-                    }catch(HealthPointsException healthPointsException){}
-                    catch(DamagePerSecondException damagePerSecondException){}
+                    } catch (HealthPointsException healthPointsException) {
+                        JOptionPane.showMessageDialog(null, healthPointsException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    } catch (DamagePerSecondException damagePerSecondException) {
+                        JOptionPane.showMessageDialog(null, damagePerSecondException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }else{
                     try {
                         //filling values

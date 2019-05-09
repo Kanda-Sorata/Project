@@ -1,8 +1,5 @@
 package Model;
 
-import BusinessLogic.Utilitie;
-import Exception.UniqueNameException;
-
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -15,7 +12,7 @@ public class Game {
 
     private ArrayList<Server> servers;
 
-    public Game(String name, GregorianCalendar releaseDaze, boolean haveMultiLanguages) throws UniqueNameException {
+    public Game(String name, GregorianCalendar releaseDaze, boolean haveMultiLanguages) {
         setName(name);
         setReleaseDate(releaseDaze);
         setHaveMultiLanguages(haveMultiLanguages);
@@ -26,13 +23,8 @@ public class Game {
         return name;
     }
 
-    public void setName(String name)throws UniqueNameException {
-        if(!Utilitie.estUnique("Game", name)) {
-            throw new UniqueNameException(name);
-        }
-        else{
-            this.name =  name;
-        }
+    public void setName(String name) {
+        this.name = name;
     }
 
     public GregorianCalendar getReleaseDaze() {

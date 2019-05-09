@@ -5,6 +5,7 @@ import Controller.CharacterController;
 import Exception.DataAccessException;
 import Exception.DataException;
 import Model.Character;
+import View.UtilitiesPanelMethode;
 
 import javax.swing.*;
 import javax.swing.JSpinner.DateEditor;
@@ -172,8 +173,8 @@ public class SearchPanelGame extends JPanel {
         if(characters.size() > 0) {
             charactersName = new ArrayList<>();
             charactersName.add("No Selection");
-            for (int iCharacter = 0; iCharacter < characters.size(); iCharacter++) {
-                charactersName.add(characters.get(iCharacter).getName());
+            for (Character character : characters) {
+                charactersName.add(character.getName());
             }
         }
     }

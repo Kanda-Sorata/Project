@@ -3,7 +3,7 @@ package View.CharacterPanel;
 import Controller.GameController;
 import Exception.DataAccessException;
 import Exception.DataException;
-import View.SearchPanel.UtilitiesPanelMethode;
+import View.UtilitiesPanelMethode;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -81,10 +81,11 @@ public class DeletePanelCombo extends JPanel {
                     setNumberChoice(Integer.parseInt(playerAccounts.get(playerAccountCombo.getSelectedIndex()).split("#")[1]));
                     try {
                         gamesTemp = gameController.getAllGamesName(pseudoChoice, numberChoice);
-                        games = new ArrayList();
+                        games = new ArrayList<>();
                         games.add("No selection");
-                        int gameSize = gamesTemp.size();
-                        for(int iGame = 0; iGame < gameSize; iGame++){ games.add(gamesTemp.get(iGame)); }
+                        for (String game : gamesTemp) {
+                            games.add(game);
+                        }
                         gameCombo.setModel(new DefaultComboBoxModel(games.toArray()));
                         gameCombo.revalidate();
                         gameCombo.repaint();

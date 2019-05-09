@@ -16,11 +16,17 @@ public class TopOfClassPanel extends JPanel {
     private JScrollPane scrollPane;
     private ArrayList<TopOfClass> topOfClasses;
 
-    public TopOfClassPanel(){
+    public TopOfClassPanel(Frame frame) {
+        //Add properties
         setLayout(new FlowLayout());
+        frame.setTitle("");
+        frame.setTitle(frame.getTitle() + "- Top of Class");
+
+
         characterClassController = new CharacterClassController();
+
         try {
-            topOfClasses = characterClassController.getAllCharacterClassOrderClass(); //TODO
+            topOfClasses = characterClassController.getAllCharacterClassOrderClass(); //TODO ASSERT
             topOfClassModel = new TopOfClassModel(topOfClasses);
             table = new JTable(topOfClassModel);
             scrollPane = new JScrollPane(table);

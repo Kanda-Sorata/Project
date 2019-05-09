@@ -4,6 +4,7 @@ import Controller.EffectController;
 import Exception.DataAccessException;
 import Exception.DataException;
 import Model.SearchEffectList;
+import View.UtilitiesPanelMethode;
 
 import javax.swing.*;
 import java.awt.*;

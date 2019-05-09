@@ -25,7 +25,8 @@ public class TopOfClassModel extends AbstractTableModel {
         TopOfClass topOfClass = contents.get(row);
         switch (column){
             case 0: return topOfClass.getClassName();
-            case 1: return topOfClass.getPurcent();
+            case 1:
+                return topOfClass.getPurcentFormater();
             case 2: return topOfClass.getDescription();
             default: return null;
         }
@@ -40,7 +41,8 @@ public class TopOfClassModel extends AbstractTableModel {
         switch(column){
             case 0: c = String.class;
                 break;
-            case 1: c = Double.class;
+            case 1:
+                c = String.class;
                 break;
             case 2: c = String.class;
                 break;

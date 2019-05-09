@@ -12,7 +12,7 @@ public class AccountPlayerBusinessLogic {
     AccountPlayerDataAccess dao;
 
     public AccountPlayerBusinessLogic() {
-        setDao(new  AccountPlayerDBAccess());
+        setDao(new AccountPlayerDBAccess());
     }
 
     public void setDao(AccountPlayerDBAccess dao) {

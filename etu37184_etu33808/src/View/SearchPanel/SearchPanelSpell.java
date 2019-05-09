@@ -2,6 +2,7 @@ package View.SearchPanel;
 
 import Exception.DataAccessException;
 import Exception.DataException;
+import View.UtilitiesPanelMethode;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

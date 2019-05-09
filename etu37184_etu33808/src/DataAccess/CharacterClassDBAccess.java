@@ -23,6 +23,7 @@ public class CharacterClassDBAccess implements CharacterClassDataAccess {
 
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, game);
+
             ResultSet data = statement.executeQuery();
             ArrayList<String> allClassesInAGame = new ArrayList<>();
 

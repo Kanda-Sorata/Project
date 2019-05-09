@@ -5,7 +5,7 @@ public class DataException extends Exception {
 
     public DataException(int code) {
         this.code = code;
-    }  //1 : SQLException, 2 : HealthPoint, 3 : NameException 4 : SexException, 5 : UniqueNameException, 6 : DamagePerSecond 8 : Insert
+    }  //1 : SQLException, 2 : HealthPoint, 3 : NameException 4 : SexException, 5 : DamagePerSecond 6 : Insert 7 : Delete 8 Insert
 
     public String getMessage() {
         String output = "Sorry an error has been occured, when you tried ";
@@ -23,17 +23,17 @@ public class DataException extends Exception {
                 output += "to set the Sex";
                 break;
             case 5:
-                output += "UniqueName";
+                output += "to set damage per second";
                 break;
             case 6:
-                output += "Damage per second";
-                break;
-            case 7:
                 output += "to add a new charcater. The add has been cancelled.";
                 break;
-            case 8:
+            case 7:
                 output += "to delete a chatacer. The delete has been cancelled.";
+                break;
+            case 8:
+                output += "to modify a chatacer. The delete has been cancelled.";
         }
-        return output + " - Exception\n";
+        return output + "\n";
     }
 }

@@ -4,7 +4,7 @@ import Controller.CharacterController;
 import Exception.DataAccessException;
 import Exception.DataException;
 import View.SearchPanel.AllCharactersModel;
-import View.SearchPanel.UtilitiesPanelMethode;
+import View.UtilitiesPanelMethode;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -57,7 +57,7 @@ public class DeletePanelTable extends JPanel {
                 int column = table.getSelectedColumn();
                 setCharacterChoice(table.getValueAt(row, column).toString());
                 String input = JOptionPane.showInputDialog(null, "Do you really want to delete this character PERMANENTLY?\nInsert \"DELETE\" to continue.", "Delete", JOptionPane.WARNING_MESSAGE);
-                if (input == null || !input.equals("DELETE")) {
+                if (input.isEmpty() || !input.equals("DELETE")) {
                     JOptionPane.showMessageDialog(null, "Delete has been cancelled.", "Delete - Cancelled", JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     if(input.equals("DELETE")) {

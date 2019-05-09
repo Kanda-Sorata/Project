@@ -161,7 +161,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
                 statementPlayer.setInt(2, number);
 
                 ResultSet data = statementPlayer.executeQuery();
-                Integer playerAccountId;
+                int playerAccountId;
 
                 if (data.next()) {
                     playerAccountId = data.getInt(1);
@@ -174,7 +174,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
                     statementCharacterClassId.setString(2, game);
 
                     data = statementCharacterClassId.executeQuery();
-                    Integer characterClassTechnicalId;
+                    int characterClassTechnicalId;
 
                     if (data.next()) {
                         characterClassTechnicalId = data.getInt(1);
@@ -190,7 +190,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
                         statementServer.setString(3, server);
 
                         data = statementServer.executeQuery();
-                        Integer serverTechnicalId;
+                        int serverTechnicalId;
 
                         if (data.next()) {
                             serverTechnicalId = data.getInt(1);
@@ -249,7 +249,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
                 statementPlayer.setInt(2, number);
 
                 ResultSet data = statementPlayer.executeQuery();
-                Integer playerAccountId;
+                int playerAccountId;
 
                 if (data.next()) {
                     playerAccountId = data.getInt(1);
@@ -262,7 +262,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
                     statementCharacterClassId.setString(2, game);
 
                     data = statementCharacterClassId.executeQuery();
-                    Integer characterClassTechnicalId;
+                    int characterClassTechnicalId;
 
                     if (data.next()) {
                         characterClassTechnicalId = data.getInt(1);
@@ -278,7 +278,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
                         statementServer.setString(3, server);
 
                         data = statementServer.executeQuery();
-                        Integer serverTechnicalId;
+                        int serverTechnicalId;
 
                         if (data.next()) {
                             serverTechnicalId = data.getInt(1);
@@ -331,8 +331,8 @@ public class CharacterDBAccess implements CharacterDataAccess {
                 && character.getHealthPoints() >= Character.getMinHp()
                 && character.getHealthPoints() <= Character.getMaxHp() && character.getCreationDate() != null
                 && character.getStuffed() != null
-                && ((character.getDamagePerSecond() != null && character.getDamagePerSecond() >= Character.getMinDmg()
-                && character.getDamagePerSecond() <= Character.getMaxDmg()) || character.getDamagePerSecond() == null) && pseudo != null
+                && (character.getDamagePerSecond() == null || (character.getDamagePerSecond() >= Character.getMinDmg()
+                && character.getDamagePerSecond() <= Character.getMaxDmg())) && pseudo != null
                 && !pseudo.equals(noSelection) && game != null
                 && !game.equals(noSelection) && server != null && !server.equals(noSelection)
                 && characterClass != null && !characterClass.equals(noSelection);
@@ -367,7 +367,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
             statement.setInt(2, number);
             statement.setString(3, game);
             statement.setString(4, server);
-            statement.setString(5, characterClass);;
+            statement.setString(5, characterClass);
 
             ResultSet data = statement.executeQuery();
             Character characterToFill = null;

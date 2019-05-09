@@ -194,7 +194,7 @@ public class Frame extends JFrame{
             else{
                 container.removeAll();
                 if(event.getSource() == topOfClass){
-                    topOfClassPanel = new TopOfClassPanel();
+                    topOfClassPanel = new TopOfClassPanel(getFrame());
                     container.add(topOfClassPanel);
                 }else {
                     homePanel = new HomePanel(getFrame());
