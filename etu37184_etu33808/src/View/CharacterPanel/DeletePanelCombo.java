@@ -49,7 +49,6 @@ public class DeletePanelCombo extends JPanel {
             //Add components
             playerAccountLabel = new JLabel("Player account");
             playerAccountLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-            playerAccounts = new ArrayList<>();
             playerAccountCombo = new JComboBox(playerAccounts.toArray());
             playerAccountCombo.addItemListener(comboBoxListener);
 
@@ -66,12 +65,12 @@ public class DeletePanelCombo extends JPanel {
             add(gameLabel);
             add(gameCombo);
 
-        } catch (DataException dataException) {
-            utilitiesPanelMethod.removeAllFromResultPanel(this.deletePanelTable);
-            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (DataAccessException dataAccessException) {
             utilitiesPanelMethod.removeAllFromResultPanel(this.deletePanelTable);
             JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (DataException dataException) {
+            utilitiesPanelMethod.removeAllFromResultPanel(this.deletePanelTable);
+            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
