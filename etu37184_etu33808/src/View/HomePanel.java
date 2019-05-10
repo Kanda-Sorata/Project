@@ -1,8 +1,12 @@
 package View;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class HomePanel extends JPanel {
     private String message;
@@ -15,10 +19,19 @@ public class HomePanel extends JPanel {
         frame.setTitle("");
         frame.setTitle(frame.getTitle() + "- Home");
 
+        //Image
+        try{
+            BufferedImage image = ImageIO.read(new File("./image.png"));
+            JLabel label = new JLabel (new ImageIcon(image));
+            add(label);
+        } catch (IOException exception){
+            //joption pane
+        }
+
         //Add component and set them
-        setMessage();
-        messageLabel = new JLabel(message);
-        add(messageLabel);
+        //setMessage();
+        //messageLabel = new JLabel(message);
+        //add(messageLabel);
     }
 
     public void setMessage(){

@@ -80,7 +80,7 @@ public class SearchPanelGame extends JPanel {
             playerAccountCombo.setSelectedIndex(0);
             playerAccountCombo.setMaximumRowCount(3);
 
-            String[] temp = {"Aucune selection"};
+            String[] temp = {"No selection"};
             characterNameCombo = new JComboBox(temp);
             characterNameCombo.setSelectedIndex(0);
             characterNameCombo.setMaximumRowCount(3);
