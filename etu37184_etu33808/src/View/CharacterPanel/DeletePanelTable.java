@@ -56,8 +56,8 @@ public class DeletePanelTable extends JPanel {
                 int row = table.getSelectedRow();
                 int column = table.getSelectedColumn();
                 setCharacterChoice(table.getValueAt(row, column).toString());
-                String input = JOptionPane.showInputDialog(null, "Do you really want to delete this character PERMANENTLY?\nInsert \"DELETE\" to continue.", "Delete", JOptionPane.WARNING_MESSAGE);
-                if (input.isEmpty() || !input.equals("DELETE")) {
+                String input = JOptionPane.showInputDialog(null, "Do you really want to delete this character PERMANENTLY?\nInsert \"DELETE\" to continue.", "Warning - Delete", JOptionPane.WARNING_MESSAGE);
+                if (input == null || !input.equals("DELETE")) {
                     JOptionPane.showMessageDialog(null, "Delete has been cancelled.", "Delete - Cancelled", JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     if(input.equals("DELETE")) {

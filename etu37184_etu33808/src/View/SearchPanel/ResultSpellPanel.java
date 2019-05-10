@@ -34,7 +34,7 @@ public class ResultSpellPanel extends JPanel {
         return spellController.getSearchSpellList(pseudoChoice, numberChoice);
     }
 
-    public void setJtable(String pseudoChoice, int numberChoice) throws DataException, DataAccessException {
+    public void setJTable(String pseudoChoice, int numberChoice) throws DataException, DataAccessException {
         searchSpellLists = getSearchSpellList(pseudoChoice, numberChoice);
         AllSpellsListFromPlayerModel model = new AllSpellsListFromPlayerModel(searchSpellLists);
         remove(scrollPane);

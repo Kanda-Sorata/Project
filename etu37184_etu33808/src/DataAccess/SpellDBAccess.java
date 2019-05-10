@@ -35,15 +35,14 @@ public class SpellDBAccess implements SpellDataAccess {
             ResultSet data = statement.executeQuery();
             ArrayList<SearchSpellList> searchSpellLists = new ArrayList<>();
             SearchSpellList searchSpellList;
-            Integer cooldown;
 
             while (data.next()){
-                searchSpellList = new SearchSpellList(data.getString("name"), (Integer)data.getObject("cooldwon"),
+                searchSpellList = new SearchSpellList(data.getString("name"), (Integer) data.getObject("cooldown"),
                         data.getString("characterName"));
                 searchSpellLists.add(searchSpellList);
             }
             return searchSpellLists;
-        }catch(ConnectionException connectionEwception){
+        } catch (ConnectionException connectionException) {
             throw new DataAccessException(1);
         }catch(SQLException sqlException){
             throw new DataException(1);

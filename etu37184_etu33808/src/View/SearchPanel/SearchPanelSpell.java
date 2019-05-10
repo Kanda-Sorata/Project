@@ -72,7 +72,7 @@ public class SearchPanelSpell extends JPanel {
                 setPseudoChoice(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[0]);
                 setNumberChoice(Integer.parseInt(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[1]));
                 try {
-                    resultSpellPanel.setJtable(pseudoChoice, numberChoice);
+                    resultSpellPanel.setJTable(pseudoChoice, numberChoice);
                 }catch (DataAccessException dataAccessException){
                     JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }catch(DataException dataException) {

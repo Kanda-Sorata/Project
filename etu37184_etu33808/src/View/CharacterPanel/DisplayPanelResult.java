@@ -39,7 +39,7 @@ public class DisplayPanelResult extends JPanel {
             modelColumn.getColumn(iColumn).setMinWidth(this.getWidth() / 10);
         }
         scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(700, 400));
+        scrollPane.setPreferredSize(new Dimension(1000, 400));
         add(scrollPane);
         revalidate();
         repaint();
