@@ -6,6 +6,7 @@ import Exception.DataException;
 import Model.AccountPlayer;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 
 public class UtilitiesPanelMethode {
@@ -30,6 +31,16 @@ public class UtilitiesPanelMethode {
     public JTable getJTableModelBlank(){
         String [] columns = {"Colonne 1", "Colonne 2", "Colonne 3"};
         Object [][] data = {{"", "", ""}, {"", "", ""}, {"", "", ""}, {"", "", ""}, {"", "", ""}, {"", "", ""}};
-       return new JTable(data, columns);
+        JTable table = new JTable();
+        DefaultTableModel tableModel = new DefaultTableModel(data, columns) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
+
+        table.setModel(tableModel);
+       return table;
     }
 }

@@ -44,4 +44,13 @@ public class DisplayPanelResult extends JPanel {
         revalidate();
         repaint();
     }
+
+    public void updateJTableNoSelection(){
+        remove(scrollPane);
+        table = utilitiesPanelMethode.getJTableModelBlank();
+        scrollPane = new JScrollPane(table);
+        add(scrollPane);
+        revalidate();
+        repaint();
+    }
 }

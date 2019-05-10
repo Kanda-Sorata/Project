@@ -99,7 +99,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
 
     public int deleteACharacter(String pseudo, int number, String gameName, String characterName) throws DataAccessException, DataException {
         if (!isDeleteParametersValide(pseudo, number, gameName, characterName)) {
-            throw new DataException(8);
+            throw new DataException(7);
         } else {
             int state = 0;
             Connection connection = null;
@@ -141,14 +141,14 @@ public class CharacterDBAccess implements CharacterDataAccess {
             } catch (ConnectionException connectionException) {
                 throw new DataAccessException(1);
             } catch (SQLException sqlException) {
-                throw new DataException(8);
+                throw new DataException(7);
             }
         }
     }
 
     public int insertACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataException, DataAccessException {
         if(!isInsertParametersValide(character, pseudo, number, game, server, characterClass)){
-            throw new DataException(7);
+            throw new DataException(6);
         }else {
             Connection connection = null;
             try {
@@ -229,14 +229,14 @@ public class CharacterDBAccess implements CharacterDataAccess {
             } catch (ConnectionException connectionException) {
                 throw new DataAccessException(1);
             } catch (SQLException sqlException) {
-                throw new DataException(7);
+                throw new DataException(6);
             }
         }
     }
 
     public int modifyACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataException, DataAccessException {
         if(!isInsertParametersValide(character, pseudo, number, game, server, characterClass)){
-            throw new DataException(7);
+            throw new DataException(8);
         }else {
             Connection connection = null;
             try {
@@ -320,7 +320,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
             } catch (ConnectionException connectionException) {
                 throw new DataAccessException(1);
             } catch (SQLException sqlException) {
-                throw new DataException(7);
+                throw new DataException(8);
             }
         }
     }
@@ -477,17 +477,30 @@ public class CharacterDBAccess implements CharacterDataAccess {
 
             ResultSet data = statement.executeQuery();
             DisplayCharacter currentChar;
+            Integer damagePerSecond = null;
+            String petName = null;
+
             while (data.next()) {
                 currentChar = new DisplayCharacter(data.getString("GameName"), data.getString("ServerName"), data.getString("CharacterName"),
                         data.getString("CharacterClassName"), data.getInt("healthPoint"),
                         data.getBoolean("isStuffed"), null, data.getString("petName"),
-                        data.getInt("damagepersecond")); //todo
+                        (Integer)data.getObject("damagePerSecond")); //todo
 
                 java.sql.Date creationDate = data.getDate("creationDate");
                 GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime(creationDate);
                 currentChar.setCreationDate(calendar);
+/*
+                petName = data.getString("petName");
+                if(!data.wasNull()){
+                    currentChar.setPetName(petName);
+                }
 
+                damagePerSecond = data.getInt("damagePerSecond");
+                if(!data.wasNull()){
+                    currentChar.setDamagePerSecond(damagePerSecond);
+                }
+*/
                 characters.add(currentChar);
             }
 

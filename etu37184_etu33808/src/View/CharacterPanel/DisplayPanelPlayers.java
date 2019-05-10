@@ -54,6 +54,9 @@ public class DisplayPanelPlayers extends JPanel {
                     JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
+            else{
+                displayPanelResult.updateJTableNoSelection();
+            }
         }
     }
 

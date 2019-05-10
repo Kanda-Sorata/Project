@@ -32,14 +32,14 @@ public class CharacterBusinessLogic {
         if(isDeleteParametersValide(pseudo, number, gameName, characterName)) {
             return dao.deleteACharacter(pseudo, number, gameName, characterName);
         }else{
-            throw new DataException(8);
+            throw new DataException(7);
         }
     }
     public int insertACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataAccessException, DataException {
         if(isInsertParametersValide(character, pseudo, number, game, server, characterClass)) {
             return dao.insertACharacter(character, pseudo, number, game, server, characterClass);
         }else{
-           throw new DataException(7);
+           throw new DataException(6);
         }
     }
 
@@ -47,7 +47,7 @@ public class CharacterBusinessLogic {
         if(isInsertParametersValide(character, pseudo, number, game, server, characterClass)) {
             return dao.modifyACharacter(character, pseudo, number, game, server, characterClass);
         }else{
-            throw new DataException(7);
+            throw new DataException(8);
         }
     }
 
