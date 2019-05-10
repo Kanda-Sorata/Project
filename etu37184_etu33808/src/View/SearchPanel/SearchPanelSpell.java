@@ -2,7 +2,7 @@ package View.SearchPanel;
 
 import Exception.DataAccessException;
 import Exception.DataException;
-import View.UtilitiesPanelMethode;
+import View.UtilitiesPanelMethod;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -20,18 +20,20 @@ public class SearchPanelSpell extends JPanel {
     private String pseudoChoice;
     private int numberChoice;
 
-    private UtilitiesPanelMethode utilitiesPanelMethode;
+    private UtilitiesPanelMethod utilitiesPanelMethod;
     private ResultSpellPanel resultSpellPanel;
 
     public SearchPanelSpell(ResultSpellPanel resultSpellPanel){
-        try {
-            utilitiesPanelMethode = new UtilitiesPanelMethode();
-            pseudos = utilitiesPanelMethode.setPlayerAccountsPseudo();
-            this.resultSpellPanel = resultSpellPanel;
+        //Add properties
+        setLayout(new GridLayout(1, 2, 5, 15));
+        setBorder(new EmptyBorder(250, 0, 300, 250)); //top, left, bottom, right
 
-            //Add properties
-            setLayout(new GridLayout(1, 2, 5, 15));
-            setBorder(new EmptyBorder(250, 0, 300, 250)); //top, left, bottom, right
+        //Init
+        utilitiesPanelMethod = new UtilitiesPanelMethod();
+        this.resultSpellPanel = resultSpellPanel;
+
+        try {
+            pseudos = utilitiesPanelMethod.setPlayerAccountsPseudo();
 
             //Add components
             playerAccount = new JLabel("Player Account");
@@ -43,8 +45,10 @@ public class SearchPanelSpell extends JPanel {
             add(playerAccount);
             add(playerAccountCombo);
         }catch (DataAccessException dataAccessException){
+            utilitiesPanelMethod.removeAllFromResultPanel(this.resultSpellPanel);
             JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }catch(DataException dataException) {
+            utilitiesPanelMethod.removeAllFromResultPanel(this.resultSpellPanel);
             JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }

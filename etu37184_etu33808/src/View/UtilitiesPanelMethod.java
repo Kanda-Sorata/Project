@@ -9,10 +9,10 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 
-public class UtilitiesPanelMethode {
+public class UtilitiesPanelMethod {
     private AccountPlayerController accountPlayerController;
 
-    public UtilitiesPanelMethode(){
+    public UtilitiesPanelMethod() {
         accountPlayerController = new AccountPlayerController();
     }
 
@@ -42,5 +42,11 @@ public class UtilitiesPanelMethode {
 
         table.setModel(tableModel);
        return table;
+    }
+
+    public void removeAllFromResultPanel(JPanel panel) {
+        panel.removeAll();
+        panel.revalidate();
+        panel.repaint();
     }
 }

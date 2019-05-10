@@ -28,11 +28,11 @@ public class TopOfClass {
     }
 
 
-    public void setPurcent(Double purcent) {
-        this.purcent = purcent;
+    public void setPercent(Double percent) {
+        this.purcent = percent;
     }
 
-    public String getPurcentFormater() {
+    public String getPercentFormatter() {
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         return decimalFormat.format(purcent) + "%";
     }

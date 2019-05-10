@@ -6,7 +6,7 @@ import Controller.GameController;
 import Controller.ServerController;
 import Exception.DataAccessException;
 import Exception.DataException;
-import View.UtilitiesPanelMethode;
+import View.UtilitiesPanelMethod;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -45,7 +45,7 @@ public class FormPanelLeftModify extends JPanel {
     private String characterChoice;
     private int healthPointMax;
 
-    private UtilitiesPanelMethode utilitiesPanelMethode;
+    private UtilitiesPanelMethod utilitiesPanelMethod;
     private GameController gameController;
     private ServerController serverController;
     private CharacterClassController characterClassController;
@@ -60,7 +60,8 @@ public class FormPanelLeftModify extends JPanel {
         setLayout(new GridLayout(5, 2, 5, 15));
         setBorder(new EmptyBorder(150, 50, 120, 1)); //Top, left, bottom, right
 
-        utilitiesPanelMethode = new UtilitiesPanelMethode();
+        //Init
+        utilitiesPanelMethod = new UtilitiesPanelMethod();
         gameController = new GameController();
         serverController = new ServerController();
         characterClassController = new CharacterClassController();
@@ -68,17 +69,19 @@ public class FormPanelLeftModify extends JPanel {
         this.isModifyPanel = isModifyPanel;
         this.formPanelRight = formPanelRight;
 
-        //Init & add component
         try {
+            pseudos = utilitiesPanelMethod.setPlayerAccountsPseudo();
+
+            //Listener
             comboBoxListener = new ComboBoxListener();
 
-            playerAccountLabel = new JLabel("<html>Player account<font color = 'red'>*</font></html>");
+            //Add components
+            playerAccountLabel = new JLabel("<html>Player Account<font color = 'red'>*</font></html>");
             playerAccountLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-            pseudos = utilitiesPanelMethode.setPlayerAccountsPseudo();
             playerAccountCombo = new JComboBox(pseudos.toArray());
             playerAccountCombo.addItemListener(comboBoxListener);
 
-            gameLabel = new JLabel("<html>Game name<font color = 'red'>*</font></html>");
+            gameLabel = new JLabel("<html>Game<font color = 'red'>*</font></html>");
             gameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
             games = new ArrayList<>();
             games.add("No selection");
@@ -86,7 +89,7 @@ public class FormPanelLeftModify extends JPanel {
             gameCombo.addItemListener(comboBoxListener);
             gameCombo.setEnabled(false);
 
-            serverLabel = new JLabel("<html>Server name<font color = 'red'>*</font></html>");
+            serverLabel = new JLabel("<html>Server<font color = 'red'>*</font></html>");
             serverLabel.setHorizontalAlignment(SwingConstants.RIGHT);
             servers = new ArrayList<>();
             servers.add("No selection");
@@ -112,7 +115,7 @@ public class FormPanelLeftModify extends JPanel {
             add(characterClassCombo);
 
             if (isModifyPanel) {
-                characterLabel = new JLabel("Character name");
+                characterLabel = new JLabel("Character");
                 characterLabel.setHorizontalAlignment(SwingConstants.RIGHT);
                 characters = new ArrayList<>();
                 characters.add("No selection");
@@ -124,8 +127,12 @@ public class FormPanelLeftModify extends JPanel {
             }
 
         } catch (DataException dataException) {
+            utilitiesPanelMethod.removeAllFromResultPanel(this.formPanelRight.getButtonsPanel());
+            utilitiesPanelMethod.removeAllFromResultPanel(this.formPanelRight);
             JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (DataAccessException dataAccessException) {
+            utilitiesPanelMethod.removeAllFromResultPanel(this.formPanelRight.getButtonsPanel());
+            utilitiesPanelMethod.removeAllFromResultPanel(this.formPanelRight);
             JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -219,15 +226,15 @@ public class FormPanelLeftModify extends JPanel {
 
     //Error
     public void setPlayerAccountLabelError() {
-        playerAccountLabel.setText("<html><font color = 'red'>Player account*</font></html>");
+        playerAccountLabel.setText("<html><font color = 'red'>Player Account*</font></html>");
     }
 
     public void setGameLabelError() {
-        gameLabel.setText("<html><font color = 'red'>Game name*</font></html>");
+        gameLabel.setText("<html><font color = 'red'>Game*</font></html>");
     }
 
     public void setServerLabelError() {
-        serverLabel.setText("<html><font color = 'red'>Server name*</font></html>");
+        serverLabel.setText("<html><font color = 'red'>Server*</font></html>");
     }
 
     public void setCharacterClassLabelError() {
@@ -235,20 +242,20 @@ public class FormPanelLeftModify extends JPanel {
     }
 
     public void setCharacterLabelError() {
-        characterLabel.setText("<html><font color = 'red'>Character name*</font></html>\"");
+        characterLabel.setText("<html><font color = 'red'>Character*</font></html>\"");
     }
 
     //Reset
     public void setPlayerAccountLabelReset() {
-        playerAccountLabel.setText("<html>Player account<font color = 'red'>*</font></html>");
+        playerAccountLabel.setText("<html>Player Account<font color = 'red'>*</font></html>");
     }
 
     public void setGameLabelReset() {
-        gameLabel.setText("<html>Game name<font color = 'red'>*</font></html>");
+        gameLabel.setText("<html>Game<font color = 'red'>*</font></html>");
     }
 
     public void setServerLabelReset() {
-        serverLabel.setText("<html>Server name<font color = 'red'>*</font></html>");
+        serverLabel.setText("<html>Server<font color = 'red'>*</font></html>");
     }
 
     public void setCharacterClassLabelReset() {
@@ -256,7 +263,7 @@ public class FormPanelLeftModify extends JPanel {
     }
 
     public void setCharacterLabelReset() {
-        characterLabel.setText("<html>Character name<font color = 'red'>*</font></html>\"");
+        characterLabel.setText("<html>Character<font color = 'red'>*</font></html>\"");
     }
 
 

@@ -3,6 +3,7 @@ package View;
 import Controller.CharacterClassController;
 import Exception.DataAccessException;
 import Exception.DataException;
+import Exception.DivideException;
 import Model.TopOfClass;
 
 import javax.swing.*;
@@ -16,6 +17,7 @@ public class TopOfClassPanel extends JPanel {
     private TopOfClassModel topOfClassModel;
     private JScrollPane scrollPane;
     private ArrayList<TopOfClass> topOfClasses;
+    private UtilitiesPanelMethod utilitiesPanelMethod;
 
     public TopOfClassPanel(Frame frame) {
         //Add properties
@@ -24,7 +26,7 @@ public class TopOfClassPanel extends JPanel {
         frame.setTitle("");
         frame.setTitle(frame.getTitle() + "- Top of Class");
 
-
+        utilitiesPanelMethod = new UtilitiesPanelMethod();
         characterClassController = new CharacterClassController();
 
         try {
@@ -35,9 +37,14 @@ public class TopOfClassPanel extends JPanel {
             scrollPane.setPreferredSize(new Dimension(800, 200));
             add(scrollPane);
         }catch (DataAccessException dataAccessException){
+            utilitiesPanelMethod.removeAllFromResultPanel(this);
             JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }catch(DataException dataException) {
+            utilitiesPanelMethod.removeAllFromResultPanel(this);
             JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (DivideException divideException) {
+            utilitiesPanelMethod.removeAllFromResultPanel(this);
+            JOptionPane.showMessageDialog(null, divideException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

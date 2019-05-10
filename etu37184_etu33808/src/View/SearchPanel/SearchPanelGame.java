@@ -5,7 +5,7 @@ import Controller.CharacterController;
 import Exception.DataAccessException;
 import Exception.DataException;
 import Model.Character;
-import View.UtilitiesPanelMethode;
+import View.UtilitiesPanelMethod;
 
 import javax.swing.*;
 import javax.swing.JSpinner.DateEditor;
@@ -44,7 +44,7 @@ public class SearchPanelGame extends JPanel {
 
     private AccountPlayerController accountPlayerController;
     private CharacterController characterController;
-    private UtilitiesPanelMethode utilitiesPanelMethode;
+    private UtilitiesPanelMethod utilitiesPanelMethod;
 
     private ComboBoxListener comboBoxListener;
     private SpinnerListener spinnerListener;
@@ -55,17 +55,17 @@ public class SearchPanelGame extends JPanel {
     private ButtonListener buttonListener;
 
     public SearchPanelGame(ResultGamePanel resultGamePanel) {
-        try {
+        //Add properties
+        setLayout(new GridLayout(4, 2, 5, 15));
+        setBorder(new EmptyBorder(150, 0, 250, 250)); //top, left, bottom, right
+
             this.resultGamePanel = resultGamePanel;
             accountPlayerController = new AccountPlayerController();
             characterController = new CharacterController();
-            utilitiesPanelMethode = new UtilitiesPanelMethode();
+        utilitiesPanelMethod = new UtilitiesPanelMethod();
 
-            playerAccounts = utilitiesPanelMethode.setPlayerAccountsPseudo();
-
-            //Add propeties
-            setLayout(new GridLayout(4, 2, 5, 15));
-            setBorder(new EmptyBorder(150, 0, 250, 250)); //top, left, bottom, right
+        try {
+            playerAccounts = utilitiesPanelMethod.setPlayerAccountsPseudo();
 
             //add component
             playerAccount = new JLabel("Player Account");
@@ -114,10 +114,12 @@ public class SearchPanelGame extends JPanel {
             add(validationLabel);
             add(validation);
             setVisible(true);
-        }catch(DataException dataException){
-            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }catch(DataAccessException dataAccessException){
+        } catch (DataAccessException dataAccessException) {
+            utilitiesPanelMethod.removeAllFromResultPanel(this.resultGamePanel);
             JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }catch(DataException dataException){
+            utilitiesPanelMethod.removeAllFromResultPanel(this.resultGamePanel);
+            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -149,16 +151,8 @@ public class SearchPanelGame extends JPanel {
         return numberChoice;
     }
 
-    public String getCharacterNameChoice() {
-        return characterNameChoice;
-    }
-
     public void setCharacterNameChoice(String characterNameChoice) {
         this.characterNameChoice = characterNameChoice;
-    }
-
-    public GregorianCalendar getDateEnd(){
-        return  dateChoice;
     }
 
     public void setDateChoice(){
@@ -233,7 +227,7 @@ public class SearchPanelGame extends JPanel {
             try {
                 setDateChoice();
                 if(playerAccountCombo.getSelectedIndex() != 0 && characterNameCombo.getSelectedIndex() != 0 && dateChoice != null) {
-                    resultGamePanel.setJtable(pseudoChoice, numberChoice, characterNameChoice, dateChoice);
+                    resultGamePanel.setJTable(pseudoChoice, numberChoice, characterNameChoice, dateChoice);
                 }
             }catch(DataException dataException){
                 JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

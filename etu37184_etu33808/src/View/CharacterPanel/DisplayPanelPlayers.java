@@ -3,7 +3,7 @@ package View.CharacterPanel;
 import Controller.AccountPlayerController;
 import Exception.DataAccessException;
 import Exception.DataException;
-import View.UtilitiesPanelMethode;
+import View.UtilitiesPanelMethod;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,26 +17,30 @@ public class DisplayPanelPlayers extends JPanel {
     private ArrayList<String> allPlayers;
     private AccountPlayerController playerAccountController;
     private DisplayPanelResult displayPanelResult;
-    private UtilitiesPanelMethode utilitiesPanelMethode;
+    private UtilitiesPanelMethod utilitiesPanelMethod;
     private String pseudoChoice;
     private int numberChoice;
 
     public DisplayPanelPlayers(DisplayPanelResult displayPanelResult) {
+        //Init
+        this.displayPanelResult = displayPanelResult;
+        utilitiesPanelMethod = new UtilitiesPanelMethod();
+
         try {
-            this.displayPanelResult = displayPanelResult;
-            utilitiesPanelMethode = new UtilitiesPanelMethode();
             playerAccountLabel = new JLabel("Player account");
             comboBoxListener = new ComboBoxListener();
             playerAccountController = new AccountPlayerController();
-            allPlayers = utilitiesPanelMethode.setPlayerAccountsPseudo();
+            allPlayers = utilitiesPanelMethod.setPlayerAccountsPseudo();
             playerAccountCombo = new JComboBox(allPlayers.toArray());
-
             playerAccountCombo.addActionListener(comboBoxListener);
+
             add(playerAccountLabel);
             add(playerAccountCombo);
         } catch (DataAccessException dataAccessException) {
+            utilitiesPanelMethod.removeAllFromResultPanel(this.displayPanelResult);
             JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (DataException dataException) {
+            utilitiesPanelMethod.removeAllFromResultPanel(this.displayPanelResult);
             JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }

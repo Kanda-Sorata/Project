@@ -4,6 +4,7 @@ import Controller.CharacterClassController;
 import Controller.GameController;
 import Exception.DataAccessException;
 import Exception.DataException;
+import View.UtilitiesPanelMethod;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -29,6 +30,8 @@ public class SearchPanelEffect extends JPanel {
     private String gameChoice;
     private ResultEffectPanel resultEffectPanel;
 
+    private UtilitiesPanelMethod utilitiesPanelMethod;
+
     public SearchPanelEffect(ResultEffectPanel resultEffectPanel) {
         //Add propeties
         setLayout(new GridLayout(2, 2, 5, 15));
@@ -38,10 +41,11 @@ public class SearchPanelEffect extends JPanel {
         this.resultEffectPanel = resultEffectPanel;
         gameController = new GameController();
         characterClassController = new CharacterClassController();
+        utilitiesPanelMethod = new UtilitiesPanelMethod();
 
 
         //Add component
-        try{
+        try {
             gameLabel = new JLabel("Game name");
             gameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
@@ -49,7 +53,7 @@ public class SearchPanelEffect extends JPanel {
             games.add("No selection");
             gamesTemp = gameController.getAllGames();
             int size = gamesTemp.size();
-            for (String game: gamesTemp) {
+            for (String game : gamesTemp) {
                 games.add(game);
             }
 
@@ -73,10 +77,12 @@ public class SearchPanelEffect extends JPanel {
             add(characterClassLabel);
             add(characterClassCombo);
 
-        } catch (DataException dataException){
-            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (DataAccessException dataAccessException){
+        } catch (DataAccessException dataAccessException) {
+            utilitiesPanelMethod.removeAllFromResultPanel(this.resultEffectPanel);
             JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (DataException dataException) {
+            utilitiesPanelMethod.removeAllFromResultPanel(this.resultEffectPanel);
+            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

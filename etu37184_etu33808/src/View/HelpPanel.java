@@ -27,16 +27,18 @@ public class HelpPanel extends JPanel {
                 "text-align:center; ";
         String cssOffer = "text-align: center;";
         message = "<html>" +
-                "<h1 style = " + cssHeader + " >Bienvenue à vous !</h1>" +
-                "<p style = 'text-align:center'>Ce programme a été réalisé par Heintz Kelly et Rousseaux Corentin.</p>" +
-                "<p style = 'text-align:center'>À l'intention de Dubisy Françoise et Bertrand Chantal.</p>" +
-                "<h3 style = " + cssOffer + ">Voici les fonctionnalités que vous pouvez trouver dans le menu \"Character\"</h3>" +
-                "<ul><li>Ajouter un personnage à un joueur</li><li>Modifier un personnage d'un joueur</li>" +
-                "<li>Supprimer un personnage d'un joueur</li><li>Afficher les personnages d'un joueur</li></ul>" +
-                "<h3 style = " + cssOffer + ">Vous pouvez également trouver ces recherches dans le menu \"Search\"</h3>" +
-                "<ul><li>Rechercher des jeux en fonction de leur date de sortie</li>"+
-                "<li>Rechercher les informations sur les pouvoirs d'un compte joueur</li>" +
-                "<li>Rechercher les effets des pouvoirs disponibles pour la classe désirée</li></ul>" +
+                "<h1 style = " + cssHeader + " >Welcome to you !</h1>" +
+                "<p style = 'text-align:center'>This software has been realised by Heintz Kelly and Rousseaux Corentin.</p>" +
+                "<p style = 'text-align:center'>To the intention of Dubisy Françoise and Bertrand Chantal.</p>" +
+                "<h3 style = " + cssOffer + ">Here are the features that you can find into the menu \"Character\"</h3>" +
+                "<ul><li>Add a character to a player</li>" +
+                "<li>Modify a character from a player</li>" +
+                "<li>Delete a character from a player</li> " +
+                "<li>Display all character from a player</li></ul>" +
+                "<h3 style = " + cssOffer + ">You can also find this search in the menu \"Search\"</h3>" +
+                "<ul><li>Search for games based on an release date</li>" +
+                "<li>Search for information on the spells of an player</li>" +
+                "<li>Search for the effects of the skills available for the desired class</li></ul>" +
                 "</html>";
     }
 }

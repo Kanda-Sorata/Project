@@ -58,7 +58,7 @@ public class FormPanelRight extends JPanel {
 
 
     public FormPanelRight(ButtonsPanel buttonsPanel){
-        //Add propetiers
+        //Add properties
         setLayout(new GridLayout(8, 2, 5, 15));
         setBorder(new EmptyBorder(30, 0, 30, 40)); //Top, left, bottom, right
 
@@ -88,7 +88,7 @@ public class FormPanelRight extends JPanel {
         creationDateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         creationDateSpinner = new JSpinner();
         setCreationDateSpinner();
-        creationDateSpinner.setToolTipText("Date available today to 2039");
+        creationDateSpinner.setToolTipText("Date available yesterday to 2039");
         spinnerListener = new SpinnerListener();
         creationDateSpinner.addChangeListener(spinnerListener);
 
@@ -108,6 +108,7 @@ public class FormPanelRight extends JPanel {
         damagePerSecondLabel = new JLabel("Damage per second");
         damagePerSecondLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         damagePerSecondSlider = new JSlider(JSlider.HORIZONTAL);
+        damagePerSecondSlider.setToolTipText("Damage/sec what the player going to deal at enemies");
         damagePerSecondSlider.setEnabled(false);
         setDamagePerSecondSlider(Character.getMinDmg(), Character.getMaxDmg(), Character.getMinDmg());
 
@@ -136,6 +137,10 @@ public class FormPanelRight extends JPanel {
         add(damagePerSecondLabel);
         add(damagePerSecondSlider);
         add(requiredLabel);
+    }
+
+    public ButtonsPanel getButtonsPanel() {
+        return buttonsPanel;
     }
 
     public void setHealthPointSlider(int minimum, int maximum, int value){

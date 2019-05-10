@@ -4,7 +4,7 @@ import Controller.CharacterController;
 import Exception.DataAccessException;
 import Exception.DataException;
 import View.SearchPanel.AllCharactersModel;
-import View.UtilitiesPanelMethode;
+import View.UtilitiesPanelMethod;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -17,7 +17,7 @@ public class DeletePanelTable extends JPanel {
     private JTable table;
     private  JScrollPane scrollPane;
     private CharacterController characterController;
-    private UtilitiesPanelMethode utilitiesPanelMethode;
+    private UtilitiesPanelMethod utilitiesPanelMethod;
     private String pseudoChoice;
     private String gameChoice;
     private int numberChoice;
@@ -29,11 +29,11 @@ public class DeletePanelTable extends JPanel {
 
         tableListener = new TableListener();
 
-        utilitiesPanelMethode = new UtilitiesPanelMethode();
+        utilitiesPanelMethod = new UtilitiesPanelMethod();
         setLayout(new FlowLayout());
         characterController = new CharacterController();
 
-        table = utilitiesPanelMethode.getJTableModelBlank();
+        table = utilitiesPanelMethod.getJTableModelBlank();
         scrollPane = new JScrollPane(table);
         add(scrollPane);
     }

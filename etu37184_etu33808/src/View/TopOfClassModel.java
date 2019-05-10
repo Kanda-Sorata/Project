@@ -26,7 +26,7 @@ public class TopOfClassModel extends AbstractTableModel {
         switch (column){
             case 0: return topOfClass.getClassName();
             case 1:
-                return topOfClass.getPurcentFormater();
+                return topOfClass.getPercentFormatter();
             case 2: return topOfClass.getDescription();
             default: return null;
         }

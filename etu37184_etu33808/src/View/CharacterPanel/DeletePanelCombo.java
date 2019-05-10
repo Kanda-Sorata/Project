@@ -3,7 +3,7 @@ package View.CharacterPanel;
 import Controller.GameController;
 import Exception.DataAccessException;
 import Exception.DataException;
-import View.UtilitiesPanelMethode;
+import View.UtilitiesPanelMethod;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -23,7 +23,7 @@ public class DeletePanelCombo extends JPanel {
     private JLabel playerAccountLabel;
     private JLabel gameLabel;
     private GameController gameController;
-    private UtilitiesPanelMethode utilitiesPanelMethode;
+    private UtilitiesPanelMethod utilitiesPanelMethod;
     private String pseudoChoice;
     private int numberChoice;
     private String gameChoice;
@@ -35,17 +35,21 @@ public class DeletePanelCombo extends JPanel {
         setLayout(new GridLayout(2, 2, 5, 15));
         setBorder(new EmptyBorder(225, 100, 275, 150)); //Top, left, bottom, right
 
+        this.deletePanelTable = deletePanelTable;
+        utilitiesPanelMethod = new UtilitiesPanelMethod();
+        gameController = new GameController();
+
         //Add components
         try{
-            this.deletePanelTable = deletePanelTable;
-            utilitiesPanelMethode = new UtilitiesPanelMethode();
-            comboBoxListener = new ComboBoxListener();
-            gameController = new GameController();
+            playerAccounts = utilitiesPanelMethod.setPlayerAccountsPseudo();
 
+            //Listener
+            comboBoxListener = new ComboBoxListener();
+
+            //Add components
             playerAccountLabel = new JLabel("Player account");
             playerAccountLabel.setHorizontalAlignment(SwingConstants.RIGHT);
             playerAccounts = new ArrayList<>();
-            playerAccounts = utilitiesPanelMethode.setPlayerAccountsPseudo();
             playerAccountCombo = new JComboBox(playerAccounts.toArray());
             playerAccountCombo.addItemListener(comboBoxListener);
 
@@ -63,8 +67,10 @@ public class DeletePanelCombo extends JPanel {
             add(gameCombo);
 
         } catch (DataException dataException) {
+            utilitiesPanelMethod.removeAllFromResultPanel(this.deletePanelTable);
             JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (DataAccessException dataAccessException) {
+            utilitiesPanelMethod.removeAllFromResultPanel(this.deletePanelTable);
             JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
