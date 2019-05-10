@@ -1,5 +1,8 @@
 package View.SearchPanel;
 
+import Exception.DataAccessException;
+import Exception.DataException;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,12 +10,9 @@ public class EffectPanel extends JPanel {
     private SearchPanelEffect searchPanelEffect;
     private ResultEffectPanel resultEffectPanel;
 
-    public EffectPanel(Frame frame) {
+    public EffectPanel() throws DataAccessException, DataException {
         //Add properties
         setLayout(new GridLayout(1, 2, 5, 15));
-
-        frame.setTitle("");
-        frame.setTitle(frame.getTitle() + "- Search for effect(s)");
 
         //Add components
         resultEffectPanel = new ResultEffectPanel();

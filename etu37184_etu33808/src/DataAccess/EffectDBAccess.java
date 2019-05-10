@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class EffectDBAccess implements EffectDataAccess{
     public ArrayList<SearchEffectList> getSearchEffectList(String gameChoice, String classChoice) throws DataException, DataAccessException {
-        Connection connection = null;
+        Connection connection;
         try {
            connection = SingletonConnection.getInstance();
 

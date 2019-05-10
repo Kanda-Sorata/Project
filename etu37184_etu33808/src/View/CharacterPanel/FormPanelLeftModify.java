@@ -55,7 +55,7 @@ public class FormPanelLeftModify extends JPanel {
     private boolean isModifyPanel;
 
 
-    public FormPanelLeftModify(FormPanelRight formPanelRight, boolean isModifyPanel) {
+    public FormPanelLeftModify(FormPanelRight formPanelRight, boolean isModifyPanel) throws DataException, DataAccessException {
         //Add properties
         setLayout(new GridLayout(5, 2, 5, 15));
         setBorder(new EmptyBorder(150, 50, 120, 1)); //Top, left, bottom, right
@@ -69,71 +69,60 @@ public class FormPanelLeftModify extends JPanel {
         this.isModifyPanel = isModifyPanel;
         this.formPanelRight = formPanelRight;
 
-        try {
-            pseudos = utilitiesPanelMethod.setPlayerAccountsPseudo();
+        pseudos = utilitiesPanelMethod.setPlayerAccountsPseudo();
 
-            //Listener
-            comboBoxListener = new ComboBoxListener();
+        //Listener
+        comboBoxListener = new ComboBoxListener();
 
-            //Add components
-            playerAccountLabel = new JLabel("<html>Player Account<font color = 'red'>*</font></html>");
-            playerAccountLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-            playerAccountCombo = new JComboBox(pseudos.toArray());
-            playerAccountCombo.addItemListener(comboBoxListener);
+        //Add components
+        playerAccountLabel = new JLabel("<html>Player Account<font color = 'red'>*</font></html>");
+        playerAccountLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        playerAccountCombo = new JComboBox(pseudos.toArray());
+        playerAccountCombo.addItemListener(comboBoxListener);
 
-            gameLabel = new JLabel("<html>Game<font color = 'red'>*</font></html>");
-            gameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-            games = new ArrayList<>();
-            games.add("No selection");
-            gameCombo = new JComboBox(games.toArray());
-            gameCombo.addItemListener(comboBoxListener);
-            gameCombo.setEnabled(false);
+        gameLabel = new JLabel("<html>Game<font color = 'red'>*</font></html>");
+        gameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        games = new ArrayList<>();
+        games.add("No selection");
+        gameCombo = new JComboBox(games.toArray());
+        gameCombo.addItemListener(comboBoxListener);
+        gameCombo.setEnabled(false);
 
-            serverLabel = new JLabel("<html>Server<font color = 'red'>*</font></html>");
-            serverLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-            servers = new ArrayList<>();
-            servers.add("No selection");
-            serverCombo = new JComboBox(servers.toArray());
-            serverCombo.addItemListener(comboBoxListener);
-            serverCombo.setEnabled(false);
+        serverLabel = new JLabel("<html>Server<font color = 'red'>*</font></html>");
+        serverLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        servers = new ArrayList<>();
+        servers.add("No selection");
+        serverCombo = new JComboBox(servers.toArray());
+        serverCombo.addItemListener(comboBoxListener);
+        serverCombo.setEnabled(false);
 
-            characterClassLabel = new JLabel("<html>Character class<font color = 'red'>*</font></html>");
-            characterClassLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-            characterClasses = new ArrayList<>();
-            characterClasses.add("No selection");
-            characterClassCombo = new JComboBox(characterClasses.toArray());
-            characterClassCombo.addItemListener(comboBoxListener);
-            characterClassCombo.setEnabled(false);
+        characterClassLabel = new JLabel("<html>Character class<font color = 'red'>*</font></html>");
+        characterClassLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        characterClasses = new ArrayList<>();
+        characterClasses.add("No selection");
+        characterClassCombo = new JComboBox(characterClasses.toArray());
+        characterClassCombo.addItemListener(comboBoxListener);
+        characterClassCombo.setEnabled(false);
 
-            add(playerAccountLabel);
-            add(playerAccountCombo);
-            add(gameLabel);
-            add(gameCombo);
-            add(serverLabel);
-            add(serverCombo);
-            add(characterClassLabel);
-            add(characterClassCombo);
+        add(playerAccountLabel);
+        add(playerAccountCombo);
+        add(gameLabel);
+        add(gameCombo);
+        add(serverLabel);
+        add(serverCombo);
+        add(characterClassLabel);
+        add(characterClassCombo);
 
-            if (isModifyPanel) {
-                characterLabel = new JLabel("Character");
-                characterLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-                characters = new ArrayList<>();
-                characters.add("No selection");
-                characterCombo = new JComboBox(characters.toArray());
-                characterCombo.setEnabled(false);
-                characterCombo.addItemListener(comboBoxListener);
-                add(characterLabel);
-                add(characterCombo);
-            }
-
-        } catch (DataException dataException) {
-            utilitiesPanelMethod.removeAllFromResultPanel(this.formPanelRight.getButtonsPanel());
-            utilitiesPanelMethod.removeAllFromResultPanel(this.formPanelRight);
-            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (DataAccessException dataAccessException) {
-            utilitiesPanelMethod.removeAllFromResultPanel(this.formPanelRight.getButtonsPanel());
-            utilitiesPanelMethod.removeAllFromResultPanel(this.formPanelRight);
-            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        if (isModifyPanel) {
+            characterLabel = new JLabel("Character");
+            characterLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+            characters = new ArrayList<>();
+            characters.add("No selection");
+            characterCombo = new JComboBox(characters.toArray());
+            characterCombo.setEnabled(false);
+            characterCombo.addItemListener(comboBoxListener);
+            add(characterLabel);
+            add(characterCombo);
         }
     }
 

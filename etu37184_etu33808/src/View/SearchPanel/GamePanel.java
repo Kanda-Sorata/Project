@@ -1,5 +1,8 @@
 package View.SearchPanel;
 
+import Exception.DataAccessException;
+import Exception.DataException;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,12 +10,10 @@ public class GamePanel extends JPanel {
     private  SearchPanelGame searchPanelGame;
     private  ResultGamePanel resultGamePanel;
 
-    public GamePanel(Frame frame) {
+    public GamePanel() throws DataAccessException, DataException {
         //Add properties
         setLayout(new GridLayout(1, 2, 5, 15));
 
-        frame.setTitle("");
-        frame.setTitle(frame.getTitle() + " - Search for game(s)");
 
         //Add components
         resultGamePanel = new ResultGamePanel();

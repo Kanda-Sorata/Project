@@ -1,5 +1,8 @@
 package View.CharacterPanel;
 
+import Exception.DataAccessException;
+import Exception.DataException;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,15 +10,9 @@ public class DeletePanel extends JPanel {
     private DeletePanelCombo deletePanelCombo;
     private DeletePanelTable deletePanelTable;
 
-
-    public DeletePanel(Frame frame){
-
+    public DeletePanel() throws DataAccessException, DataException {
         //Add properties
         setLayout(new GridLayout(1, 2, 5, 15));
-
-        frame.setTitle("");
-        frame.setTitle(frame.getTitle() + "- Delete a character");
-
 
         //Add components
         deletePanelTable = new DeletePanelTable();
@@ -23,7 +20,6 @@ public class DeletePanel extends JPanel {
 
         add(deletePanelCombo);
         add(deletePanelTable);
-
     }
 
 }

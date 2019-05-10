@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class SpellDBAccess implements SpellDataAccess {
     public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, int numberChoice)throws DataException, DataAccessException{
-        Connection connection = null;
+        Connection connection;
         try {
            connection = SingletonConnection.getInstance();
 

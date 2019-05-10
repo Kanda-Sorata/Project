@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 public class CharacterDBAccess implements CharacterDataAccess {
     public ArrayList<Character> getAllCharacter(String pseudo, int number) throws DataException, DataAccessException {
-        Connection connection = null;
+        Connection connection;
         try {
            connection = SingletonConnection.getInstance();
             String query = "select name, healthPoint, isStuffed, creationDate, petName, damagePerSecond " +
@@ -27,8 +27,6 @@ public class CharacterDBAccess implements CharacterDataAccess {
             ResultSet data = statement.executeQuery();
             Character character;
             ArrayList<Character> characters = new ArrayList<>();
-            String petName;
-            Integer damagePerSecond;
 
             while (data.next()) {
                 character = new Character(data.getString("name"), (Integer)data.getObject("healthPoint"),
@@ -40,16 +38,6 @@ public class CharacterDBAccess implements CharacterDataAccess {
                 calendar.setTime(creationDate);
                 character.setCreationDate(calendar);
 
-                /*petName = data.getString("petName");
-                if (!data.wasNull()) {
-                    character.setPetName(petName);
-                }
-
-                damagePerSecond = data.getInt("damagePerSecond");
-                if (!data.wasNull()) {
-                    character.setDamagePerSecond(damagePerSecond);
-                }*/
-
                 characters.add(character);
             }
             return characters;
@@ -60,12 +48,12 @@ public class CharacterDBAccess implements CharacterDataAccess {
         } catch (HealthPointsException healthPointsException) {
             throw new DataException(2);
         } catch (DamagePerSecondException damagePerSecondException) {
-            throw new DataException(6);
+            throw new DataException(5);
         }
     }
 
     public ArrayList<String> getAllCharactersInAGame(String pseudo, int number, String gameName) throws DataException, DataAccessException {
-        Connection connection = null;
+        Connection connection;
         try {
             connection = SingletonConnection.getInstance();
 
@@ -99,11 +87,11 @@ public class CharacterDBAccess implements CharacterDataAccess {
     }
 
     public int deleteACharacter(String pseudo, int number, String gameName, String characterName) throws DataAccessException, DataException {
-        if (!isDeleteParametersValide(pseudo, number, gameName, characterName)) {
+        if (!isDeleteParametersValid(pseudo, number, gameName, characterName)) {
             throw new DataException(7);
         } else {
             int state = 0;
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = SingletonConnection.getInstance();
 
@@ -148,10 +136,10 @@ public class CharacterDBAccess implements CharacterDataAccess {
     }
 
     public int insertACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataException, DataAccessException {
-        if(!isInsertParametersValide(character, pseudo, number, game, server, characterClass)){
+        if (!isInsertParametersValid(character, pseudo, number, game, server, characterClass)) {
             throw new DataException(6);
         }else {
-            Connection connection = null;
+            Connection connection;
             try {
                connection = SingletonConnection.getInstance();
                 int state = 0;
@@ -236,10 +224,10 @@ public class CharacterDBAccess implements CharacterDataAccess {
     }
 
     public int modifyACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataException, DataAccessException {
-        if(!isInsertParametersValide(character, pseudo, number, game, server, characterClass)){
+        if (!isInsertParametersValid(character, pseudo, number, game, server, characterClass)) {
             throw new DataException(8);
         }else {
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = SingletonConnection.getInstance();
                 int state = 0;
@@ -327,7 +315,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
     }
 
 
-    private boolean isInsertParametersValide(Character character, String pseudo, int number, String game, String server, String characterClass){
+    private boolean isInsertParametersValid(Character character, String pseudo, int number, String game, String server, String characterClass) {
         String noSelection = "No selection";
         return character != null && !character.getName().isEmpty() && Pattern.matches("^[a-zA-Z_-]{4,50}", character.getName())
                 && character.getHealthPoints() >= Character.getMinHp()
@@ -340,7 +328,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
                 && characterClass != null && !characterClass.equals(noSelection);
     }
 
-    private boolean isDeleteParametersValide(String pseudo, int number, String gameName, String characterName){
+    private boolean isDeleteParametersValid(String pseudo, int number, String gameName, String characterName) {
         String noSelection = "No selection";
         return pseudo != null && !pseudo.equals(noSelection) && gameName != null && !gameName.equals(noSelection)
                 && characterName != null && !characterName.equals(noSelection) && String.valueOf(number).length() == 5;
@@ -395,7 +383,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
         } catch (HealthPointsException healthPointException){
             throw  new DataException(2);
         }catch (DamagePerSecondException damagePerSecondException){
-            throw  new DataException(6);
+            throw new DataException(5);
         }
     }
 

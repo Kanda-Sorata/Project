@@ -30,7 +30,7 @@ public class DeletePanelCombo extends JPanel {
     private DeletePanelTable deletePanelTable;
 
 
-    public DeletePanelCombo(DeletePanelTable deletePanelTable){
+    public DeletePanelCombo(DeletePanelTable deletePanelTable) throws DataAccessException, DataException {
         //Add properties
         setLayout(new GridLayout(2, 2, 5, 15));
         setBorder(new EmptyBorder(225, 100, 275, 150)); //Top, left, bottom, right
@@ -39,39 +39,30 @@ public class DeletePanelCombo extends JPanel {
         utilitiesPanelMethod = new UtilitiesPanelMethod();
         gameController = new GameController();
 
+
+        playerAccounts = utilitiesPanelMethod.setPlayerAccountsPseudo();
+
+        //Listener
+        comboBoxListener = new ComboBoxListener();
+
         //Add components
-        try{
-            playerAccounts = utilitiesPanelMethod.setPlayerAccountsPseudo();
+        playerAccountLabel = new JLabel("Player account");
+        playerAccountLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        playerAccountCombo = new JComboBox(playerAccounts.toArray());
+        playerAccountCombo.addItemListener(comboBoxListener);
 
-            //Listener
-            comboBoxListener = new ComboBoxListener();
+        gameLabel = new JLabel("Game name");
+        gameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        games = new ArrayList<>();
+        games.add("No selection");
+        gameCombo = new JComboBox(games.toArray());
+        gameCombo.addItemListener(comboBoxListener);
+        gameCombo.setEnabled(false);
 
-            //Add components
-            playerAccountLabel = new JLabel("Player account");
-            playerAccountLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-            playerAccountCombo = new JComboBox(playerAccounts.toArray());
-            playerAccountCombo.addItemListener(comboBoxListener);
-
-            gameLabel = new JLabel("Game name");
-            gameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-            games = new ArrayList<>();
-            games.add("No selection");
-            gameCombo = new JComboBox(games.toArray());
-            gameCombo.addItemListener(comboBoxListener);
-            gameCombo.setEnabled(false);
-
-            add(playerAccountLabel);
-            add(playerAccountCombo);
-            add(gameLabel);
-            add(gameCombo);
-
-        } catch (DataAccessException dataAccessException) {
-            utilitiesPanelMethod.removeAllFromResultPanel(this.deletePanelTable);
-            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (DataException dataException) {
-            utilitiesPanelMethod.removeAllFromResultPanel(this.deletePanelTable);
-            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        add(playerAccountLabel);
+        add(playerAccountCombo);
+        add(gameLabel);
+        add(gameCombo);
     }
 
     private class ComboBoxListener implements ItemListener {

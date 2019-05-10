@@ -25,8 +25,8 @@ public class CharacterClassBusinessLogicTest {
             if (nbCharactersTotal <= 0) {
                 throw new IllegalArgumentException("This method need a number of characters more than 0!");
             } else {
-                double result = topOfClass.getNbCharacters() / nbCharactersTotal;
-                Assert.assertEquals(result, characterClassBusinessLogic.getPercent(topOfClass, nbCharactersTotal), 0.001);
+                double expected = (topOfClass.getNbCharacters() / (double) nbCharactersTotal) * 100;
+                Assert.assertEquals(expected, characterClassBusinessLogic.getPercent(topOfClass, nbCharactersTotal), 0.001);
             }
         }
     }

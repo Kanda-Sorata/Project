@@ -23,7 +23,7 @@ public class SearchPanelSpell extends JPanel {
     private UtilitiesPanelMethod utilitiesPanelMethod;
     private ResultSpellPanel resultSpellPanel;
 
-    public SearchPanelSpell(ResultSpellPanel resultSpellPanel){
+    public SearchPanelSpell(ResultSpellPanel resultSpellPanel) throws DataAccessException, DataException {
         //Add properties
         setLayout(new GridLayout(1, 2, 5, 15));
         setBorder(new EmptyBorder(250, 0, 300, 250)); //top, left, bottom, right
@@ -32,25 +32,17 @@ public class SearchPanelSpell extends JPanel {
         utilitiesPanelMethod = new UtilitiesPanelMethod();
         this.resultSpellPanel = resultSpellPanel;
 
-        try {
-            pseudos = utilitiesPanelMethod.setPlayerAccountsPseudo();
+        pseudos = utilitiesPanelMethod.setPlayerAccountsPseudo();
 
-            //Add components
-            playerAccount = new JLabel("Player Account");
-            playerAccount.setHorizontalAlignment(SwingConstants.RIGHT);
+        //Add components
+        playerAccount = new JLabel("Player Account");
+        playerAccount.setHorizontalAlignment(SwingConstants.RIGHT);
 
-            playerAccountCombo = new JComboBox(pseudos.toArray());
-            playerAccountCombo.addItemListener(new ComboBoxListener());
+        playerAccountCombo = new JComboBox(pseudos.toArray());
+        playerAccountCombo.addItemListener(new ComboBoxListener());
 
-            add(playerAccount);
-            add(playerAccountCombo);
-        }catch (DataAccessException dataAccessException){
-            utilitiesPanelMethod.removeAllFromResultPanel(this.resultSpellPanel);
-            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }catch(DataException dataException) {
-            utilitiesPanelMethod.removeAllFromResultPanel(this.resultSpellPanel);
-            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        add(playerAccount);
+        add(playerAccountCombo);
     }
 
     public String getPseudoChoice() {

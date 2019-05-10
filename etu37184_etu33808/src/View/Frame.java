@@ -2,6 +2,8 @@ package View;
 
 import Controller.SingletonController;
 import Exception.DataAccessException;
+import Exception.DataException;
+import Exception.DivideException;
 import Model.Character;
 import View.CharacterPanel.DeletePanel;
 import View.CharacterPanel.DisplayPanel;
@@ -59,6 +61,8 @@ public class Frame extends JFrame{
 
     private SingletonController singletonController;
 
+    private InformationPanel informationPanel;
+
     public Frame(){
         //Generale
         super("Account management - Home");
@@ -107,7 +111,7 @@ public class Frame extends JFrame{
         // here's the part where i center the jframe on screen
         setLocationRelativeTo(null);
 
-        setResizable(true);
+        setResizable(false);
 
         addWindowListener(new WindowAdapter() { //Fermer la fenetre
             @Override
@@ -205,8 +209,20 @@ public class Frame extends JFrame{
             else{
                 container.removeAll();
                 if(event.getSource() == topOfClass){
-                    topOfClassPanel = new TopOfClassPanel(getFrame());
-                    container.add(topOfClassPanel);
+                    try {
+                        topOfClassPanel = new TopOfClassPanel();
+                        setTitleFrame("Top of Classes");
+                        container.add(topOfClassPanel);
+                    } catch (DataAccessException dataAccessException) {
+                        updatePanelToGoHome();
+                        JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    } catch (DataException dataException) {
+                        updatePanelToGoHome();
+                        JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    } catch (DivideException divideException) {
+                        updatePanelToGoHome();
+                        JOptionPane.showMessageDialog(null, divideException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }else {
                     homePanel = new HomePanel(getFrame());
                     container.add(homePanel);
@@ -221,17 +237,44 @@ public class Frame extends JFrame{
         public void actionPerformed(ActionEvent event) {
             container.removeAll();
           if(event.getSource() == listGamesFromCharacter){
-              gamePanel = new GamePanel(getFrame());
-              container.add(gamePanel);
+              try {
+                  gamePanel = new GamePanel();
+                  container.add(gamePanel);
+                  setTitleFrame("Search for game(s)");
+              } catch (DataAccessException dataAccessException) {
+                  updatePanelToGoHome();
+                  JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+              } catch (DataException dataException) {
+                  updatePanelToGoHome();
+                  JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+              }
           }
           else{
               if(event.getSource() == listSpellsCharacterFromPlayer){
-                  spellPanel = new SpellPanel(getFrame());
-                  container.add(spellPanel);
+                  try {
+                      spellPanel = new SpellPanel();
+                      container.add(spellPanel);
+                      setTitleFrame("Search for spell(s)");
+                  } catch (DataAccessException dataAccessException) {
+                      updatePanelToGoHome();
+                      JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                  } catch (DataException dataException) {
+                      updatePanelToGoHome();
+                      JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                  }
               }
               else{
-                  effectPanel = new EffectPanel(getFrame());
-                  container.add(effectPanel);
+                  try {
+                      effectPanel = new EffectPanel();
+                      container.add(effectPanel);
+                      setTitleFrame("Search for spell's effect(s)");
+                  } catch (DataAccessException dataAccessException) {
+                      updatePanelToGoHome();
+                      JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                  } catch (DataException dataException) {
+                      updatePanelToGoHome();
+                      JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                  }
               }
           }
 
@@ -244,22 +287,58 @@ public class Frame extends JFrame{
         public void actionPerformed(ActionEvent actionEvent) {
             container.removeAll();
             if(actionEvent.getSource() == add){
-                newPanel = new NewPanel(getFrame());
-                container.add(newPanel);
+                try {
+                    newPanel = new NewPanel(getFrame());
+                    container.add(newPanel);
+                    setTitleFrame("Add a new character");
+                } catch (DataAccessException dataAccessException) {
+                    updatePanelToGoHome();
+                    JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (DataException dataException) {
+                    updatePanelToGoHome();
+                    JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
             else{
                 if(actionEvent.getSource() == modify){
-                    modifyPanel = new ModifyPanel(getFrame());
-                    container.add(modifyPanel);
+                    try {
+                        modifyPanel = new ModifyPanel(getFrame());
+                        container.add(modifyPanel);
+                        setTitleFrame("Modify a character");
+                    } catch (DataAccessException dataAccessException) {
+                        updatePanelToGoHome();
+                        JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    } catch (DataException dataException) {
+                        updatePanelToGoHome();
+                        JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
                 else{
                     if(actionEvent.getSource() == delete){
-                        deletePanel = new DeletePanel(getFrame());
-                        container.add(deletePanel);
+                        try {
+                            deletePanel = new DeletePanel();
+                            container.add(deletePanel);
+                            setTitleFrame("Delete a character");
+                        } catch (DataAccessException dataAccessException) {
+                            updatePanelToGoHome();
+                            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        } catch (DataException dataException) {
+                            updatePanelToGoHome();
+                            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
                     else{
-                        displayPanel = new DisplayPanel(getFrame());
-                        container.add(displayPanel);
+                        try {
+                            displayPanel = new DisplayPanel();
+                            container.add(displayPanel);
+                            setTitleFrame("Display all character(s)");
+                        } catch (DataAccessException dataAccessException) {
+                            updatePanelToGoHome();
+                            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        } catch (DataException dataException) {
+                            updatePanelToGoHome();
+                            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
                 }
             }
@@ -272,6 +351,7 @@ public class Frame extends JFrame{
             container.removeAll();
             helpPanel = new HelpPanel(getFrame());
             container.add(helpPanel);
+            setTitleFrame("Help");
             setVisible(true);
         }
     }
@@ -372,9 +452,22 @@ public class Frame extends JFrame{
         this.indexCharacterClass = indexCharacterClass;
     }
 
+    public void setTitleFrame(String extraTitle) {
+        setTitle("");
+        setTitle("Account management - " + extraTitle);
+    }
+
     public String getTitle(){
         return "Account management ";
     }
 
+
+    public void updatePanelToGoHome() {
+        informationPanel = new InformationPanel(this);
+        container.removeAll();
+        container.add(informationPanel);
+        container.revalidate();
+        container.repaint();
+    }
 
 }

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class ServerDBAccess implements ServerDataAccess {
     @Override
     public ArrayList<String> getAllServersName(String pseudoChoice, int numberChoice, String game) throws DataException, DataAccessException {
-        Connection connection = null;
+        Connection connection;
         try{
             connection = SingletonConnection.getInstance();
             String query = "select  server.name from playeraccount, game, server, acquisition "

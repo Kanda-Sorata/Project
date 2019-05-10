@@ -21,28 +21,21 @@ public class DisplayPanelPlayers extends JPanel {
     private String pseudoChoice;
     private int numberChoice;
 
-    public DisplayPanelPlayers(DisplayPanelResult displayPanelResult) {
+    public DisplayPanelPlayers(DisplayPanelResult displayPanelResult) throws DataAccessException, DataException {
         //Init
         this.displayPanelResult = displayPanelResult;
         utilitiesPanelMethod = new UtilitiesPanelMethod();
 
-        try {
-            playerAccountLabel = new JLabel("Player account");
-            comboBoxListener = new ComboBoxListener();
-            playerAccountController = new AccountPlayerController();
-            allPlayers = utilitiesPanelMethod.setPlayerAccountsPseudo();
-            playerAccountCombo = new JComboBox(allPlayers.toArray());
-            playerAccountCombo.addActionListener(comboBoxListener);
+        //Add components
+        playerAccountLabel = new JLabel("Player account");
+        comboBoxListener = new ComboBoxListener();
+        playerAccountController = new AccountPlayerController();
+        allPlayers = utilitiesPanelMethod.setPlayerAccountsPseudo();
+        playerAccountCombo = new JComboBox(allPlayers.toArray());
+        playerAccountCombo.addActionListener(comboBoxListener);
 
-            add(playerAccountLabel);
-            add(playerAccountCombo);
-        } catch (DataAccessException dataAccessException) {
-            utilitiesPanelMethod.removeAllFromResultPanel(this.displayPanelResult);
-            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (DataException dataException) {
-            utilitiesPanelMethod.removeAllFromResultPanel(this.displayPanelResult);
-            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        add(playerAccountLabel);
+        add(playerAccountCombo);
     }
 
     private class ComboBoxListener implements ActionListener {

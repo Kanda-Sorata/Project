@@ -19,7 +19,7 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
     public AccountPlayerDBAccess(){}
 
     public Integer getNbAccountPlayers() throws DataException, DataAccessException {
-        Connection connection = null;
+        Connection connection;
         try {
             connection = SingletonConnection.getInstance();
             String query = "select count(*) from playeraccount;";
@@ -39,7 +39,7 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
     }
 
     public ArrayList<AccountPlayer> getAllAccountPlayer() throws DataException, DataAccessException {
-        Connection connection = null;
+        Connection connection;
         try {
             connection = SingletonConnection.getInstance();
             String query = "select * from playeraccount";

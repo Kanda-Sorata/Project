@@ -44,9 +44,10 @@ public class UtilitiesPanelMethod {
        return table;
     }
 
-    public void removeAllFromResultPanel(JPanel panel) {
-        panel.removeAll();
-        panel.revalidate();
-        panel.repaint();
+    public void updatePanelToGoHome(JPanel panel, Frame frame) {
+        frame.getContainer().removeAll();
+        frame.getContainer().add(new InformationPanel(frame));
+        frame.revalidate();
+        frame.repaint();
     }
 }

@@ -17,7 +17,7 @@ public class GameDBAccess implements GameDataAccess {
 
     public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, int number, String character,
                                         GregorianCalendar dateEnd) throws DataException, DataAccessException{
-        Connection connection = null;
+        Connection connection;
         try {
             connection = SingletonConnection.getInstance();
 
@@ -64,7 +64,7 @@ public class GameDBAccess implements GameDataAccess {
     }
 
     public ArrayList<String> getAllGames() throws DataException, DataAccessException{
-        Connection connection = null;
+        Connection connection;
         try{
             connection = SingletonConnection.getInstance();
 
@@ -89,7 +89,7 @@ public class GameDBAccess implements GameDataAccess {
     }
 
     public ArrayList<String> getAllGamesName(String pseudoChoice, int numberChoice) throws DataAccessException, DataException {
-        Connection connection = null;
+        Connection connection;
         try{
             connection = SingletonConnection.getInstance();
 
@@ -110,7 +110,6 @@ public class GameDBAccess implements GameDataAccess {
             }
 
             return gamesName;
-
         }catch (ConnectionException connectionException){
             throw new DataAccessException(1);
         }catch (SQLException sqlException) {
