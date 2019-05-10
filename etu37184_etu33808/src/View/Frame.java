@@ -31,6 +31,7 @@ public class Frame extends JFrame{
     private JMenuItem modify;
     private JMenuItem delete;
     private JMenuItem list;
+    private JMenu help;
 
     private GamePanel gamePanel;
     private SpellPanel spellPanel;
@@ -41,6 +42,7 @@ public class Frame extends JFrame{
     private DisplayPanel displayPanel;
     private HomePanel homePanel;
     private TopOfClassPanel topOfClassPanel;
+    private HelpPanel helpPanel;
 
     private Character characterForm;
     private Boolean haveSavedValue;
@@ -98,13 +100,13 @@ public class Frame extends JFrame{
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int height = screenSize.height;
         int width = screenSize.width;
-        //pack();
+        pack();
         setSize(width/2+100, height/2+100);
 
         // here's the part where i center the jframe on screen
         setLocationRelativeTo(null);
 
-        setResizable(false);
+        setResizable(true);
 
         addWindowListener(new WindowAdapter() { //Fermer la fenetre
             @Override
@@ -125,11 +127,11 @@ public class Frame extends JFrame{
         application = new JMenu("Application");
         search = new JMenu("Search");
         character = new JMenu("Character");
-        //JMenu Help if we have the time
+        help = new JMenu("?");
 
         SearchListener searchListener = new SearchListener();
         CharacterListener characterListener = new CharacterListener();
-        ApplicationListner applicationListener = new ApplicationListner();
+        ApplicationListener applicationListener = new ApplicationListener();
 
         //Appplication
         application.setMnemonic('a');
@@ -173,14 +175,18 @@ public class Frame extends JFrame{
         list.addActionListener(characterListener);
         character.add(list);
 
+        //Help
+        help.setMnemonic('?');
+
         //Menu
         menu.add(application);
         menu.add(search);
         menu.add(character);
+        menu.add(help);
         return menu;
     }
 
-    private class ApplicationListner implements ActionListener {
+    private class ApplicationListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event){
             if(event.getSource() == exit) {
@@ -253,6 +259,14 @@ public class Frame extends JFrame{
                 }
             }
             setVisible(true);
+        }
+    }
+
+    public class HelpListener implements ActionListener {
+        public void actionPerformed(ActionEvent actionEvent){
+            container.removeAll();
+            helpPanel = new HelpPanel(getFrame());
+            container.add(helpPanel);
         }
     }
 

@@ -13,16 +13,20 @@ public class HomePanel extends JPanel {
     private JLabel messageLabel;
 
     public HomePanel(Frame frame){
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = screenSize.height;
+        int width = screenSize.width;
+
         setLayout(new FlowLayout());
-        setBorder(new EmptyBorder(20, 250, 250, 250));
 
         frame.setTitle("");
         frame.setTitle(frame.getTitle() + "- Home");
 
         //Image
         try{
-            BufferedImage image = ImageIO.read(new File("./image.png"));
-            JLabel label = new JLabel (new ImageIcon(image));
+            Image image = ImageIO.read(new File("./image.png"));
+            Image imageResize = image.getScaledInstance(width/2+100, height/2+30, Image.SCALE_DEFAULT);
+            JLabel label = new JLabel (new ImageIcon(imageResize));
             add(label);
         } catch (IOException exception){
             //joption pane
