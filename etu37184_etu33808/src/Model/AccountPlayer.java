@@ -58,7 +58,7 @@ public class AccountPlayer {
 
     public String getSex() { return sex; }
 
-    public void setSex(String sex) throws SexException{ //Add tolower
+    public void setSex(String sex) throws SexException {
         if(sex.equals("f") || sex.equals("m")){
           this.sex = sex;
         }
@@ -97,19 +97,6 @@ public class AccountPlayer {
 
     public static void setNbPlayers() {
         nbPlayers += 1;
-    }
-
-    @Override
-    public String toString() {
-        return "AccountPlayer{" +
-                "id=" + id +
-                ", pseudo='" + pseudo + '\'' +
-                ", number=" + number +
-                ", sex=" + sex +
-                ", creationDate=" + creationDate +
-                ", city='" + city + '\'' +
-                ", country='" + country + '\'' +
-                '}';
     }
 
 }

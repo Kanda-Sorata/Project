@@ -23,12 +23,14 @@ public class CharacterClassBusinessLogic {
     }
 
     public ArrayList<TopOfClass> getAllCharacterClassOrderClass() throws DataAccessException, DataException {
-        try {
-            return  dao.getAllCharacterClassOrderClass();
-        } catch (DataAccessException dataAccessException) {
-            throw new DataAccessException(0);
-        } catch (DataException dataException) {
-            throw new DataException(1);
+        ArrayList<TopOfClass> topOfClasses = dao.getAllCharacterClassOrderClass();
+        int nbCharactersTotal = 0;
+        for (TopOfClass topOfClass : topOfClasses) {
+            nbCharactersTotal += topOfClass.getNbCharacters();
         }
+        for (TopOfClass topOfClass : topOfClasses) {
+            topOfClass.setPurcent((topOfClass.getNbCharacters() / (double) nbCharactersTotal) * 100);
+        }
+        return topOfClasses;
     }
 }

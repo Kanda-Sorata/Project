@@ -4,6 +4,7 @@ import Controller.SpellController;
 import Exception.DataAccessException;
 import Exception.DataException;
 import Model.SearchSpellList;
+import View.UtilitiesPanelMethode;
 
 import javax.swing.*;
 import java.awt.*;

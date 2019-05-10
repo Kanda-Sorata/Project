@@ -1,15 +1,14 @@
 package View.SearchPanel;
 
-//todo changer les tableaux et mettre arraylist.toArray()
-
 import Exception.DataAccessException;
 import Exception.DataException;
+import View.UtilitiesPanelMethode;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 
@@ -39,7 +38,7 @@ public class SearchPanelSpell extends JPanel {
             playerAccount.setHorizontalAlignment(SwingConstants.RIGHT);
 
             playerAccountCombo = new JComboBox(pseudos.toArray());
-            playerAccountCombo.addActionListener(new ComboBocListener());
+            playerAccountCombo.addItemListener(new ComboBoxListener());
 
             add(playerAccount);
             add(playerAccountCombo);
@@ -66,9 +65,9 @@ public class SearchPanelSpell extends JPanel {
         this.numberChoice = numberChoice;
     }
 
-    private class ComboBocListener implements ActionListener{
+    private class ComboBoxListener implements ItemListener {
         @Override
-        public void actionPerformed(ActionEvent actionEvent) {
+        public void itemStateChanged(ItemEvent itemEvent) {
             if(playerAccountCombo.getSelectedIndex() != 0){
                 setPseudoChoice(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[0]);
                 setNumberChoice(Integer.parseInt(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[1]));

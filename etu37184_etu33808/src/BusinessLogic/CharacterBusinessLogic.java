@@ -4,6 +4,7 @@ import DataAccess.CharacterDBAccess;
 import Exception.DataAccessException;
 import Exception.DataException;
 import Model.Character;
+import Model.DisplayCharacter;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -60,8 +61,8 @@ public class CharacterBusinessLogic {
                 && character.getHealthPoints() >= Character.getMinHp()
                 && character.getHealthPoints() <= Character.getMaxHp() && character.getCreationDate() != null
                 && character.getStuffed() != null
-                && ((character.getDamagePerSecond() != null && character.getDamagePerSecond() >= Character.getMinDmg()
-                && character.getDamagePerSecond() <= Character.getMaxDmg()) || character.getDamagePerSecond() == null) && pseudo != null
+                && (character.getDamagePerSecond() == null || (character.getDamagePerSecond() >= Character.getMinDmg()
+                && character.getDamagePerSecond() <= Character.getMaxDmg())) && pseudo != null
                 && !pseudo.equals(noSelection) && game != null
                 && !game.equals(noSelection) && server != null && !server.equals(noSelection)
                 && characterClass != null && !characterClass.equals(noSelection);
@@ -75,5 +76,9 @@ public class CharacterBusinessLogic {
 
     public ArrayList<String> getAllCharactersInAGameInServerWithCharacterClass(String pseudo, int number, String game, String server, String characterClass) throws DataException, DataAccessException{
         return dao.getAllCharactersInAGameInServerWithCharacterClass(pseudo, number, game, server, characterClass);
+    }
+
+    public ArrayList<DisplayCharacter> getAllInfosCharacters(String pseudoChoice, int numberChoice) throws DataException, DataAccessException {
+        return dao.getAllInfosCharacters(pseudoChoice, numberChoice);
     }
 }

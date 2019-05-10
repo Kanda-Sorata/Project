@@ -42,7 +42,7 @@ public class FormPanelRight extends JPanel {
     private Date initDate;
     private Date latestDate;
     private Date earliestDate;
-    private int healthPointValue;
+    private int healthPointMax;
 
     private ButtonsPanel buttonsPanel;
 
@@ -53,6 +53,8 @@ public class FormPanelRight extends JPanel {
     private JLabel requiredLabel;
 
     private CharacterController characterController;
+
+    private Character character;
 
 
     public FormPanelRight(ButtonsPanel buttonsPanel){
@@ -75,8 +77,7 @@ public class FormPanelRight extends JPanel {
         healthPointLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         healthPointSlider = new JSlider(JSlider.HORIZONTAL);
         healthPointSlider.setEnabled(false);
-        this.setHealthPointValue(0);
-        setHealthPointSlider(healthPointValue, Character.getMaxHp(), Character.getMinHp());
+        setHealthPointSlider(Character.getMinHp(), Character.getMaxHp(), Character.getMinHp());
 
         isStuffedLabel = new JLabel("<html>Is already stuffed<font color = 'red'>*</font></html>");
         isStuffedLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -153,7 +154,7 @@ public class FormPanelRight extends JPanel {
         sliderLabels = new Hashtable<>();
         sliderLabels.put(minimum, new JLabel(String.valueOf(minimum)));
         sliderLabels.put(maximum, new JLabel(String.valueOf(maximum)));
-        sliderLabels.put(value, new JLabel("(current):" + value));
+        sliderLabels.put(value, new JLabel(String.valueOf(value)));
     }
 
     public void setDamagePerSecondSlider(int minimum, int maximum, int value){
@@ -215,17 +216,12 @@ public class FormPanelRight extends JPanel {
         return damagePerSecondActivated.isSelected();
     }
 
-    public void setHealthPointValue(int healthPointValue) {
-        this.healthPointValue = healthPointValue;
-    }
-
     //Set Form
 
     public void setNameField(String name) {
         this.nameField.setText(name);
     }
 
-    public void setHealthPointSlider(int healthPoint){ setHealthPointSlider(Character.getMinHp(), Character.getMaxHp(), healthPoint);}
 
     public void setStuffedCheckBox(boolean isStuffed) {
         isStuffedCheckBox.setSelected(isStuffed);
@@ -304,10 +300,11 @@ public class FormPanelRight extends JPanel {
         petNameLabel.setText("<html><font color = 'red'>Pet name</font></html>");
     }
 
-    public void setCreationDateLabelError(){
-        creationDateLabel.setText("<html><font color = 'red'>Creational date*</font></html>");
-    }
+    public void setCreationDateLabelError(){ creationDateLabel.setText("<html><font color = 'red'>Creational date*</font></html>"); }
+
     public void setDamagePerSecondLabelError(){ damagePerSecondLabel.setText("<html><font color = 'red'>Damage per second*</font></html>"); }
+
+    public void setHealthPointLabelError(){ healthPointLabel.setText("<html><font color = 'red'>Health point*</font></html>"); }
 
 
     //Reset form
@@ -325,6 +322,8 @@ public class FormPanelRight extends JPanel {
     }
     public void setDamagePerSecondLabelReset(){ damagePerSecondLabel.setText("<html>Damage per second<font color = 'red'>*</font></html>"); }
 
+    public void setHealthPointLabelReset(){ healthPointLabel.setText("<html>Health point<font color = 'red'>*</font></html>");}
+
 
     //Listener
 
@@ -333,7 +332,7 @@ public class FormPanelRight extends JPanel {
         public void stateChanged(ChangeEvent changeEvent) {
             if (changeEvent.getSource() == damagePerSecondSlider) {
                 if (!damagePerSecondSlider.getValueIsAdjusting()) {
-                    setDamagePerSecondSlider(damagePerSecondSlider.getValue());
+                    setDamagePerSecondSlider(damagePerSecondSlider.getMinimum(), damagePerSecondSlider.getMaximum(), damagePerSecondSlider.getValue());
                 }
             }
         }
@@ -344,7 +343,7 @@ public class FormPanelRight extends JPanel {
         public void stateChanged(ChangeEvent changeEvent) {
             if(changeEvent.getSource() == healthPointSlider) {
                 if (!healthPointSlider.getValueIsAdjusting()) {
-                    setHealthPointSlider(healthPointSlider.getValue());
+                    setHealthPointSlider(healthPointSlider.getMinimum(), healthPointSlider.getMaximum(), healthPointSlider.getValue());
                 }
             }
         }
@@ -376,10 +375,10 @@ public class FormPanelRight extends JPanel {
     public void setFieldWithCharacterValues(String pseudo, int number, String game, String server, String characterClass, String characterName){
         characterController = new CharacterController();
         try {
-            Character character;
             character = characterController.getOneCharacter(pseudo, number, game, server, characterClass, characterName);
             setNameField(character.getName());
-            setHealthPointSlider(character.getHealthPoints());
+            setHealthPointSlider(Character.getMinHp(), healthPointMax, character.getHealthPoints());
+            healthPointSlider.setEnabled(true);
             setStuffedCheckBox(character.isStuffed());
             setCreationDateSpinner(character.getCreationDate().getTime());
             setPetNameField(character.getPetName());
@@ -398,9 +397,10 @@ public class FormPanelRight extends JPanel {
                                                                                             JOptionPane.ERROR_MESSAGE);
         }
     }
+
     public void unsetFieldWithCharacterValues(){
         setNameField("");
-        setHealthPointSlider(0);
+        setHealthPointSlider(Character.getMinHp(), Character.getMaxHp(), Character.getMinHp());
         setStuffedCheckBox(false);
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.getTimeZone();
@@ -408,5 +408,13 @@ public class FormPanelRight extends JPanel {
         setPetNameField("");
         setDamagePerSecondActivated(false);
         setDamagePerSecondSlider(0);
+    }
+
+    public int getHealthPointMax() {
+        return healthPointMax;
+    }
+
+    public void setHealthPointMax(int healthPointMax) {
+        this.healthPointMax = healthPointMax;
     }
 }

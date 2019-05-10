@@ -4,6 +4,7 @@ import Controller.GameController;
 import Exception.DataAccessException;
 import Exception.DataException;
 import Model.SearchGameList;
+import View.UtilitiesPanelMethode;
 
 import javax.swing.*;
 import java.awt.*;

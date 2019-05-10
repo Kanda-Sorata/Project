@@ -1,8 +1,5 @@
 package Model;
 
-import BusinessLogic.Utilitie;
-import Exception.UniqueNameException;
-
 import java.util.GregorianCalendar;
 
 public class Server {
@@ -13,7 +10,7 @@ public class Server {
     private static final int MIN_PLAYER = 0;
     private static final int MAX_PLAYER = 10;
 
-    public Server(String name, GregorianCalendar creationDate, boolean playerVersusPlayer, Integer nbPlayersMax) throws UniqueNameException {
+    public Server(String name, GregorianCalendar creationDate, boolean playerVersusPlayer, Integer nbPlayersMax) {
         setName(name);
         setCreationDate(creationDate);
         setPlayerVersusPlayer(playerVersusPlayer);
@@ -24,13 +21,8 @@ public class Server {
         return name;
     }
 
-    public void setName(String name)throws UniqueNameException{
-        if(!Utilitie.estUnique("Server", name)) {
-            throw new UniqueNameException(name);
-        }
-        else{
-            this.name =  name;
-        }
+    public void setName(String name) {
+        this.name = name;
     }
 
     public GregorianCalendar getCreationDate() {

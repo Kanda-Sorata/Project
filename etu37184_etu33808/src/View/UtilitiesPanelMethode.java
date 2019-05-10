@@ -1,4 +1,4 @@
-package View.SearchPanel;
+package View;
 
 import Controller.AccountPlayerController;
 import Exception.DataAccessException;

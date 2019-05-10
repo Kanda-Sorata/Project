@@ -98,7 +98,7 @@ public class Frame extends JFrame{
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int height = screenSize.height;
         int width = screenSize.width;
-        pack();
+        //pack();
         setSize(width/2+100, height/2+100);
 
         // here's the part where i center the jframe on screen
@@ -163,7 +163,7 @@ public class Frame extends JFrame{
         add = new JMenuItem("Add a new character");
         add.addActionListener(characterListener);
         character.add(add);
-        modify = new JMenuItem("Modifiy a new character");
+        modify = new JMenuItem("Modifiy a character");
         modify.addActionListener(characterListener);
         character.add(modify);
         delete = new JMenuItem("Delete a character");
@@ -190,12 +190,11 @@ public class Frame extends JFrame{
                     JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Close error", JOptionPane.ERROR_MESSAGE);
                 }
                 System.exit(0);
-                //todo close Connection
             }
             else{
                 container.removeAll();
                 if(event.getSource() == topOfClass){
-                    topOfClassPanel = new TopOfClassPanel();
+                    topOfClassPanel = new TopOfClassPanel(getFrame());
                     container.add(topOfClassPanel);
                 }else {
                     homePanel = new HomePanel(getFrame());
@@ -248,7 +247,7 @@ public class Frame extends JFrame{
                         container.add(deletePanel);
                     }
                     else{
-                        displayPanel = new DisplayPanel();
+                        displayPanel = new DisplayPanel(getFrame());
                         container.add(displayPanel);
                     }
                 }
