@@ -32,6 +32,7 @@ public class Frame extends JFrame{
     private JMenuItem delete;
     private JMenuItem list;
     private JMenu help;
+    private JMenuItem showHelp;
 
     private GamePanel gamePanel;
     private SpellPanel spellPanel;
@@ -132,6 +133,7 @@ public class Frame extends JFrame{
         SearchListener searchListener = new SearchListener();
         CharacterListener characterListener = new CharacterListener();
         ApplicationListener applicationListener = new ApplicationListener();
+        HelpListener helpListener = new HelpListener();
 
         //Appplication
         application.setMnemonic('a');
@@ -177,6 +179,9 @@ public class Frame extends JFrame{
 
         //Help
         help.setMnemonic('?');
+        showHelp = new JMenuItem("Show the help");
+        showHelp.addActionListener(helpListener);
+        help.add(showHelp);
 
         //Menu
         menu.add(application);
@@ -267,6 +272,7 @@ public class Frame extends JFrame{
             container.removeAll();
             helpPanel = new HelpPanel(getFrame());
             container.add(helpPanel);
+            setVisible(true);
         }
     }
 

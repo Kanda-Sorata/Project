@@ -38,14 +38,8 @@ public class SpellDBAccess implements SpellDataAccess {
             Integer cooldown;
 
             while (data.next()){
-                searchSpellList = new SearchSpellList(data.getString("name"), null,
+                searchSpellList = new SearchSpellList(data.getString("name"), (Integer)data.getObject("cooldwon"),
                         data.getString("characterName"));
-
-                cooldown = data.getInt("cooldown");
-                if (!data.wasNull()) {
-                    searchSpellList.setSpellCooldown(cooldown);
-                }
-
                 searchSpellLists.add(searchSpellList);
             }
             return searchSpellLists;

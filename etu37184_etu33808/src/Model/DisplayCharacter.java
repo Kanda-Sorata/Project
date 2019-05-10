@@ -9,13 +9,13 @@ public class DisplayCharacter {
     private String serverName;
     private String characterName;
     private String characterClassName;
-    private int healthPoint;
-    private boolean isStuffed;
+    private Integer healthPoint;
+    private Boolean isStuffed;
     private GregorianCalendar creationDate;
     private String petName;
     private Integer damagePerSecond;
 
-    public DisplayCharacter(String gameName, String serverName, String characterName, String characterClassName, int healthPoint, boolean isStuffed, GregorianCalendar creationDate, String petName, Integer damagePerSecond) {
+    public DisplayCharacter(String gameName, String serverName, String characterName, String characterClassName, Integer healthPoint, Boolean isStuffed, GregorianCalendar creationDate, String petName, Integer damagePerSecond) {
         setGameName(gameName);
         setServerName(serverName);
         setCharacterName(characterName);
@@ -79,11 +79,11 @@ public class DisplayCharacter {
         return characterClassName;
     }
 
-    public int getHealthPoint() {
+    public Integer getHealthPoint() {
         return healthPoint;
     }
 
-    public boolean getIsStuffed() {
+    public Boolean getIsStuffed() {
         return isStuffed;
     }
 

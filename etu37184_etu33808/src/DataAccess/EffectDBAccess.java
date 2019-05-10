@@ -34,7 +34,7 @@ public class EffectDBAccess implements EffectDataAccess{
             SearchEffectList searchEffectList;
 
             while(data.next()){
-                searchEffectList = new SearchEffectList(data.getString("labelEffect"), data.getString("spellName"), data.getInt("cooldown"));
+                searchEffectList = new SearchEffectList(data.getString("labelEffect"), data.getString("spellName"), (Integer)data.getObject("cooldown"));
                 searchEffectLists.add(searchEffectList);
             }
 

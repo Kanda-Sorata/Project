@@ -31,16 +31,16 @@ public class CharacterDBAccess implements CharacterDataAccess {
             Integer damagePerSecond;
 
             while (data.next()) {
-                character = new Character(data.getString("name"), data.getInt("healthPoint"),
-                        data.getBoolean("isStuffed"), null, null, null,
-                        null, null);
+                character = new Character(data.getString("name"), (Integer)data.getObject("healthPoint"),
+                        (Boolean)data.getObject("isStuffed"), null, data.getString("petName"),
+                        (Integer)data.getObject("damagePerSecond"), null, null);
 
                 java.sql.Date creationDate = data.getDate("creationDate");
                 GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime(creationDate);
                 character.setCreationDate(calendar);
 
-                petName = data.getString("petName");
+                /*petName = data.getString("petName");
                 if (!data.wasNull()) {
                     character.setPetName(petName);
                 }
@@ -48,7 +48,8 @@ public class CharacterDBAccess implements CharacterDataAccess {
                 damagePerSecond = data.getInt("damagePerSecond");
                 if (!data.wasNull()) {
                     character.setDamagePerSecond(damagePerSecond);
-                }
+                }*/
+
                 characters.add(character);
             }
             return characters;
@@ -376,24 +377,14 @@ public class CharacterDBAccess implements CharacterDataAccess {
             Integer damagePerSecond;
 
             while (data.next()) {
-                characterToFill = new Character(data.getString("name"), data.getInt("healthPoint"),
-                        data.getBoolean("isStuffed"), null, null, null,
-                        null, null);
+                characterToFill = new Character(data.getString("name"), (Integer)data.getObject("healthPoint"),
+                        (Boolean)data.getObject("isStuffed"), null, data.getString("petName"),
+                        (Integer)data.getObject("damagePerSecond"), null, null);
 
                 java.sql.Date creationDate = data.getDate("creationDate");
                 GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime(creationDate);
                 characterToFill.setCreationDate(calendar);
-
-                petName = data.getString("petName");
-                if (!data.wasNull()) {
-                    characterToFill.setPetName(petName);
-                }
-
-                damagePerSecond = data.getInt("damagePerSecond");
-                if (!data.wasNull()) {
-                    characterToFill.setDamagePerSecond(damagePerSecond);
-                }
             }
 
             return characterToFill;
@@ -482,25 +473,14 @@ public class CharacterDBAccess implements CharacterDataAccess {
 
             while (data.next()) {
                 currentChar = new DisplayCharacter(data.getString("GameName"), data.getString("ServerName"), data.getString("CharacterName"),
-                        data.getString("CharacterClassName"), data.getInt("healthPoint"),
-                        data.getBoolean("isStuffed"), null, data.getString("petName"),
-                        (Integer)data.getObject("damagePerSecond")); //todo
+                        data.getString("CharacterClassName"), (Integer)data.getObject("healthPoint"),
+                        (Boolean)data.getObject("isStuffed"), null, data.getString("petName"),
+                        (Integer)data.getObject("damagePerSecond"));
 
                 java.sql.Date creationDate = data.getDate("creationDate");
                 GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime(creationDate);
                 currentChar.setCreationDate(calendar);
-/*
-                petName = data.getString("petName");
-                if(!data.wasNull()){
-                    currentChar.setPetName(petName);
-                }
-
-                damagePerSecond = data.getInt("damagePerSecond");
-                if(!data.wasNull()){
-                    currentChar.setDamagePerSecond(damagePerSecond);
-                }
-*/
                 characters.add(currentChar);
             }
 

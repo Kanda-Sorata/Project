@@ -49,23 +49,17 @@ public class AccountPlayerDBAccess implements AccountPlayerDataAccess {
             ResultSet data = statement.executeQuery();
             ArrayList<AccountPlayer> accountPlayers = new ArrayList<>();
             AccountPlayer accountPlayer;
-            String city;
-            String sex;
 
             while (data.next()) {
-                accountPlayer = new AccountPlayer(data.getInt("id"), data.getString("pseudo"),
-                        data.getInt("number"), data.getString("sex"), null,
-                        data.getString("country"));
+                accountPlayer = new AccountPlayer((Integer)data.getObject("id"), data.getString("pseudo"),
+                        (Integer)data.getObject("number"), data.getString("sex"), null,
+                        data.getString("city"), data.getString("country"));
 
                 GregorianCalendar calendar = new GregorianCalendar();
                 java.sql.Date creationDate = data.getDate("creationDate");
                 calendar.setTime(creationDate);
                 accountPlayer.setCreationDate(calendar);
 
-                city = data.getString("city");
-                if (!data.wasNull()) {
-                    accountPlayer.setCity(city);
-                }
                 accountPlayers.add(accountPlayer);
             }
             return accountPlayers;

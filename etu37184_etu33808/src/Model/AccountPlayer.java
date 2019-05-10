@@ -17,13 +17,13 @@ public class AccountPlayer {
     private final static int MAX_NUMBER = 99999;
 
     public AccountPlayer(Integer id, String pseudo, Integer number, String sex, GregorianCalendar creationDate,
-                         String country) throws SexException {
+                         String city, String country) throws SexException {
         setId(id);
         setPseudo(pseudo);
         setNumber(number);
         setSex(sex);
         setCreationDate(creationDate);
-        setCity(null);
+        setCity(city);
         setCountry(country);
         setNbPlayers();
     }

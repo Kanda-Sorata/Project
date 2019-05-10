@@ -3,18 +3,18 @@ package Model;
 import java.text.DecimalFormat;
 
 public class TopOfClass {
-    private int nbCharacters;
+    private Integer nbCharacters;
     private String className;
     private String description;
-    private double purcent;
+    private Double purcent;
 
-    public TopOfClass(int nbCharacters, String className, String description) {
+    public TopOfClass(Integer nbCharacters, String className, String description) {
         this.nbCharacters = nbCharacters;
         this.className = className;
         this.description = description;
     }
 
-    public int getNbCharacters() {
+    public Integer getNbCharacters() {
         return nbCharacters;
     }
 
@@ -28,7 +28,7 @@ public class TopOfClass {
     }
 
 
-    public void setPurcent(double purcent) {
+    public void setPurcent(Double purcent) {
         this.purcent = purcent;
     }
 
