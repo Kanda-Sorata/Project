@@ -21,13 +21,21 @@ public class HelpPanel extends JPanel {
         String cssHeader = "font-size: 32px; " +
                 "font-family:Arial, Helvetica, sans-serif; " +
                 "text-align:center; ";
-        String cssOffer = "text-align:center; ";
+        String cssOffer = "text-align:left; ";
+        String cssIntro = "text-align:center;";
 
         message = "<html>" + //Only use this disposition of string for clarity
                 "<h1 style = " + cssHeader + " >Welcome to you !</h1>" +
-                "<p style = " + cssOffer + ">This software has been realised by Heintz Kelly and Rousseaux Corentin.</p>" +
-                "<p style = " + cssOffer + ">To the intention of Miss Dubisy Françoise and Miss Bertrand Chantal.</p>" +
-                "<p style = " + cssOffer + ">We would like to thank our Professors, Miss Dubisy Françoise and Miss Bertrand Chantal.</p>" +
+                "<p style = " + cssIntro + ">This software has been realised by Heintz Kelly and Rousseaux Corentin.</p>" +
+                "<p style = " + cssIntro + ">To the intention of Miss Dubisy Françoise and Miss Bertrand Chantal.</p>" +
+                "<p style = " + cssIntro + ">We would like to thank our Professors, Miss Dubisy Françoise and Miss Bertrand Chantal.</p>" +
+
+                "<h3 style = " + cssOffer + " >Control of this soft or to get some extra information about Player Accounts & Characters</h3>" +
+                "<ul>" +
+                "<li>Home - Come back at home</li>" +
+                "<li>Top of class - Get a list of character classes order by utilisation</li>" +
+                "<li>Data account information - You are able to open a new windows with extra information</li>" +
+                "</ul>" +
 
                 "<h3 style = " + cssOffer + ">Here are the features that you can find into the menu \"Search\"</h3>" +
                 "<ul>" +
