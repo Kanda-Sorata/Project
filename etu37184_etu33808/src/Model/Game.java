@@ -7,12 +7,12 @@ public class Game {
 
     private String name;
     private GregorianCalendar releaseDaze;
-    private boolean haveMultiLanguages;
+    private Boolean haveMultiLanguages;
     private Double price;
 
     private ArrayList<Server> servers;
 
-    public Game(String name, GregorianCalendar releaseDaze, boolean haveMultiLanguages) {
+    public Game(String name, GregorianCalendar releaseDaze, Boolean haveMultiLanguages) {
         setName(name);
         setReleaseDate(releaseDaze);
         setHaveMultiLanguages(haveMultiLanguages);
@@ -36,7 +36,7 @@ public class Game {
     }
 
 
-    public boolean isHaveMultiLanguages() {
+    public Boolean isHaveMultiLanguages() {
         return haveMultiLanguages;
     }
 

@@ -4,7 +4,7 @@ import Controller.EffectController;
 import Exception.DataAccessException;
 import Exception.DataException;
 import Model.SearchEffectList;
-import View.UtilitiesPanelMethode;
+import View.UtilitiesPanelMethod;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,16 +14,16 @@ import java.util.ArrayList;
 public class ResultEffectPanel extends JPanel {
     private JTable table;
     private  JScrollPane scrollPane;
-    private UtilitiesPanelMethode utilitiesPanelMethode;
+    private UtilitiesPanelMethod utilitiesPanelMethod;
     private ArrayList<SearchEffectList> searchEffectList;
     private EffectController effectController;
 
     public ResultEffectPanel() {
-        utilitiesPanelMethode = new UtilitiesPanelMethode();
+        utilitiesPanelMethod = new UtilitiesPanelMethod();
         setLayout(new FlowLayout());
         effectController = new EffectController();
 
-        table = utilitiesPanelMethode.getJTableModelBlank();
+        table = utilitiesPanelMethod.getJTableModelBlank();
         scrollPane = new JScrollPane(table);
         add(scrollPane);
     }

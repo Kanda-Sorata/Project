@@ -6,7 +6,7 @@ import Controller.GameController;
 import Controller.ServerController;
 import Exception.DataAccessException;
 import Exception.DataException;
-import View.UtilitiesPanelMethode;
+import View.UtilitiesPanelMethod;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -45,7 +45,7 @@ public class FormPanelLeftModify extends JPanel {
     private String characterChoice;
     private int healthPointMax;
 
-    private UtilitiesPanelMethode utilitiesPanelMethode;
+    private UtilitiesPanelMethod utilitiesPanelMethod;
     private GameController gameController;
     private ServerController serverController;
     private CharacterClassController characterClassController;
@@ -55,12 +55,13 @@ public class FormPanelLeftModify extends JPanel {
     private boolean isModifyPanel;
 
 
-    public FormPanelLeftModify(FormPanelRight formPanelRight, boolean isModifyPanel) {
+    public FormPanelLeftModify(FormPanelRight formPanelRight, boolean isModifyPanel) throws DataException, DataAccessException {
         //Add properties
         setLayout(new GridLayout(5, 2, 5, 15));
         setBorder(new EmptyBorder(150, 50, 120, 1)); //Top, left, bottom, right
 
-        utilitiesPanelMethode = new UtilitiesPanelMethode();
+        //Init
+        utilitiesPanelMethod = new UtilitiesPanelMethod();
         gameController = new GameController();
         serverController = new ServerController();
         characterClassController = new CharacterClassController();
@@ -68,65 +69,60 @@ public class FormPanelLeftModify extends JPanel {
         this.isModifyPanel = isModifyPanel;
         this.formPanelRight = formPanelRight;
 
-        //Init & add component
-        try {
-            comboBoxListener = new ComboBoxListener();
+        pseudos = utilitiesPanelMethod.setPlayerAccountsPseudo();
 
-            playerAccountLabel = new JLabel("<html>Player account<font color = 'red'>*</font></html>");
-            playerAccountLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-            pseudos = utilitiesPanelMethode.setPlayerAccountsPseudo();
-            playerAccountCombo = new JComboBox(pseudos.toArray());
-            playerAccountCombo.addItemListener(comboBoxListener);
+        //Listener
+        comboBoxListener = new ComboBoxListener();
 
-            gameLabel = new JLabel("<html>Game name<font color = 'red'>*</font></html>");
-            gameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-            games = new ArrayList<>();
-            games.add("No selection");
-            gameCombo = new JComboBox(games.toArray());
-            gameCombo.addItemListener(comboBoxListener);
-            gameCombo.setEnabled(false);
+        //Add components
+        playerAccountLabel = new JLabel("<html>Player Account<font color = 'red'>*</font></html>");
+        playerAccountLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        playerAccountCombo = new JComboBox(pseudos.toArray());
+        playerAccountCombo.addItemListener(comboBoxListener);
 
-            serverLabel = new JLabel("<html>Server name<font color = 'red'>*</font></html>");
-            serverLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-            servers = new ArrayList<>();
-            servers.add("No selection");
-            serverCombo = new JComboBox(servers.toArray());
-            serverCombo.addItemListener(comboBoxListener);
-            serverCombo.setEnabled(false);
+        gameLabel = new JLabel("<html>Game<font color = 'red'>*</font></html>");
+        gameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        games = new ArrayList<>();
+        games.add("No selection");
+        gameCombo = new JComboBox(games.toArray());
+        gameCombo.addItemListener(comboBoxListener);
+        gameCombo.setEnabled(false);
 
-            characterClassLabel = new JLabel("<html>Character class<font color = 'red'>*</font></html>");
-            characterClassLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-            characterClasses = new ArrayList<>();
-            characterClasses.add("No selection");
-            characterClassCombo = new JComboBox(characterClasses.toArray());
-            characterClassCombo.addItemListener(comboBoxListener);
-            characterClassCombo.setEnabled(false);
+        serverLabel = new JLabel("<html>Server<font color = 'red'>*</font></html>");
+        serverLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        servers = new ArrayList<>();
+        servers.add("No selection");
+        serverCombo = new JComboBox(servers.toArray());
+        serverCombo.addItemListener(comboBoxListener);
+        serverCombo.setEnabled(false);
 
-            add(playerAccountLabel);
-            add(playerAccountCombo);
-            add(gameLabel);
-            add(gameCombo);
-            add(serverLabel);
-            add(serverCombo);
-            add(characterClassLabel);
-            add(characterClassCombo);
+        characterClassLabel = new JLabel("<html>Character class<font color = 'red'>*</font></html>");
+        characterClassLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        characterClasses = new ArrayList<>();
+        characterClasses.add("No selection");
+        characterClassCombo = new JComboBox(characterClasses.toArray());
+        characterClassCombo.addItemListener(comboBoxListener);
+        characterClassCombo.setEnabled(false);
 
-            if (isModifyPanel) {
-                characterLabel = new JLabel("Character name");
-                characterLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-                characters = new ArrayList<>();
-                characters.add("No selection");
-                characterCombo = new JComboBox(characters.toArray());
-                characterCombo.setEnabled(false);
-                characterCombo.addItemListener(comboBoxListener);
-                add(characterLabel);
-                add(characterCombo);
-            }
+        add(playerAccountLabel);
+        add(playerAccountCombo);
+        add(gameLabel);
+        add(gameCombo);
+        add(serverLabel);
+        add(serverCombo);
+        add(characterClassLabel);
+        add(characterClassCombo);
 
-        } catch (DataException dataException) {
-            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (DataAccessException dataAccessException) {
-            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        if (isModifyPanel) {
+            characterLabel = new JLabel("Character");
+            characterLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+            characters = new ArrayList<>();
+            characters.add("No selection");
+            characterCombo = new JComboBox(characters.toArray());
+            characterCombo.setEnabled(false);
+            characterCombo.addItemListener(comboBoxListener);
+            add(characterLabel);
+            add(characterCombo);
         }
     }
 
@@ -219,15 +215,15 @@ public class FormPanelLeftModify extends JPanel {
 
     //Error
     public void setPlayerAccountLabelError() {
-        playerAccountLabel.setText("<html><font color = 'red'>Player account*</font></html>");
+        playerAccountLabel.setText("<html><font color = 'red'>Player Account*</font></html>");
     }
 
     public void setGameLabelError() {
-        gameLabel.setText("<html><font color = 'red'>Game name*</font></html>");
+        gameLabel.setText("<html><font color = 'red'>Game*</font></html>");
     }
 
     public void setServerLabelError() {
-        serverLabel.setText("<html><font color = 'red'>Server name*</font></html>");
+        serverLabel.setText("<html><font color = 'red'>Server*</font></html>");
     }
 
     public void setCharacterClassLabelError() {
@@ -235,20 +231,20 @@ public class FormPanelLeftModify extends JPanel {
     }
 
     public void setCharacterLabelError() {
-        characterLabel.setText("<html><font color = 'red'>Character name*</font></html>\"");
+        characterLabel.setText("<html><font color = 'red'>Character*</font></html>\"");
     }
 
     //Reset
     public void setPlayerAccountLabelReset() {
-        playerAccountLabel.setText("<html>Player account<font color = 'red'>*</font></html>");
+        playerAccountLabel.setText("<html>Player Account<font color = 'red'>*</font></html>");
     }
 
     public void setGameLabelReset() {
-        gameLabel.setText("<html>Game name<font color = 'red'>*</font></html>");
+        gameLabel.setText("<html>Game<font color = 'red'>*</font></html>");
     }
 
     public void setServerLabelReset() {
-        serverLabel.setText("<html>Server name<font color = 'red'>*</font></html>");
+        serverLabel.setText("<html>Server<font color = 'red'>*</font></html>");
     }
 
     public void setCharacterClassLabelReset() {
@@ -256,7 +252,7 @@ public class FormPanelLeftModify extends JPanel {
     }
 
     public void setCharacterLabelReset() {
-        characterLabel.setText("<html>Character name<font color = 'red'>*</font></html>\"");
+        characterLabel.setText("<html>Character<font color = 'red'>*</font></html>\"");
     }
 
 

@@ -4,7 +4,7 @@ import Controller.SpellController;
 import Exception.DataAccessException;
 import Exception.DataException;
 import Model.SearchSpellList;
-import View.UtilitiesPanelMethode;
+import View.UtilitiesPanelMethod;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,25 +16,27 @@ public class ResultSpellPanel extends JPanel {
     private JScrollPane scrollPane;
     private SpellController spellController;
     private ArrayList<SearchSpellList> searchSpellLists;
-    private UtilitiesPanelMethode utilitiesPanelMethode;
+    private UtilitiesPanelMethod utilitiesPanelMethod;
 
     public ResultSpellPanel(){
-        utilitiesPanelMethode = new UtilitiesPanelMethode();
-        spellController = new SpellController();
+        //Add properties
         setLayout(new FlowLayout());
 
+        //Init
+        utilitiesPanelMethod = new UtilitiesPanelMethod();
+        spellController = new SpellController();
+
         //Add components
-        table = utilitiesPanelMethode.getJTableModelBlank();
+        table = utilitiesPanelMethod.getJTableModelBlank();
         scrollPane = new JScrollPane(table);
         add(scrollPane);
     }
-
 
     public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, int numberChoice)throws DataException, DataAccessException {
         return spellController.getSearchSpellList(pseudoChoice, numberChoice);
     }
 
-    public void setJtable(String pseudoChoice, int numberChoice) throws DataException, DataAccessException {
+    public void setJTable(String pseudoChoice, int numberChoice) throws DataException, DataAccessException {
         searchSpellLists = getSearchSpellList(pseudoChoice, numberChoice);
         AllSpellsListFromPlayerModel model = new AllSpellsListFromPlayerModel(searchSpellLists);
         remove(scrollPane);

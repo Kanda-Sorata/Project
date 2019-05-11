@@ -13,7 +13,7 @@ public class SingletonConnection {
     public static Connection getInstance() throws ConnectionException{
         if(uniqueConnection == null){
             try {
-                uniqueConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/javaproject?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC", "root","Rc648pPy");
+                uniqueConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/javaproject?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC", "root", "Rc648pPy");
             }
             catch(SQLException exception){
                 throw new ConnectionException(exception.getMessage(), exception.getSQLState(), exception.getErrorCode());
@@ -22,7 +22,7 @@ public class SingletonConnection {
         return uniqueConnection;
     }
 
-    public boolean isClosed(){
+    private boolean isClosed() {
         return uniqueConnection == null;
     }
 

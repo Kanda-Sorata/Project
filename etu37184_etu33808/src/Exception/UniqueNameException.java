@@ -8,6 +8,8 @@ public class UniqueNameException extends Exception {
     }
 
     public String getMessage() {
-        return "Code 5."  + "Values :"  + unavailableName;
+        return "Sorry an error has been occurred, when you tried  to add a new character.\n" +
+                "The add has been cancelled.\n" + "Your already have a character with the same name.\n" +
+                "\" " + unavailableName + " \"";
     }
 }

@@ -3,6 +3,7 @@ package BusinessLogic;
 import DataAccess.CharacterDBAccess;
 import Exception.DataAccessException;
 import Exception.DataException;
+import Exception.UniqueNameException;
 import Model.Character;
 import Model.DisplayCharacter;
 
@@ -32,14 +33,19 @@ public class CharacterBusinessLogic {
         if(isDeleteParametersValide(pseudo, number, gameName, characterName)) {
             return dao.deleteACharacter(pseudo, number, gameName, characterName);
         }else{
-            throw new DataException(8);
+            throw new DataException(7);
         }
     }
-    public int insertACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataAccessException, DataException {
-        if(isInsertParametersValide(character, pseudo, number, game, server, characterClass)) {
-            return dao.insertACharacter(character, pseudo, number, game, server, characterClass);
-        }else{
-           throw new DataException(7);
+
+    public int insertACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataAccessException, DataException, UniqueNameException {
+        if (!isInsertParametersValide(character, pseudo, number, game, server, characterClass)) {
+            throw new DataException(6);
+        } else {
+            if (!dao.notTheSameName(pseudo, number, game, server, characterClass, character.getName())) {
+                throw new UniqueNameException(character.getName());
+            } else {
+                return dao.insertACharacter(character, pseudo, number, game, server, characterClass);
+            }
         }
     }
 
@@ -47,7 +53,7 @@ public class CharacterBusinessLogic {
         if(isInsertParametersValide(character, pseudo, number, game, server, characterClass)) {
             return dao.modifyACharacter(character, pseudo, number, game, server, characterClass);
         }else{
-            throw new DataException(7);
+            throw new DataException(8);
         }
     }
 
@@ -80,5 +86,9 @@ public class CharacterBusinessLogic {
 
     public ArrayList<DisplayCharacter> getAllInfosCharacters(String pseudoChoice, int numberChoice) throws DataException, DataAccessException {
         return dao.getAllInfosCharacters(pseudoChoice, numberChoice);
+    }
+
+    public int getNbCharacters() throws DataException, DataAccessException{
+        return dao.getNbCharacters();
     }
 }

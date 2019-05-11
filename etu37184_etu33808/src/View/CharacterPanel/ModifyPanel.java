@@ -1,5 +1,7 @@
 package View.CharacterPanel;
 
+import Exception.DataAccessException;
+import Exception.DataException;
 import View.Frame;
 
 import javax.swing.*;
@@ -12,22 +14,21 @@ public class ModifyPanel extends JPanel {
     private ButtonsPanel buttonsPanel;
     private Frame frame;
 
-    public ModifyPanel(Frame frame){
+    public ModifyPanel(Frame frame) throws DataAccessException, DataException {
         //Add properties
         setLayout(new BorderLayout());
 
         this.frame = frame;
-        frame.setTitle("");
-        frame.setTitle(frame.getTitle() + "- Modify a character");
+
         //Add components
         buttonsPanel = new ButtonsPanel();
         formPanelRight = new FormPanelRight(buttonsPanel);
         formPanelLeftModify = new FormPanelLeftModify(formPanelRight,true);
         buttonsPanel.setFormPanelRight(formPanelRight);
-        buttonsPanel.setFrame(frame);
+        buttonsPanel.setFrame(this.frame);
         buttonsPanel.setFormPanelLeftModify(formPanelLeftModify);
 
-        if(frame.getHaveSavedValue()){
+        if (frame.getSavedValueFormModify().getHaveSavedValue()) {
             buttonsPanel.setFormValue();
         }
 
@@ -35,5 +36,4 @@ public class ModifyPanel extends JPanel {
         add(formPanelRight, BorderLayout.CENTER);
         add(buttonsPanel, BorderLayout.SOUTH);
     }
-
 }

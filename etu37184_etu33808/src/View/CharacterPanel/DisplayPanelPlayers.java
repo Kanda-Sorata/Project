@@ -1,9 +1,9 @@
 package View.CharacterPanel;
 
-import Controller.AccountPlayerController;
+import Controller.PlayerAccountController;
 import Exception.DataAccessException;
 import Exception.DataException;
-import View.UtilitiesPanelMethode;
+import View.UtilitiesPanelMethod;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -15,30 +15,27 @@ public class DisplayPanelPlayers extends JPanel {
     private JLabel playerAccountLabel;
     private ComboBoxListener comboBoxListener;
     private ArrayList<String> allPlayers;
-    private AccountPlayerController playerAccountController;
+    private PlayerAccountController playerAccountController;
     private DisplayPanelResult displayPanelResult;
-    private UtilitiesPanelMethode utilitiesPanelMethode;
+    private UtilitiesPanelMethod utilitiesPanelMethod;
     private String pseudoChoice;
     private int numberChoice;
 
-    public DisplayPanelPlayers(DisplayPanelResult displayPanelResult) {
-        try {
-            this.displayPanelResult = displayPanelResult;
-            utilitiesPanelMethode = new UtilitiesPanelMethode();
-            playerAccountLabel = new JLabel("Player account");
-            comboBoxListener = new ComboBoxListener();
-            playerAccountController = new AccountPlayerController();
-            allPlayers = utilitiesPanelMethode.setPlayerAccountsPseudo();
-            playerAccountCombo = new JComboBox(allPlayers.toArray());
+    public DisplayPanelPlayers(DisplayPanelResult displayPanelResult) throws DataAccessException, DataException {
+        //Init
+        this.displayPanelResult = displayPanelResult;
+        utilitiesPanelMethod = new UtilitiesPanelMethod();
 
-            playerAccountCombo.addActionListener(comboBoxListener);
-            add(playerAccountLabel);
-            add(playerAccountCombo);
-        } catch (DataAccessException dataAccessException) {
-            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (DataException dataException) {
-            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        //Add components
+        playerAccountLabel = new JLabel("Player account");
+        comboBoxListener = new ComboBoxListener();
+        playerAccountController = new PlayerAccountController();
+        allPlayers = utilitiesPanelMethod.setPlayerAccountsPseudo();
+        playerAccountCombo = new JComboBox(allPlayers.toArray());
+        playerAccountCombo.addActionListener(comboBoxListener);
+
+        add(playerAccountLabel);
+        add(playerAccountCombo);
     }
 
     private class ComboBoxListener implements ActionListener {
@@ -53,6 +50,9 @@ public class DisplayPanelPlayers extends JPanel {
                 } catch (DataAccessException dataAccessException) {
                     JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
+            }
+            else{
+                displayPanelResult.updateJTableNoSelection();
             }
         }
     }

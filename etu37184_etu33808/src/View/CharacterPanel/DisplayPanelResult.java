@@ -4,7 +4,7 @@ import Controller.CharacterController;
 import Exception.DataAccessException;
 import Exception.DataException;
 import Model.DisplayCharacter;
-import View.UtilitiesPanelMethode;
+import View.UtilitiesPanelMethod;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
@@ -14,15 +14,15 @@ import java.util.ArrayList;
 public class DisplayPanelResult extends JPanel {
     private JTable table;
     private JScrollPane scrollPane;
-    private UtilitiesPanelMethode utilitiesPanelMethode;
+    private UtilitiesPanelMethod utilitiesPanelMethod;
     private ArrayList<DisplayCharacter> characters;
     private CharacterController characterController;
 
     public DisplayPanelResult() {
         setLayout(new FlowLayout());
         characterController = new CharacterController();
-        utilitiesPanelMethode = new UtilitiesPanelMethode();
-        table = utilitiesPanelMethode.getJTableModelBlank();
+        utilitiesPanelMethod = new UtilitiesPanelMethod();
+        table = utilitiesPanelMethod.getJTableModelBlank();
         scrollPane = new JScrollPane(table);
         add(scrollPane);
     }
@@ -40,6 +40,15 @@ public class DisplayPanelResult extends JPanel {
         }
         scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(1000, 400));
+        add(scrollPane);
+        revalidate();
+        repaint();
+    }
+
+    public void updateJTableNoSelection(){
+        remove(scrollPane);
+        table = utilitiesPanelMethod.getJTableModelBlank();
+        scrollPane = new JScrollPane(table);
         add(scrollPane);
         revalidate();
         repaint();

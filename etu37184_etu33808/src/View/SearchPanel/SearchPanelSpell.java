@@ -2,7 +2,7 @@ package View.SearchPanel;
 
 import Exception.DataAccessException;
 import Exception.DataException;
-import View.UtilitiesPanelMethode;
+import View.UtilitiesPanelMethod;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -20,33 +20,29 @@ public class SearchPanelSpell extends JPanel {
     private String pseudoChoice;
     private int numberChoice;
 
-    private UtilitiesPanelMethode utilitiesPanelMethode;
+    private UtilitiesPanelMethod utilitiesPanelMethod;
     private ResultSpellPanel resultSpellPanel;
 
-    public SearchPanelSpell(ResultSpellPanel resultSpellPanel){
-        try {
-            utilitiesPanelMethode = new UtilitiesPanelMethode();
-            pseudos = utilitiesPanelMethode.setPlayerAccountsPseudo();
-            this.resultSpellPanel = resultSpellPanel;
+    public SearchPanelSpell(ResultSpellPanel resultSpellPanel) throws DataAccessException, DataException {
+        //Add properties
+        setLayout(new GridLayout(1, 2, 5, 15));
+        setBorder(new EmptyBorder(250, 0, 300, 250)); //top, left, bottom, right
 
-            //Add properties
-            setLayout(new GridLayout(1, 2, 5, 15));
-            setBorder(new EmptyBorder(250, 0, 300, 250)); //top, left, bottom, right
+        //Init
+        utilitiesPanelMethod = new UtilitiesPanelMethod();
+        this.resultSpellPanel = resultSpellPanel;
 
-            //Add components
-            playerAccount = new JLabel("Player Account");
-            playerAccount.setHorizontalAlignment(SwingConstants.RIGHT);
+        pseudos = utilitiesPanelMethod.setPlayerAccountsPseudo();
 
-            playerAccountCombo = new JComboBox(pseudos.toArray());
-            playerAccountCombo.addItemListener(new ComboBoxListener());
+        //Add components
+        playerAccount = new JLabel("Player Account");
+        playerAccount.setHorizontalAlignment(SwingConstants.RIGHT);
 
-            add(playerAccount);
-            add(playerAccountCombo);
-        }catch (DataAccessException dataAccessException){
-            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }catch(DataException dataException) {
-            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        playerAccountCombo = new JComboBox(pseudos.toArray());
+        playerAccountCombo.addItemListener(new ComboBoxListener());
+
+        add(playerAccount);
+        add(playerAccountCombo);
     }
 
     public String getPseudoChoice() {
@@ -72,7 +68,7 @@ public class SearchPanelSpell extends JPanel {
                 setPseudoChoice(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[0]);
                 setNumberChoice(Integer.parseInt(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[1]));
                 try {
-                    resultSpellPanel.setJtable(pseudoChoice, numberChoice);
+                    resultSpellPanel.setJTable(pseudoChoice, numberChoice);
                 }catch (DataAccessException dataAccessException){
                     JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }catch(DataException dataException) {

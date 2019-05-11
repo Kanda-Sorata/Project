@@ -3,6 +3,7 @@ package Controller;
 import BusinessLogic.CharacterBusinessLogic;
 import Exception.DataAccessException;
 import Exception.DataException;
+import Exception.UniqueNameException;
 import Model.Character;
 import Model.DisplayCharacter;
 
@@ -28,7 +29,7 @@ public class CharacterController {
         return characterBusinessLogic.deleteACharacter(pseudo, number, gameName, characterName);
     }
 
-    public int insertACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataAccessException, DataException {
+    public int insertACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataAccessException, DataException, UniqueNameException {
         return characterBusinessLogic.insertACharacter(character, pseudo, number, game, server, characterClass);
     }
 
@@ -46,5 +47,9 @@ public class CharacterController {
 
     public ArrayList<DisplayCharacter> getAllInfosCharacters(String pseudoChoice, int numberChoice) throws DataAccessException, DataException {
         return characterBusinessLogic.getAllInfosCharacters(pseudoChoice, numberChoice);
+    }
+
+    public int getNbCharacters() throws DataAccessException, DataException{
+        return characterBusinessLogic.getNbCharacters();
     }
 }

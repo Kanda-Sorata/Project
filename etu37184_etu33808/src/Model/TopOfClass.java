@@ -3,18 +3,18 @@ package Model;
 import java.text.DecimalFormat;
 
 public class TopOfClass {
-    private int nbCharacters;
+    private Integer nbCharacters;
     private String className;
     private String description;
-    private double purcent;
+    private Double purcent;
 
-    public TopOfClass(int nbCharacters, String className, String description) {
+    public TopOfClass(Integer nbCharacters, String className, String description) {
         this.nbCharacters = nbCharacters;
         this.className = className;
         this.description = description;
     }
 
-    public int getNbCharacters() {
+    public Integer getNbCharacters() {
         return nbCharacters;
     }
 
@@ -28,11 +28,11 @@ public class TopOfClass {
     }
 
 
-    public void setPurcent(double purcent) {
-        this.purcent = purcent;
+    public void setPercent(Double percent) {
+        this.purcent = percent;
     }
 
-    public String getPurcentFormater() {
+    public String getPercentFormatter() {
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         return decimalFormat.format(purcent) + "%";
     }

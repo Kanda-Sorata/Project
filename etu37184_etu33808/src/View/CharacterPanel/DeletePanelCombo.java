@@ -3,7 +3,7 @@ package View.CharacterPanel;
 import Controller.GameController;
 import Exception.DataAccessException;
 import Exception.DataException;
-import View.UtilitiesPanelMethode;
+import View.UtilitiesPanelMethod;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -23,50 +23,46 @@ public class DeletePanelCombo extends JPanel {
     private JLabel playerAccountLabel;
     private JLabel gameLabel;
     private GameController gameController;
-    private UtilitiesPanelMethode utilitiesPanelMethode;
+    private UtilitiesPanelMethod utilitiesPanelMethod;
     private String pseudoChoice;
     private int numberChoice;
     private String gameChoice;
     private DeletePanelTable deletePanelTable;
 
 
-    public DeletePanelCombo(DeletePanelTable deletePanelTable){
+    public DeletePanelCombo(DeletePanelTable deletePanelTable) throws DataAccessException, DataException {
         //Add properties
         setLayout(new GridLayout(2, 2, 5, 15));
         setBorder(new EmptyBorder(225, 100, 275, 150)); //Top, left, bottom, right
 
+        this.deletePanelTable = deletePanelTable;
+        utilitiesPanelMethod = new UtilitiesPanelMethod();
+        gameController = new GameController();
+
+
+        playerAccounts = utilitiesPanelMethod.setPlayerAccountsPseudo();
+
+        //Listener
+        comboBoxListener = new ComboBoxListener();
+
         //Add components
-        try{
-            this.deletePanelTable = deletePanelTable;
-            utilitiesPanelMethode = new UtilitiesPanelMethode();
-            comboBoxListener = new ComboBoxListener();
-            gameController = new GameController();
+        playerAccountLabel = new JLabel("Player account");
+        playerAccountLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        playerAccountCombo = new JComboBox(playerAccounts.toArray());
+        playerAccountCombo.addItemListener(comboBoxListener);
 
-            playerAccountLabel = new JLabel("Player account");
-            playerAccountLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-            playerAccounts = new ArrayList<>();
-            playerAccounts = utilitiesPanelMethode.setPlayerAccountsPseudo();
-            playerAccountCombo = new JComboBox(playerAccounts.toArray());
-            playerAccountCombo.addItemListener(comboBoxListener);
+        gameLabel = new JLabel("Game name");
+        gameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        games = new ArrayList<>();
+        games.add("No selection");
+        gameCombo = new JComboBox(games.toArray());
+        gameCombo.addItemListener(comboBoxListener);
+        gameCombo.setEnabled(false);
 
-            gameLabel = new JLabel("Game name");
-            gameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-            games = new ArrayList<>();
-            games.add("No selection");
-            gameCombo = new JComboBox(games.toArray());
-            gameCombo.addItemListener(comboBoxListener);
-            gameCombo.setEnabled(false);
-
-            add(playerAccountLabel);
-            add(playerAccountCombo);
-            add(gameLabel);
-            add(gameCombo);
-
-        } catch (DataException dataException) {
-            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (DataAccessException dataAccessException) {
-            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        add(playerAccountLabel);
+        add(playerAccountCombo);
+        add(gameLabel);
+        add(gameCombo);
     }
 
     private class ComboBoxListener implements ItemListener {

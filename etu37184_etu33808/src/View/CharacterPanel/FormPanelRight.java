@@ -58,7 +58,7 @@ public class FormPanelRight extends JPanel {
 
 
     public FormPanelRight(ButtonsPanel buttonsPanel){
-        //Add propetiers
+        //Add properties
         setLayout(new GridLayout(8, 2, 5, 15));
         setBorder(new EmptyBorder(30, 0, 30, 40)); //Top, left, bottom, right
 
@@ -79,16 +79,17 @@ public class FormPanelRight extends JPanel {
         healthPointSlider.setEnabled(false);
         setHealthPointSlider(Character.getMinHp(), Character.getMaxHp(), Character.getMinHp());
 
-        isStuffedLabel = new JLabel("<html>Is already stuffed<font color = 'red'>*</font></html>");
+        isStuffedLabel = new JLabel("Is already stuffed");
         isStuffedLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         isStuffedCheckBox = new JCheckBox();
         isStuffedCheckBox.setHorizontalAlignment(SwingConstants.LEFT);
+        isStuffedCheckBox.setToolTipText("False selected by default when unchecked");
 
         creationDateLabel = new JLabel("<html>Creational date<font color = 'red'>*</font></html>");
         creationDateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         creationDateSpinner = new JSpinner();
         setCreationDateSpinner();
-        creationDateSpinner.setToolTipText("Date available today to 2039");
+        creationDateSpinner.setToolTipText("Date available yesterday to 2039");
         spinnerListener = new SpinnerListener();
         creationDateSpinner.addChangeListener(spinnerListener);
 
@@ -108,6 +109,7 @@ public class FormPanelRight extends JPanel {
         damagePerSecondLabel = new JLabel("Damage per second");
         damagePerSecondLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         damagePerSecondSlider = new JSlider(JSlider.HORIZONTAL);
+        damagePerSecondSlider.setToolTipText("Damage/sec what the player going to deal at enemies");
         damagePerSecondSlider.setEnabled(false);
         setDamagePerSecondSlider(Character.getMinDmg(), Character.getMaxDmg(), Character.getMinDmg());
 
@@ -136,6 +138,10 @@ public class FormPanelRight extends JPanel {
         add(damagePerSecondLabel);
         add(damagePerSecondSlider);
         add(requiredLabel);
+    }
+
+    public ButtonsPanel getButtonsPanel() {
+        return buttonsPanel;
     }
 
     public void setHealthPointSlider(int minimum, int maximum, int value){
@@ -236,6 +242,16 @@ public class FormPanelRight extends JPanel {
         calendar.add(Calendar.YEAR, 20);
         latestDate = calendar.getTime();
         spinnerModel = new SpinnerDateModel(initDate, date, latestDate, Calendar.MONTH); //getPrevious & nextvalue method
+        creationDateSpinner.setModel(spinnerModel);
+        dateEditor = new JSpinner.DateEditor(creationDateSpinner, "dd/MM/yyyy");
+        creationDateSpinner.setEditor(dateEditor);
+    }
+
+    public void setCreationDateSpinnerValue(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.YEAR, 20);
+        latestDate = calendar.getTime();
+        spinnerModel = new SpinnerDateModel(date, date, latestDate, Calendar.MONTH); //getPrevious & nextvalue method
         creationDateSpinner.setModel(spinnerModel);
         dateEditor = new JSpinner.DateEditor(creationDateSpinner, "dd/MM/yyyy");
         creationDateSpinner.setEditor(dateEditor);
@@ -380,7 +396,7 @@ public class FormPanelRight extends JPanel {
             setHealthPointSlider(Character.getMinHp(), healthPointMax, character.getHealthPoints());
             healthPointSlider.setEnabled(true);
             setStuffedCheckBox(character.isStuffed());
-            setCreationDateSpinner(character.getCreationDate().getTime());
+            setCreationDateSpinnerValue(character.getCreationDate().getTime());
             setPetNameField(character.getPetName());
             if(character.getDamagePerSecond() != null) {
                 setDamagePerSecondActivated(true);

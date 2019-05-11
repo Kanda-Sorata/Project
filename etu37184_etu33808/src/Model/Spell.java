@@ -3,10 +3,10 @@ package Model;
 public class Spell {
     private String name;
     private Integer cooldown;
-    private boolean atRange;
+    private Boolean atRange;
     private Integer damageValue;
 
-    public Spell(String name, Integer cooldown, boolean atRange, Integer damageValue) {
+    public Spell(String name, Integer cooldown, Boolean atRange, Integer damageValue) {
         setName(name);
         setCooldown(cooldown);
         setAtRange(atRange);
@@ -33,7 +33,7 @@ public class Spell {
         this.cooldown = cooldown;
     }
 
-    public boolean isAtRange() {
+    public Boolean isAtRange() {
         return atRange;
     }
 

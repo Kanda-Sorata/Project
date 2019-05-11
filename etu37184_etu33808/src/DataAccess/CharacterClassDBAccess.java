@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class CharacterClassDBAccess implements CharacterClassDataAccess {
     public ArrayList<String> getClassesInAGame(String game) throws DataException, DataAccessException {
-        Connection connection = null;
+        Connection connection;
         try {
             connection = SingletonConnection.getInstance();
             String query = "select characterClass.name from characterClass, game "
@@ -44,7 +44,7 @@ public class CharacterClassDBAccess implements CharacterClassDataAccess {
 
     public ArrayList<String> getAllCharactersClassName(String pseudo, int number, String game)
                                                                             throws DataException, DataAccessException {
-        Connection connection = null;
+        Connection connection;
         try {
             connection = SingletonConnection.getInstance();
 
@@ -78,7 +78,7 @@ public class CharacterClassDBAccess implements CharacterClassDataAccess {
     }
 
     public ArrayList<TopOfClass> getAllCharacterClassOrderClass() throws DataAccessException, DataException {
-        Connection connection = null;
+        Connection connection;
         try {
             connection = SingletonConnection.getInstance();
 
@@ -87,7 +87,7 @@ public class CharacterClassDBAccess implements CharacterClassDataAccess {
                     + "where characterClass.technicalId = characterClass.technicalId "
                     + "and `character`.characterclassTechnicalId = characterclass.technicalId "
                     + "group by characterClass.name "
-                    + "order by `Character`.name desc, characterclass.name asc;";
+                    + "order by count(`Character`.name) desc,  characterclass.name asc";
 
             PreparedStatement statement = connection.prepareStatement(query);
 

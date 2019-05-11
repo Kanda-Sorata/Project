@@ -3,6 +3,7 @@ package Controller;
 import BusinessLogic.CharacterClassBusinessLogic;
 import Exception.DataAccessException;
 import Exception.DataException;
+import Exception.DivideException;
 import Model.TopOfClass;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class CharacterClassController {
         return characterClassBusinessLogic.getAllCharactersClassName(pseudo, number, game);
     }
 
-    public ArrayList<TopOfClass> getAllCharacterClassOrderClass() throws DataAccessException, DataException{
+    public ArrayList<TopOfClass> getAllCharacterClassOrderClass() throws DataAccessException, DataException, DivideException {
         return  characterClassBusinessLogic.getAllCharacterClassOrderClass();
     }
 }

@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 public class CharacterDBAccess implements CharacterDataAccess {
     public ArrayList<Character> getAllCharacter(String pseudo, int number) throws DataException, DataAccessException {
-        Connection connection = null;
+        Connection connection;
         try {
            connection = SingletonConnection.getInstance();
             String query = "select name, healthPoint, isStuffed, creationDate, petName, damagePerSecond " +
@@ -27,28 +27,17 @@ public class CharacterDBAccess implements CharacterDataAccess {
             ResultSet data = statement.executeQuery();
             Character character;
             ArrayList<Character> characters = new ArrayList<>();
-            String petName;
-            Integer damagePerSecond;
 
             while (data.next()) {
-                character = new Character(data.getString("name"), data.getInt("healthPoint"),
-                        data.getBoolean("isStuffed"), null, null, null,
-                        null, null);
+                character = new Character(data.getString("name"), (Integer)data.getObject("healthPoint"),
+                        (Boolean)data.getObject("isStuffed"), null, data.getString("petName"),
+                        (Integer)data.getObject("damagePerSecond"), null, null);
 
                 java.sql.Date creationDate = data.getDate("creationDate");
                 GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime(creationDate);
                 character.setCreationDate(calendar);
 
-                petName = data.getString("petName");
-                if (!data.wasNull()) {
-                    character.setPetName(petName);
-                }
-
-                damagePerSecond = data.getInt("damagePerSecond");
-                if (!data.wasNull()) {
-                    character.setDamagePerSecond(damagePerSecond);
-                }
                 characters.add(character);
             }
             return characters;
@@ -59,12 +48,12 @@ public class CharacterDBAccess implements CharacterDataAccess {
         } catch (HealthPointsException healthPointsException) {
             throw new DataException(2);
         } catch (DamagePerSecondException damagePerSecondException) {
-            throw new DataException(6);
+            throw new DataException(5);
         }
     }
 
     public ArrayList<String> getAllCharactersInAGame(String pseudo, int number, String gameName) throws DataException, DataAccessException {
-        Connection connection = null;
+        Connection connection;
         try {
             connection = SingletonConnection.getInstance();
 
@@ -98,11 +87,11 @@ public class CharacterDBAccess implements CharacterDataAccess {
     }
 
     public int deleteACharacter(String pseudo, int number, String gameName, String characterName) throws DataAccessException, DataException {
-        if (!isDeleteParametersValide(pseudo, number, gameName, characterName)) {
-            throw new DataException(8);
+        if (!isDeleteParametersValid(pseudo, number, gameName, characterName)) {
+            throw new DataException(7);
         } else {
             int state = 0;
-            Connection connection = null;
+            Connection connection;
             try {
                 connection = SingletonConnection.getInstance();
 
@@ -141,18 +130,18 @@ public class CharacterDBAccess implements CharacterDataAccess {
             } catch (ConnectionException connectionException) {
                 throw new DataAccessException(1);
             } catch (SQLException sqlException) {
-                throw new DataException(8);
+                throw new DataException(7);
             }
         }
     }
 
     public int insertACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataException, DataAccessException {
-        if(!isInsertParametersValide(character, pseudo, number, game, server, characterClass)){
-            throw new DataException(7);
+        if (!isInsertParametersValid(character, pseudo, number, game, server, characterClass)) {
+            throw new DataException(6);
         }else {
-            Connection connection = null;
+            Connection connection;
             try {
-               connection = SingletonConnection.getInstance();
+                connection = SingletonConnection.getInstance();
                 int state = 0;
 
                 String query = "select playeraccount.id from playeraccount where pseudo = ? and number = ?;";
@@ -207,14 +196,14 @@ public class CharacterDBAccess implements CharacterDataAccess {
                             statementInsert.setBoolean(3, character.isStuffed());
                             java.sql.Date dateSql = new java.sql.Date(character.getCreationDate().getTimeInMillis());
                             statementInsert.setDate(4, dateSql);
-                            if(character.getPetName() == null || character.getPetName().isEmpty()) {
+                            if (character.getPetName() == null || character.getPetName().isEmpty()) {
                                 statementInsert.setNull(5, Types.VARCHAR);
-                            }else{
+                            } else {
                                 statementInsert.setString(5, character.getPetName());
                             }
-                            if(character.getDamagePerSecond() == null) {
+                            if (character.getDamagePerSecond() == null) {
                                 statementInsert.setNull(6, Types.INTEGER);
-                            }else{
+                            } else {
                                 statementInsert.setInt(6, character.getDamagePerSecond());
                             }
                             statementInsert.setInt(7, playerAccountId);
@@ -229,16 +218,16 @@ public class CharacterDBAccess implements CharacterDataAccess {
             } catch (ConnectionException connectionException) {
                 throw new DataAccessException(1);
             } catch (SQLException sqlException) {
-                throw new DataException(7);
+                throw new DataException(6);
             }
         }
     }
 
     public int modifyACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataException, DataAccessException {
-        if(!isInsertParametersValide(character, pseudo, number, game, server, characterClass)){
-            throw new DataException(7);
-        }else {
-            Connection connection = null;
+        if (!isInsertParametersValid(character, pseudo, number, game, server, characterClass)) {
+            throw new DataException(8);
+        } else {
+            Connection connection;
             try {
                 connection = SingletonConnection.getInstance();
                 int state = 0;
@@ -295,14 +284,14 @@ public class CharacterDBAccess implements CharacterDataAccess {
                             statementUpdate.setBoolean(3, character.isStuffed());
                             java.sql.Date dateSql = new java.sql.Date(character.getCreationDate().getTimeInMillis());
                             statementUpdate.setDate(4, dateSql);
-                            if(character.getPetName() == null || character.getPetName().isEmpty()) {
+                            if (character.getPetName() == null || character.getPetName().isEmpty()) {
                                 statementUpdate.setNull(5, Types.VARCHAR);
-                            }else{
+                            } else {
                                 statementUpdate.setString(5, character.getPetName());
                             }
-                            if(character.getDamagePerSecond() == null) {
+                            if (character.getDamagePerSecond() == null) {
                                 statementUpdate.setNull(6, Types.INTEGER);
-                            }else{
+                            } else {
                                 statementUpdate.setInt(6, character.getDamagePerSecond());
                             }
                             statementUpdate.setInt(7, playerAccountId);
@@ -320,13 +309,13 @@ public class CharacterDBAccess implements CharacterDataAccess {
             } catch (ConnectionException connectionException) {
                 throw new DataAccessException(1);
             } catch (SQLException sqlException) {
-                throw new DataException(7);
+                throw new DataException(8);
             }
         }
     }
 
 
-    private boolean isInsertParametersValide(Character character, String pseudo, int number, String game, String server, String characterClass){
+    private boolean isInsertParametersValid(Character character, String pseudo, int number, String game, String server, String characterClass) {
         String noSelection = "No selection";
         return character != null && !character.getName().isEmpty() && Pattern.matches("^[a-zA-Z_-]{4,50}", character.getName())
                 && character.getHealthPoints() >= Character.getMinHp()
@@ -339,14 +328,14 @@ public class CharacterDBAccess implements CharacterDataAccess {
                 && characterClass != null && !characterClass.equals(noSelection);
     }
 
-    private boolean isDeleteParametersValide(String pseudo, int number, String gameName, String characterName){
+    private boolean isDeleteParametersValid(String pseudo, int number, String gameName, String characterName) {
         String noSelection = "No selection";
         return pseudo != null && !pseudo.equals(noSelection) && gameName != null && !gameName.equals(noSelection)
                 && characterName != null && !characterName.equals(noSelection) && String.valueOf(number).length() == 5;
     }
 
     public Character getOneCharacter(String pseudo, int number, String game, String server, String characterClass, String character) throws DataException, DataAccessException {
-        Connection connection = null;
+        Connection connection;
         try {
             connection = SingletonConnection.getInstance();
 
@@ -372,28 +361,16 @@ public class CharacterDBAccess implements CharacterDataAccess {
 
             ResultSet data = statement.executeQuery();
             Character characterToFill = null;
-            String petName;
-            Integer damagePerSecond;
 
             while (data.next()) {
-                characterToFill = new Character(data.getString("name"), data.getInt("healthPoint"),
-                        data.getBoolean("isStuffed"), null, null, null,
-                        null, null);
+                characterToFill = new Character(data.getString("name"), (Integer)data.getObject("healthPoint"),
+                        (Boolean)data.getObject("isStuffed"), null, data.getString("petName"),
+                        (Integer)data.getObject("damagePerSecond"), null, null);
 
                 java.sql.Date creationDate = data.getDate("creationDate");
                 GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime(creationDate);
                 characterToFill.setCreationDate(calendar);
-
-                petName = data.getString("petName");
-                if (!data.wasNull()) {
-                    characterToFill.setPetName(petName);
-                }
-
-                damagePerSecond = data.getInt("damagePerSecond");
-                if (!data.wasNull()) {
-                    characterToFill.setDamagePerSecond(damagePerSecond);
-                }
             }
 
             return characterToFill;
@@ -403,14 +380,14 @@ public class CharacterDBAccess implements CharacterDataAccess {
             throw new DataException(1);
         } catch (HealthPointsException healthPointException){
             throw  new DataException(2);
-        }catch (DamagePerSecondException damagePerSecondException){
-            throw  new DataException(6);
+        } catch (DamagePerSecondException damagePerSecondException) {
+            throw new DataException(5);
         }
     }
 
     public ArrayList<String> getAllCharactersInAGameInServerWithCharacterClass(String pseudo, int number, String game,
                                                                                String server, String characterClass) throws DataException, DataAccessException{
-        Connection connection = null;
+        Connection connection;
         try {
             connection = SingletonConnection.getInstance();
 
@@ -450,7 +427,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
     }
 
     public ArrayList<DisplayCharacter> getAllInfosCharacters(String pseudoChoice, int numberChoice) throws DataException, DataAccessException {
-        Connection connection = null;
+        Connection connection;
 
         try {
             ArrayList<DisplayCharacter> characters = new ArrayList<>();
@@ -477,17 +454,17 @@ public class CharacterDBAccess implements CharacterDataAccess {
 
             ResultSet data = statement.executeQuery();
             DisplayCharacter currentChar;
+
             while (data.next()) {
                 currentChar = new DisplayCharacter(data.getString("GameName"), data.getString("ServerName"), data.getString("CharacterName"),
-                        data.getString("CharacterClassName"), data.getInt("healthPoint"),
-                        data.getBoolean("isStuffed"), null, data.getString("petName"),
-                        data.getInt("damagepersecond")); //todo
+                        data.getString("CharacterClassName"), (Integer)data.getObject("healthPoint"),
+                        (Boolean)data.getObject("isStuffed"), null, data.getString("petName"),
+                        (Integer)data.getObject("damagePerSecond"));
 
                 java.sql.Date creationDate = data.getDate("creationDate");
                 GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime(creationDate);
                 currentChar.setCreationDate(calendar);
-
                 characters.add(currentChar);
             }
 
@@ -497,5 +474,31 @@ public class CharacterDBAccess implements CharacterDataAccess {
         } catch (SQLException sqlException) {
             throw new DataException(1);
         }
+    }
+
+    public int getNbCharacters() throws DataException, DataAccessException {
+        Connection connection;
+        int nbCharacters = 0;
+
+        try {
+            connection = SingletonConnection.getInstance();
+            String query = "select count(*) from `character`;";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet data = statement.executeQuery();
+
+            if(data.next()) {
+                nbCharacters = data.getInt(1);
+            }
+            return nbCharacters;
+        } catch (ConnectionException connexionException) {
+            throw new DataAccessException(1);
+        } catch (SQLException sqlException) {
+            throw new DataException(1);
+        }
+    }
+
+    public boolean notTheSameName(String pseudo, int number, String game, String server, String characterClass, String characterName) throws DataException, DataAccessException {
+        Character character = getOneCharacter(pseudo, number, game, server, characterClass, characterName);
+        return character == null;
     }
 }

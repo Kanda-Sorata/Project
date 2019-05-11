@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class SpellDBAccess implements SpellDataAccess {
     public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, int numberChoice)throws DataException, DataAccessException{
-        Connection connection = null;
+        Connection connection;
         try {
            connection = SingletonConnection.getInstance();
 
@@ -35,21 +35,14 @@ public class SpellDBAccess implements SpellDataAccess {
             ResultSet data = statement.executeQuery();
             ArrayList<SearchSpellList> searchSpellLists = new ArrayList<>();
             SearchSpellList searchSpellList;
-            Integer cooldown;
 
             while (data.next()){
-                searchSpellList = new SearchSpellList(data.getString("name"), null,
+                searchSpellList = new SearchSpellList(data.getString("name"), (Integer) data.getObject("cooldown"),
                         data.getString("characterName"));
-
-                cooldown = data.getInt("cooldown");
-                if (!data.wasNull()) {
-                    searchSpellList.setSpellCooldown(cooldown);
-                }
-
                 searchSpellLists.add(searchSpellList);
             }
             return searchSpellLists;
-        }catch(ConnectionException connectionEwception){
+        } catch (ConnectionException connectionException) {
             throw new DataAccessException(1);
         }catch(SQLException sqlException){
             throw new DataException(1);

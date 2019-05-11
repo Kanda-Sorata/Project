@@ -1,11 +1,11 @@
 package View.SearchPanel;
 
-import Controller.AccountPlayerController;
 import Controller.CharacterController;
+import Controller.PlayerAccountController;
 import Exception.DataAccessException;
 import Exception.DataException;
 import Model.Character;
-import View.UtilitiesPanelMethode;
+import View.UtilitiesPanelMethod;
 
 import javax.swing.*;
 import javax.swing.JSpinner.DateEditor;
@@ -42,9 +42,9 @@ public class SearchPanelGame extends JPanel {
     private String characterNameChoice;
     private GregorianCalendar dateChoice;
 
-    private AccountPlayerController accountPlayerController;
+    private PlayerAccountController playerAccountController;
     private CharacterController characterController;
-    private UtilitiesPanelMethode utilitiesPanelMethode;
+    private UtilitiesPanelMethod utilitiesPanelMethod;
 
     private ComboBoxListener comboBoxListener;
     private SpinnerListener spinnerListener;
@@ -54,71 +54,65 @@ public class SearchPanelGame extends JPanel {
     private JButton validation;
     private ButtonListener buttonListener;
 
-    public SearchPanelGame(ResultGamePanel resultGamePanel) {
-        try {
-            this.resultGamePanel = resultGamePanel;
-            accountPlayerController = new AccountPlayerController();
-            characterController = new CharacterController();
-            utilitiesPanelMethode = new UtilitiesPanelMethode();
+    public SearchPanelGame(ResultGamePanel resultGamePanel) throws DataAccessException, DataException {
+        //Add properties
+        setLayout(new GridLayout(4, 2, 5, 15));
+        setBorder(new EmptyBorder(150, 0, 250, 250)); //top, left, bottom, right
 
-            playerAccounts = utilitiesPanelMethode.setPlayerAccountsPseudo();
+        //Init
+        this.resultGamePanel = resultGamePanel;
+        playerAccountController = new PlayerAccountController();
+        characterController = new CharacterController();
+        utilitiesPanelMethod = new UtilitiesPanelMethod();
 
-            //Add propeties
-            setLayout(new GridLayout(4, 2, 5, 15));
-            setBorder(new EmptyBorder(150, 0, 250, 250)); //top, left, bottom, right
+        playerAccounts = utilitiesPanelMethod.setPlayerAccountsPseudo();
 
-            //add component
-            playerAccount = new JLabel("Player Account");
-            playerAccount.setHorizontalAlignment(SwingConstants.RIGHT);
-            characterName = new JLabel("Character");
-            characterName.setHorizontalAlignment(SwingConstants.RIGHT);
-            dateEnd = new JLabel("Date of end");
-            dateEnd.setHorizontalAlignment(SwingConstants.RIGHT);
+        //Add component
+        playerAccount = new JLabel("Player Account");
+        playerAccount.setHorizontalAlignment(SwingConstants.RIGHT);
+        characterName = new JLabel("Character");
+        characterName.setHorizontalAlignment(SwingConstants.RIGHT);
+        dateEnd = new JLabel("Date of end");
+        dateEnd.setHorizontalAlignment(SwingConstants.RIGHT);
 
 
-            playerAccountCombo = new JComboBox(playerAccounts.toArray());
-            playerAccountCombo.setSelectedIndex(0);
-            playerAccountCombo.setMaximumRowCount(3);
+        playerAccountCombo = new JComboBox(playerAccounts.toArray());
+        playerAccountCombo.setSelectedIndex(0);
+        playerAccountCombo.setMaximumRowCount(3);
 
-            String[] temp = {"Aucune selection"};
-            characterNameCombo = new JComboBox(temp);
-            characterNameCombo.setSelectedIndex(0);
-            characterNameCombo.setMaximumRowCount(3);
-            characterNameCombo.setEnabled(false);
+        String[] temp = {"No selection"};
+        characterNameCombo = new JComboBox(temp);
+        characterNameCombo.setSelectedIndex(0);
+        characterNameCombo.setMaximumRowCount(3);
+        characterNameCombo.setEnabled(false);
 
-            dateEndSpinner = new JSpinner();
-            Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.YEAR, -5);
-            Date earliestDate = calendar.getTime();
-            setJSpinner(earliestDate);
+        dateEndSpinner = new JSpinner();
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.YEAR, -5);
+        Date earliestDate = calendar.getTime();
+        setJSpinner(earliestDate);
 
-            //Add listener
-            comboBoxListener = new ComboBoxListener();
-            playerAccountCombo.addItemListener(comboBoxListener);
-            characterNameCombo.addItemListener(comboBoxListener);
-            spinnerListener = new SpinnerListener();
-            dateEndSpinner.addChangeListener(spinnerListener);
+        //Add listener
+        comboBoxListener = new ComboBoxListener();
+        playerAccountCombo.addItemListener(comboBoxListener);
+        characterNameCombo.addItemListener(comboBoxListener);
+        spinnerListener = new SpinnerListener();
+        dateEndSpinner.addChangeListener(spinnerListener);
 
-            validationLabel = new JLabel("Validation");
-            validationLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-            validation = new JButton("Validation");
-            buttonListener = new ButtonListener();
-            validation.addActionListener(buttonListener);
+        validationLabel = new JLabel("Validation");
+        validationLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        validation = new JButton("Validation");
+        buttonListener = new ButtonListener();
+        validation.addActionListener(buttonListener);
 
-            add(playerAccount);
-            add(playerAccountCombo);
-            add(characterName);
-            add(characterNameCombo);
-            add(dateEnd);
-            add(dateEndSpinner);
-            add(validationLabel);
-            add(validation);
-            setVisible(true);
-        }catch(DataException dataException){
-            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }catch(DataAccessException dataAccessException){
-            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        add(playerAccount);
+        add(playerAccountCombo);
+        add(characterName);
+        add(characterNameCombo);
+        add(dateEnd);
+        add(dateEndSpinner);
+        add(validationLabel);
+        add(validation);
     }
 
     public void setJSpinner(Date earliestDate){
@@ -149,16 +143,8 @@ public class SearchPanelGame extends JPanel {
         return numberChoice;
     }
 
-    public String getCharacterNameChoice() {
-        return characterNameChoice;
-    }
-
     public void setCharacterNameChoice(String characterNameChoice) {
         this.characterNameChoice = characterNameChoice;
-    }
-
-    public GregorianCalendar getDateEnd(){
-        return  dateChoice;
     }
 
     public void setDateChoice(){
@@ -233,7 +219,7 @@ public class SearchPanelGame extends JPanel {
             try {
                 setDateChoice();
                 if(playerAccountCombo.getSelectedIndex() != 0 && characterNameCombo.getSelectedIndex() != 0 && dateChoice != null) {
-                    resultGamePanel.setJtable(pseudoChoice, numberChoice, characterNameChoice, dateChoice);
+                    resultGamePanel.setJTable(pseudoChoice, numberChoice, characterNameChoice, dateChoice);
                 }
             }catch(DataException dataException){
                 JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

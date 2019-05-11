@@ -5,12 +5,12 @@ import java.util.GregorianCalendar;
 public class Server {
     private String name;
     private GregorianCalendar creationDate;
-    private boolean playerVersusPlayer;
+    private Boolean playerVersusPlayer;
     private Integer nbPlayersMax;
     private static final int MIN_PLAYER = 0;
     private static final int MAX_PLAYER = 10;
 
-    public Server(String name, GregorianCalendar creationDate, boolean playerVersusPlayer, Integer nbPlayersMax) {
+    public Server(String name, GregorianCalendar creationDate, Boolean playerVersusPlayer, Integer nbPlayersMax) {
         setName(name);
         setCreationDate(creationDate);
         setPlayerVersusPlayer(playerVersusPlayer);
