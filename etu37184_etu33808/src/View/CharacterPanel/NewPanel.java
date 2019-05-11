@@ -27,7 +27,7 @@ public class NewPanel extends JPanel {
         buttonsPanel.setFrame(this.frame);
         buttonsPanel.setFormPanelLeftModify(formPanelLeftNew);
 
-        if (this.frame.getHaveSavedValue()) {
+        if (frame.getHaveSavedValue()) {
             buttonsPanel.setFormValue();
         }
 
@@ -35,5 +35,4 @@ public class NewPanel extends JPanel {
         add(formPanelRight, BorderLayout.CENTER);
         add(buttonsPanel, BorderLayout.SOUTH);
     }
-
 }

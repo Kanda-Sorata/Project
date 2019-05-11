@@ -23,4 +23,5 @@ public class SpellPanel extends JPanel {
         add(resultSpellPanel);
 
     }
+
 }

@@ -1,7 +1,7 @@
 package View.SearchPanel;
 
-import Controller.AccountPlayerController;
 import Controller.CharacterController;
+import Controller.PlayerAccountController;
 import Exception.DataAccessException;
 import Exception.DataException;
 import Model.Character;
@@ -42,7 +42,7 @@ public class SearchPanelGame extends JPanel {
     private String characterNameChoice;
     private GregorianCalendar dateChoice;
 
-    private AccountPlayerController accountPlayerController;
+    private PlayerAccountController playerAccountController;
     private CharacterController characterController;
     private UtilitiesPanelMethod utilitiesPanelMethod;
 
@@ -61,7 +61,7 @@ public class SearchPanelGame extends JPanel {
 
         //Init
         this.resultGamePanel = resultGamePanel;
-        accountPlayerController = new AccountPlayerController();
+        playerAccountController = new PlayerAccountController();
         characterController = new CharacterController();
         utilitiesPanelMethod = new UtilitiesPanelMethod();
 

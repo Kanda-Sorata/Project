@@ -14,8 +14,8 @@ public class InformationPanel extends JPanel {
 
     public InformationPanel(Frame frame) {
         //Add properties
-        setLayout(new GridLayout(2, 2));
-        setBorder(new EmptyBorder(150, 100, 80, 100)); //Top, left, bottom, right
+        setLayout(new BorderLayout());
+        setBorder(new EmptyBorder(10, 100, 80, 100)); //Top, left, bottom, right
 
         this.frame = frame;
 
@@ -25,21 +25,21 @@ public class InformationPanel extends JPanel {
                 "or click on the button bellow.</p><p>We apologise for this inconvenient.</p></html>");
 
         backHome = new JButton("Home");
-
+        backHome.setFont(new Font("Arial", Font.BOLD, 12));
         buttonListener = new ButtonListener();
         backHome.addActionListener(buttonListener);
 
-        add(label);
-        add(backHome);
+        add(label, BorderLayout.CENTER);
+        add(backHome, BorderLayout.SOUTH);
     }
 
     private class ButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             frame.getContainer().removeAll();
-            frame.getContainer().add(new HomePanel(frame));
+            frame.setTitleFrame("Home");
+            frame.getContainer().add(new HomePanel());
             frame.getContainer().revalidate();
-            frame.getContainer().repaint();
         }
     }
 }

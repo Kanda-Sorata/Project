@@ -43,6 +43,7 @@ public class ButtonsPanel extends JPanel {
         //Add component
         back = new JButton("Back (Home)");
         back.addActionListener(buttonListener);
+        back.setToolTipText("You can save your work for further");
         reset = new JButton("Reset");
         reset.addActionListener(buttonListener);
         validation = new JButton("Validation");
@@ -58,7 +59,7 @@ public class ButtonsPanel extends JPanel {
         public void actionPerformed(ActionEvent actionEvent) {
             formPanelRight.setDateChoice();
             if(actionEvent.getSource() == validation){
-                if(isFormValide()) {
+                if (isFormValid()) {
                     resetLabel();
                     try {
                         String pseudo = formPanelLeftModify.getPseudoChoice();
@@ -132,7 +133,7 @@ public class ButtonsPanel extends JPanel {
                             formPanelLeftModify.setCharacterLabelReset();
                         }
                     }
-                    if (formPanelRight.getNameField().isEmpty() || !isNameValide(formPanelRight.getNameField())) {
+                    if (formPanelRight.getNameField().isEmpty() || !isNameValid(formPanelRight.getNameField())) {
                         formPanelRight.setNameLabelError();
                     }else{
                         formPanelRight.setNameLabelReset();
@@ -143,7 +144,7 @@ public class ButtonsPanel extends JPanel {
                     else{
                         formPanelRight.setHealthPointLabelReset();
                     }
-                    if (!formPanelRight.getPetNameField().isEmpty() && !isNameValide(formPanelRight.getPetNameField())) {
+                    if (!formPanelRight.getPetNameField().isEmpty() && !isNameValid(formPanelRight.getPetNameField())) {
                         formPanelRight.setPetNameLabelError();
                     }else{
                         formPanelRight.setPetNameLabelReset();
@@ -179,7 +180,8 @@ public class ButtonsPanel extends JPanel {
                         frame.setHaveSavedValue(true);
                         //update UI
                         frame.getContainer().removeAll();
-                        frame.getContainer().add(new HomePanel(frame));
+                        frame.setTitleFrame("Home");
+                        frame.getContainer().add(new HomePanel());
                         frame.getContainer().revalidate();
                         frame.getContainer().repaint();
                     }catch(HealthPointsException healthPointsException){
@@ -296,25 +298,24 @@ public class ButtonsPanel extends JPanel {
         return true;
     }
 
-    public boolean isFormValide(){
+    public boolean isFormValid() {
         return !noSelection(formPanelLeftModify.getPseudoChoice())
                 && !noSelection(formPanelLeftModify.getGameChoice())
                 && !noSelection(formPanelLeftModify.getGameChoice())
                 && !noSelection(formPanelLeftModify.getCharacterClassChoice())
                 && ((formPanelLeftModify.isModifyPanel() && !noSelection(formPanelLeftModify.getCharacterChoice())) || formPanelLeftModify.getCharacterChoice() == null)
-                && !formPanelRight.getNameField().isEmpty() && isNameValide(formPanelRight.getNameField())
+                && !formPanelRight.getNameField().isEmpty() && isNameValid(formPanelRight.getNameField())
                 && formPanelRight.getHealthPointSlider() >= Character.getMinHp()
                 && formPanelRight.getHealthPointSlider() <= formPanelRight.getHealthPointMax()
-                && formPanelRight.getIsStuffedCheckBox() != null
                 && formPanelRight.getCreationDate().after(formPanelRight.getEarliestDate())
                 && formPanelRight.getCreationDate().before(formPanelRight.getLatestDate())
-                && (formPanelRight.getPetNameField().isEmpty() || isNameValide(formPanelRight.getPetNameField()))
+                && (formPanelRight.getPetNameField().isEmpty() || isNameValid(formPanelRight.getPetNameField()))
                 && formPanelRight.getDamagePerSecond() >= Character.getMinDmg()
                 && formPanelRight.getDamagePerSecond() <= Character.getMaxDmg();
                 //getCreationDate().before(date) true if date is after getCreationDate
     }
 
-    public boolean isNameValide(String name){
+    public boolean isNameValid(String name) {
         return Pattern.matches("^[a-zA-Z_-]{4,50}", name);
     }
 

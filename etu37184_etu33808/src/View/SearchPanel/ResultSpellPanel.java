@@ -32,7 +32,6 @@ public class ResultSpellPanel extends JPanel {
         add(scrollPane);
     }
 
-
     public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, int numberChoice)throws DataException, DataAccessException {
         return spellController.getSearchSpellList(pseudoChoice, numberChoice);
     }

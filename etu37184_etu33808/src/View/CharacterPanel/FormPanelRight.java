@@ -79,10 +79,11 @@ public class FormPanelRight extends JPanel {
         healthPointSlider.setEnabled(false);
         setHealthPointSlider(Character.getMinHp(), Character.getMaxHp(), Character.getMinHp());
 
-        isStuffedLabel = new JLabel("<html>Is already stuffed<font color = 'red'>*</font></html>");
+        isStuffedLabel = new JLabel("Is already stuffed");
         isStuffedLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         isStuffedCheckBox = new JCheckBox();
         isStuffedCheckBox.setHorizontalAlignment(SwingConstants.LEFT);
+        isStuffedCheckBox.setToolTipText("False selected by default when unchecked");
 
         creationDateLabel = new JLabel("<html>Creational date<font color = 'red'>*</font></html>");
         creationDateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -246,6 +247,16 @@ public class FormPanelRight extends JPanel {
         creationDateSpinner.setEditor(dateEditor);
     }
 
+    public void setCreationDateSpinnerValue(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.YEAR, 20);
+        latestDate = calendar.getTime();
+        spinnerModel = new SpinnerDateModel(date, date, latestDate, Calendar.MONTH); //getPrevious & nextvalue method
+        creationDateSpinner.setModel(spinnerModel);
+        dateEditor = new JSpinner.DateEditor(creationDateSpinner, "dd/MM/yyyy");
+        creationDateSpinner.setEditor(dateEditor);
+    }
+
     public void setCreationDateSpinner() {
         Calendar calendar = Calendar.getInstance();
         calendar.getTime();
@@ -385,7 +396,7 @@ public class FormPanelRight extends JPanel {
             setHealthPointSlider(Character.getMinHp(), healthPointMax, character.getHealthPoints());
             healthPointSlider.setEnabled(true);
             setStuffedCheckBox(character.isStuffed());
-            setCreationDateSpinner(character.getCreationDate().getTime());
+            setCreationDateSpinnerValue(character.getCreationDate().getTime());
             setPetNameField(character.getPetName());
             if(character.getDamagePerSecond() != null) {
                 setDamagePerSecondActivated(true);

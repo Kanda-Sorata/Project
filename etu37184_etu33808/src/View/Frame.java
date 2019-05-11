@@ -23,6 +23,7 @@ public class Frame extends JFrame{
     private JMenu application;
     private JMenuItem home;
     private JMenuItem topOfClass;
+    private JMenuItem dataAccount;
     private JMenuItem exit;
     private JMenu search;
     private JMenuItem listGamesFromCharacter;
@@ -64,11 +65,11 @@ public class Frame extends JFrame{
     private InformationPanel informationPanel;
 
     public Frame(){
-        //Generale
+        //General
         super("Account management - Home");
         setFrame();
 
-        //Contenu
+        //Container
         container = this.getContentPane();
 
         //Menu
@@ -76,7 +77,7 @@ public class Frame extends JFrame{
         setJMenuBar(menu);
 
         //add panel home
-        homePanel = new HomePanel(this);
+        homePanel = new HomePanel();
 
         //init for newPanel
         haveSavedValue = false;
@@ -84,6 +85,7 @@ public class Frame extends JFrame{
         //connection to close
         singletonController = new SingletonController();
 
+        //Add look and feel
         try
         {
             //Set the required look and feel
@@ -93,12 +95,27 @@ public class Frame extends JFrame{
         }//end try
         catch(Exception ex)
         {
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "An error has occurred with the appearance of the software, we apologize about this.\n" +
+                    "This will not impact your work.", "Warning - Appearance", JOptionPane.WARNING_MESSAGE);
         }//end catch
 
+
+        //Thread
+        SingletonThread.getSingletonThread(this);
+
+
+        //Add component
         add(homePanel);
+
         setVisible(true);
-        new FrameThread(this);
+    }
+
+    public int getLocationThreadX() {
+        return getLocation().x + getSize().width + 5;
+    }
+
+    public int getLocationThreadY() {
+        return getLocation().y;
     }
 
     public void setFrame(){
@@ -140,17 +157,20 @@ public class Frame extends JFrame{
         ApplicationListener applicationListener = new ApplicationListener();
         HelpListener helpListener = new HelpListener();
 
-        //Appplication
+        //Application
         application.setMnemonic('a');
         home = new JMenuItem("Home");
         home.addActionListener(applicationListener);
         topOfClass = new JMenuItem("Top of class");
         topOfClass.addActionListener(applicationListener);
+        dataAccount = new JMenuItem("Data about Account");
+        dataAccount.addActionListener(applicationListener);
         exit = new JMenuItem("Exit");
         exit.addActionListener(applicationListener);
         exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK));
         application.add(home);
         application.add(topOfClass);
+        application.add(dataAccount);
         application.add(exit);
 
         //Search
@@ -208,11 +228,11 @@ public class Frame extends JFrame{
                 System.exit(0);
             }
             else{
-                container.removeAll();
                 if(event.getSource() == topOfClass){
                     try {
                         topOfClassPanel = new TopOfClassPanel();
                         setTitleFrame("Top of Classes");
+                        container.removeAll();
                         container.add(topOfClassPanel);
                     } catch (DataAccessException dataAccessException) {
                         updatePanelToGoHome();
@@ -225,8 +245,14 @@ public class Frame extends JFrame{
                         JOptionPane.showMessageDialog(null, divideException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }else {
-                    homePanel = new HomePanel(getFrame());
-                    container.add(homePanel);
+                    if (event.getSource() == home) {
+                        homePanel = new HomePanel();
+                        setTitleFrame("Home");
+                        container.removeAll();
+                        container.add(homePanel);
+                    } else {
+                        SingletonThread.getSingletonThread(getFrame());
+                    }
                 }
                 setVisible(true);
             }
@@ -350,7 +376,7 @@ public class Frame extends JFrame{
     public class HelpListener implements ActionListener {
         public void actionPerformed(ActionEvent actionEvent){
             container.removeAll();
-            helpPanel = new HelpPanel(getFrame());
+            helpPanel = new HelpPanel();
             container.add(helpPanel);
             setTitleFrame("Help");
             setVisible(true);

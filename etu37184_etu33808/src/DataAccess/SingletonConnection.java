@@ -22,7 +22,7 @@ public class SingletonConnection {
         return uniqueConnection;
     }
 
-    public boolean isClosed(){
+    private boolean isClosed() {
         return uniqueConnection == null;
     }
 

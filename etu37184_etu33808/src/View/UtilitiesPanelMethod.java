@@ -1,25 +1,25 @@
 package View;
 
-import Controller.AccountPlayerController;
+import Controller.PlayerAccountController;
 import Exception.DataAccessException;
 import Exception.DataException;
-import Model.AccountPlayer;
+import Model.PlayerAccount;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 
 public class UtilitiesPanelMethod {
-    private AccountPlayerController accountPlayerController;
+    private PlayerAccountController playerAccountController;
 
     public UtilitiesPanelMethod() {
-        accountPlayerController = new AccountPlayerController();
+        playerAccountController = new PlayerAccountController();
     }
 
     public ArrayList<String> setPlayerAccountsPseudo() throws DataException, DataAccessException {
         ArrayList<String> playerAccounts = new ArrayList<>();
-        Integer nbMaxPlayer = accountPlayerController.getNbAccountPlayers();
-        ArrayList<AccountPlayer> players = accountPlayerController.getAllAccountPlayer();
+        int nbMaxPlayer = playerAccountController.getNbAccountPlayers();
+        ArrayList<PlayerAccount> players = playerAccountController.getAllAccountPlayer();
         playerAccounts.add("No selection");
 
         for (int iPseudo = 0; iPseudo < nbMaxPlayer; iPseudo++) {
@@ -42,12 +42,5 @@ public class UtilitiesPanelMethod {
 
         table.setModel(tableModel);
        return table;
-    }
-
-    public void updatePanelToGoHome(JPanel panel, Frame frame) {
-        frame.getContainer().removeAll();
-        frame.getContainer().add(new InformationPanel(frame));
-        frame.revalidate();
-        frame.repaint();
     }
 }

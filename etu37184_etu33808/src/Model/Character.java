@@ -14,7 +14,7 @@ public class Character {
     private Integer damagePerSecond;
 
     private CharacterClass characterClass;
-    private AccountPlayer player;
+    private PlayerAccount player;
     private Server server;
 
     private static final int MIN_HP = 0;
@@ -23,7 +23,7 @@ public class Character {
     private static final int MAX_DMG = 5000;
 
     public Character(String name, Integer healthPoints, Boolean isStuffed, GregorianCalendar creationDate, String petName,
-                     Integer damagePerSecond, CharacterClass characterClass, AccountPlayer player)
+                     Integer damagePerSecond, CharacterClass characterClass, PlayerAccount player)
                      throws HealthPointsException, DamagePerSecondException {
         setName(name);
         setHealthPoints(healthPoints);
@@ -96,11 +96,11 @@ public class Character {
         this.characterClass = characterClass;
     }
 
-    public AccountPlayer getPlayer() {
+    public PlayerAccount getPlayer() {
         return player;
     }
 
-    public void setPlayer(AccountPlayer player) {
+    public void setPlayer(PlayerAccount player) {
         this.player = player;
     }
 

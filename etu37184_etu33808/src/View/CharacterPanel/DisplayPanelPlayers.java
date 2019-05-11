@@ -1,6 +1,6 @@
 package View.CharacterPanel;
 
-import Controller.AccountPlayerController;
+import Controller.PlayerAccountController;
 import Exception.DataAccessException;
 import Exception.DataException;
 import View.UtilitiesPanelMethod;
@@ -15,7 +15,7 @@ public class DisplayPanelPlayers extends JPanel {
     private JLabel playerAccountLabel;
     private ComboBoxListener comboBoxListener;
     private ArrayList<String> allPlayers;
-    private AccountPlayerController playerAccountController;
+    private PlayerAccountController playerAccountController;
     private DisplayPanelResult displayPanelResult;
     private UtilitiesPanelMethod utilitiesPanelMethod;
     private String pseudoChoice;
@@ -29,7 +29,7 @@ public class DisplayPanelPlayers extends JPanel {
         //Add components
         playerAccountLabel = new JLabel("Player account");
         comboBoxListener = new ComboBoxListener();
-        playerAccountController = new AccountPlayerController();
+        playerAccountController = new PlayerAccountController();
         allPlayers = utilitiesPanelMethod.setPlayerAccountsPseudo();
         playerAccountCombo = new JComboBox(allPlayers.toArray());
         playerAccountCombo.addActionListener(comboBoxListener);

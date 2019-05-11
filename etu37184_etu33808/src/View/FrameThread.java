@@ -7,44 +7,57 @@ import java.awt.event.WindowEvent;
 
 public class FrameThread extends JFrame {
     private Container container;
-    private Frame frame;
     private PanelThread panelThread;
+    private Frame frameParent;
+    private ThreadCounts threadCounts;
 
-    public FrameThread(Frame frame){
-        container = this.getContentPane();
-        this.frame = frame;
-        setFrame();
-        panelThread = new PanelThread();
+    public FrameThread(Frame frameParent) {
+        //Add properties
         setTitle("Counters");
+
+        //Init
+        container = this.getContentPane();
+        panelThread = new PanelThread();
+        this.frameParent = frameParent;
+        setFrame();
+
+        //Add look & feel
         try {
             //Set the required look and feel
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
             //Update the component tree - associate the look and feel with the given frame.
             SwingUtilities.updateComponentTreeUI(this);
         } catch(Exception ex) {
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "An error has occurred with the appearance of the software, we apologize about this.\n" +
+                    "This will not impact your work.", "Warning - Appearance", JOptionPane.WARNING_MESSAGE);
         }
+
+        //Thread
+        threadCounts = new ThreadCounts(panelThread);
+        threadCounts.start();
+
+        //Add components
         container.add(panelThread);
+
         setVisible(true);
     }
 
-    public void setFrame(){
+    private void setFrame() {
         //set the frame
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int height = screenSize.height;
         int width = screenSize.width;
         pack();
-        setSize(width/4, height/4);
+        setSize(width / 5 - 50, height / 5);
 
-        // here's the part where i put the jframe on the other one
-        setLocationRelativeTo(null);
-
+        setLocation(frameParent.getLocationThreadX(), frameParent.getLocationThreadY());
         setResizable(false);
 
-        addWindowListener(new WindowAdapter() { //Fermer la fenetre
+        addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent windowEvent) {
-                System.exit(0);
+                SingletonThread.close();
+                dispose(); //Close only the window selected by the mouse
             }
         });
     }

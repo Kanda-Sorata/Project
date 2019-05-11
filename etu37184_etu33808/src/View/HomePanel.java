@@ -7,17 +7,15 @@ import java.io.File;
 import java.io.IOException;
 
 public class HomePanel extends JPanel {
+    private int height;
+    private int width;
 
-    public HomePanel(Frame frame){
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int height = screenSize.height;
-        int width = screenSize.width;
-
+    public HomePanel() {
         setLayout(new FlowLayout());
 
-        frame.setTitle("");
-        frame.setTitle(frame.getTitle() + "- Home");
-
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        height = screenSize.height;
+        width = screenSize.width;
         //Image
         try{
             Image image = ImageIO.read(new File("./image.png"));
@@ -28,4 +26,5 @@ public class HomePanel extends JPanel {
             JOptionPane.showMessageDialog(null, "The background didn't load, we apologize for this.\nThis error is not going to impact your experience", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }
+
 }

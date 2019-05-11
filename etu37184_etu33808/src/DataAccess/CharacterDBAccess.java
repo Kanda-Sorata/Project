@@ -335,7 +335,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
     }
 
     public Character getOneCharacter(String pseudo, int number, String game, String server, String characterClass, String character) throws DataException, DataAccessException {
-        Connection connection = null;
+        Connection connection;
         try {
             connection = SingletonConnection.getInstance();
 
@@ -361,8 +361,6 @@ public class CharacterDBAccess implements CharacterDataAccess {
 
             ResultSet data = statement.executeQuery();
             Character characterToFill = null;
-            String petName;
-            Integer damagePerSecond;
 
             while (data.next()) {
                 characterToFill = new Character(data.getString("name"), (Integer)data.getObject("healthPoint"),
@@ -389,7 +387,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
 
     public ArrayList<String> getAllCharactersInAGameInServerWithCharacterClass(String pseudo, int number, String game,
                                                                                String server, String characterClass) throws DataException, DataAccessException{
-        Connection connection = null;
+        Connection connection;
         try {
             connection = SingletonConnection.getInstance();
 
@@ -429,7 +427,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
     }
 
     public ArrayList<DisplayCharacter> getAllInfosCharacters(String pseudoChoice, int numberChoice) throws DataException, DataAccessException {
-        Connection connection = null;
+        Connection connection;
 
         try {
             ArrayList<DisplayCharacter> characters = new ArrayList<>();
@@ -456,8 +454,6 @@ public class CharacterDBAccess implements CharacterDataAccess {
 
             ResultSet data = statement.executeQuery();
             DisplayCharacter currentChar;
-            Integer damagePerSecond = null;
-            String petName = null;
 
             while (data.next()) {
                 currentChar = new DisplayCharacter(data.getString("GameName"), data.getString("ServerName"), data.getString("CharacterName"),

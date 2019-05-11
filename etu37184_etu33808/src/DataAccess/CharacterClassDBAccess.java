@@ -87,7 +87,7 @@ public class CharacterClassDBAccess implements CharacterClassDataAccess {
                     + "where characterClass.technicalId = characterClass.technicalId "
                     + "and `character`.characterclassTechnicalId = characterclass.technicalId "
                     + "group by characterClass.name "
-                    + "order by `Character`.name desc, characterclass.name asc;";
+                    + "order by count(`Character`.name) desc,  characterclass.name asc";
 
             PreparedStatement statement = connection.prepareStatement(query);
 

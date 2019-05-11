@@ -4,7 +4,7 @@ import Exception.SexException;
 
 import java.util.GregorianCalendar;
 
-public class AccountPlayer {
+public class PlayerAccount {
     private Integer id;
     private String pseudo;
     private Integer number;
@@ -16,7 +16,7 @@ public class AccountPlayer {
     private final static int MIN_NUMBER = 10000;
     private final static int MAX_NUMBER = 99999;
 
-    public AccountPlayer(Integer id, String pseudo, Integer number, String sex, GregorianCalendar creationDate,
+    public PlayerAccount(Integer id, String pseudo, Integer number, String sex, GregorianCalendar creationDate,
                          String city, String country) throws SexException {
         setId(id);
         setPseudo(pseudo);
