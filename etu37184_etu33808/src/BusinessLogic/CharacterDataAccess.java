@@ -24,4 +24,6 @@ public interface CharacterDataAccess {
             throws DataException, DataAccessException;
 
     ArrayList<DisplayCharacter> getAllInfosCharacters(String pseudoChoice, int numberChoice) throws DataException, DataAccessException;
+
+    int getNbCharacters() throws DataException, DataAccessException;
 }

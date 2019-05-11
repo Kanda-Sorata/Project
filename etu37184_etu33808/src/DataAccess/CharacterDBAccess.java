@@ -479,4 +479,25 @@ public class CharacterDBAccess implements CharacterDataAccess {
             throw new DataException(1);
         }
     }
+
+    public int getNbCharacters() throws DataException, DataAccessException {
+        Connection connection;
+        int nbCharacters = 0;
+
+        try {
+            connection = SingletonConnection.getInstance();
+            String query = "select count(*) from `character`;";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet data = statement.executeQuery();
+
+            if(data.next()) {
+                nbCharacters = data.getInt(1);
+            }
+            return nbCharacters;
+        } catch (ConnectionException connexionException) {
+            throw new DataAccessException(1);
+        } catch (SQLException sqlException) {
+            throw new DataException(1);
+        }
+    }
 }

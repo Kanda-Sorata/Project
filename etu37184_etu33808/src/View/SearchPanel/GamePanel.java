@@ -14,7 +14,6 @@ public class GamePanel extends JPanel {
         //Add properties
         setLayout(new GridLayout(1, 2, 5, 15));
 
-
         //Add components
         resultGamePanel = new ResultGamePanel();
         searchPanelGame = new SearchPanelGame(resultGamePanel);

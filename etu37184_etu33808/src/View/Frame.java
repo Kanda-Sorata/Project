@@ -98,6 +98,7 @@ public class Frame extends JFrame{
 
         add(homePanel);
         setVisible(true);
+        new FrameThread(this);
     }
 
     public void setFrame(){

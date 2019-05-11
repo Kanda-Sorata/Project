@@ -81,4 +81,8 @@ public class CharacterBusinessLogic {
     public ArrayList<DisplayCharacter> getAllInfosCharacters(String pseudoChoice, int numberChoice) throws DataException, DataAccessException {
         return dao.getAllInfosCharacters(pseudoChoice, numberChoice);
     }
+
+    public int getNbCharacters() throws DataException, DataAccessException{
+        return dao.getNbCharacters();
+    }
 }

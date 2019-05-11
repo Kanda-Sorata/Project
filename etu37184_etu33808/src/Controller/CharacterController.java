@@ -47,4 +47,8 @@ public class CharacterController {
     public ArrayList<DisplayCharacter> getAllInfosCharacters(String pseudoChoice, int numberChoice) throws DataAccessException, DataException {
         return characterBusinessLogic.getAllInfosCharacters(pseudoChoice, numberChoice);
     }
+
+    public int getNbCharacters() throws DataAccessException, DataException{
+        return characterBusinessLogic.getNbCharacters();
+    }
 }
