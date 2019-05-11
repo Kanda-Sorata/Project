@@ -30,21 +30,21 @@ public class HelpPanel extends JPanel {
                 "<p style = " + cssIntro + ">To the intention of Miss Dubisy Françoise and Miss Bertrand Chantal.</p>" +
                 "<p style = " + cssIntro + ">We would like to thank our Professors, Miss Dubisy Françoise and Miss Bertrand Chantal.</p>" +
 
-                "<h3 style = " + cssOffer + " >Control of this soft or to get some extra information about Player Accounts & Characters</h3>" +
+                "<h3 style = " + cssOffer + " >Getting some extra infos about all accounts and characters or control this software</h3>" +
                 "<ul>" +
                 "<li>Home - Come back at home</li>" +
                 "<li>Top of class - Get a list of character classes order by utilisation</li>" +
                 "<li>Data account information - You are able to open a new windows with extra information</li>" +
                 "</ul>" +
 
-                "<h3 style = " + cssOffer + ">Here are the features that you can find into the menu \"Search\"</h3>" +
+                "<h3 style = " + cssOffer + ">Here are the research that you can find into the menu \"Search\"</h3>" +
                 "<ul>" +
                 "<li>Search for games based on a release date</li>" +
                 "<li>Search for information on the spells of a player</li>" +
                 "<li>Search for the effects of the skills available for the desired class</li>" +
                 "</ul>" +
 
-                "<h3 style = " + cssOffer + ">You can also find this search in the menu  \"Character\"</h3>" +
+                "<h3 style = " + cssOffer + ">You can also find these features in the menu  \"Character\"</h3>" +
                 "<ul>" +
                 "<li>Add a character to a player</li>" +
                 "<li>Modify a character from a player</li>" +
