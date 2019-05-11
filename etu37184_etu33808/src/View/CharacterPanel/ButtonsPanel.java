@@ -1,10 +1,7 @@
 package View.CharacterPanel;
 
 import Controller.CharacterController;
-import Exception.DamagePerSecondException;
-import Exception.DataAccessException;
-import Exception.DataException;
-import Exception.HealthPointsException;
+import Exception.*;
 import Model.Character;
 import Model.SavedValueForm;
 import View.Frame;
@@ -63,19 +60,20 @@ public class ButtonsPanel extends JPanel {
         avoidedNames = new ArrayList<>();
         avoidedNames.add("zigounette");
         avoidedNames.add("turlutte");
-        avoidedNames.add("tirer un coup");
-        avoidedNames.add("ta gueule");
+        avoidedNames.add("tirer_un_coup");
+        avoidedNames.add("tirer-un-coup");
+        avoidedNames.add("ta_gueule");
+        avoidedNames.add("ta-geule");
         avoidedNames.add("sucer");
         avoidedNames.add("geule");
-        avoidedNames.add("se faire sauter");
-        avoidedNames.add("se faire chier");
-        avoidedNames.add("s emmerder");
+        avoidedNames.add("emmerder");
         avoidedNames.add("démerder");
         avoidedNames.add("roubignoles");
         avoidedNames.add("putes");
         avoidedNames.add("putain");
         avoidedNames.add("pisser");
-        avoidedNames.add("nique ta mère");
+        avoidedNames.add("nique-ta-mère");
+        avoidedNames.add("nique_ta_mère");
         avoidedNames.add("merdique");
         avoidedNames.add("niquer");
         avoidedNames.add("merdier");
@@ -90,7 +88,7 @@ public class ButtonsPanel extends JPanel {
         avoidedNames.add("emmerdeur");
         avoidedNames.add("emmerdeuse");
         avoidedNames.add("emmerdant");
-        avoidedNames.add("cul");
+        avoidedNames.add("culs");
         avoidedNames.add("couillu");
         avoidedNames.add("couille");
         avoidedNames.add("couilles");
@@ -141,12 +139,15 @@ public class ButtonsPanel extends JPanel {
         avoidedNames.add("chinnetoc");
         avoidedNames.add("chinnetok");
         avoidedNames.add("chinnetoque");
-        avoidedNames.add("face de jaune");
+        avoidedNames.add("face_de_jaune");
+        avoidedNames.add("face-de-jaune");
         avoidedNames.add("face jaune");
         avoidedNames.add("black");
         avoidedNames.add("sale");
-        avoidedNames.add("espece de");
-        avoidedNames.add("race de");
+        avoidedNames.add("espece-de");
+        avoidedNames.add("espece-de");
+        avoidedNames.add("race-de");
+        avoidedNames.add("race_de");
         avoidedNames.add("bamboula");
         avoidedNames.add("blakos");
         avoidedNames.add("blaquos");
@@ -198,7 +199,7 @@ public class ButtonsPanel extends JPanel {
                             character.setDamagePerSecond(formPanelRight.getDamagePerSecond());
                         }
                         int state;
-                        String msg = "The caracter " + character.getName() + " has been ";
+                        String msg = "The character " + character.getName() + " has been ";
                         if(!formPanelLeftModify.isModifyPanel()) {
                             state = characterController.insertACharacter(character, pseudo, number, game, server, characterClass);
                             msg += "add ";
@@ -224,10 +225,13 @@ public class ButtonsPanel extends JPanel {
                                                                                             JOptionPane.ERROR_MESSAGE);
                     } catch (DataAccessException dataAccessException) {
                         JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error",
-                                                                                            JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.ERROR_MESSAGE);
+                    } catch (UniqueNameException uniqueNameException) {
+                        JOptionPane.showMessageDialog(null, uniqueNameException.getMessage(), "Error",
+                                JOptionPane.ERROR_MESSAGE);
                     }
                 }else {
-                    JOptionPane.showMessageDialog(null, "Some erroes has been found in the form, " +
+                    JOptionPane.showMessageDialog(null, "Some error has been found in the form, " +
                             "please correct this to continue.", "Error form", JOptionPane.ERROR_MESSAGE);
                     if(noSelection(formPanelLeftModify.getPseudoChoice())){
                         formPanelLeftModify.setPlayerAccountLabelError();

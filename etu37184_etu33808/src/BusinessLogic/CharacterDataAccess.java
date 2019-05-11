@@ -26,4 +26,6 @@ public interface CharacterDataAccess {
     ArrayList<DisplayCharacter> getAllInfosCharacters(String pseudoChoice, int numberChoice) throws DataException, DataAccessException;
 
     int getNbCharacters() throws DataException, DataAccessException;
+
+    boolean notTheSameName(String pseudo, int number, String game, String server, String characterClass, String characterName) throws DataException, DataAccessException;
 }

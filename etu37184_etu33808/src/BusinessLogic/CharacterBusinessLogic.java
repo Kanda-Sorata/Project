@@ -3,6 +3,7 @@ package BusinessLogic;
 import DataAccess.CharacterDBAccess;
 import Exception.DataAccessException;
 import Exception.DataException;
+import Exception.UniqueNameException;
 import Model.Character;
 import Model.DisplayCharacter;
 
@@ -35,11 +36,16 @@ public class CharacterBusinessLogic {
             throw new DataException(7);
         }
     }
-    public int insertACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataAccessException, DataException {
-        if(isInsertParametersValide(character, pseudo, number, game, server, characterClass)) {
-            return dao.insertACharacter(character, pseudo, number, game, server, characterClass);
-        }else{
-           throw new DataException(6);
+
+    public int insertACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataAccessException, DataException, UniqueNameException {
+        if (!isInsertParametersValide(character, pseudo, number, game, server, characterClass)) {
+            throw new DataException(6);
+        } else {
+            if (!dao.notTheSameName(pseudo, number, game, server, characterClass, character.getName())) {
+                throw new UniqueNameException(character.getName());
+            } else {
+                return dao.insertACharacter(character, pseudo, number, game, server, characterClass);
+            }
         }
     }
 

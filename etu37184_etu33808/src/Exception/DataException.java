@@ -8,7 +8,7 @@ public class DataException extends Exception {
     }  //1 : SQLException, 2 : HealthPoint, 3 : NameException 4 : SexException, 5 : DamagePerSecond 6 : Insert 7 : Delete 8 Modify
 
     public String getMessage() {
-        String output = "Sorry an error has been occured, when you tried ";
+        String output = "Sorry an error has been occurred, when you tried ";
         switch (code) {
             case 1:
                 output += "to access, the data has not indexed or not available at this time, impossible to continue.";
@@ -26,13 +26,13 @@ public class DataException extends Exception {
                 output += "to set damage per second";
                 break;
             case 6:
-                output += "to add a new charcater. The add has been cancelled.";
+                output += "to add a new character. The add has been cancelled.";
                 break;
             case 7:
-                output += "to delete a chatacer. The delete has been cancelled.";
+                output += "to delete a character. The delete has been cancelled.";
                 break;
             case 8:
-                output += "to modify a chatacer. The delete has been cancelled.";
+                output += "to modify a character. The delete has been cancelled.";
         }
         return output + "\n";
     }

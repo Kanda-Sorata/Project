@@ -141,7 +141,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
         }else {
             Connection connection;
             try {
-               connection = SingletonConnection.getInstance();
+                connection = SingletonConnection.getInstance();
                 int state = 0;
 
                 String query = "select playeraccount.id from playeraccount where pseudo = ? and number = ?;";
@@ -196,14 +196,14 @@ public class CharacterDBAccess implements CharacterDataAccess {
                             statementInsert.setBoolean(3, character.isStuffed());
                             java.sql.Date dateSql = new java.sql.Date(character.getCreationDate().getTimeInMillis());
                             statementInsert.setDate(4, dateSql);
-                            if(character.getPetName() == null || character.getPetName().isEmpty()) {
+                            if (character.getPetName() == null || character.getPetName().isEmpty()) {
                                 statementInsert.setNull(5, Types.VARCHAR);
-                            }else{
+                            } else {
                                 statementInsert.setString(5, character.getPetName());
                             }
-                            if(character.getDamagePerSecond() == null) {
+                            if (character.getDamagePerSecond() == null) {
                                 statementInsert.setNull(6, Types.INTEGER);
-                            }else{
+                            } else {
                                 statementInsert.setInt(6, character.getDamagePerSecond());
                             }
                             statementInsert.setInt(7, playerAccountId);
@@ -226,7 +226,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
     public int modifyACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataException, DataAccessException {
         if (!isInsertParametersValid(character, pseudo, number, game, server, characterClass)) {
             throw new DataException(8);
-        }else {
+        } else {
             Connection connection;
             try {
                 connection = SingletonConnection.getInstance();
@@ -284,14 +284,14 @@ public class CharacterDBAccess implements CharacterDataAccess {
                             statementUpdate.setBoolean(3, character.isStuffed());
                             java.sql.Date dateSql = new java.sql.Date(character.getCreationDate().getTimeInMillis());
                             statementUpdate.setDate(4, dateSql);
-                            if(character.getPetName() == null || character.getPetName().isEmpty()) {
+                            if (character.getPetName() == null || character.getPetName().isEmpty()) {
                                 statementUpdate.setNull(5, Types.VARCHAR);
-                            }else{
+                            } else {
                                 statementUpdate.setString(5, character.getPetName());
                             }
-                            if(character.getDamagePerSecond() == null) {
+                            if (character.getDamagePerSecond() == null) {
                                 statementUpdate.setNull(6, Types.INTEGER);
-                            }else{
+                            } else {
                                 statementUpdate.setInt(6, character.getDamagePerSecond());
                             }
                             statementUpdate.setInt(7, playerAccountId);
@@ -380,7 +380,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
             throw new DataException(1);
         } catch (HealthPointsException healthPointException){
             throw  new DataException(2);
-        }catch (DamagePerSecondException damagePerSecondException){
+        } catch (DamagePerSecondException damagePerSecondException) {
             throw new DataException(5);
         }
     }
@@ -495,5 +495,10 @@ public class CharacterDBAccess implements CharacterDataAccess {
         } catch (SQLException sqlException) {
             throw new DataException(1);
         }
+    }
+
+    public boolean notTheSameName(String pseudo, int number, String game, String server, String characterClass, String characterName) throws DataException, DataAccessException {
+        Character character = getOneCharacter(pseudo, number, game, server, characterClass, characterName);
+        return character == null;
     }
 }
