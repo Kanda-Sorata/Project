@@ -4,7 +4,7 @@ import Controller.SingletonController;
 import Exception.DataAccessException;
 import Exception.DataException;
 import Exception.DivideException;
-import Model.Character;
+import Model.SavedValueForm;
 import View.CharacterPanel.DeletePanel;
 import View.CharacterPanel.DisplayPanel;
 import View.CharacterPanel.ModifyPanel;
@@ -48,21 +48,12 @@ public class Frame extends JFrame{
     private TopOfClassPanel topOfClassPanel;
     private HelpPanel helpPanel;
 
-    private Character characterForm;
-    private Boolean haveSavedValue;
-    private String pseudo;
-    private int number;
-    private String server;
-    private String game;
-    private String characterClass;
-    private int indexPlayerAccount;
-    private int indexGame;
-    private int indexServer;
-    private int indexCharacterClass;
-
     private SingletonController singletonController;
 
     private InformationPanel informationPanel;
+
+    private SavedValueForm savedValueFormModify;
+    private SavedValueForm savedValueFormNew;
 
     public Frame(){
         //General
@@ -79,8 +70,11 @@ public class Frame extends JFrame{
         //add panel home
         homePanel = new HomePanel();
 
-        //init for newPanel
-        haveSavedValue = false;
+        //init for newPanel & modifyPanel
+        savedValueFormNew = new SavedValueForm();
+        savedValueFormNew.setHaveSavedValue(false);
+        savedValueFormModify = new SavedValueForm();
+        savedValueFormModify.setHaveSavedValue(false);
 
         //connection to close
         singletonController = new SingletonController();
@@ -387,96 +381,8 @@ public class Frame extends JFrame{
         return this;
     }
 
-    public void setCharacterForm(Character characterForm){
-        this.characterForm = characterForm;
-    }
-
-    public Character getCharacterForm() {
-        return characterForm;
-    }
-
-    public Boolean getHaveSavedValue() {
-        return haveSavedValue;
-    }
-
-    public void setHaveSavedValue(Boolean haveSavedValue) {
-        this.haveSavedValue = haveSavedValue;
-    }
-
     public Container getContainer(){
         return container;
-    }
-
-    public String getPseudo() {
-        return pseudo;
-    }
-
-    public void setPseudo(String pseudo) {
-        this.pseudo = pseudo;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public String getServer() {
-        return server;
-    }
-
-    public void setServer(String server) {
-        this.server = server;
-    }
-
-    public String getGame() {
-        return game;
-    }
-
-    public void setGame(String game) {
-        this.game = game;
-    }
-
-    public String getCharacterClass() {
-        return characterClass;
-    }
-
-    public void setCharacterClass(String characterClass) {
-        this.characterClass = characterClass;
-    }
-
-    public int getIndexPlayerAccount() {
-        return indexPlayerAccount;
-    }
-
-    public int getIndexGame() {
-        return indexGame;
-    }
-
-    public int getIndexServer() {
-        return indexServer;
-    }
-
-    public int getIndexCharacterClass() {
-        return indexCharacterClass;
-    }
-
-    public void setIndexPlayerAccount(int indexPlayerAccount) {
-        this.indexPlayerAccount = indexPlayerAccount;
-    }
-
-    public void setIndexGame(int indexGame) {
-        this.indexGame = indexGame;
-    }
-
-    public void setIndexServer(int indexServer) {
-        this.indexServer = indexServer;
-    }
-
-    public void setIndexCharacterClass(int indexCharacterClass) {
-        this.indexCharacterClass = indexCharacterClass;
     }
 
     public void setTitleFrame(String extraTitle) {
@@ -497,4 +403,19 @@ public class Frame extends JFrame{
         container.repaint();
     }
 
+    public void setSavedValueFormModify(SavedValueForm savedValueFormModify) {
+        this.savedValueFormModify = savedValueFormModify;
+    }
+
+    public void setSavedValueFormNew(SavedValueForm savedValueFormNew) {
+        this.savedValueFormNew = savedValueFormNew;
+    }
+
+    public SavedValueForm getSavedValueFormModify() {
+        return savedValueFormModify;
+    }
+
+    public SavedValueForm getSavedValueFormNew() {
+        return savedValueFormNew;
+    }
 }

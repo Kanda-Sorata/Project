@@ -28,6 +28,10 @@ public class ModifyPanel extends JPanel {
         buttonsPanel.setFrame(this.frame);
         buttonsPanel.setFormPanelLeftModify(formPanelLeftModify);
 
+        if (frame.getSavedValueFormModify().getHaveSavedValue()) {
+            buttonsPanel.setFormValue();
+        }
+
         add(formPanelLeftModify, BorderLayout.WEST);
         add(formPanelRight, BorderLayout.CENTER);
         add(buttonsPanel, BorderLayout.SOUTH);

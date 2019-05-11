@@ -27,7 +27,7 @@ public class NewPanel extends JPanel {
         buttonsPanel.setFrame(this.frame);
         buttonsPanel.setFormPanelLeftModify(formPanelLeftNew);
 
-        if (frame.getHaveSavedValue()) {
+        if (frame.getSavedValueFormNew().getHaveSavedValue()) {
             buttonsPanel.setFormValue();
         }
 
