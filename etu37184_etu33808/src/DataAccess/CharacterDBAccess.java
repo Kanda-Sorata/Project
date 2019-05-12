@@ -497,8 +497,41 @@ public class CharacterDBAccess implements CharacterDataAccess {
         }
     }
 
-    public boolean notTheSameName(String pseudo, int number, String game, String server, String characterClass, String characterName) throws DataException, DataAccessException {
-        Character character = getOneCharacter(pseudo, number, game, server, characterClass, characterName);
+    private String getOneCharacterToCompare(String pseudo, int number, String game, String server, String characterName) throws DataException, DataAccessException {
+        Connection connection;
+        try {
+            connection = SingletonConnection.getInstance();
+            String query = "select `character`.name from `character`, playeraccount, server "
+                    + "where playeraccount.id = (select id from playeraccount where pseudo = ? and number = ?) "
+                    + "and server.technicalId = (select technicalId from server where server.name = ? and server.gamename = ?) "
+                    + "and `character`.technicalId = (select `character`.technicalId from `character`, playeraccount, "
+                    + " server where `character`.playeraccountId = playeraccount.id  "
+                    + "and `character`.servertechnicalId = server.technicalId and `character`.name = ?);";
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, pseudo);
+            statement.setInt(2, number);
+            statement.setString(3, server);
+            statement.setString(4, game);
+            statement.setString(5, characterName);
+
+            ResultSet data = statement.executeQuery();
+            String character = null;
+
+            if (data.next()) {
+                character = data.getString(1);
+            }
+
+            return character;
+        } catch (ConnectionException connexionException) {
+            throw new DataAccessException(1);
+        } catch (SQLException sqlException) {
+            throw new DataException(1);
+        }
+    }
+
+    public boolean notTheSameName(String pseudo, int number, String game, String server, String characterName) throws DataException, DataAccessException {
+        String character = getOneCharacterToCompare(pseudo, number, game, server, characterName);
         return character == null;
     }
 }

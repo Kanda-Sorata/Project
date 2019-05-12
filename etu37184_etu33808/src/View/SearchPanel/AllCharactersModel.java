@@ -15,11 +15,10 @@ public class AllCharactersModel extends AbstractTableModel {
     public void setContents(ArrayList<String> characters){ contents = characters; }
     public int getColumnCount( ) { return columnNames.size( ); }
     public int getRowCount( ) { return contents.size( ); }
-    @Override
     public String getColumnName(int column) {return columnNames.get(column); }
     public Object getValueAt(int row, int column){
         String character = contents.get(row);
-        return row == 0 ? character : null;
+        return column == 0 ? character : null;
     }
 
     public boolean isCellEditable(int row, int col) {

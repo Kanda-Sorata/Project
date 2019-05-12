@@ -41,7 +41,7 @@ public class CharacterBusinessLogic {
         if (!isInsertParametersValide(character, pseudo, number, game, server, characterClass)) {
             throw new DataException(6);
         } else {
-            if (!dao.notTheSameName(pseudo, number, game, server, characterClass, character.getName())) {
+            if (!dao.notTheSameName(pseudo, number, game, server, character.getName())) {
                 throw new UniqueNameException(character.getName());
             } else {
                 return dao.insertACharacter(character, pseudo, number, game, server, characterClass);

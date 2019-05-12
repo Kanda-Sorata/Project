@@ -43,10 +43,6 @@ public class DeletePanelTable extends JPanel {
         setNumber(numberChoice);
         setGame(gameChoice);
         updateJTable();
-        table.getSelectionModel().addListSelectionListener(tableListener);
-        add(scrollPane);
-        revalidate();
-        repaint();
     }
 
     public class TableListener implements ListSelectionListener {
