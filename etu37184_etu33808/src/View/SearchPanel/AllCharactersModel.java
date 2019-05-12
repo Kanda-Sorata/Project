@@ -19,7 +19,7 @@ public class AllCharactersModel extends AbstractTableModel {
     public String getColumnName(int column) {return columnNames.get(column); }
     public Object getValueAt(int row, int column){
         String character = contents.get(row);
-        return column == 0 ? character : null;
+        return row == 0 ? character : null;
     }
 
     public boolean isCellEditable(int row, int col) {
@@ -30,10 +30,6 @@ public class AllCharactersModel extends AbstractTableModel {
         Class c;
         switch(column){
             case 0: c = String.class;
-                break;
-            case 1: c = String.class;
-                break;
-            case 2: c = Integer.class;
                 break;
             default: c = String.class;
         }

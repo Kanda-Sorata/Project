@@ -92,6 +92,7 @@ public class DeletePanelTable extends JPanel {
         remove(scrollPane);
         AllCharactersModel model = new AllCharactersModel(characters);
         table = new JTable(model);
+        table.getSelectionModel().addListSelectionListener(tableListener);
         scrollPane = new JScrollPane(table);
         add(scrollPane);
         revalidate();
