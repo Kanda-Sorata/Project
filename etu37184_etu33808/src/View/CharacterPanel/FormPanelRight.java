@@ -89,7 +89,7 @@ public class FormPanelRight extends JPanel {
         creationDateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         creationDateSpinner = new JSpinner();
         setCreationDateSpinner();
-        creationDateSpinner.setToolTipText("Date available yesterday to 2039");
+        creationDateSpinner.setToolTipText("Date available today to 2039");
         spinnerListener = new SpinnerListener();
         creationDateSpinner.addChangeListener(spinnerListener);
 
@@ -260,7 +260,7 @@ public class FormPanelRight extends JPanel {
     public void setCreationDateSpinner() {
         Calendar calendar = Calendar.getInstance();
         calendar.getTime();
-        calendar.add(Calendar.DAY_OF_WEEK, -1);
+        calendar.add(Calendar.HOUR, -1);
         earliestDate = calendar.getTime();
         setCreationDateSpinner(earliestDate);
     }
