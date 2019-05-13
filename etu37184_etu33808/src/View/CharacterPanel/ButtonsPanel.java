@@ -452,7 +452,6 @@ public class ButtonsPanel extends JPanel {
                 && isNameValid(formPanelRight.getNameField())
                 && formPanelRight.getHealthPointSlider() >= Character.getMinHp()
                 && formPanelRight.getHealthPointSlider() <= formPanelRight.getHealthPointMax()
-                && formPanelRight.getCreationDate().after(formPanelRight.getEarliestDate())
                 && formPanelRight.getCreationDate().before(formPanelRight.getLatestDate())
                 && (formPanelRight.getPetNameField().isEmpty() || testFieldNullable(formPanelRight.getPetNameField()))
                 && formPanelRight.getDamagePerSecond() >= Character.getMinDmg()
