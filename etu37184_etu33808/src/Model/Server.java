@@ -11,9 +11,9 @@ public class Server {
     private static final int MAX_PLAYER = 10;
 
     public Server(String name, GregorianCalendar creationDate, Boolean playerVersusPlayer, Integer nbPlayersMax) {
-        setName(name);
-        setCreationDate(creationDate);
-        setPlayerVersusPlayer(playerVersusPlayer);
+        this.name = name;
+        this.creationDate = creationDate;
+        this.playerVersusPlayer = playerVersusPlayer;
         setNbPlayersMax(nbPlayersMax);
     }
 
@@ -23,27 +23,6 @@ public class Server {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public GregorianCalendar getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(GregorianCalendar creationDate) { //Add validationTest
-        this.creationDate = creationDate;
-    }
-
-
-    public boolean isPlayerVersusPlayer() {
-        return playerVersusPlayer;
-    }
-
-    public void setPlayerVersusPlayer(boolean playerVersusPlayer) {
-        this.playerVersusPlayer = playerVersusPlayer;
-    }
-
-    public Integer getNbPlayersMax() {
-        return nbPlayersMax;
     }
 
     public void setNbPlayersMax(Integer nbPlayersMax) {

@@ -17,8 +17,7 @@ public class CharacterClassController {
         return characterClassBusinessLogic.getClassesInAGame(game);
     }
 
-   public ArrayList<String> getAllCharactersClassName(String pseudo, int number, String game) throws
-                                                                                    DataException, DataAccessException{
+    public ArrayList<String> getAllCharactersClassName(String pseudo, int number, String game) throws DataException, DataAccessException {
         return characterClassBusinessLogic.getAllCharactersClassName(pseudo, number, game);
     }
 

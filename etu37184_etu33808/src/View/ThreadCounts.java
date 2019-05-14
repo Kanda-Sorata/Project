@@ -12,9 +12,9 @@ public class ThreadCounts extends Thread {
     private PlayerAccountController playerAccountController;
     private CharacterController characterController;
     private PanelThread panelThread;
-    int nbPlayers;
-    int nbCharacters;
-    double average;
+    private int nbPlayers;
+    private int nbCharacters;
+    private double average;
 
     public ThreadCounts(PanelThread panelThread){
         this.panelThread = panelThread;
@@ -37,11 +37,14 @@ public class ThreadCounts extends Thread {
                 panelThread.repaint();
                 Thread.sleep(10000);
             } catch(DataAccessException dataAccessException){
-                JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error",
+                        JOptionPane.ERROR_MESSAGE);
             } catch(DataException dataException){
-                JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error",
+                        JOptionPane.ERROR_MESSAGE);
             } catch (Exception exception) {
-                exception.printStackTrace();
+                JOptionPane.showMessageDialog(null, "An error has occurred, the data account information"
+                        + " might not be usable.", "Warning - data account", JOptionPane.WARNING_MESSAGE);
             }
         }
     }

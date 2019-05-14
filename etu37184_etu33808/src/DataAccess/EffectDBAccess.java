@@ -39,7 +39,6 @@ public class EffectDBAccess implements EffectDataAccess{
             }
 
             return searchEffectLists;
-
         } catch(ConnectionException connectionException){
             throw new DataAccessException(1);
         }catch(SQLException sqlException){

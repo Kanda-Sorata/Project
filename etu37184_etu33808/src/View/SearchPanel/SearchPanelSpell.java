@@ -49,24 +49,17 @@ public class SearchPanelSpell extends JPanel {
         return pseudoChoice;
     }
 
-    public void setPseudoChoice(String pseudoChoice) {
-        this.pseudoChoice = pseudoChoice;
-    }
 
     public int getNumberChoice() {
         return numberChoice;
-    }
-
-    public void setNumberChoice(int numberChoice) {
-        this.numberChoice = numberChoice;
     }
 
     private class ComboBoxListener implements ItemListener {
         @Override
         public void itemStateChanged(ItemEvent itemEvent) {
             if(playerAccountCombo.getSelectedIndex() != 0){
-                setPseudoChoice(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[0]);
-                setNumberChoice(Integer.parseInt(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[1]));
+                pseudoChoice = pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[0];
+                numberChoice = Integer.parseInt(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[1]);
                 try {
                     resultSpellPanel.setJTable(pseudoChoice, numberChoice);
                 }catch (DataAccessException dataAccessException){

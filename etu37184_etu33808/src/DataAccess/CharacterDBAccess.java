@@ -385,8 +385,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
         }
     }
 
-    public ArrayList<String> getAllCharactersInAGameInServerWithCharacterClass(String pseudo, int number, String game,
-                                                                               String server, String characterClass) throws DataException, DataAccessException{
+    public ArrayList<String> getAllCharactersInAGameInServerWithCharacterClass(String pseudo, int number, String game, String server, String characterClass) throws DataException, DataAccessException {
         Connection connection;
         try {
             connection = SingletonConnection.getInstance();
@@ -428,7 +427,6 @@ public class CharacterDBAccess implements CharacterDataAccess {
 
     public ArrayList<DisplayCharacter> getAllInfosCharacters(String pseudoChoice, int numberChoice) throws DataException, DataAccessException {
         Connection connection;
-
         try {
             ArrayList<DisplayCharacter> characters = new ArrayList<>();
             connection = SingletonConnection.getInstance();

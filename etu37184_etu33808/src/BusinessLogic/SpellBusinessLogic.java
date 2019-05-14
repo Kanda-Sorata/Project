@@ -17,6 +17,7 @@ public class SpellBusinessLogic {
     public void setDAO(SpellDataAccess dao){
         this.dao = dao;
     }
+
     public ArrayList<SearchSpellList> getSearchSpellList(String pseudoChoice, int numberChoice) throws DataException, DataAccessException {
         return  dao.getSearchSpellList(pseudoChoice, numberChoice);
     }

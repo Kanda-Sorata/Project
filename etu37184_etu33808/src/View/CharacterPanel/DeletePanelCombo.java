@@ -13,7 +13,6 @@ import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 public class DeletePanelCombo extends JPanel {
-
     private ArrayList<String> playerAccounts;
     private ArrayList<String> games;
     private ArrayList<String> gamesTemp;
@@ -39,7 +38,6 @@ public class DeletePanelCombo extends JPanel {
         utilitiesPanelMethod = new UtilitiesPanelMethod();
         gameController = new GameController();
 
-
         playerAccounts = utilitiesPanelMethod.setPlayerAccountsPseudo();
 
         //Listener
@@ -51,7 +49,7 @@ public class DeletePanelCombo extends JPanel {
         playerAccountCombo = new JComboBox(playerAccounts.toArray());
         playerAccountCombo.addItemListener(comboBoxListener);
 
-        gameLabel = new JLabel("Game name");
+        gameLabel = new JLabel("Game");
         gameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         games = new ArrayList<>();
         games.add("No selection");
@@ -73,8 +71,8 @@ public class DeletePanelCombo extends JPanel {
                     gameCombo.setSelectedIndex(0);
                     gameCombo.setEnabled(false);
                 } else {
-                    setPseudoChoice(playerAccounts.get(playerAccountCombo.getSelectedIndex()).split("#")[0]);
-                    setNumberChoice(Integer.parseInt(playerAccounts.get(playerAccountCombo.getSelectedIndex()).split("#")[1]));
+                    pseudoChoice = playerAccounts.get(playerAccountCombo.getSelectedIndex()).split("#")[0];
+                    numberChoice = Integer.parseInt(playerAccounts.get(playerAccountCombo.getSelectedIndex()).split("#")[1]);
                     try {
                         gamesTemp = gameController.getAllGamesName(pseudoChoice, numberChoice);
                         games = new ArrayList<>();
@@ -94,7 +92,7 @@ public class DeletePanelCombo extends JPanel {
                 }
             } else if(itemEvent.getSource() == gameCombo){
                 if(gameCombo.getSelectedIndex() != 0){
-                    setGameChoice(games.get(gameCombo.getSelectedIndex()));
+                    gameChoice = games.get(gameCombo.getSelectedIndex());
                     try {
                         deletePanelTable.setJTable(pseudoChoice, numberChoice, gameChoice);
                     } catch (DataException dataException) {
@@ -106,20 +104,6 @@ public class DeletePanelCombo extends JPanel {
 
             }
         }
-    }
-
-
-
-    public void setPseudoChoice(String pseudoChoice) {
-        this.pseudoChoice = pseudoChoice;
-    }
-
-    public void setNumberChoice(int numberChoice) {
-        this.numberChoice = numberChoice;
-    }
-
-    public void setGameChoice(String gameChoice){
-        this.gameChoice = gameChoice;
     }
 
 }

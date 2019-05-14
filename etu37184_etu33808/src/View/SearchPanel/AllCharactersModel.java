@@ -26,12 +26,6 @@ public class AllCharactersModel extends AbstractTableModel {
     }
 
     public Class getColumnClass(int column){
-        Class c;
-        switch(column){
-            case 0: c = String.class;
-                break;
-            default: c = String.class;
-        }
-        return c;
+        return String.class;
     }
 }

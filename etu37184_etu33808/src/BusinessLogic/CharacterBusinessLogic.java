@@ -30,15 +30,15 @@ public class CharacterBusinessLogic {
     }
 
     public int deleteACharacter(String pseudo, int number, String gameName, String characterName) throws DataAccessException, DataException{
-        if(isDeleteParametersValide(pseudo, number, gameName, characterName)) {
-            return dao.deleteACharacter(pseudo, number, gameName, characterName);
-        }else{
+        if (!isDeleteParametersValid(pseudo, number, gameName, characterName)) {
             throw new DataException(7);
+        } else {
+            return dao.deleteACharacter(pseudo, number, gameName, characterName);
         }
     }
 
     public int insertACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataAccessException, DataException, UniqueNameException {
-        if (!isInsertParametersValide(character, pseudo, number, game, server, characterClass)) {
+        if (!isInsertParametersValid(character, pseudo, number, game, server, characterClass)) {
             throw new DataException(6);
         } else {
             if (!dao.notTheSameName(pseudo, number, game, server, character.getName())) {
@@ -50,10 +50,10 @@ public class CharacterBusinessLogic {
     }
 
     public int modifyACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataAccessException, DataException {
-        if(isInsertParametersValide(character, pseudo, number, game, server, characterClass)) {
-            return dao.modifyACharacter(character, pseudo, number, game, server, characterClass);
-        }else{
+        if (isInsertParametersValid(character, pseudo, number, game, server, characterClass)) {
             throw new DataException(8);
+        } else {
+            return dao.modifyACharacter(character, pseudo, number, game, server, characterClass);
         }
     }
 
@@ -61,9 +61,10 @@ public class CharacterBusinessLogic {
         return dao.getOneCharacter(pseudo, number, game, server, characterClass, character);
     }
 
-    private boolean isInsertParametersValide(Character character, String pseudo, int number, String game, String server, String characterClass){
+    private boolean isInsertParametersValid(Character character, String pseudo, int number, String game, String server, String characterClass) {
         String noSelection = "No selection";
         return character != null && !character.getName().isEmpty() && Pattern.matches("^[a-zA-Z_-]{4,50}", character.getName())
+                && !Pattern.matches("(.)\\1{2,}", character.getName())
                 && character.getHealthPoints() >= Character.getMinHp()
                 && character.getHealthPoints() <= Character.getMaxHp() && character.getCreationDate() != null
                 && character.getStuffed() != null
@@ -74,7 +75,7 @@ public class CharacterBusinessLogic {
                 && characterClass != null && !characterClass.equals(noSelection);
     }
 
-    private boolean isDeleteParametersValide(String pseudo, int number, String gameName, String characterName){
+    private boolean isDeleteParametersValid(String pseudo, int number, String gameName, String characterName) {
         String noSelection = "No selection";
         return pseudo != null && !pseudo.equals(noSelection) && gameName != null && !gameName.equals(noSelection)
                 && characterName != null && !characterName.equals(noSelection);

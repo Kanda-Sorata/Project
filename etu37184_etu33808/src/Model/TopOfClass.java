@@ -6,7 +6,7 @@ public class TopOfClass {
     private Integer nbCharacters;
     private String className;
     private String description;
-    private Double purcent;
+    private Double percent;
 
     public TopOfClass(Integer nbCharacters, String className, String description) {
         this.nbCharacters = nbCharacters;
@@ -29,11 +29,11 @@ public class TopOfClass {
 
 
     public void setPercent(Double percent) {
-        this.purcent = percent;
+        this.percent = percent;
     }
 
     public String getPercentFormatter() {
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
-        return decimalFormat.format(purcent) + "%";
+        return decimalFormat.format(percent) + "%";
     }
 }

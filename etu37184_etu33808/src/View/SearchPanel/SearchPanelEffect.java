@@ -33,7 +33,7 @@ public class SearchPanelEffect extends JPanel {
     private UtilitiesPanelMethod utilitiesPanelMethod;
 
     public SearchPanelEffect(ResultEffectPanel resultEffectPanel) throws DataAccessException, DataException {
-        //Add propeties
+        //Add properties
         setLayout(new GridLayout(2, 2, 5, 15));
         setBorder(new EmptyBorder(200, 0, 300, 250)); //top, left, bottom, right
 
@@ -45,7 +45,7 @@ public class SearchPanelEffect extends JPanel {
 
 
         //Add component
-        gameLabel = new JLabel("Game name");
+        gameLabel = new JLabel("Game");
         gameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
         games = new ArrayList<>();
@@ -81,8 +81,8 @@ public class SearchPanelEffect extends JPanel {
         @Override
         public void itemStateChanged (ItemEvent itemEvent) {
             if (itemEvent.getSource() == gameCombo) {
-                if (!gameCombo.getSelectedItem().toString().equals(games.get(0))) {
-                    setGameChoice(gameCombo.getSelectedItem().toString());
+                if (gameCombo.getSelectedIndex() > 0) {
+                    gameChoice = gameCombo.getSelectedItem().toString();
                     try {
                         characterClassesTemp = characterClassController.getClassesInAGame(gameChoice);
                         characterClasses = new ArrayList<>();
@@ -91,7 +91,6 @@ public class SearchPanelEffect extends JPanel {
                             characterClasses.add(characterClass);
                         }
                         characterClassCombo.setModel(new DefaultComboBoxModel(characterClasses.toArray()));
-                        characterClassCombo.repaint();
                     } catch (DataException dataException) {
                         JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     } catch (DataAccessException dataAccessException){
@@ -100,7 +99,7 @@ public class SearchPanelEffect extends JPanel {
                     characterClassCombo.setEnabled(true);
                 }
             } else{
-                setClassChoice(characterClassCombo.getSelectedItem().toString());
+                classChoice = characterClassCombo.getSelectedItem().toString();
                 try{
                     resultEffectPanel.setJTable(gameChoice, classChoice);
                 } catch(DataException dataException){
@@ -111,13 +110,4 @@ public class SearchPanelEffect extends JPanel {
             }
         }
     }
-
-    public void setGameChoice(String gameChoice){
-        this.gameChoice = gameChoice;
-    }
-
-    public void setClassChoice(String classChoice){
-        this.classChoice = classChoice;
-    }
-
 }

@@ -22,8 +22,8 @@ public class UtilitiesPanelMethod {
         ArrayList<PlayerAccount> players = playerAccountController.getAllAccountPlayer();
         playerAccounts.add("No selection");
 
-        for (int iPseudo = 0; iPseudo < nbMaxPlayer; iPseudo++) {
-           playerAccounts.add(players.get(iPseudo).getPseudo() + "#" + players.get(iPseudo).getNumber());
+        for (PlayerAccount player : players) {
+            playerAccounts.add(player.getPseudo() + "#" + player.getNumber());
         }
         return playerAccounts;
     }

@@ -16,6 +16,7 @@ public class ServerBusinessLogic {
     public void setDao(ServerDataAccess dao){
         this.dao = dao;
     }
+
     public ArrayList<String> getAllServersName(String pseudoChoice, int numberChoice, String game) throws DataException, DataAccessException {
         return dao.getAllServersName(pseudoChoice, numberChoice, game);
     }

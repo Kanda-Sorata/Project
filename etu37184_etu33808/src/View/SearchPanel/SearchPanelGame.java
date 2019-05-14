@@ -121,18 +121,10 @@ public class SearchPanelGame extends JPanel {
         calendar.add(Calendar.YEAR, 20);
         Date latestDate = calendar.getTime();
 
-        spinnerModel = new SpinnerDateModel(initDate, earliestDate, latestDate, Calendar.MONTH); //getPrevious & nextvalue method
+        spinnerModel = new SpinnerDateModel(initDate, earliestDate, latestDate, Calendar.MONTH); //getPrevious & nextValue method
         dateEndSpinner.setModel(spinnerModel);
         dateEditor = new JSpinner.DateEditor(dateEndSpinner, "dd/MM/yyyy");
         dateEndSpinner.setEditor(dateEditor);
-    }
-
-    public void setPseudoChoice(String pseudoChoice){
-        this.pseudoChoice = pseudoChoice;
-    }
-
-    public void setNumberChoice(int numberChoice){
-        this.numberChoice = numberChoice;
     }
 
     public String getPseudoChoice() {
@@ -171,27 +163,24 @@ public class SearchPanelGame extends JPanel {
         public void itemStateChanged (ItemEvent itemEvent) {
             if(itemEvent.getSource() == playerAccountCombo) {
                 if (playerAccountCombo.getSelectedIndex() != 0) {
-                    setPseudoChoice(playerAccounts.get(playerAccountCombo.getSelectedIndex()).split("#")[0]);
-                    setNumberChoice(Integer.parseInt(playerAccounts.get(playerAccountCombo.getSelectedIndex()).split("#")[1]));
+                    pseudoChoice = playerAccounts.get(playerAccountCombo.getSelectedIndex()).split("#")[0];
+                    numberChoice = Integer.parseInt(playerAccounts.get(playerAccountCombo.getSelectedIndex()).split("#")[1]);
                     try {
                         setCharacterName();
-                        if (charactersName.size() > 0) {
-                            characterNameCombo.setModel(new DefaultComboBoxModel(charactersName.toArray()));
-                            repaint();
-                        }
+                        characterNameCombo.setModel(new DefaultComboBoxModel(charactersName.toArray()));
+                        characterNameCombo.setEnabled(true);
                     } catch (DataException dataException) {
                         JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    } catch (DataAccessException dataAccexException) {
-                        JOptionPane.showMessageDialog(null, dataAccexException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    } catch (DataAccessException dataAccessException) {
+                        JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
-                    characterNameCombo.setEnabled(true);
                 } else {
                     characterNameCombo.setSelectedIndex(0);
                     characterNameCombo.setEnabled(false);
                 }
             }else{
-                if (!charactersName.get(characterNameCombo.getSelectedIndex()).equals(charactersName.get(0))) {
-                    setCharacterNameChoice(charactersName.get(characterNameCombo.getSelectedIndex()));
+                if (characterNameCombo.getSelectedIndex() > 0) {
+                    characterNameChoice = charactersName.get(characterNameCombo.getSelectedIndex());
                     setJSpinner(getCharacterByName(characterNameChoice).getCreationDate().getGregorianChange());
                 }
             }
@@ -218,7 +207,7 @@ public class SearchPanelGame extends JPanel {
         public void actionPerformed(ActionEvent actionEvent) {
             try {
                 setDateChoice();
-                if(playerAccountCombo.getSelectedIndex() != 0 && characterNameCombo.getSelectedIndex() != 0 && dateChoice != null) {
+                if (playerAccountCombo.getSelectedIndex() > 0 && characterNameCombo.getSelectedIndex() > 0 && dateChoice != null) {
                     resultGamePanel.setJTable(pseudoChoice, numberChoice, characterNameChoice, dateChoice);
                 }
             }catch(DataException dataException){

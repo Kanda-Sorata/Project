@@ -53,7 +53,6 @@ public class FormPanelRight extends JPanel {
     private JLabel requiredLabel;
 
     private CharacterController characterController;
-
     private Character character;
 
 
@@ -89,7 +88,7 @@ public class FormPanelRight extends JPanel {
         creationDateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         creationDateSpinner = new JSpinner();
         setCreationDateSpinner();
-        creationDateSpinner.setToolTipText("Date available today to 2039");
+        creationDateSpinner.setToolTipText("Date available today to " + getYearLatestDate());
         spinnerListener = new SpinnerListener();
         creationDateSpinner.addChangeListener(spinnerListener);
 
@@ -140,8 +139,8 @@ public class FormPanelRight extends JPanel {
         add(requiredLabel);
     }
 
-    public ButtonsPanel getButtonsPanel() {
-        return buttonsPanel;
+    private int getYearLatestDate() {
+        return getLatestDate().get(Calendar.YEAR);
     }
 
     public void setHealthPointSlider(int minimum, int maximum, int value){
@@ -241,7 +240,11 @@ public class FormPanelRight extends JPanel {
         date = calendar.getTime();
         calendar.add(Calendar.YEAR, 20);
         latestDate = calendar.getTime();
-        spinnerModel = new SpinnerDateModel(initDate, date, latestDate, Calendar.MONTH); //getPrevious & nextvalue method
+        spinnerModel = new SpinnerDateModel(initDate, date, latestDate, Calendar.MONTH); //getPrevious & nextValue method
+        setSpinnerModel();
+    }
+
+    private void setSpinnerModel() {
         creationDateSpinner.setModel(spinnerModel);
         dateEditor = new JSpinner.DateEditor(creationDateSpinner, "dd/MM/yyyy");
         creationDateSpinner.setEditor(dateEditor);
@@ -251,10 +254,8 @@ public class FormPanelRight extends JPanel {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.YEAR, 20);
         latestDate = calendar.getTime();
-        spinnerModel = new SpinnerDateModel(date, date, latestDate, Calendar.MONTH); //getPrevious & nextvalue method
-        creationDateSpinner.setModel(spinnerModel);
-        dateEditor = new JSpinner.DateEditor(creationDateSpinner, "dd/MM/yyyy");
-        creationDateSpinner.setEditor(dateEditor);
+        spinnerModel = new SpinnerDateModel(date, date, latestDate, Calendar.MONTH); //getPrevious & nextValue method
+        setSpinnerModel();
     }
 
     public void setCreationDateSpinner() {
@@ -262,7 +263,7 @@ public class FormPanelRight extends JPanel {
         calendar.getTime();
         calendar.add(Calendar.HOUR, -1);
         earliestDate = calendar.getTime();
-        setCreationDateSpinner(earliestDate);
+        setCreationDateSpinnerValue(earliestDate);
     }
 
     public void updateCreationDateSpinner(GregorianCalendar calendar){
@@ -324,7 +325,6 @@ public class FormPanelRight extends JPanel {
 
 
     //Reset form
-
     public void setNameLabelReset(){
         nameLabel.setText("<html>Name<font color = 'red'>*</font></html>");
     }
@@ -342,7 +342,6 @@ public class FormPanelRight extends JPanel {
 
 
     //Listener
-
     private class SliderListenerDamagePerSecond implements ChangeListener {
         @Override
         public void stateChanged(ChangeEvent changeEvent) {
@@ -406,11 +405,9 @@ public class FormPanelRight extends JPanel {
                 setDamagePerSecondSlider(0);
             }
         }catch (DataException dataException) {
-            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error",
-                                                                                            JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (DataAccessException dataAccessException) {
-            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error",
-                                                                                            JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

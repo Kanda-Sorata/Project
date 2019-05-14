@@ -12,16 +12,15 @@ public class DisplayAllCharactersInfosModel extends AbstractTableModel {
 
     public DisplayAllCharactersInfosModel(ArrayList<DisplayCharacter> characters) {
         columnNames = new ArrayList<>();
-        columnNames.add("GameName");
-        columnNames.add("ServerName");
-        columnNames.add("CharacterName");
-        columnNames.add("CharacterClassName");
-        columnNames.add("HealthPoint");
+        columnNames.add("Game");
+        columnNames.add("Server");
+        columnNames.add("Character");
+        columnNames.add("Character class");
+        columnNames.add("Health point(s)");
         columnNames.add("Stuffed");
-        columnNames.add("CreationDate");
-        columnNames.add("PetName");
-        columnNames.add("DamagePerSecond");
-
+        columnNames.add("Creational date");
+        columnNames.add("Pet");
+        columnNames.add("Damage per second");
         setContents(characters);
     }
 
@@ -37,7 +36,6 @@ public class DisplayAllCharactersInfosModel extends AbstractTableModel {
         return contents.size();
     }
 
-    @Override
     public String getColumnName(int column) {
         return columnNames.get(column);
     }
@@ -58,7 +56,7 @@ public class DisplayAllCharactersInfosModel extends AbstractTableModel {
             case 5:
                 return character.getIsStuffed();
             case 6:
-                return character.getCreationDateFormater();
+                return character.getCreationDateFormatter();
             case 7:
                 return character.getPetName();
             case 8:
@@ -76,31 +74,21 @@ public class DisplayAllCharactersInfosModel extends AbstractTableModel {
         Class c;
         switch (column) {
             case 0:
-                c = String.class;
-                break;
             case 1:
-                c = String.class;
-                break;
             case 2:
-                c = String.class;
-                break;
             case 3:
-                c = String.class;
-                break;
-            case 4:
-                c = int.class;
-                break;
-            case 5:
-                c = boolean.class;
-                break;
-            case 6:
-                c = GregorianCalendar.class;
-                break;
             case 7:
                 c = String.class;
                 break;
+            case 4:
             case 8:
                 c = Integer.class;
+                break;
+            case 5:
+                c = Boolean.class;
+                break;
+            case 6:
+                c = GregorianCalendar.class;
                 break;
             default:
                 c = String.class;

@@ -13,9 +13,9 @@ public class Game {
     private ArrayList<Server> servers;
 
     public Game(String name, GregorianCalendar releaseDaze, Boolean haveMultiLanguages) {
-        setName(name);
-        setReleaseDate(releaseDaze);
-        setHaveMultiLanguages(haveMultiLanguages);
+        this.name = name;
+        this.releaseDaze = releaseDaze;
+        this.haveMultiLanguages = haveMultiLanguages;
         servers = new ArrayList<>();
     }
 
@@ -26,31 +26,4 @@ public class Game {
     public void setName(String name) {
         this.name = name;
     }
-
-    public GregorianCalendar getReleaseDaze() {
-        return releaseDaze;
-    }
-
-    public void setReleaseDate(GregorianCalendar releaseDaze) { //Add validationTest
-        this.releaseDaze = releaseDaze;
-    }
-
-
-    public Boolean isHaveMultiLanguages() {
-        return haveMultiLanguages;
-    }
-
-    public void setHaveMultiLanguages(boolean haveMultiLanguages) {
-        this.haveMultiLanguages = haveMultiLanguages;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-
 }

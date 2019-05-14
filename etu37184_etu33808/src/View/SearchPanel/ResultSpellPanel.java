@@ -11,7 +11,6 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class ResultSpellPanel extends JPanel {
-    private SearchPanelSpell searchPanelSpell;
     private JTable table;
     private JScrollPane scrollPane;
     private SpellController spellController;

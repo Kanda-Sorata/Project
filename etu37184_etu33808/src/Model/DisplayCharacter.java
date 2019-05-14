@@ -99,7 +99,7 @@ public class DisplayCharacter {
         return damagePerSecond;
     }
 
-    public String getCreationDateFormater() {
+    public String getCreationDateFormatter() {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return dateFormat.format(creationDate.getTime());
     }

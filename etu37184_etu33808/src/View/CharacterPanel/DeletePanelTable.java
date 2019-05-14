@@ -25,23 +25,24 @@ public class DeletePanelTable extends JPanel {
     private TableListener tableListener;
 
     public DeletePanelTable(){
+        //Add properties
         setLayout(new FlowLayout());
 
+        //Init
         tableListener = new TableListener();
-
         utilitiesPanelMethod = new UtilitiesPanelMethod();
-        setLayout(new FlowLayout());
         characterController = new CharacterController();
 
+        //Add components
         table = utilitiesPanelMethod.getJTableModelBlank();
         scrollPane = new JScrollPane(table);
         add(scrollPane);
     }
 
     public void setJTable(String pseudoChoice, int numberChoice, String gameChoice) throws DataException, DataAccessException {
-        setPseudo(pseudoChoice);
-        setNumber(numberChoice);
-        setGame(gameChoice);
+        this.pseudoChoice = pseudoChoice;
+        this.numberChoice = numberChoice;
+        this.gameChoice = gameChoice;
         updateJTable();
     }
 
@@ -51,7 +52,7 @@ public class DeletePanelTable extends JPanel {
             if(!listSelectionEvent.getValueIsAdjusting()){
                 int row = table.getSelectedRow();
                 int column = table.getSelectedColumn();
-                setCharacterChoice(table.getValueAt(row, column).toString());
+                characterChoice = table.getValueAt(row, column).toString();
                 String input = JOptionPane.showInputDialog(null, "Do you really want to delete this character PERMANENTLY?\nInsert \"DELETE\" to continue.", "Warning - Delete", JOptionPane.WARNING_MESSAGE);
                 if (input == null || !input.equals("DELETE")) {
                     JOptionPane.showMessageDialog(null, "Delete has been cancelled.", "Delete - Cancelled", JOptionPane.INFORMATION_MESSAGE);
@@ -93,21 +94,5 @@ public class DeletePanelTable extends JPanel {
         add(scrollPane);
         revalidate();
         repaint();
-    }
-
-    public void setPseudo(String pseudoChoice){
-        this.pseudoChoice = pseudoChoice;
-    }
-
-    public void setNumber(int numberChoice){
-        this.numberChoice = numberChoice;
-    }
-
-    public void setGame(String gameChoice){
-        this.gameChoice = gameChoice;
-    }
-
-    public void setCharacterChoice(String characterChoice) {
-        this.characterChoice = characterChoice;
     }
 }

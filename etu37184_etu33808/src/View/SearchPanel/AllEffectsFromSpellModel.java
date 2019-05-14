@@ -12,15 +12,14 @@ public class AllEffectsFromSpellModel extends AbstractTableModel {
 
     public AllEffectsFromSpellModel(ArrayList<SearchEffectList> searchEffectList){
         columnNames = new ArrayList<>();
-        columnNames.add("LabelEffect");
-        columnNames.add("SpellName");
+        columnNames.add("Label effect");
+        columnNames.add("Spell name");
         columnNames.add("Cooldown");
         setContents(searchEffectList);
     }
     public void setContents(ArrayList<SearchEffectList> searchEffectList){ contents = searchEffectList; }
     public int getColumnCount( ) { return columnNames.size( ); }
     public int getRowCount( ) { return contents.size( ); }
-    @Override
     public String getColumnName(int column) {return columnNames.get(column); }
     public Object getValueAt(int row, int column){
         SearchEffectList searchEffectList = contents.get(row);
@@ -39,9 +38,9 @@ public class AllEffectsFromSpellModel extends AbstractTableModel {
     public Class getColumnClass(int column){
         Class c;
         switch(column){
-            case 0: c = String.class;
-                break;
-            case 1: c = String.class;
+            case 0:
+            case 1:
+                c = String.class;
                 break;
             case 2: c = Integer.class;
                 break;

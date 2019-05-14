@@ -131,18 +131,4 @@ public class Character {
     public static int getMaxDmg() {
         return MAX_DMG;
     }
-
-    @Override
-    public String toString() {
-        return "Character{" +
-                "name='" + name + '\'' +
-                ", healthPoints=" + healthPoints +
-                ", isStuffed=" + isStuffed +
-                ", creationDate=" + creationDate +
-                ", petName='" + petName + '\'' +
-                ", damagePerSecond=" + damagePerSecond +
-                ", characterClass=" + characterClass +
-                ", player=" + player +
-                '}';
-    }
 }

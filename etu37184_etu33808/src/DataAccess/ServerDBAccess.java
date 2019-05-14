@@ -12,11 +12,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ServerDBAccess implements ServerDataAccess {
-    @Override
     public ArrayList<String> getAllServersName(String pseudoChoice, int numberChoice, String game) throws DataException, DataAccessException {
         Connection connection;
         try{
             connection = SingletonConnection.getInstance();
+
             String query = "select  server.name from playeraccount, game, server, acquisition "
                          + "where playeraccount.id = (select id from playeraccount where pseudo = ? and number = ?) "
                          + "and game.name = ? and server.Gamename = game.name "
@@ -35,8 +35,8 @@ public class ServerDBAccess implements ServerDataAccess {
             while(data.next()){
                 servers.add(data.getString("name"));
             }
-            return servers;
 
+            return servers;
         }catch(ConnectionException connectionException){
             throw new DataAccessException(1);
         }catch(SQLException sqlException){

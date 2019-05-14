@@ -15,14 +15,12 @@ import java.util.GregorianCalendar;
 
 public class GameDBAccess implements GameDataAccess {
 
-    public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, int number, String character,
-                                        GregorianCalendar dateEnd) throws DataException, DataAccessException{
+    public ArrayList<SearchGameList> getSearchAllGamesListCharacter(String pseudo, int number, String character, GregorianCalendar dateEnd) throws DataException, DataAccessException {
         Connection connection;
         try {
             connection = SingletonConnection.getInstance();
 
             java.sql.Date sqlDate = new java.sql.Date(dateEnd.getTimeInMillis());
-
 
             String query = "select game.name, game.releasedate, server.name as serverName "
                          + "from playeraccount, `character`, server, game "
@@ -54,8 +52,8 @@ public class GameDBAccess implements GameDataAccess {
 
                 searchGameLists.add(searchGameList);
             }
-            return searchGameLists;
 
+            return searchGameLists;
         }catch (ConnectionException connectionException){
             throw new DataAccessException(1);
         } catch (SQLException sqlException) {
@@ -79,8 +77,8 @@ public class GameDBAccess implements GameDataAccess {
                     game = data.getString("name");
                     allGames.add(game);
             }
-            return allGames;
 
+            return allGames;
         } catch (ConnectionException connectionException){
             throw new DataAccessException(1);
         } catch (SQLException sqlException){

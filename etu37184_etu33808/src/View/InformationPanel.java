@@ -20,8 +20,8 @@ public class InformationPanel extends JPanel {
         this.frame = frame;
 
         //Add components
-        label = new JLabel("<html><p>The feature you would like to access got a trouble. Perhaps itt will fix further.</p>" +
-                "<p>For the moment, you can come bach home by Menu \"Application\" > \"Home\" " +
+        label = new JLabel("<html><p>The feature you would like to access got a trouble. Perhaps it will be fix " +
+                "later.</p> <p>For the moment, you can come back home by the Menu \"Application\" > \"Home\" " +
                 "or click on the button bellow.</p><p>We apologise for this inconvenient.</p></html>");
 
         backHome = new JButton("Home");

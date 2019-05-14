@@ -8,7 +8,7 @@ public class DataAccessException extends Exception {
     }
 
     public String getMessage() {
-        String output = "Sorry an error has been occured, ";
+        String output = "Sorry an error has been occurred, ";
         switch (code) {
             case 1:
                 output += "when you tried to access at the data.";

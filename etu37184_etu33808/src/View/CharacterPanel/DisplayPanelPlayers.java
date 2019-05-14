@@ -41,8 +41,8 @@ public class DisplayPanelPlayers extends JPanel {
     private class ComboBoxListener implements ActionListener {
         public void actionPerformed(ActionEvent actionEvent) {
             if (playerAccountCombo.getSelectedIndex() > 0) {
-                setPseudoChoice(allPlayers.get(playerAccountCombo.getSelectedIndex()).split("#")[0]);
-                setNumberChoice(Integer.parseInt(allPlayers.get(playerAccountCombo.getSelectedIndex()).split("#")[1]));
+                pseudoChoice = allPlayers.get(playerAccountCombo.getSelectedIndex()).split("#")[0];
+                numberChoice = Integer.parseInt(allPlayers.get(playerAccountCombo.getSelectedIndex()).split("#")[1]);
                 try {
                     displayPanelResult.setJTable(pseudoChoice, numberChoice);
                 } catch (DataException dataException) {
@@ -55,13 +55,5 @@ public class DisplayPanelPlayers extends JPanel {
                 displayPanelResult.updateJTableNoSelection();
             }
         }
-    }
-
-    public void setPseudoChoice(String pseudoChoice) {
-        this.pseudoChoice = pseudoChoice;
-    }
-
-    public void setNumberChoice(int numberChoice) {
-        this.numberChoice = numberChoice;
     }
 }

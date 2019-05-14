@@ -13,27 +13,16 @@ public class PlayerAccount {
     private String city;
     private String country;
     private static int nbPlayers = 0;
-    private final static int MIN_NUMBER = 10000;
-    private final static int MAX_NUMBER = 99999;
 
-    public PlayerAccount(Integer id, String pseudo, Integer number, String sex, GregorianCalendar creationDate,
-                         String city, String country) throws SexException {
-        setId(id);
-        setPseudo(pseudo);
-        setNumber(number);
-        setSex(sex);
-        setCreationDate(creationDate);
-        setCity(city);
-        setCountry(country);
-        setNbPlayers();
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
+    public PlayerAccount(Integer id, String pseudo, Integer number, String sex, GregorianCalendar creationDate, String city, String country) throws SexException {
         this.id = id;
+        this.pseudo = pseudo;
+        this.number = number;
+        setSex(sex);
+        this.creationDate = creationDate;
+        this.city = city;
+        this.country = country;
+        setNbPlayers();
     }
 
     public String getPseudo() {
@@ -52,12 +41,6 @@ public class PlayerAccount {
         this.number = number;
     }
 
-    public void setNumberInsert(){
-        this.number = MIN_NUMBER + (int)(Math.random()  * ((MAX_NUMBER - MIN_NUMBER) + 1)) + MIN_NUMBER;
-    }
-
-    public String getSex() { return sex; }
-
     public void setSex(String sex) throws SexException {
         if(sex.equals("f") || sex.equals("m")){
           this.sex = sex;
@@ -67,32 +50,8 @@ public class PlayerAccount {
         }
     }
 
-    public GregorianCalendar getCreationDate() {
-        return creationDate;
-    }
-
     public void setCreationDate(GregorianCalendar creationDate) { //Add validationTest
         this.creationDate = creationDate;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public static int getNbPlayers() {
-        return nbPlayers;
     }
 
     public static void setNbPlayers() {

@@ -9,6 +9,7 @@ public class SingletonBusinessLogic {
     public SingletonBusinessLogic(){
         singletonConnection = new SingletonConnection();
     }
+
     public void close() throws DataAccessException {
         singletonConnection.close();
     }

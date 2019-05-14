@@ -8,6 +8,6 @@ public class SexException extends Exception {
     }
 
     public String getMessage() {
-        return "Code 2."  + "Values :" + unavailableSex;
+        return "Sex get a bad value (" + unavailableSex + ")";
     }
 }

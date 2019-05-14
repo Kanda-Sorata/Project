@@ -1,11 +1,13 @@
 package Exception;
 
 public class DamagePerSecondException extends Exception {
-    private Integer DamagePerSecondException;
+    private Integer damagePerSecondException;
 
     public DamagePerSecondException(Integer damagePerSecondException) {
-        DamagePerSecondException = damagePerSecondException;
+        damagePerSecondException = damagePerSecondException;
     }
 
-    public String getMessage() { return  "Damage per second get a bad value, please check it. - code(4)"; }
+    public String getMessage() {
+        return "Damage per second get a bad value (" + damagePerSecondException + "), please check it.";
+    }
 }

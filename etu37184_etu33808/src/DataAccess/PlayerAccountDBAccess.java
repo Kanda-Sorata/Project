@@ -15,22 +15,22 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class PlayerAccountDBAccess implements PlayerAccountDataAccess {
-
-    public PlayerAccountDBAccess() {
-    }
-
     public int getNbAccountPlayers() throws DataException, DataAccessException {
         Connection connection;
         try {
             connection = SingletonConnection.getInstance();
+
             String query = "select count(*) from playeraccount;";
+
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet data = statement.executeQuery();
+
             int nbPlayerAccount = 0;
 
             if(data.next()) {
                 nbPlayerAccount = data.getInt(1);
             }
+
             return nbPlayerAccount;
         } catch (ConnectionException connexionException) {
             throw new DataAccessException(1);
@@ -63,6 +63,7 @@ public class PlayerAccountDBAccess implements PlayerAccountDataAccess {
 
                 playerAccounts.add(playerAccount);
             }
+
             return playerAccounts;
         } catch (ConnectionException connexionException){
             throw new DataAccessException(1);

@@ -8,7 +8,6 @@ import Model.TopOfClass;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -26,12 +25,8 @@ public class TopOfClassPanel extends JPanel {
 
         characterClassController = new CharacterClassController();
 
-        TitledBorder border = new TitledBorder("This is my title");
-        border.setTitleJustification(TitledBorder.CENTER);
-        border.setTitlePosition(TitledBorder.TOP);
-
         //Add components
-        topOfClasses = characterClassController.getAllCharacterClassOrderClass(); //TODO ASSERT
+        topOfClasses = characterClassController.getAllCharacterClassOrderClass();
         topOfClassModel = new TopOfClassModel(topOfClasses);
         table = new JTable(topOfClassModel);
         scrollPane = new JScrollPane(table);

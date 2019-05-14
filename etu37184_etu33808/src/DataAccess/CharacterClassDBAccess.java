@@ -42,8 +42,7 @@ public class CharacterClassDBAccess implements CharacterClassDataAccess {
         }
     }
 
-    public ArrayList<String> getAllCharactersClassName(String pseudo, int number, String game)
-                                                                            throws DataException, DataAccessException {
+    public ArrayList<String> getAllCharactersClassName(String pseudo, int number, String game) throws DataException, DataAccessException {
         Connection connection;
         try {
             connection = SingletonConnection.getInstance();

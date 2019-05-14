@@ -7,14 +7,10 @@ public class Spell {
     private Integer damageValue;
 
     public Spell(String name, Integer cooldown, Boolean atRange, Integer damageValue) {
-        setName(name);
-        setCooldown(cooldown);
-        setAtRange(atRange);
-        setDamageValue(damageValue);
-    }
-
-    public Spell(String name, boolean atRange, Integer damageValue) {
-       this(name, null, atRange, damageValue);
+        this.name = name;
+        this.cooldown = cooldown;
+        this.atRange = atRange;
+        this.damageValue = damageValue;
     }
 
     public String getName() {
@@ -25,27 +21,4 @@ public class Spell {
         this.name = name;
     }
 
-    public Integer getCooldown() {
-        return cooldown;
-    }
-
-    public void setCooldown(Integer cooldown) {
-        this.cooldown = cooldown;
-    }
-
-    public Boolean isAtRange() {
-        return atRange;
-    }
-
-    public void setAtRange(boolean atRange) {
-        this.atRange = atRange;
-    }
-
-    public Integer getDamageValue() {
-        return damageValue;
-    }
-
-    public void setDamageValue(Integer damageValue) {
-        this.damageValue = damageValue;
-    }
 }

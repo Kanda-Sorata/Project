@@ -55,9 +55,11 @@ public class Frame extends JFrame{
     private SavedValueForm savedValueFormModify;
     private SavedValueForm savedValueFormNew;
 
+    private String error;
+
     public Frame(){
         //General
-        super("Account management - Home");
+        super("Account management");
         setFrame();
 
         //Container
@@ -131,7 +133,8 @@ public class Frame extends JFrame{
                 try {
                     singletonController.close();
                 }catch(DataAccessException dataAccessException){
-                    JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Close error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Close error",
+                            JOptionPane.ERROR_MESSAGE);
                 }
                 System.exit(0);
             }
@@ -197,7 +200,6 @@ public class Frame extends JFrame{
         character.add(list);
 
         //Help
-        help.setMnemonic('?');
         showHelp = new JMenuItem("Show the help");
         showHelp.addActionListener(helpListener);
         help.add(showHelp);
@@ -217,12 +219,14 @@ public class Frame extends JFrame{
                 try {
                     singletonController.close();
                 }catch(DataAccessException dataAccessException){
-                    JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Close error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Close error",
+                            JOptionPane.ERROR_MESSAGE);
                 }
                 System.exit(0);
             }
             else{
                 if(event.getSource() == topOfClass){
+                    error = "Error - Top of Class";
                     try {
                         topOfClassPanel = new TopOfClassPanel();
                         setTitleFrame("Top of Classes");
@@ -230,13 +234,16 @@ public class Frame extends JFrame{
                         container.add(topOfClassPanel);
                     } catch (DataAccessException dataAccessException) {
                         updatePanelToGoHome();
-                        JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), error,
+                                JOptionPane.ERROR_MESSAGE);
                     } catch (DataException dataException) {
                         updatePanelToGoHome();
-                        JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, dataException.getMessage(), error,
+                                JOptionPane.ERROR_MESSAGE);
                     } catch (DivideException divideException) {
                         updatePanelToGoHome();
-                        JOptionPane.showMessageDialog(null, divideException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, divideException.getMessage(), error,
+                                JOptionPane.ERROR_MESSAGE);
                     }
                 }else {
                     if (event.getSource() == home) {
@@ -258,30 +265,32 @@ public class Frame extends JFrame{
         public void actionPerformed(ActionEvent event) {
             container.removeAll();
           if(event.getSource() == listGamesFromCharacter){
+              error = "Error - Search for game(s)";
               try {
                   gamePanel = new GamePanel();
                   container.add(gamePanel);
                   setTitleFrame("Search for game(s)");
               } catch (DataAccessException dataAccessException) {
                   updatePanelToGoHome();
-                  JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                  JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), error, JOptionPane.ERROR_MESSAGE);
               } catch (DataException dataException) {
                   updatePanelToGoHome();
-                  JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                  JOptionPane.showMessageDialog(null, dataException.getMessage(), error, JOptionPane.ERROR_MESSAGE);
               }
           }
           else{
               if(event.getSource() == listSpellsCharacterFromPlayer){
+                  error = "Error - Search for spell(s)";
                   try {
                       spellPanel = new SpellPanel();
                       container.add(spellPanel);
                       setTitleFrame("Search for spell(s)");
                   } catch (DataAccessException dataAccessException) {
                       updatePanelToGoHome();
-                      JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                      JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), error, JOptionPane.ERROR_MESSAGE);
                   } catch (DataException dataException) {
                       updatePanelToGoHome();
-                      JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                      JOptionPane.showMessageDialog(null, dataException.getMessage(), error, JOptionPane.ERROR_MESSAGE);
                   }
               }
               else{
@@ -308,57 +317,62 @@ public class Frame extends JFrame{
         public void actionPerformed(ActionEvent actionEvent) {
             container.removeAll();
             if(actionEvent.getSource() == add){
+                error = "Error - Add a new character";
                 try {
                     newPanel = new NewPanel(getFrame());
                     container.add(newPanel);
                     setTitleFrame("Add a new character");
                 } catch (DataAccessException dataAccessException) {
                     updatePanelToGoHome();
-                    JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), error,
+                            JOptionPane.ERROR_MESSAGE);
                 } catch (DataException dataException) {
                     updatePanelToGoHome();
-                    JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, dataException.getMessage(), error, JOptionPane.ERROR_MESSAGE);
                 }
             }
             else{
                 if(actionEvent.getSource() == modify){
+                    error = "Error - Modify a character";
                     try {
                         modifyPanel = new ModifyPanel(getFrame());
                         container.add(modifyPanel);
                         setTitleFrame("Modify a character");
                     } catch (DataAccessException dataAccessException) {
                         updatePanelToGoHome();
-                        JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), error, JOptionPane.ERROR_MESSAGE);
                     } catch (DataException dataException) {
                         updatePanelToGoHome();
-                        JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, dataException.getMessage(), error, JOptionPane.ERROR_MESSAGE);
                     }
                 }
                 else{
                     if(actionEvent.getSource() == delete){
+                        error = "Error - Delete a character";
                         try {
                             deletePanel = new DeletePanel();
                             container.add(deletePanel);
                             setTitleFrame("Delete a character");
                         } catch (DataAccessException dataAccessException) {
                             updatePanelToGoHome();
-                            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), error, JOptionPane.ERROR_MESSAGE);
                         } catch (DataException dataException) {
                             updatePanelToGoHome();
-                            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, dataException.getMessage(), error, JOptionPane.ERROR_MESSAGE);
                         }
                     }
                     else{
+                        error = "Error - Display all character";
                         try {
                             displayPanel = new DisplayPanel();
                             container.add(displayPanel);
                             setTitleFrame("Display all character(s)");
                         } catch (DataAccessException dataAccessException) {
                             updatePanelToGoHome();
-                            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), error, JOptionPane.ERROR_MESSAGE);
                         } catch (DataException dataException) {
                             updatePanelToGoHome();
-                            JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, dataException.getMessage(), error, JOptionPane.ERROR_MESSAGE);
                         }
                     }
                 }
@@ -388,10 +402,6 @@ public class Frame extends JFrame{
     public void setTitleFrame(String extraTitle) {
         setTitle("");
         setTitle("Account management - " + extraTitle);
-    }
-
-    public String getTitle(){
-        return "Account management ";
     }
 
 

@@ -13,14 +13,17 @@ import java.util.ArrayList;
 
 public class ResultEffectPanel extends JPanel {
     private JTable table;
-    private  JScrollPane scrollPane;
+    private JScrollPane scrollPane;
     private UtilitiesPanelMethod utilitiesPanelMethod;
     private ArrayList<SearchEffectList> searchEffectList;
     private EffectController effectController;
 
     public ResultEffectPanel() {
-        utilitiesPanelMethod = new UtilitiesPanelMethod();
+        //Add properties
         setLayout(new FlowLayout());
+
+        //Init
+        utilitiesPanelMethod = new UtilitiesPanelMethod();
         effectController = new EffectController();
 
         table = utilitiesPanelMethod.getJTableModelBlank();

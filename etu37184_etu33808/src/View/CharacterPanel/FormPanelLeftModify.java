@@ -29,7 +29,6 @@ public class FormPanelLeftModify extends JPanel {
     private ArrayList<String> characterClasses;
     private ArrayList<String> characters;
 
-
     private JLabel playerAccountLabel;
     private JLabel gameLabel;
     private JLabel serverLabel;
@@ -68,6 +67,16 @@ public class FormPanelLeftModify extends JPanel {
         characterController = new CharacterController();
         this.isModifyPanel = isModifyPanel;
         this.formPanelRight = formPanelRight;
+
+        pseudoChoice = "No selection";
+        gameChoice = "No selection";
+        serverChoice = "No selection";
+        characterClassChoice = "No selection";
+
+        if (isModifyPanel) {
+            characterChoice = "No selection";
+        }
+
 
         pseudos = utilitiesPanelMethod.setPlayerAccountsPseudo();
 
@@ -128,7 +137,6 @@ public class FormPanelLeftModify extends JPanel {
 
     public void setGamesName(String pseudoChoice, int numberChoice) throws DataException, DataAccessException {
         ArrayList<String> gameTemp = gameController.getAllGamesName(pseudoChoice, numberChoice);
-
         for (String game : gameTemp) {
             games.add(game);
         }
@@ -231,7 +239,7 @@ public class FormPanelLeftModify extends JPanel {
     }
 
     public void setCharacterLabelError() {
-        characterLabel.setText("<html><font color = 'red'>Character*</font></html>\"");
+        characterLabel.setText("<html><font color = 'red'>Character*</font></html>");
     }
 
     //Reset
@@ -252,7 +260,7 @@ public class FormPanelLeftModify extends JPanel {
     }
 
     public void setCharacterLabelReset() {
-        characterLabel.setText("<html>Character<font color = 'red'>*</font></html>\"");
+        characterLabel.setText("<html>Character<font color = 'red'>*</font></html>");
     }
 
 
