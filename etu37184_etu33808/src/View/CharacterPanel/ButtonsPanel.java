@@ -45,7 +45,7 @@ public class ButtonsPanel extends JPanel {
         //Add component
         back = new JButton("Back (Home)");
         back.addActionListener(buttonListener);
-        back.setToolTipText("You can save your work for further");
+        back.setToolTipText("You can save your work for later");
         reset = new JButton("Reset");
         reset.addActionListener(buttonListener);
         validation = new JButton("Validation");

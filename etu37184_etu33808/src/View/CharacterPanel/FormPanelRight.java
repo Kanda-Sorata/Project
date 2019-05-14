@@ -70,7 +70,7 @@ public class FormPanelRight extends JPanel {
         nameLabel = new JLabel("<html>Name<font color = 'red'>*</font></html>");
         nameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         nameField = new JTextField(25);
-        nameField.setToolTipText("Enter the name of your character");
+        nameField.setToolTipText("Enter the name of your character (4 - 50 characters)");
 
 
         healthPointLabel = new JLabel("<html>Health point<font color = 'red'>*</font></html>");
