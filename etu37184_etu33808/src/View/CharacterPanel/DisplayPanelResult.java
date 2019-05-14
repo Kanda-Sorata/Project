@@ -19,9 +19,6 @@ public class DisplayPanelResult extends JPanel {
     private CharacterController characterController;
 
     public DisplayPanelResult() {
-        //Add properties
-        setLayout(new FlowLayout());
-
         //Init
         characterController = new CharacterController();
         utilitiesPanelMethod = new UtilitiesPanelMethod();

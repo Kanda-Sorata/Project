@@ -130,13 +130,7 @@ public class Frame extends JFrame{
         addWindowListener(new WindowAdapter() { //Fermer la fenetre
             @Override
             public void windowClosing(WindowEvent windowEvent) {
-                try {
-                    singletonController.close();
-                }catch(DataAccessException dataAccessException){
-                    JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Close error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-                System.exit(0);
+                closeWindow();
             }
         });
     }
@@ -216,13 +210,7 @@ public class Frame extends JFrame{
         @Override
         public void actionPerformed(ActionEvent event){
             if(event.getSource() == exit) {
-                try {
-                    singletonController.close();
-                }catch(DataAccessException dataAccessException){
-                    JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Close error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-                System.exit(0);
+                closeWindow();
             }
             else{
                 if(event.getSource() == topOfClass){
@@ -427,5 +415,15 @@ public class Frame extends JFrame{
 
     public SavedValueForm getSavedValueFormNew() {
         return savedValueFormNew;
+    }
+
+    public void closeWindow() {
+        try {
+            singletonController.close();
+        } catch (DataAccessException dataAccessException) {
+            JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Close error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        System.exit(0);
     }
 }

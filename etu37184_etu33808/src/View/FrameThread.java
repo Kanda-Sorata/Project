@@ -21,18 +21,6 @@ public class FrameThread extends JFrame {
         this.frameParent = frameParent;
         setFrame();
 
-        //Add look & feel
-        try {
-            //Set the required look and feel
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-            //Update the component tree - associate the look and feel with the given frame.
-            SwingUtilities.updateComponentTreeUI(this);
-        } catch(Exception ex) {
-            JOptionPane.showMessageDialog(null, "An error has occurred with the appearance of the " +
-                            "software, we apologize about this.\nThis will not impact your work.", "Warning - Appearance",
-                    JOptionPane.WARNING_MESSAGE);
-        }
-
         //Thread
         threadCounts = new ThreadCounts(panelThread);
         threadCounts.start();
