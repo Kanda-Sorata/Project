@@ -5,7 +5,7 @@ public class DataException extends Exception {
 
     public DataException(int code) {
         this.code = code;
-    }  //1 : SQLException, 2 : HealthPoint, 3 : NameException 4 : SexException, 5 : DamagePerSecond 6 : Insert 7 : Delete 8 Modify
+    }  //1 : SQLException, 2 : HealthPoint, 3 : NameException 4 : SexException, 5 : DamagePerSecond 6 : Insert 7 : Delete 8 : Modify
 
     public String getMessage() {
         String output = "Sorry an error has been occurred, when you tried ";
@@ -32,7 +32,7 @@ public class DataException extends Exception {
                 output += "to delete a character. The delete has been cancelled.";
                 break;
             case 8:
-                output += "to modify a character. The delete has been cancelled.";
+                output += "to modify a character. The modify has been cancelled.";
         }
         return output + "\n";
     }

@@ -87,8 +87,8 @@ public class FormPanelRight extends JPanel {
         creationDateLabel = new JLabel("<html>Creational date<font color = 'red'>*</font></html>");
         creationDateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         creationDateSpinner = new JSpinner();
-        setCreationDateSpinner();
-        creationDateSpinner.setToolTipText("Date available today to " + getYearLatestDate());
+        setCreationDateSpinnerNew();
+        creationDateSpinner.setToolTipText("Date available " + getYearEarliestDate() + " to " + getYearLatestDate());
         spinnerListener = new SpinnerListener();
         creationDateSpinner.addChangeListener(spinnerListener);
 
@@ -137,6 +137,10 @@ public class FormPanelRight extends JPanel {
         add(damagePerSecondLabel);
         add(damagePerSecondSlider);
         add(requiredLabel);
+    }
+
+    private int getYearEarliestDate() {
+        return getEarliestDate().get(Calendar.YEAR);
     }
 
     private int getYearLatestDate() {
@@ -232,38 +236,31 @@ public class FormPanelRight extends JPanel {
         isStuffedCheckBox.setSelected(isStuffed);
     }
 
-    public void setCreationDateSpinner(Date date){
-        Calendar calendar = Calendar.getInstance();
-        initDate = calendar.getTime();
-        calendar.setTime(date);
-        calendar.add(Calendar.DAY_OF_WEEK, -1);
-        date = calendar.getTime();
-        calendar.add(Calendar.YEAR, 20);
-        latestDate = calendar.getTime();
-        spinnerModel = new SpinnerDateModel(initDate, date, latestDate, Calendar.MONTH); //getPrevious & nextValue method
-        setSpinnerModel();
-    }
-
     private void setSpinnerModel() {
         creationDateSpinner.setModel(spinnerModel);
         dateEditor = new JSpinner.DateEditor(creationDateSpinner, "dd/MM/yyyy");
         creationDateSpinner.setEditor(dateEditor);
     }
 
-    public void setCreationDateSpinnerValue(Date date) {
+    public void setCreationDateSpinnerModify(Date earliestDate) {
         Calendar calendar = Calendar.getInstance();
+        initDate = calendar.getTime();
         calendar.add(Calendar.YEAR, 20);
         latestDate = calendar.getTime();
-        spinnerModel = new SpinnerDateModel(date, date, latestDate, Calendar.MONTH); //getPrevious & nextValue method
+        spinnerModel = new SpinnerDateModel(initDate, earliestDate, latestDate, Calendar.MONTH); //getPrevious & nextValue method
         setSpinnerModel();
     }
 
-    public void setCreationDateSpinner() {
+    public void setCreationDateSpinnerNew() {
         Calendar calendar = Calendar.getInstance();
-        calendar.getTime();
-        calendar.add(Calendar.HOUR, -1);
+        initDate = calendar.getTime();
+        calendar.add(Calendar.DAY_OF_YEAR, -1);
         earliestDate = calendar.getTime();
-        setCreationDateSpinnerValue(earliestDate);
+        calendar.add(Calendar.YEAR, 20);
+        latestDate = calendar.getTime();
+        spinnerModel = new SpinnerDateModel(initDate, earliestDate, latestDate, Calendar.MONTH); //getPrevious & nextValue method
+        setSpinnerModel();
+
     }
 
     public void updateCreationDateSpinner(GregorianCalendar calendar){
@@ -395,7 +392,7 @@ public class FormPanelRight extends JPanel {
             setHealthPointSlider(Character.getMinHp(), healthPointMax, character.getHealthPoints());
             healthPointSlider.setEnabled(true);
             setStuffedCheckBox(character.isStuffed());
-            setCreationDateSpinnerValue(character.getCreationDate().getTime());
+            setCreationDateSpinnerModify(character.getCreationDate().getTime());
             setPetNameField(character.getPetName());
             if(character.getDamagePerSecond() != null) {
                 setDamagePerSecondActivated(true);

@@ -350,10 +350,8 @@ public class FormPanelLeftModify extends JPanel {
                                         setCharactersName(pseudoChoice, numberChoice, gameChoice, serverChoice, characterClassChoice);
                                         characterCombo.setModel(new DefaultComboBoxModel(characters.toArray()));
                                         characterCombo.setSelectedIndex(0);
+                                        resetComboModifyPanel();
                                         characterCombo.setEnabled(true);
-                                        if (isModifyPanel) {
-                                            resetComboModifyPanel();
-                                        }
                                     } catch (DataAccessException dataAccessException) {
                                         JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                                     } catch (DataException dataException) {
@@ -415,6 +413,7 @@ public class FormPanelLeftModify extends JPanel {
         gameCombo.setSelectedIndex(0);
         serverCombo.setSelectedIndex(0);
         characterClassCombo.setSelectedIndex(0);
+        gameChoice = "No selection";
         serverChoice = "No selection";
         characterClassChoice = "No selection";
         gameCombo.setEnabled(false);

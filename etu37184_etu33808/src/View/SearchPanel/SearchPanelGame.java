@@ -88,7 +88,6 @@ public class SearchPanelGame extends JPanel {
 
         dateEndSpinner = new JSpinner();
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.YEAR, -5);
         Date earliestDate = calendar.getTime();
         setJSpinner(earliestDate);
 
@@ -135,10 +134,6 @@ public class SearchPanelGame extends JPanel {
         return numberChoice;
     }
 
-    public void setCharacterNameChoice(String characterNameChoice) {
-        this.characterNameChoice = characterNameChoice;
-    }
-
     public void setDateChoice(){
         Date date = (Date) dateEndSpinner.getValue();
         GregorianCalendar calendar = new GregorianCalendar();
@@ -181,7 +176,7 @@ public class SearchPanelGame extends JPanel {
             }else{
                 if (characterNameCombo.getSelectedIndex() > 0) {
                     characterNameChoice = charactersName.get(characterNameCombo.getSelectedIndex());
-                    setJSpinner(getCharacterByName(characterNameChoice).getCreationDate().getGregorianChange());
+                    setJSpinner(getCharacterByName(characterNameChoice).getCreationDate().getTime());
                 }
             }
         }

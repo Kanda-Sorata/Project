@@ -212,6 +212,12 @@ public class ButtonsPanel extends JPanel {
                             character.setDamagePerSecond(formPanelRight.getDamagePerSecond());
                         }
 
+                        if (formPanelLeftModify.isModifyPanel()) {
+                            frame.getSavedValueFormModify().setHaveSavedValue(false);
+                        } else {
+                            frame.getSavedValueFormNew().setHaveSavedValue(false);
+                        }
+
                         state = 0;
                         msg = "The character " + character.getName() + " has been ";
                         if(!formPanelLeftModify.isModifyPanel()) {
@@ -229,14 +235,14 @@ public class ButtonsPanel extends JPanel {
                     } catch (HealthPointsException healthPointsException) {
                         JOptionPane.showMessageDialog(null, healthPointsException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 
-                    } catch (DamagePerSecondException damagePerSecondException) {
-                        JOptionPane.showMessageDialog(null, damagePerSecondException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     } catch (DataException dataException) {
                         JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     } catch (DataAccessException dataAccessException) {
                         JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     } catch (UniqueNameException uniqueNameException) {
                         JOptionPane.showMessageDialog(null, uniqueNameException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    } catch (DamagePerSecondException damagePerSecondException) {
+                        JOptionPane.showMessageDialog(null, damagePerSecondException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }else {
                     JOptionPane.showMessageDialog(null, "Some error has been found in the form, " +
@@ -300,11 +306,13 @@ public class ButtonsPanel extends JPanel {
                 if(actionEvent.getSource() == reset){
                     clearValueForm();
                     resetLabel();
+
                     if (formPanelLeftModify.isModifyPanel()) {
                         frame.getSavedValueFormModify().setHaveSavedValue(false);
                     } else {
                         frame.getSavedValueFormNew().setHaveSavedValue(false);
                     }
+
                     try {
                         clearValueSaved();
                     } catch (HealthPointsException healthPointsException) {
@@ -417,9 +425,9 @@ public class ButtonsPanel extends JPanel {
             formPanelRight.setHealthPointSlider(Character.getMinHp(), Character.getMaxHp(), character.getHealthPoints());
             formPanelRight.setStuffedCheckBox(character.isStuffed());
             if(formPanelLeftModify.isModifyPanel()) {
-                formPanelRight.setCreationDateSpinner(character.getCreationDate().getTime());
+                formPanelRight.setCreationDateSpinnerModify(character.getCreationDate().getTime());
             }else{
-                formPanelRight.setCreationDateSpinner();
+                formPanelRight.setCreationDateSpinnerNew();
             }
             formPanelRight.setPetNameField(character.getPetName());
             if(character.getDamagePerSecond() != null) {
@@ -460,11 +468,9 @@ public class ButtonsPanel extends JPanel {
                 && isNameValid(formPanelRight.getNameField())
                 && formPanelRight.getHealthPointSlider() >= Character.getMinHp()
                 && formPanelRight.getHealthPointSlider() <= formPanelRight.getHealthPointMax()
-                && formPanelRight.getCreationDate().before(formPanelRight.getLatestDate())
                 && (formPanelRight.getPetNameField().isEmpty() || testFieldNullable(formPanelRight.getPetNameField()))
                 && formPanelRight.getDamagePerSecond() >= Character.getMinDmg()
                 && formPanelRight.getDamagePerSecond() <= Character.getMaxDmg();
-                //getCreationDate().before(date) true if date is after getCreationDate
     }
 
     private boolean isNameValid(String name) {
