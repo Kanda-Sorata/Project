@@ -12,6 +12,8 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -41,7 +43,6 @@ public class FormPanelRight extends JPanel {
     private SpinnerListener spinnerListener;
     private Date initDate;
     private Date latestDate;
-    private Date earliestDate;
     private int healthPointMax;
 
     private ButtonsPanel buttonsPanel;
@@ -55,14 +56,20 @@ public class FormPanelRight extends JPanel {
     private CharacterController characterController;
     private Character character;
 
+    private boolean isModifyPanel;
+    private JLabel creationDateLabelValue;
 
-    public FormPanelRight(ButtonsPanel buttonsPanel){
+
+    public FormPanelRight(ButtonsPanel buttonsPanel, boolean isModifyPanel){
         //Add properties
         setLayout(new GridLayout(8, 2, 5, 15));
         setBorder(new EmptyBorder(30, 0, 30, 40)); //Top, left, bottom, right
 
         //Add link panel
         this.buttonsPanel = buttonsPanel;
+
+        //Init
+        this.isModifyPanel = isModifyPanel;
 
 
         //Add Component
@@ -86,11 +93,20 @@ public class FormPanelRight extends JPanel {
 
         creationDateLabel = new JLabel("<html>Creational date<font color = 'red'>*</font></html>");
         creationDateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        creationDateSpinner = new JSpinner();
-        setCreationDateSpinnerNew();
-        creationDateSpinner.setToolTipText("Date available " + getYearEarliestDate() + " to " + getYearLatestDate());
-        spinnerListener = new SpinnerListener();
-        creationDateSpinner.addChangeListener(spinnerListener);
+        if(!isModifyPanel) {
+            creationDateSpinner = new JSpinner();
+            GregorianCalendar calendar = new GregorianCalendar();
+            initDate = calendar.getTime();
+            setCreationDateSpinnerNew(initDate);
+            creationDateSpinner.setToolTipText("Date available " + getYearEarliestDate() + " to " + getYearLatestDate());
+            spinnerListener = new SpinnerListener();
+            creationDateSpinner.addChangeListener(spinnerListener);
+        }
+        else{
+            GregorianCalendar calendar = new GregorianCalendar();
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            creationDateLabelValue = new JLabel(dateFormat.format(calendar.getTime()));
+        }
 
         petNameLabel = new JLabel("Pet name");
         petNameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -129,7 +145,11 @@ public class FormPanelRight extends JPanel {
         add(isStuffedLabel);
         add(isStuffedCheckBox);
         add(creationDateLabel);
-        add(creationDateSpinner);
+        if(!isModifyPanel) {
+            add(creationDateSpinner);
+        }else{
+            add(creationDateLabelValue);
+        }
         add(petNameLabel);
         add(petNameField);
         add(damagePerSecondActivatedLabel);
@@ -204,7 +224,7 @@ public class FormPanelRight extends JPanel {
 
     public GregorianCalendar getEarliestDate() {
         GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime(earliestDate);
+        calendar.setTime(initDate);
         return calendar;
     }
 
@@ -236,31 +256,20 @@ public class FormPanelRight extends JPanel {
         isStuffedCheckBox.setSelected(isStuffed);
     }
 
-    private void setSpinnerModel() {
+    public void setCreationDateSpinnerNew(Date initDate) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(initDate);
+        calendar.add(Calendar.YEAR, 20);
+        latestDate = calendar.getTime();
+        spinnerModel = new SpinnerDateModel(initDate, initDate, latestDate, Calendar.MONTH); //getPrevious & nextValue method
         creationDateSpinner.setModel(spinnerModel);
         dateEditor = new JSpinner.DateEditor(creationDateSpinner, "dd/MM/yyyy");
         creationDateSpinner.setEditor(dateEditor);
     }
 
-    public void setCreationDateSpinnerModify(Date earliestDate) {
-        Calendar calendar = Calendar.getInstance();
-        initDate = calendar.getTime();
-        calendar.add(Calendar.YEAR, 20);
-        latestDate = calendar.getTime();
-        spinnerModel = new SpinnerDateModel(initDate, earliestDate, latestDate, Calendar.MONTH); //getPrevious & nextValue method
-        setSpinnerModel();
-    }
-
-    public void setCreationDateSpinnerNew() {
-        Calendar calendar = Calendar.getInstance();
-        initDate = calendar.getTime();
-        calendar.add(Calendar.DAY_OF_YEAR, -1);
-        earliestDate = calendar.getTime();
-        calendar.add(Calendar.YEAR, 20);
-        latestDate = calendar.getTime();
-        spinnerModel = new SpinnerDateModel(initDate, earliestDate, latestDate, Calendar.MONTH); //getPrevious & nextValue method
-        setSpinnerModel();
-
+    public void setCreationDateLabelValue(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        creationDateLabelValue.setText(dateFormat.format(date));
     }
 
     public void updateCreationDateSpinner(GregorianCalendar calendar){
@@ -392,7 +401,12 @@ public class FormPanelRight extends JPanel {
             setHealthPointSlider(Character.getMinHp(), healthPointMax, character.getHealthPoints());
             healthPointSlider.setEnabled(true);
             setStuffedCheckBox(character.isStuffed());
-            setCreationDateSpinnerModify(character.getCreationDate().getTime());
+            if(isModifyPanel) {
+                setCreationDateLabelValue(character.getCreationDate().getTime());
+            }else{
+                GregorianCalendar calendar = new GregorianCalendar();
+                setCreationDateSpinnerNew(calendar.getTime());
+            }
             setPetNameField(character.getPetName());
             if(character.getDamagePerSecond() != null) {
                 setDamagePerSecondActivated(true);
@@ -413,8 +427,12 @@ public class FormPanelRight extends JPanel {
         setHealthPointSlider(Character.getMinHp(), Character.getMaxHp(), Character.getMinHp());
         setStuffedCheckBox(false);
         GregorianCalendar calendar = new GregorianCalendar();
-        calendar.getTimeZone();
-        updateCreationDateSpinner(calendar);
+        calendar.getTime();
+        if(isModifyPanel) {
+            setCreationDateLabelValue(calendar.getTime());
+        }else{
+            updateCreationDateSpinner(calendar);
+        }
         setPetNameField("");
         setDamagePerSecondActivated(false);
         setDamagePerSecondSlider(0);

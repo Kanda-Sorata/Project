@@ -22,7 +22,7 @@ public class ModifyPanel extends JPanel {
 
         //Add components
         buttonsPanel = new ButtonsPanel();
-        formPanelRight = new FormPanelRight(buttonsPanel);
+        formPanelRight = new FormPanelRight(buttonsPanel, true);
         formPanelLeftModify = new FormPanelLeftModify(formPanelRight,true);
         buttonsPanel.setFormPanelRight(formPanelRight);
         buttonsPanel.setFrame(this.frame);

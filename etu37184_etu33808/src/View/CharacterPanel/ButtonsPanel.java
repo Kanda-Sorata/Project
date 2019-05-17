@@ -193,7 +193,9 @@ public class ButtonsPanel extends JPanel {
     private class ButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            formPanelRight.setDateChoice();
+            if(!formPanelLeftModify.isModifyPanel()) {
+                formPanelRight.setDateChoice();
+            }
             if(actionEvent.getSource() == validation){
                 if (isFormValid()) {
                     resetLabel();
@@ -425,9 +427,9 @@ public class ButtonsPanel extends JPanel {
             formPanelRight.setHealthPointSlider(Character.getMinHp(), Character.getMaxHp(), character.getHealthPoints());
             formPanelRight.setStuffedCheckBox(character.isStuffed());
             if(formPanelLeftModify.isModifyPanel()) {
-                formPanelRight.setCreationDateSpinnerModify(character.getCreationDate().getTime());
+                formPanelRight.setCreationDateLabelValue(character.getCreationDate().getTime());
             }else{
-                formPanelRight.setCreationDateSpinnerNew();
+                formPanelRight.setCreationDateSpinnerNew(character.getCreationDate().getTime());
             }
             formPanelRight.setPetNameField(character.getPetName());
             if(character.getDamagePerSecond() != null) {

@@ -50,7 +50,7 @@ public class CharacterBusinessLogic {
     }
 
     public int modifyACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataAccessException, DataException {
-        if (isInsertParametersValid(character, pseudo, number, game, server, characterClass)) {
+        if (!isInsertParametersValid(character, pseudo, number, game, server, characterClass)) {
             throw new DataException(8);
         } else {
             return dao.modifyACharacter(character, pseudo, number, game, server, characterClass);

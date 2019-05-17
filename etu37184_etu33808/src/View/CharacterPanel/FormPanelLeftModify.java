@@ -368,6 +368,7 @@ public class FormPanelLeftModify extends JPanel {
                             if (isModifyPanel) {
                                 if (itemEvent.getSource() == characterCombo) {
                                     if (characterCombo.getSelectedIndex() > 0) {
+                                        formPanelRight.unsetFieldWithCharacterValues();
                                         characterChoice = characterCombo.getSelectedItem().toString();
                                         formPanelRight.setFieldWithCharacterValues(pseudoChoice, numberChoice, gameChoice,
                                                 serverChoice, characterClassChoice, characterChoice);

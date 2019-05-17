@@ -349,7 +349,8 @@ public class CharacterDBAccess implements CharacterDataAccess {
                     + "and characterclass.technicalId = (select technicalId from characterclass where name = ? and gameName = game.name) "
                     + "and `character`.ServertechnicalId = server.technicalId "
                     + "and `character`.characterclassTechnicalId = characterclass.technicalId "
-                    + "and `character`.playeraccountId = playeraccount.id;";
+                    + "and `character`.playeraccountId = playeraccount.id "
+                    + "and `character`.name = ?;";
 
             PreparedStatement statement = connection.prepareStatement(query);
 
@@ -358,6 +359,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
             statement.setString(3, game);
             statement.setString(4, server);
             statement.setString(5, characterClass);
+            statement.setString(6, character);
 
             ResultSet data = statement.executeQuery();
             Character characterToFill = null;
@@ -495,6 +497,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
         }
     }
 
+    //TODO
     private String getOneCharacterToCompare(String pseudo, int number, String game, String server, String characterName) throws DataException, DataAccessException {
         Connection connection;
         try {
