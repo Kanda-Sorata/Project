@@ -29,7 +29,6 @@ public class PanelThread extends JPanel {
     public void setValueOfAllLabels(int nbPlayers, int nbCharacters, double average) {
         resultPlayers.setText("Total of players : " + nbPlayers);
         resultCharacters.setText("Total of characters : " + nbCharacters);
-        resultAverage.setText(String.format("Average number of characters for a player account : "
-                + decimalFormat.format(average)));
+        resultAverage.setText("Average number of characters for a player account : " + decimalFormat.format(average));
     }
 }

@@ -27,7 +27,7 @@ public class GameDBAccess implements GameDataAccess {
                          + "where playeraccount.id = (select id from playeraccount where pseudo = ? and `number` = ?) "
                          + "and `character`.name = ? and `character`.playeraccountid = playeraccount.id "
                          + "and server.technicalId = `character`.servertechnicalid and game.name = server.gamename "
-                         + "and game.releaseDate <= ?;";
+                    + "and game.releaseDate <= ? and `character`.creationDate >= game.releaseDate;";
 
 
             PreparedStatement statement = connection.prepareStatement(query);

@@ -52,9 +52,7 @@ public class SearchPanelEffect extends JPanel {
         games.add("No selection");
         gamesTemp = gameController.getAllGames();
         int size = gamesTemp.size();
-        for (String game : gamesTemp) {
-            games.add(game);
-        }
+        games.addAll(gamesTemp);
 
         gameCombo = new JComboBox(games.toArray());
         comboBoxListener = new ComboBoxListener();

@@ -5,6 +5,7 @@ import Exception.DataAccessException;
 import Exception.DataException;
 import Exception.UniqueNameException;
 import Model.Character;
+import Model.DeleteCharacter;
 import Model.DisplayCharacter;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class CharacterController {
         return characterBusinessLogic.getAllCharacter(pseudo, number);
     }
 
-    public ArrayList<String> getAllCharactersInAGame(String pseudo, int number, String gameName) throws DataException, DataAccessException{
+    public ArrayList<DeleteCharacter> getAllCharactersInAGame(String pseudo, int number, String gameName) throws DataException, DataAccessException {
         return characterBusinessLogic.getAllCharactersInAGame(pseudo, number, gameName);
     }
 
@@ -51,5 +52,9 @@ public class CharacterController {
 
     public int getNbCharacters() throws DataAccessException, DataException{
         return characterBusinessLogic.getNbCharacters();
+    }
+
+    public ArrayList<DisplayCharacter> getAllInfosCharactersFromAllPlayers() throws DataException, DataAccessException {
+        return characterBusinessLogic.getAllInfosCharactersFromAllPlayers();
     }
 }

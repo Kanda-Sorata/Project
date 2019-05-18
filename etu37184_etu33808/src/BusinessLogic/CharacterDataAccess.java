@@ -3,6 +3,7 @@ package BusinessLogic;
 import Exception.DataAccessException;
 import Exception.DataException;
 import Model.Character;
+import Model.DeleteCharacter;
 import Model.DisplayCharacter;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 public interface CharacterDataAccess {
     ArrayList<Character> getAllCharacter(String pseudo, int number) throws DataException, DataAccessException;
 
-    ArrayList<String> getAllCharactersInAGame(String pseudo, int number, String gameName) throws DataException, DataAccessException;
+    ArrayList<DeleteCharacter> getAllCharactersInAGame(String pseudo, int number, String gameName) throws DataException, DataAccessException;
 
     int deleteACharacter(String pseudo, int number, String gameName, String characterName) throws DataAccessException, DataException;
 
@@ -26,6 +27,8 @@ public interface CharacterDataAccess {
 
     int getNbCharacters() throws DataException, DataAccessException;
 
-    boolean notTheSameName(String pseudo, int number, String game, String server, String characterName) throws DataException, DataAccessException;
+    boolean isSameName(String pseudo, int number, String game, String server, String characterName) throws DataException, DataAccessException;
+
+    ArrayList<DisplayCharacter> getAllInfosCharactersFromAllPlayers() throws DataException, DataAccessException;
 
 }

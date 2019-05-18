@@ -48,7 +48,7 @@ public class HelpPanel extends JPanel {
                 "<ul>" +
                 "<li>Add a character to a player</li>" +
                 "<li>Modify a character from a player</li>" +
-                "<li>Delete a character from a player</li> " +
+                "<li>DeleteCharacter a character from a player</li> " +
                 "<li>Display all character from a player</li>" +
                 "</ul>" +
                 "</html>";

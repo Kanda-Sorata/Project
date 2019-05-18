@@ -336,7 +336,7 @@ public class Frame extends JFrame{
                 }
                 else{
                     if(actionEvent.getSource() == delete){
-                        error = "Error - Delete a character";
+                        error = "Error - Delete character";
                         try {
                             deletePanel = new DeletePanel();
                             container.add(deletePanel);

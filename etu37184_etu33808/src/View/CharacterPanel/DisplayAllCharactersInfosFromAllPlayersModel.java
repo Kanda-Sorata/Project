@@ -4,14 +4,18 @@ import Model.DisplayCharacter;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 
-public class DisplayAllCharactersInfosModel extends AbstractTableModel {
+public class DisplayAllCharactersInfosFromAllPlayersModel extends AbstractTableModel {
     private ArrayList<String> columnNames;
     private ArrayList<DisplayCharacter> contents;
+    private boolean isSpecifiedPlayer;
 
-    public DisplayAllCharactersInfosModel(ArrayList<DisplayCharacter> characters) {
+    public DisplayAllCharactersInfosFromAllPlayersModel(ArrayList<DisplayCharacter> characters, boolean isSpecifiedPlayer) {
+        this.isSpecifiedPlayer = isSpecifiedPlayer;
         columnNames = new ArrayList<>();
+        if (!isSpecifiedPlayer) {
+            columnNames.add("Player account");
+        }
         columnNames.add("Game");
         columnNames.add("Server");
         columnNames.add("Character");
@@ -42,24 +46,27 @@ public class DisplayAllCharactersInfosModel extends AbstractTableModel {
 
     public Object getValueAt(int row, int column) {
         DisplayCharacter character = contents.get(row);
+        if (isSpecifiedPlayer) column += 1;
         switch (column) {
             case 0:
-                return character.getGameName();
+                return character.getPlayerAccount();
             case 1:
-                return character.getServerName();
+                return character.getGameName();
             case 2:
-                return character.getCharacterName();
+                return character.getServerName();
             case 3:
-                return character.getCharacterClassName();
+                return character.getCharacterName();
             case 4:
-                return character.getHealthPoint();
+                return character.getCharacterClassName();
             case 5:
-                return character.getIsStuffed();
+                return character.getHealthPoint();
             case 6:
-                return character.getCreationDateFormatter();
+                return character.getIsStuffed();
             case 7:
-                return character.getPetName();
+                return character.getCreationDateFormatter();
             case 8:
+                return character.getPetName();
+            case 9:
                 return character.getDamagePerSecond();
             default:
                 return null;
@@ -72,23 +79,23 @@ public class DisplayAllCharactersInfosModel extends AbstractTableModel {
 
     public Class getColumnClass(int column) {
         Class c;
+        if (isSpecifiedPlayer) column += 1;
         switch (column) {
             case 0:
             case 1:
             case 2:
             case 3:
+            case 4:
             case 7:
+            case 8:
                 c = String.class;
                 break;
-            case 4:
-            case 8:
+            case 5:
+            case 9:
                 c = Integer.class;
                 break;
-            case 5:
-                c = Boolean.class;
-                break;
             case 6:
-                c = GregorianCalendar.class;
+                c = Boolean.class;
                 break;
             default:
                 c = String.class;

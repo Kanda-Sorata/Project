@@ -193,9 +193,7 @@ public class ButtonsPanel extends JPanel {
     private class ButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            if(!formPanelLeftModify.isModifyPanel()) {
-                formPanelRight.setDateChoice();
-            }
+            formPanelRight.setDateChoice();
             if(actionEvent.getSource() == validation){
                 if (isFormValid()) {
                     resetLabel();
@@ -209,6 +207,12 @@ public class ButtonsPanel extends JPanel {
                                 formPanelRight.getIsStuffedCheckBox(), formPanelRight.getCreationDate(),
                                 formPanelRight.getPetNameField(), null,
                                 null, null);
+
+                        if (formPanelLeftModify.isModifyPanel()) {
+                            character.setCreationDate(formPanelRight.getCreationDate());
+                        } else {
+                            formPanelRight.setDateChoice();
+                        }
 
                         if(formPanelRight.damagePerSecondIsAvailable()) {
                             character.setDamagePerSecond(formPanelRight.getDamagePerSecond());
@@ -237,10 +241,10 @@ public class ButtonsPanel extends JPanel {
                     } catch (HealthPointsException healthPointsException) {
                         JOptionPane.showMessageDialog(null, healthPointsException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 
-                    } catch (DataException dataException) {
-                        JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     } catch (DataAccessException dataAccessException) {
                         JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    } catch (DataException dataException) {
+                        JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     } catch (UniqueNameException uniqueNameException) {
                         JOptionPane.showMessageDialog(null, uniqueNameException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     } catch (DamagePerSecondException damagePerSecondException) {
@@ -393,10 +397,10 @@ public class ButtonsPanel extends JPanel {
         SavedValueForm savedValueForm = new SavedValueForm();
 
         character = new Character(formPanelRight.getNameField(), formPanelRight.getHealthPointSlider(),
-            formPanelRight.getIsStuffedCheckBox(), formPanelRight.getCreationDate(), formPanelRight.getPetNameField(),
-            null, null, null);
+                formPanelRight.getIsStuffedCheckBox(), formPanelRight.getCreationDate(), formPanelRight.getPetNameField(),
+                null, null, null);
 
-        if(formPanelRight.damagePerSecondIsAvailable()){
+        if (formPanelRight.damagePerSecondIsAvailable()) {
             character.setDamagePerSecond(formPanelRight.getDamagePerSecond());
         }
 

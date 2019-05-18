@@ -235,9 +235,13 @@ public class FormPanelRight extends JPanel {
     }
 
     public void setDateChoice(){
-        Date date = (Date) creationDateSpinner.getValue();
         GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime(date);
+        if (isModifyPanel) {
+            calendar.setTime(character.getCreationDate().getTime());
+        } else {
+            Date date = (Date) creationDateSpinner.getValue();
+            calendar.setTime(date);
+        }
         this.dateChoice = calendar;
     }
 
@@ -246,11 +250,9 @@ public class FormPanelRight extends JPanel {
     }
 
     //Set Form
-
     public void setNameField(String name) {
         this.nameField.setText(name);
     }
-
 
     public void setStuffedCheckBox(boolean isStuffed) {
         isStuffedCheckBox.setSelected(isStuffed);
@@ -259,9 +261,11 @@ public class FormPanelRight extends JPanel {
     public void setCreationDateSpinnerNew(Date initDate) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(initDate);
+        calendar.add(Calendar.DAY_OF_WEEK, -1);
+        Date earliestDate = calendar.getTime();
         calendar.add(Calendar.YEAR, 20);
         latestDate = calendar.getTime();
-        spinnerModel = new SpinnerDateModel(initDate, initDate, latestDate, Calendar.MONTH); //getPrevious & nextValue method
+        spinnerModel = new SpinnerDateModel(initDate, earliestDate, latestDate, Calendar.MONTH); //getPrevious & nextValue method
         creationDateSpinner.setModel(spinnerModel);
         dateEditor = new JSpinner.DateEditor(creationDateSpinner, "dd/MM/yyyy");
         creationDateSpinner.setEditor(dateEditor);
@@ -342,6 +346,7 @@ public class FormPanelRight extends JPanel {
     public void setCreationDateLabelReset(){
         creationDateLabel.setText("<html>Creational date<font color = 'red'>*</font></html>");
     }
+
     public void setDamagePerSecondLabelReset(){ damagePerSecondLabel.setText("<html>Damage per second<font color = 'red'>*</font></html>"); }
 
     public void setHealthPointLabelReset(){ healthPointLabel.setText("<html>Health point<font color = 'red'>*</font></html>");}

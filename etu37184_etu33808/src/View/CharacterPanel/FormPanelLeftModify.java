@@ -137,30 +137,22 @@ public class FormPanelLeftModify extends JPanel {
 
     public void setGamesName(String pseudoChoice, int numberChoice) throws DataException, DataAccessException {
         ArrayList<String> gameTemp = gameController.getAllGamesName(pseudoChoice, numberChoice);
-        for (String game : gameTemp) {
-            games.add(game);
-        }
+        games.addAll(gameTemp);
     }
 
     public void setServersName(String pseudoChoice, int numberChoice, String game) throws DataException, DataAccessException {
         ArrayList<String> serverTemp = serverController.getAllServersName(pseudoChoice, numberChoice, game);
-        for (String server : serverTemp) {
-            servers.add(server);
-        }
+        servers.addAll(serverTemp);
     }
 
     public void setCharacterClasses(String pseudoChoice, int numberChoice, String gameChoice) throws DataException, DataAccessException {
         ArrayList<String> characterClassesTemp = characterClassController.getAllCharactersClassName(pseudoChoice, numberChoice, gameChoice);
-        for (String characterClass : characterClassesTemp) {
-            characterClasses.add(characterClass);
-        }
+        characterClasses.addAll(characterClassesTemp);
     }
 
     public void setCharactersName(String pseudoChoice, int numberChoice, String gameChoice, String serverChoice, String characterClassChoice) throws DataException, DataAccessException {
         ArrayList<String> charactersTemp = characterController.getAllCharactersInAGameInServerWithCharacterClass(pseudoChoice, numberChoice, gameChoice, serverChoice, characterClassChoice);
-        for (String character : charactersTemp) {
-            characters.add(character);
-        }
+        characters.addAll(charactersTemp);
     }
 
     public String getPseudoChoice() {

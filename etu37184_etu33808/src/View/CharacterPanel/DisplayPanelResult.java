@@ -7,7 +7,6 @@ import Model.DisplayCharacter;
 import View.UtilitiesPanelMethod;
 
 import javax.swing.*;
-import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -18,39 +17,32 @@ public class DisplayPanelResult extends JPanel {
     private ArrayList<DisplayCharacter> characters;
     private CharacterController characterController;
 
-    public DisplayPanelResult() {
+    public DisplayPanelResult() throws DataAccessException, DataException {
         //Init
         characterController = new CharacterController();
         utilitiesPanelMethod = new UtilitiesPanelMethod();
-
-        //Add components
-        table = utilitiesPanelMethod.getJTableModelBlank();
-        scrollPane = new JScrollPane(table);
-        add(scrollPane);
+        updateJTableNoSelection();
     }
 
     public void setJTable(String pseudoChoice, int numberChoice) throws DataAccessException, DataException {
         characters = characterController.getAllInfosCharacters(pseudoChoice, numberChoice);
-        DisplayAllCharactersInfosModel model = new DisplayAllCharactersInfosModel(characters);
-        remove(scrollPane);
-        table = new JTable(model);
-        TableColumnModel modelColumn = table.getColumnModel();
-        int nbColumn = model.getColumnCount();
-        for (int iColumn = 0; iColumn < nbColumn; iColumn++) {
-            modelColumn.getColumn(iColumn).setMaxWidth(this.getWidth() / 5);
-            modelColumn.getColumn(iColumn).setMinWidth(this.getWidth() / 10);
-        }
-        scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(1000, 400));
-        add(scrollPane);
-        revalidate();
-        repaint();
+        DisplayAllCharactersInfosFromAllPlayersModel model = new DisplayAllCharactersInfosFromAllPlayersModel(characters, true);
+        setScrollPane(model);
     }
 
-    public void updateJTableNoSelection(){
-        remove(scrollPane);
-        table = utilitiesPanelMethod.getJTableModelBlank();
+    public void updateJTableNoSelection() throws DataException, DataAccessException {
+        characters = characterController.getAllInfosCharactersFromAllPlayers();
+        DisplayAllCharactersInfosFromAllPlayersModel model = new DisplayAllCharactersInfosFromAllPlayersModel(characters, false);
+        setScrollPane(model);
+    }
+
+    private void setScrollPane(DisplayAllCharactersInfosFromAllPlayersModel model) {
+        if (scrollPane != null) {
+            remove(scrollPane);
+        }
+        table = new JTable(model);
         scrollPane = new JScrollPane(table);
+        scrollPane.setPreferredSize(new Dimension(1000, 400));
         add(scrollPane);
         revalidate();
         repaint();

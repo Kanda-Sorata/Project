@@ -1,7 +1,6 @@
 package View.SearchPanel;
 
 import Controller.CharacterController;
-import Controller.PlayerAccountController;
 import Exception.DataAccessException;
 import Exception.DataException;
 import Model.Character;
@@ -41,11 +40,8 @@ public class SearchPanelGame extends JPanel {
     private int numberChoice;
     private String characterNameChoice;
     private GregorianCalendar dateChoice;
-
-    private PlayerAccountController playerAccountController;
     private CharacterController characterController;
     private UtilitiesPanelMethod utilitiesPanelMethod;
-
     private ComboBoxListener comboBoxListener;
     private SpinnerListener spinnerListener;
 
@@ -61,7 +57,6 @@ public class SearchPanelGame extends JPanel {
 
         //Init
         this.resultGamePanel = resultGamePanel;
-        playerAccountController = new PlayerAccountController();
         characterController = new CharacterController();
         utilitiesPanelMethod = new UtilitiesPanelMethod();
 
@@ -120,6 +115,10 @@ public class SearchPanelGame extends JPanel {
         calendar.add(Calendar.YEAR, 20);
         Date latestDate = calendar.getTime();
 
+        calendar = Calendar.getInstance();
+        calendar.setTime(earliestDate);
+        calendar.add(Calendar.DAY_OF_WEEK, -1);
+        earliestDate = calendar.getTime();
         spinnerModel = new SpinnerDateModel(initDate, earliestDate, latestDate, Calendar.MONTH); //getPrevious & nextValue method
         dateEndSpinner.setModel(spinnerModel);
         dateEditor = new JSpinner.DateEditor(dateEndSpinner, "dd/MM/yyyy");
@@ -149,11 +148,21 @@ public class SearchPanelGame extends JPanel {
             for (Character character : characters) {
                 charactersName.add(character.getName());
             }
+
+            ArrayList<String> charactersList = new ArrayList<>();
+
+            for (String character : charactersName) {
+                if (!charactersList.contains(character)) {
+                    charactersList.add(character);
+                }
+            }
+
+            charactersName.clear(); //Better than removeAll because this method doesn't have a lot of external method call
+            charactersName.addAll(charactersList); //return null if input doesn't contain element
         }
     }
 
     private class ComboBoxListener implements ItemListener {
-
         @Override
         public void itemStateChanged (ItemEvent itemEvent) {
             if(itemEvent.getSource() == playerAccountCombo) {

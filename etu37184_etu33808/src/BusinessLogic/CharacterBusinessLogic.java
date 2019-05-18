@@ -5,6 +5,7 @@ import Exception.DataAccessException;
 import Exception.DataException;
 import Exception.UniqueNameException;
 import Model.Character;
+import Model.DeleteCharacter;
 import Model.DisplayCharacter;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class CharacterBusinessLogic {
         return dao.getAllCharacter(pseudo, number);
     }
 
-    public ArrayList<String> getAllCharactersInAGame(String pseudo, int number, String gameName) throws DataException, DataAccessException{
+    public ArrayList<DeleteCharacter> getAllCharactersInAGame(String pseudo, int number, String gameName) throws DataException, DataAccessException {
         return dao.getAllCharactersInAGame(pseudo, number, gameName);
     }
 
@@ -38,10 +39,10 @@ public class CharacterBusinessLogic {
     }
 
     public int insertACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataAccessException, DataException, UniqueNameException {
-        if (!isInsertParametersValid(character, pseudo, number, game, server, characterClass)) {
+        if (!isParametersValid(character, pseudo, number, game, server, characterClass)) {
             throw new DataException(6);
         } else {
-            if (!dao.notTheSameName(pseudo, number, game, server, character.getName())) {
+            if (dao.isSameName(pseudo, number, game, server, character.getName())) {
                 throw new UniqueNameException(character.getName());
             } else {
                 return dao.insertACharacter(character, pseudo, number, game, server, characterClass);
@@ -50,7 +51,7 @@ public class CharacterBusinessLogic {
     }
 
     public int modifyACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataAccessException, DataException {
-        if (!isInsertParametersValid(character, pseudo, number, game, server, characterClass)) {
+        if (!isParametersValid(character, pseudo, number, game, server, characterClass)) {
             throw new DataException(8);
         } else {
             return dao.modifyACharacter(character, pseudo, number, game, server, characterClass);
@@ -61,7 +62,7 @@ public class CharacterBusinessLogic {
         return dao.getOneCharacter(pseudo, number, game, server, characterClass, character);
     }
 
-    private boolean isInsertParametersValid(Character character, String pseudo, int number, String game, String server, String characterClass) {
+    private boolean isParametersValid(Character character, String pseudo, int number, String game, String server, String characterClass) {
         String noSelection = "No selection";
         return character != null && !character.getName().isEmpty() && Pattern.matches("^[a-zA-Z_-]{4,50}", character.getName())
                 && !Pattern.matches("(.)\\1{2,}", character.getName())
@@ -91,5 +92,9 @@ public class CharacterBusinessLogic {
 
     public int getNbCharacters() throws DataException, DataAccessException{
         return dao.getNbCharacters();
+    }
+
+    public ArrayList<DisplayCharacter> getAllInfosCharactersFromAllPlayers() throws DataException, DataAccessException {
+        return dao.getAllInfosCharactersFromAllPlayers();
     }
 }

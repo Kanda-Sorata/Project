@@ -4,7 +4,7 @@ public class DamagePerSecondException extends Exception {
     private Integer damagePerSecondException;
 
     public DamagePerSecondException(Integer damagePerSecondException) {
-        damagePerSecondException = damagePerSecondException;
+        this.damagePerSecondException = damagePerSecondException;
     }
 
     public String getMessage() {

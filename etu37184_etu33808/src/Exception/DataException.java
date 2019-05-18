@@ -5,7 +5,7 @@ public class DataException extends Exception {
 
     public DataException(int code) {
         this.code = code;
-    }  //1 : SQLException, 2 : HealthPoint, 3 : NameException 4 : SexException, 5 : DamagePerSecond 6 : Insert 7 : Delete 8 : Modify
+    }  //1 : SQLException, 2 : HealthPoint, 3 : NameException 4 : SexException, 5 : DamagePerSecond 6 : Insert 7 : DeleteCharacter 8 : Modify
 
     public String getMessage() {
         String output = "Sorry an error has been occurred, when you tried ";
