@@ -209,8 +209,7 @@ public class ButtonsPanel extends JPanel {
                         characterClass = formPanelLeftModify.getCharacterClassChoice();
                         character = new Character(formPanelRight.getNameField(), formPanelRight.getHealthPointSlider(),
                                 formPanelRight.getIsStuffedCheckBox(), formPanelRight.getCreationDate(),
-                                formPanelRight.getPetNameField(), null,
-                                null, null);
+                                formPanelRight.getPetNameField(), null);
 
                         if (formPanelLeftModify.isModifyPanel()) {
                             character.setCreationDate(formPanelRight.getCreationDate());
@@ -354,7 +353,7 @@ public class ButtonsPanel extends JPanel {
         savedValueForm.setHaveSavedValue(false);
 
         character = new Character(null, 0, false, null, null,
-                null, null, null);
+                null);
 
         savedValueForm.setCharacterForm(character);
         if (formPanelLeftModify.isModifyPanel()) {
@@ -388,7 +387,7 @@ public class ButtonsPanel extends JPanel {
 
         character = new Character(formPanelRight.getNameField(), formPanelRight.getHealthPointSlider(),
                 formPanelRight.getIsStuffedCheckBox(), formPanelRight.getCreationDate(), formPanelRight.getPetNameField(),
-                null, null, null);
+                null);
 
         if (formPanelRight.damagePerSecondIsAvailable()) {
             character.setDamagePerSecond(formPanelRight.getDamagePerSecond());

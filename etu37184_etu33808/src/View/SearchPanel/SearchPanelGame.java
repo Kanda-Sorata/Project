@@ -120,6 +120,15 @@ public class SearchPanelGame extends JPanel {
         calendar.setTime(earliestDate);
         calendar.add(Calendar.DAY_OF_WEEK, -1);
         earliestDate = calendar.getTime();
+
+        if (earliestDate.after(initDate)) {
+            Date temp = earliestDate;
+            Calendar calendar1 = Calendar.getInstance();
+            calendar1.setTime(earliestDate);
+            calendar1.add(Calendar.DAY_OF_WEEK, 1);
+            initDate = calendar1.getTime();
+        }
+
         spinnerModel = new SpinnerDateModel(initDate, earliestDate, latestDate, Calendar.MONTH); //getPrevious & nextValue method
         dateEndSpinner.setModel(spinnerModel);
         dateEditor = new JSpinner.DateEditor(dateEndSpinner, "dd/MM/yyyy");

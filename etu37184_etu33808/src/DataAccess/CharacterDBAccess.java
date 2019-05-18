@@ -32,7 +32,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
             while (data.next()) {
                 character = new Character(data.getString("name"), (Integer)data.getObject("healthPoint"),
                         (Boolean)data.getObject("isStuffed"), null, data.getString("petName"),
-                        (Integer)data.getObject("damagePerSecond"), null, null);
+                        (Integer) data.getObject("damagePerSecond"));
 
                 java.sql.Date creationDate = data.getDate("creationDate");
                 GregorianCalendar calendar = new GregorianCalendar();
@@ -359,7 +359,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
             while (data.next()) {
                 characterToFill = new Character(data.getString("name"), (Integer)data.getObject("healthPoint"),
                         (Boolean)data.getObject("isStuffed"), null, data.getString("petName"),
-                        (Integer)data.getObject("damagePerSecond"), null, null);
+                        (Integer) data.getObject("damagePerSecond"));
 
                 java.sql.Date creationDate = data.getDate("creationDate");
                 GregorianCalendar calendar = new GregorianCalendar();

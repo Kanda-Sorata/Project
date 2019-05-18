@@ -13,26 +13,18 @@ public class Character {
     private String petName;
     private Integer damagePerSecond;
 
-    private CharacterClass characterClass;
-    private PlayerAccount player;
-    private Server server;
-
     private static final int MIN_HP = 0;
     private static final int MAX_HP = 50000;
     private static final int MIN_DMG = 0;
     private static final int MAX_DMG = 5000;
 
-    public Character(String name, Integer healthPoints, Boolean isStuffed, GregorianCalendar creationDate, String petName,
-                     Integer damagePerSecond, CharacterClass characterClass, PlayerAccount player)
-                     throws HealthPointsException, DamagePerSecondException {
-        setName(name);
+    public Character(String name, Integer healthPoints, Boolean isStuffed, GregorianCalendar creationDate, String petName, Integer damagePerSecond) throws HealthPointsException, DamagePerSecondException {
+        this.name = name;
         setHealthPoints(healthPoints);
         this.isStuffed = isStuffed;
-        setCreationDate(creationDate);
-        setPetName(petName);
+        this.creationDate = creationDate;
+        this.petName = petName;
         setDamagePerSecond(damagePerSecond);
-        setCharacterClass(characterClass);
-        setPlayer(player);
     }
 
     public String getName() {
@@ -72,10 +64,6 @@ public class Character {
         return petName;
     }
 
-    public void setPetName(String petName){
-            this.petName = petName;
-    }
-
     public Integer getDamagePerSecond() { return damagePerSecond; }
 
     public void setDamagePerSecond(Integer damagePerSecond) throws DamagePerSecondException{
@@ -86,30 +74,6 @@ public class Character {
         }
 
         this.damagePerSecond = damagePerSecond;
-    }
-
-    public CharacterClass getCharacterClass() {
-        return characterClass;
-    }
-
-    public void setCharacterClass(CharacterClass characterClass) {
-        this.characterClass = characterClass;
-    }
-
-    public PlayerAccount getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(PlayerAccount player) {
-        this.player = player;
-    }
-
-    public Server getServer() {
-        return server;
-    }
-
-    public void setServer(Server server) {
-        this.server = server;
     }
 
     public Boolean getStuffed() {
