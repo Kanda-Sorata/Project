@@ -12,14 +12,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 public class CharacterClassDBAccess implements CharacterClassDataAccess {
     public ArrayList<String> getClassesInAGame(String game) throws DataException, DataAccessException {
         Connection connection;
         try {
             connection = SingletonConnection.getInstance();
             String query = "select characterClass.name from characterClass, game "
-                         + "where characterClass.gamename = ? and characterClass.gamename = game.name;";
+                         + "where game.name = ? and characterClass.gamename = game.name;";
 
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, game);
