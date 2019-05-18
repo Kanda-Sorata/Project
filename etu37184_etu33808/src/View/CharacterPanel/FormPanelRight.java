@@ -297,7 +297,6 @@ public class FormPanelRight extends JPanel {
     }
 
     //Reset Form
-
     public void setNameFieldReset() {
         nameField.setText("");
     }
@@ -322,10 +321,13 @@ public class FormPanelRight extends JPanel {
     //Error form
     public void setNameLabelError(){
         nameLabel.setText("<html><font color = 'red'>Name*</font></html>");
+
+        nameField.setToolTipText("Enter the name of your character (4 - 50 characters) Cannot use space, special character, number and accentuation");
     }
 
     public void setPetNameLabelError(){
         petNameLabel.setText("<html><font color = 'red'>Pet name</font></html>");
+        petNameField.setToolTipText("Name of your pet if you have one (4 - 50 characters) Cannot use space, special character, number and accentuation");
     }
 
     public void setCreationDateLabelError(){ creationDateLabel.setText("<html><font color = 'red'>Creational date*</font></html>"); }

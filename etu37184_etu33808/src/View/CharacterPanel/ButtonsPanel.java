@@ -249,7 +249,7 @@ public class ButtonsPanel extends JPanel {
                     }
                 }else {
                     JOptionPane.showMessageDialog(null, "Some error has been found in the form, " +
-                            "please correct this to continue.", "Error form", JOptionPane.ERROR_MESSAGE);
+                            "please correct this to continue.\nYou can check what is(are) wrong in field(s)", "Error form", JOptionPane.ERROR_MESSAGE);
                     if(noSelection(formPanelLeftModify.getPseudoChoice())){
                         formPanelLeftModify.setPlayerAccountLabelError();
                     }else{
