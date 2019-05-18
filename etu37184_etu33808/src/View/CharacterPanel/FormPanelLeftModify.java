@@ -195,6 +195,10 @@ public class FormPanelLeftModify extends JPanel {
         characterClassCombo.setSelectedIndex(index);
     }
 
+    public void setCharacterCombo(int index) {
+        characterCombo.setSelectedIndex(index);
+    }
+
     public int getIndexPlayerAccount() {
         return playerAccountCombo.getSelectedIndex();
     }
@@ -211,6 +215,10 @@ public class FormPanelLeftModify extends JPanel {
 
     public int getIndexCharacterClass() {
         return characterClassCombo.getSelectedIndex();
+    }
+
+    public int getIndexCharacter() {
+        return characterCombo.getSelectedIndex();
     }
 
     //Error

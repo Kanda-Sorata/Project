@@ -75,6 +75,7 @@ public class Frame extends JFrame{
         //init for newPanel & modifyPanel
         savedValueFormNew = new SavedValueForm();
         savedValueFormNew.setHaveSavedValue(false);
+
         savedValueFormModify = new SavedValueForm();
         savedValueFormModify.setHaveSavedValue(false);
 
@@ -415,6 +416,14 @@ public class Frame extends JFrame{
 
     public SavedValueForm getSavedValueFormNew() {
         return savedValueFormNew;
+    }
+
+    public void setHaveSavedValueNew(boolean haveSavedValue) {
+        savedValueFormNew.setHaveSavedValue(haveSavedValue);
+    }
+
+    public void setHaveSavedValueModify(boolean haveSavedValue) {
+        savedValueFormModify.setHaveSavedValue(haveSavedValue);
     }
 
     public void closeWindow() {

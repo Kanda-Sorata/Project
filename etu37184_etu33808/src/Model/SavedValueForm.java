@@ -13,10 +13,11 @@ public class SavedValueForm {
     private int indexGame;
     private int indexServer;
     private int indexCharacterClass;
+    private Integer indexCharacter;
 
     public SavedValueForm(Character characterForm, Boolean haveSavedValue, String pseudo, int number, String server,
                           String game, String characterClass, int indexPlayerAccount, int indexGame, int indexServer,
-                          int indexCharacterClass) {
+                          int indexCharacterClass, Integer indexCharacter) {
         this.characterForm = characterForm;
         this.haveSavedValue = haveSavedValue;
         this.pseudo = pseudo;
@@ -28,11 +29,12 @@ public class SavedValueForm {
         this.indexGame = indexGame;
         this.indexServer = indexServer;
         this.indexCharacterClass = indexCharacterClass;
+        this.indexCharacter = indexCharacter;
     }
 
     public SavedValueForm() {
         this(null, null, null, 0, null, null,
-                null, 0, 0, 0, 0);
+                null, 0, 0, 0, 0, null);
     }
 
     public void setCharacterForm(Character characterForm) {
@@ -122,5 +124,13 @@ public class SavedValueForm {
 
     public void setIndexCharacterClass(int indexCharacterClass) {
         this.indexCharacterClass = indexCharacterClass;
+    }
+
+    public Integer getIndexCharacter() {
+        return indexCharacter;
+    }
+
+    public void setIndexCharacter(Integer indexCharacter) {
+        this.indexCharacter = indexCharacter;
     }
 }

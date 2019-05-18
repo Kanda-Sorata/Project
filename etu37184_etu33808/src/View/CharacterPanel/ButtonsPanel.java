@@ -53,7 +53,7 @@ public class ButtonsPanel extends JPanel {
         buttonListener = new ButtonListener();
 
         //Add component
-        back = new JButton("Back (Home)");
+        back = new JButton("Save & Back (Home)");
         back.addActionListener(buttonListener);
         back.setToolTipText("You can save your work for later");
         reset = new JButton("Reset");
@@ -198,6 +198,8 @@ public class ButtonsPanel extends JPanel {
             if(actionEvent.getSource() == validation){
                 if (isFormValid()) {
                     resetLabel();
+                    frame.setHaveSavedValueNew(false);
+                    frame.setHaveSavedValueModify(false);
                     try {
                         oldName = formPanelLeftModify.getCharacterChoice();
                         pseudo = formPanelLeftModify.getPseudoChoice();
@@ -218,12 +220,6 @@ public class ButtonsPanel extends JPanel {
 
                         if(formPanelRight.damagePerSecondIsAvailable()) {
                             character.setDamagePerSecond(formPanelRight.getDamagePerSecond());
-                        }
-
-                        if (formPanelLeftModify.isModifyPanel()) {
-                            frame.getSavedValueFormModify().setHaveSavedValue(false);
-                        } else {
-                            frame.getSavedValueFormNew().setHaveSavedValue(false);
                         }
 
                         state = 0;
@@ -317,13 +313,6 @@ public class ButtonsPanel extends JPanel {
                 if(actionEvent.getSource() == reset){
                     clearValueForm();
                     resetLabel();
-
-                    if (formPanelLeftModify.isModifyPanel()) {
-                        frame.getSavedValueFormModify().setHaveSavedValue(false);
-                    } else {
-                        frame.getSavedValueFormNew().setHaveSavedValue(false);
-                    }
-
                     try {
                         clearValueSaved();
                     } catch (HealthPointsException healthPointsException) {
@@ -335,11 +324,6 @@ public class ButtonsPanel extends JPanel {
                     try {
                         //filling values
                         setSaveValue();
-                        if (formPanelLeftModify.isModifyPanel()) {
-                            frame.getSavedValueFormModify().setHaveSavedValue(true);
-                        } else {
-                            frame.getSavedValueFormNew().setHaveSavedValue(true);
-                        }
                         //update UI
                         frame.getContainer().removeAll();
                         frame.setTitleFrame("Home");
@@ -367,6 +351,7 @@ public class ButtonsPanel extends JPanel {
         savedValueForm.setIndexPlayerAccount(0);
         savedValueForm.setIndexServer(0);
         savedValueForm.setIndexGame(0);
+        savedValueForm.setHaveSavedValue(false);
 
         character = new Character(null, 0, false, null, null,
                 null, null, null);
@@ -408,7 +393,7 @@ public class ButtonsPanel extends JPanel {
         if (formPanelRight.damagePerSecondIsAvailable()) {
             character.setDamagePerSecond(formPanelRight.getDamagePerSecond());
         }
-
+        savedValueForm.setHaveSavedValue(true);
         savedValueForm.setCharacterForm(character);
         savedValueForm.setIndexPlayerAccount(formPanelLeftModify.getIndexPlayerAccount());
         savedValueForm.setIndexGame(formPanelLeftModify.getIndexGame());
@@ -416,6 +401,7 @@ public class ButtonsPanel extends JPanel {
         savedValueForm.setIndexCharacterClass(formPanelLeftModify.getIndexCharacterClass());
 
         if (formPanelLeftModify.isModifyPanel()) {
+            savedValueForm.setIndexCharacter(formPanelLeftModify.getIndexCharacter());
             frame.setSavedValueFormModify(savedValueForm);
         } else {
             frame.setSavedValueFormNew(savedValueForm);
@@ -430,6 +416,15 @@ public class ButtonsPanel extends JPanel {
         } else {
             savedValueForm = frame.getSavedValueFormNew();
         }
+
+        formPanelLeftModify.setPlayerAccountCombo(savedValueForm.getIndexPlayerAccount());
+        formPanelLeftModify.setGameCombo(savedValueForm.getIndexGame());
+        formPanelLeftModify.setServerCombo(savedValueForm.getIndexServer());
+        formPanelLeftModify.setCharacterClassCombo(savedValueForm.getIndexCharacterClass());
+        if (formPanelLeftModify.isModifyPanel()) {
+            formPanelLeftModify.setCharacterCombo(savedValueForm.getIndexCharacter());
+        }
+
         character = savedValueForm.getCharacterForm();
         if(character != null) {
             formPanelRight.setNameField(character.getName());
@@ -449,10 +444,6 @@ public class ButtonsPanel extends JPanel {
                 formPanelRight.setDamagePerSecondSlider(0);
             }
         }
-        formPanelLeftModify.setPlayerAccountCombo(savedValueForm.getIndexPlayerAccount());
-        formPanelLeftModify.setGameCombo(savedValueForm.getIndexGame());
-        formPanelLeftModify.setServerCombo(savedValueForm.getIndexServer());
-        formPanelLeftModify.setCharacterClassCombo(savedValueForm.getIndexCharacterClass());
     }
 
     public void resetLabel() {

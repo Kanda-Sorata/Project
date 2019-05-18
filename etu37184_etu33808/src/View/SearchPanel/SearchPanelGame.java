@@ -82,6 +82,7 @@ public class SearchPanelGame extends JPanel {
         characterNameCombo.setEnabled(false);
 
         dateEndSpinner = new JSpinner();
+        dateEndSpinner.setToolTipText("You cannot go fewer than the creational date of the character");
         Calendar calendar = Calendar.getInstance();
         Date earliestDate = calendar.getTime();
         setJSpinner(earliestDate);
@@ -166,7 +167,7 @@ public class SearchPanelGame extends JPanel {
         @Override
         public void itemStateChanged (ItemEvent itemEvent) {
             if(itemEvent.getSource() == playerAccountCombo) {
-                if (playerAccountCombo.getSelectedIndex() != 0) {
+                if (playerAccountCombo.getSelectedIndex() > 0) {
                     pseudoChoice = playerAccounts.get(playerAccountCombo.getSelectedIndex()).split("#")[0];
                     numberChoice = Integer.parseInt(playerAccounts.get(playerAccountCombo.getSelectedIndex()).split("#")[1]);
                     try {
