@@ -106,12 +106,13 @@ public class FormPanelRight extends JPanel {
             GregorianCalendar calendar = new GregorianCalendar();
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             creationDateLabelValue = new JLabel(dateFormat.format(calendar.getTime()));
+            creationDateLabelValue.setToolTipText("Cannot be update");
         }
 
         petNameLabel = new JLabel("Pet name");
         petNameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         petNameField = new JTextField(25);
-        petNameField.setToolTipText("Name of your pet if you have one");
+        petNameField.setToolTipText("Name of your pet if you have one (4 - 50 characters)");
 
         damagePerSecondActivatedLabel = new JLabel("Set up damage per second");
         damagePerSecondActivatedLabel.setHorizontalAlignment(SwingConstants.RIGHT);

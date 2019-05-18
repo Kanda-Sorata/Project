@@ -42,7 +42,7 @@ public class CharacterBusinessLogic {
         if (!isParametersValid(character, pseudo, number, game, server, characterClass)) {
             throw new DataException(6);
         } else {
-            if (dao.isSameName(pseudo, number, game, server, character.getName())) {
+            if (isSameName(pseudo, number, game, server, character.getName())) {
                 throw new UniqueNameException(character.getName());
             } else {
                 return dao.insertACharacter(character, pseudo, number, game, server, characterClass);
@@ -50,16 +50,21 @@ public class CharacterBusinessLogic {
         }
     }
 
-    public int modifyACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataAccessException, DataException {
-        if (!isParametersValid(character, pseudo, number, game, server, characterClass)) {
+    public int modifyACharacter(Character character, String pseudo, int number, String game, String server, String characterClass, String oldName) throws DataAccessException, DataException {
+        if (!isParametersValid(character, pseudo, number, game, server, characterClass, oldName)) {
             throw new DataException(8);
         } else {
-            return dao.modifyACharacter(character, pseudo, number, game, server, characterClass);
+            return dao.modifyACharacter(character, pseudo, number, game, server, characterClass, oldName);
         }
     }
 
     public Character getOneCharacter(String pseudo, int number, String game, String server, String characterClass, String character) throws DataException, DataAccessException {
         return dao.getOneCharacter(pseudo, number, game, server, characterClass, character);
+    }
+
+    private boolean isParametersValid(Character character, String pseudo, int number, String game, String server, String characterClass, String oldName) {
+        return isParametersValid(character, pseudo, number, game, server, characterClass) && Pattern.matches("^[a-zA-Z_-]{4,50}", oldName)
+                && !Pattern.matches("(.)\\1{2,}", oldName);
     }
 
     private boolean isParametersValid(Character character, String pseudo, int number, String game, String server, String characterClass) {
@@ -74,6 +79,11 @@ public class CharacterBusinessLogic {
                 && !pseudo.equals(noSelection) && game != null
                 && !game.equals(noSelection) && server != null && !server.equals(noSelection)
                 && characterClass != null && !characterClass.equals(noSelection);
+    }
+
+    private boolean isSameName(String pseudo, int number, String game, String server, String characterName) throws DataException, DataAccessException {
+        String character = dao.getOneCharacterToCompare(pseudo, number, game, server, characterName);
+        return character != null;
     }
 
     private boolean isDeleteParametersValid(String pseudo, int number, String gameName, String characterName) {

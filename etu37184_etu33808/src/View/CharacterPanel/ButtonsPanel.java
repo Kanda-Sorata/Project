@@ -31,6 +31,7 @@ public class ButtonsPanel extends JPanel {
 
     private ArrayList<String> avoidedNames;
 
+    private String oldName;
     private String pseudo;
     private int number;
     private String game;
@@ -198,6 +199,7 @@ public class ButtonsPanel extends JPanel {
                 if (isFormValid()) {
                     resetLabel();
                     try {
+                        oldName = formPanelLeftModify.getCharacterChoice();
                         pseudo = formPanelLeftModify.getPseudoChoice();
                         number = formPanelLeftModify.getNumberChoice();
                         game = formPanelLeftModify.getGameChoice();
@@ -230,7 +232,7 @@ public class ButtonsPanel extends JPanel {
                             state = characterController.insertACharacter(character, pseudo, number, game, server, characterClass);
                             msg += "add ";
                         }else {
-                            state = characterController.modifyACharacter(character, pseudo, number, game, server, characterClass);
+                            state = characterController.modifyACharacter(character, pseudo, number, game, server, characterClass, oldName);
                             msg  += "modify ";
                         }
                         msg += "to the player account " + pseudo + "#" + number + ".";
@@ -296,12 +298,15 @@ public class ButtonsPanel extends JPanel {
                     }else{
                         formPanelRight.setPetNameLabelReset();
                     }
-                    if (formPanelRight.getCreationDate().before(formPanelRight.getEarliestDate()) ||
-                                            formPanelRight.getCreationDate().after(formPanelRight.getLatestDate())) {
-                        formPanelRight.setCreationDateLabelError();
-                    }else{
-                        formPanelRight.setCreationDateLabelReset();
-                    }if(formPanelRight.damagePerSecondIsAvailable() && (formPanelRight.getDamagePerSecond() < Character.getMinDmg()
+                    if (!formPanelLeftModify.isModifyPanel()) {
+                        if (formPanelRight.getCreationDate().before(formPanelRight.getEarliestDate()) ||
+                                formPanelRight.getCreationDate().after(formPanelRight.getLatestDate())) {
+                            formPanelRight.setCreationDateLabelError();
+                        } else {
+                            formPanelRight.setCreationDateLabelReset();
+                        }
+                    }
+                    if (formPanelRight.damagePerSecondIsAvailable() && (formPanelRight.getDamagePerSecond() < Character.getMinDmg()
                             || formPanelRight.getDamagePerSecond() > Character.getMaxDmg())){
                         formPanelRight.setDamagePerSecondLabelError();
                     }else{

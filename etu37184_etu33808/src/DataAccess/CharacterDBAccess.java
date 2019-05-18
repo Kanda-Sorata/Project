@@ -232,7 +232,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
         }
     }
 
-    public int modifyACharacter(Character character, String pseudo, int number, String game, String server, String characterClass) throws DataException, DataAccessException {
+    public int modifyACharacter(Character character, String pseudo, int number, String game, String server, String characterClass, String oldName) throws DataException, DataAccessException {
         if (!isParametersValid(character, pseudo, number, game, server, characterClass)) {
             throw new DataException(8);
         } else {
@@ -307,7 +307,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
                             statementUpdate.setInt(8, characterClassTechnicalId);
                             statementUpdate.setInt(9, serverTechnicalId);
                             statementUpdate.setInt(10, playerAccountId);
-                            statementUpdate.setString(11, character.getName());
+                            statementUpdate.setString(11, oldName);
                             statementUpdate.setInt(12, serverTechnicalId);
 
 
@@ -325,24 +325,6 @@ public class CharacterDBAccess implements CharacterDataAccess {
     }
 
 
-    private boolean isParametersValid(Character character, String pseudo, int number, String game, String server, String characterClass) {
-        String noSelection = "No selection";
-        return character != null && !character.getName().isEmpty() && Pattern.matches("^[a-zA-Z_-]{4,50}", character.getName())
-                && character.getHealthPoints() >= Character.getMinHp()
-                && character.getHealthPoints() <= Character.getMaxHp() && character.getCreationDate() != null
-                && character.getStuffed() != null
-                && (character.getDamagePerSecond() == null || (character.getDamagePerSecond() >= Character.getMinDmg()
-                && character.getDamagePerSecond() <= Character.getMaxDmg())) && pseudo != null
-                && !pseudo.equals(noSelection) && game != null
-                && !game.equals(noSelection) && server != null && !server.equals(noSelection)
-                && characterClass != null && !characterClass.equals(noSelection);
-    }
-
-    private boolean isDeleteParametersValid(String pseudo, int number, String gameName, String characterName) {
-        String noSelection = "No selection";
-        return pseudo != null && !pseudo.equals(noSelection) && gameName != null && !gameName.equals(noSelection)
-                && characterName != null && !characterName.equals(noSelection) && String.valueOf(number).length() == 5;
-    }
 
     public Character getOneCharacter(String pseudo, int number, String game, String server, String characterClass, String character) throws DataException, DataAccessException {
         Connection connection;
@@ -507,7 +489,7 @@ public class CharacterDBAccess implements CharacterDataAccess {
         }
     }
 
-    private String getOneCharacterToCompare(String pseudo, int number, String game, String server, String characterName) throws DataException, DataAccessException {
+    public String getOneCharacterToCompare(String pseudo, int number, String game, String server, String characterName) throws DataException, DataAccessException {
         Connection connection;
         try {
             connection = SingletonConnection.getInstance();
@@ -538,11 +520,6 @@ public class CharacterDBAccess implements CharacterDataAccess {
         } catch (SQLException sqlException) {
             throw new DataException(1);
         }
-    }
-
-    public boolean isSameName(String pseudo, int number, String game, String server, String characterName) throws DataException, DataAccessException {
-        String character = getOneCharacterToCompare(pseudo, number, game, server, characterName);
-        return character != null;
     }
 
     public ArrayList<DisplayCharacter> getAllInfosCharactersFromAllPlayers() throws DataException, DataAccessException {
@@ -591,4 +568,35 @@ public class CharacterDBAccess implements CharacterDataAccess {
             throw new DataException(1);
         }
     }
+
+    private boolean isParametersValid(Character character, String pseudo, int number, String game, String server, String characterClass, String oldName) {
+        return isParametersValid(character, pseudo, number, game, server, characterClass) && Pattern.matches("^[a-zA-Z_-]{4,50}", oldName)
+                && !Pattern.matches("(.)\\1{2,}", oldName);
+    }
+
+    private boolean isParametersValid(Character character, String pseudo, int number, String game, String server, String characterClass) {
+        String noSelection = "No selection";
+        return character != null && !character.getName().isEmpty() && Pattern.matches("^[a-zA-Z_-]{4,50}", character.getName())
+                && !Pattern.matches("(.)\\1{2,}", character.getName())
+                && character.getHealthPoints() >= Character.getMinHp()
+                && character.getHealthPoints() <= Character.getMaxHp() && character.getCreationDate() != null
+                && character.getStuffed() != null
+                && (character.getDamagePerSecond() == null || (character.getDamagePerSecond() >= Character.getMinDmg()
+                && character.getDamagePerSecond() <= Character.getMaxDmg())) && pseudo != null
+                && !pseudo.equals(noSelection) && game != null
+                && !game.equals(noSelection) && server != null && !server.equals(noSelection)
+                && characterClass != null && !characterClass.equals(noSelection);
+    }
+
+    private boolean isDeleteParametersValid(String pseudo, int number, String gameName, String characterName) {
+        String noSelection = "No selection";
+        return pseudo != null && !pseudo.equals(noSelection) && gameName != null && !gameName.equals(noSelection)
+                && characterName != null && !characterName.equals(noSelection) && String.valueOf(number).length() == 5;
+    }
+
+    private boolean isSameName(String pseudo, int number, String game, String server, String characterName) throws DataException, DataAccessException {
+        String character = getOneCharacterToCompare(pseudo, number, game, server, characterName);
+        return character != null;
+    }
+
 }
