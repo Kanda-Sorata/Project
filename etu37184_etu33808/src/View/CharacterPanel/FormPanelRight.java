@@ -76,7 +76,7 @@ public class FormPanelRight extends JPanel {
         nameLabel = new JLabel("<html>Name<font color = 'red'>*</font></html>");
         nameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         nameField = new JTextField(25);
-        nameField.setToolTipText("Enter the name of your character (4 - 50 characters)");
+        nameField.setToolTipText("Enter the name of your character (4 - 50 characters); You can only use - and _");
 
 
         healthPointLabel = new JLabel("<html>Health point<font color = 'red'>*</font></html>");
@@ -112,7 +112,7 @@ public class FormPanelRight extends JPanel {
         petNameLabel = new JLabel("Pet name");
         petNameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         petNameField = new JTextField(25);
-        petNameField.setToolTipText("Name of your pet if you have one (4 - 50 characters)");
+        petNameField.setToolTipText("Name of your pet if you have one (4 - 50 characters); You can only use - and _");
 
         damagePerSecondActivatedLabel = new JLabel("Set up damage per second");
         damagePerSecondActivatedLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -321,13 +321,10 @@ public class FormPanelRight extends JPanel {
     //Error form
     public void setNameLabelError(){
         nameLabel.setText("<html><font color = 'red'>Name*</font></html>");
-
-        nameField.setToolTipText("Enter the name of your character (4 - 50 characters) Cannot use space, special character, number and accentuation");
     }
 
     public void setPetNameLabelError(){
         petNameLabel.setText("<html><font color = 'red'>Pet name</font></html>");
-        petNameField.setToolTipText("Name of your pet if you have one (4 - 50 characters) Cannot use space, special character, number and accentuation");
     }
 
     public void setCreationDateLabelError(){ creationDateLabel.setText("<html><font color = 'red'>Creational date*</font></html>"); }
