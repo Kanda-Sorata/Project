@@ -606,6 +606,3 @@ VALUES (3, 'Sword');
 INSERT INTO `javaproject`.`weaponry`
 VALUES (1, 'Sword');
 */
-
-#Enlever les `
-#regarder les on delete et on update
