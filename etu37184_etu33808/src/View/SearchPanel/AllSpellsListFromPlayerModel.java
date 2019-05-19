@@ -13,7 +13,7 @@ public class AllSpellsListFromPlayerModel extends AbstractTableModel {
         columnNames = new ArrayList<>();
         columnNames.add("Name");
         columnNames.add("Cooldown");
-        columnNames.add("CharacterName");
+        columnNames.add("Character name");
         setContents(searchSpellLists);
     }
 

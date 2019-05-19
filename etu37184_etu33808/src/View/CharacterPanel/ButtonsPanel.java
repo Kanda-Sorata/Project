@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.regex.Pattern;
 
 public class ButtonsPanel extends JPanel {
@@ -194,8 +195,8 @@ public class ButtonsPanel extends JPanel {
     private class ButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
-            formPanelRight.setDateChoice();
             if(actionEvent.getSource() == validation){
+                setDateFromNewOrModify();
                 if (isFormValid()) {
                     resetLabel();
                     frame.setHaveSavedValueNew(false);
@@ -210,12 +211,6 @@ public class ButtonsPanel extends JPanel {
                         character = new Character(formPanelRight.getNameField(), formPanelRight.getHealthPointSlider(),
                                 formPanelRight.getIsStuffedCheckBox(), formPanelRight.getCreationDate(),
                                 formPanelRight.getPetNameField(), null);
-
-                        if (formPanelLeftModify.isModifyPanel()) {
-                            character.setCreationDate(formPanelRight.getCreationDate());
-                        } else {
-                            formPanelRight.setDateChoice();
-                        }
 
                         if(formPanelRight.damagePerSecondIsAvailable()) {
                             character.setDamagePerSecond(formPanelRight.getDamagePerSecond());
@@ -232,20 +227,18 @@ public class ButtonsPanel extends JPanel {
                         }
                         msg += "to the player account " + pseudo + "#" + number + ".";
                         if(state > 0) {
-
                             JOptionPane.showMessageDialog(null, msg, "Information", JOptionPane.INFORMATION_MESSAGE);
                         }
                     } catch (HealthPointsException healthPointsException) {
                         JOptionPane.showMessageDialog(null, healthPointsException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-
+                    } catch (DamagePerSecondException damagePerSecondException) {
+                        JOptionPane.showMessageDialog(null, damagePerSecondException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    } catch (UniqueNameException uniqueNameException) {
+                        JOptionPane.showMessageDialog(null, uniqueNameException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     } catch (DataAccessException dataAccessException) {
                         JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     } catch (DataException dataException) {
                         JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    } catch (UniqueNameException uniqueNameException) {
-                        JOptionPane.showMessageDialog(null, uniqueNameException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    } catch (DamagePerSecondException damagePerSecondException) {
-                        JOptionPane.showMessageDialog(null, damagePerSecondException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }else {
                     JOptionPane.showMessageDialog(null, "Some error has been found in the form, " +
@@ -321,6 +314,7 @@ public class ButtonsPanel extends JPanel {
                     }
                 }else{
                     try {
+                        setDateFromNewOrModify();
                         //filling values
                         setSaveValue();
                         //update UI
@@ -370,10 +364,11 @@ public class ButtonsPanel extends JPanel {
         formPanelRight.setPetNameFieldReset();
         formPanelRight.setDamagePerSecondActivated(false);
         formPanelRight.setDamagePerSecondSliderReset();
+        GregorianCalendar calendar = new GregorianCalendar();
+        if (!formPanelLeftModify.isModifyPanel()) {
+            formPanelRight.updateCreationDateSpinner(calendar);
+        }
         formPanelLeftModify.setPlayerAccountCombo(0);
-        formPanelLeftModify.setGameCombo(0);
-        formPanelLeftModify.setServerCombo(0);
-        formPanelLeftModify.setCharacterClassCombo(0);
     }
 
     public void setFormPanelRight(FormPanelRight formPanelRight){
@@ -432,7 +427,8 @@ public class ButtonsPanel extends JPanel {
             if(formPanelLeftModify.isModifyPanel()) {
                 formPanelRight.setCreationDateLabelValue(character.getCreationDate().getTime());
             }else{
-                formPanelRight.setCreationDateSpinnerNew(character.getCreationDate().getTime());
+                formPanelRight.setCreationDateSpinnerNew();
+                formPanelRight.updateCreationDateSpinner(character.getCreationDate());
             }
             formPanelRight.setPetNameField(character.getPetName());
             if(character.getDamagePerSecond() != null) {
@@ -456,6 +452,32 @@ public class ButtonsPanel extends JPanel {
         formPanelRight.setPetNameLabelReset();
         formPanelRight.setCreationDateLabelReset();
     }
+
+
+    private void setDateFromNewOrModify() {
+        if (!formPanelLeftModify.isModifyPanel()) {
+            formPanelRight.setCreationDateFromSpinner();
+        } else {
+            try {
+                character = characterController.getOneCharacter(formPanelLeftModify.getPseudoChoice(), formPanelLeftModify.getNumberChoice(),
+                        formPanelLeftModify.getGameChoice(), formPanelLeftModify.getServerChoice(), formPanelLeftModify.getCharacterClassChoice(),
+                        formPanelLeftModify.getCharacterChoice());
+                if (character != null) {
+                    formPanelRight.setDateChoice(character.getCreationDate());
+                } else {
+                    GregorianCalendar calendar = new GregorianCalendar();
+                    formPanelRight.setDateChoice(calendar);
+                }
+            } catch (DataAccessException dataAccessException) {
+                JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (DataException dataException) {
+                JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+
+    //Verification
 
     public boolean noSelection(String input){
         return input != null && !input.isEmpty() && input.equals("No selection");

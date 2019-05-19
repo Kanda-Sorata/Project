@@ -50,6 +50,8 @@ public class SearchPanelGame extends JPanel {
     private JButton validation;
     private ButtonListener buttonListener;
 
+    private static final String noSelection = "No selection";
+
     public SearchPanelGame(ResultGamePanel resultGamePanel) throws DataAccessException, DataException {
         //Add properties
         setLayout(new GridLayout(4, 2, 5, 15));
@@ -75,8 +77,9 @@ public class SearchPanelGame extends JPanel {
         playerAccountCombo.setSelectedIndex(0);
         playerAccountCombo.setMaximumRowCount(3);
 
-        String[] temp = {"No selection"};
-        characterNameCombo = new JComboBox(temp);
+        charactersName = new ArrayList<>();
+        charactersName.add(noSelection);
+        characterNameCombo = new JComboBox(charactersName.toArray());
         characterNameCombo.setSelectedIndex(0);
         characterNameCombo.setMaximumRowCount(3);
         characterNameCombo.setEnabled(false);
@@ -122,7 +125,6 @@ public class SearchPanelGame extends JPanel {
         earliestDate = calendar.getTime();
 
         if (earliestDate.after(initDate)) {
-            Date temp = earliestDate;
             Calendar calendar1 = Calendar.getInstance();
             calendar1.setTime(earliestDate);
             calendar1.add(Calendar.DAY_OF_WEEK, 1);
@@ -152,9 +154,9 @@ public class SearchPanelGame extends JPanel {
 
     public void setCharacterName() throws DataException, DataAccessException {
         characters = characterController.getAllCharacter(pseudoChoice, numberChoice);
+        charactersName.clear();
+        charactersName.add(noSelection);
         if(characters.size() > 0) {
-            charactersName = new ArrayList<>();
-            charactersName.add("No Selection");
             for (Character character : characters) {
                 charactersName.add(character.getName());
             }

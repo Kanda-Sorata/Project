@@ -31,8 +31,8 @@ public class SearchPanelSpell extends JPanel {
         //Init
         utilitiesPanelMethod = new UtilitiesPanelMethod();
         this.resultSpellPanel = resultSpellPanel;
-
         pseudos = utilitiesPanelMethod.setPlayerAccountsPseudo();
+
 
         //Add components
         playerAccount = new JLabel("Player Account");
@@ -57,7 +57,7 @@ public class SearchPanelSpell extends JPanel {
     private class ComboBoxListener implements ItemListener {
         @Override
         public void itemStateChanged(ItemEvent itemEvent) {
-            if(playerAccountCombo.getSelectedIndex() != 0){
+            if (playerAccountCombo.getSelectedIndex() > 0) {
                 pseudoChoice = pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[0];
                 numberChoice = Integer.parseInt(pseudos.get(playerAccountCombo.getSelectedIndex()).split("#")[1]);
                 try {

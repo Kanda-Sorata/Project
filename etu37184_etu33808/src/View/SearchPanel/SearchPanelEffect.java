@@ -4,7 +4,6 @@ import Controller.CharacterClassController;
 import Controller.GameController;
 import Exception.DataAccessException;
 import Exception.DataException;
-import View.UtilitiesPanelMethod;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -30,7 +29,7 @@ public class SearchPanelEffect extends JPanel {
     private String gameChoice;
     private ResultEffectPanel resultEffectPanel;
 
-    private UtilitiesPanelMethod utilitiesPanelMethod;
+    private static final String noSelection = "No selection";
 
     public SearchPanelEffect(ResultEffectPanel resultEffectPanel) throws DataAccessException, DataException {
         //Add properties
@@ -41,7 +40,6 @@ public class SearchPanelEffect extends JPanel {
         this.resultEffectPanel = resultEffectPanel;
         gameController = new GameController();
         characterClassController = new CharacterClassController();
-        utilitiesPanelMethod = new UtilitiesPanelMethod();
 
 
         //Add component
@@ -49,7 +47,7 @@ public class SearchPanelEffect extends JPanel {
         gameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
         games = new ArrayList<>();
-        games.add("No selection");
+        games.add(noSelection);
         gamesTemp = gameController.getAllGames();
         int size = gamesTemp.size();
         games.addAll(gamesTemp);
@@ -63,7 +61,7 @@ public class SearchPanelEffect extends JPanel {
         characterClassLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
         characterClasses = new ArrayList<>();
-        characterClasses.add("No Selection");
+        characterClasses.add(noSelection);
         characterClassCombo = new JComboBox(characterClasses.toArray());
         characterClassCombo.addItemListener(comboBoxListener);
         characterClassCombo.setEnabled(false);
@@ -84,7 +82,7 @@ public class SearchPanelEffect extends JPanel {
                     try {
                         characterClassesTemp = characterClassController.getClassesInAGame(gameChoice);
                         characterClasses = new ArrayList<>();
-                        characterClasses.add("No selection");
+                        characterClasses.add(noSelection);
                         for (String characterClass : characterClassesTemp) {
                             characterClasses.add(characterClass);
                         }

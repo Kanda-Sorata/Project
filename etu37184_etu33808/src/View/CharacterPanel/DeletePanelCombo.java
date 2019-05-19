@@ -77,12 +77,8 @@ public class DeletePanelCombo extends JPanel {
                         gamesTemp = gameController.getAllGamesName(pseudoChoice, numberChoice);
                         games = new ArrayList<>();
                         games.add("No selection");
-
                         games.addAll(gamesTemp);
-
                         gameCombo.setModel(new DefaultComboBoxModel(games.toArray()));
-                        gameCombo.revalidate();
-                        gameCombo.repaint();
                     } catch (DataException dataException) {
                         JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     } catch (DataAccessException dataAccessException) {

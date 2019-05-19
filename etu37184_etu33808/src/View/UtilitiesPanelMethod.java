@@ -18,13 +18,13 @@ public class UtilitiesPanelMethod {
 
     public ArrayList<String> setPlayerAccountsPseudo() throws DataException, DataAccessException {
         ArrayList<String> playerAccounts = new ArrayList<>();
-        int nbMaxPlayer = playerAccountController.getNbAccountPlayers();
         ArrayList<PlayerAccount> players = playerAccountController.getAllAccountPlayer();
         playerAccounts.add("No selection");
 
         for (PlayerAccount player : players) {
             playerAccounts.add(player.getPseudo() + "#" + player.getNumber());
         }
+
         return playerAccounts;
     }
 

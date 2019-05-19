@@ -95,9 +95,7 @@ public class FormPanelRight extends JPanel {
         creationDateLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         if(!isModifyPanel) {
             creationDateSpinner = new JSpinner();
-            GregorianCalendar calendar = new GregorianCalendar();
-            initDate = calendar.getTime();
-            setCreationDateSpinnerNew(initDate);
+            setCreationDateSpinnerNew();
             creationDateSpinner.setToolTipText("Date available " + getYearEarliestDate() + " to " + getYearLatestDate());
             spinnerListener = new SpinnerListener();
             creationDateSpinner.addChangeListener(spinnerListener);
@@ -235,19 +233,20 @@ public class FormPanelRight extends JPanel {
         return calendar;
     }
 
-    public void setDateChoice(){
-        GregorianCalendar calendar = new GregorianCalendar();
-        if (isModifyPanel) {
-            calendar.setTime(character.getCreationDate().getTime());
-        } else {
-            Date date = (Date) creationDateSpinner.getValue();
-            calendar.setTime(date);
-        }
-        this.dateChoice = calendar;
+    public void setDateChoice(GregorianCalendar dateChoice) {
+        this.dateChoice = dateChoice;
     }
 
-    public boolean damagePerSecondIsAvailable(){
+    public boolean damagePerSecondIsAvailable() {
         return damagePerSecondActivated.isSelected();
+    }
+
+    public void setCreationDateFromSpinner() {
+        GregorianCalendar calendar = new GregorianCalendar();
+        Date date = (Date) creationDateSpinner.getValue();
+        calendar.setTime(date);
+        setDateChoice(calendar);
+
     }
 
     //Set Form
@@ -259,9 +258,9 @@ public class FormPanelRight extends JPanel {
         isStuffedCheckBox.setSelected(isStuffed);
     }
 
-    public void setCreationDateSpinnerNew(Date initDate) {
+    public void setCreationDateSpinnerNew() {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(initDate);
+        initDate = calendar.getTime();
         calendar.add(Calendar.DAY_OF_WEEK, -1);
         Date earliestDate = calendar.getTime();
         calendar.add(Calendar.YEAR, 20);
@@ -379,7 +378,7 @@ public class FormPanelRight extends JPanel {
         @Override
         public void stateChanged(ChangeEvent changeEvent){
             if(changeEvent.getSource() == creationDateSpinner) {
-                setDateChoice();
+                setCreationDateFromSpinner();
             }
         }
     }
@@ -401,24 +400,25 @@ public class FormPanelRight extends JPanel {
     public void setFieldWithCharacterValues(String pseudo, int number, String game, String server, String characterClass, String characterName){
         characterController = new CharacterController();
         try {
-            character = characterController.getOneCharacter(pseudo, number, game, server, characterClass, characterName);
-            setNameField(character.getName());
-            setHealthPointSlider(Character.getMinHp(), healthPointMax, character.getHealthPoints());
-            healthPointSlider.setEnabled(true);
-            setStuffedCheckBox(character.isStuffed());
-            if(isModifyPanel) {
-                setCreationDateLabelValue(character.getCreationDate().getTime());
-            }else{
-                GregorianCalendar calendar = new GregorianCalendar();
-                setCreationDateSpinnerNew(calendar.getTime());
-            }
-            setPetNameField(character.getPetName());
-            if(character.getDamagePerSecond() != null) {
-                setDamagePerSecondActivated(true);
-                setDamagePerSecondSlider(character.getDamagePerSecond());
-            }else{
-                setDamagePerSecondActivated(false);
-                setDamagePerSecondSlider(0);
+            if (pseudo != null && game != null && server != null && characterClass != null && characterName != null) {
+                character = characterController.getOneCharacter(pseudo, number, game, server, characterClass, characterName);
+                setNameField(character.getName());
+                setHealthPointSlider(Character.getMinHp(), healthPointMax, character.getHealthPoints());
+                healthPointSlider.setEnabled(true);
+                setStuffedCheckBox(character.isStuffed());
+                if (isModifyPanel) {
+                    setCreationDateLabelValue(character.getCreationDate().getTime());
+                } else {
+                    setCreationDateSpinnerNew();
+                }
+                setPetNameField(character.getPetName());
+                if (character.getDamagePerSecond() != null) {
+                    setDamagePerSecondActivated(true);
+                    setDamagePerSecondSlider(character.getDamagePerSecond());
+                } else {
+                    setDamagePerSecondActivated(false);
+                    setDamagePerSecondSlider(0);
+                }
             }
         }catch (DataException dataException) {
             JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

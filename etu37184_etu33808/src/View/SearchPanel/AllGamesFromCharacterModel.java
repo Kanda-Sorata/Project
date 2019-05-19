@@ -12,7 +12,7 @@ public class AllGamesFromCharacterModel extends AbstractTableModel {
     public AllGamesFromCharacterModel(ArrayList<SearchGameList> searchGameLists){
         columnNames = new ArrayList<>();
         columnNames.add("Name");
-        columnNames.add("Release Date");
+        columnNames.add("Release date");
         columnNames.add("Server");
         setContents(searchGameLists);
     }
