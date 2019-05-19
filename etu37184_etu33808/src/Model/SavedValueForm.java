@@ -53,7 +53,6 @@ public class SavedValueForm {
         this.haveSavedValue = haveSavedValue;
     }
 
-
     public String getPseudo() {
         return pseudo;
     }
@@ -86,21 +85,11 @@ public class SavedValueForm {
         this.game = game;
     }
 
-    public String getCharacterClass() {
-        return characterClass;
-    }
-
-    public void setCharacterClass(String characterClass) {
-        this.characterClass = characterClass;
-    }
-
     public int getIndexPlayerAccount() {
         return indexPlayerAccount;
     }
 
-    public int getIndexGame() {
-        return indexGame;
-    }
+    public int getIndexGame() { return indexGame; }
 
     public int getIndexServer() {
         return indexServer;

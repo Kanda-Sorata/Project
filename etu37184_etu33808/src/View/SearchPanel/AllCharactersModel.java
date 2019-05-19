@@ -26,14 +26,10 @@ public class AllCharactersModel extends AbstractTableModel {
     public Object getValueAt(int row, int column){
         DeleteCharacter character = contents.get(row);
         switch (column) {
-            case 0:
-                return character.getServer();
-            case 1:
-                return character.getName();
-            case 2:
-                return character.getCreationDateFormatter();
-            default:
-                return null;
+            case 0: return character.getServer();
+            case 1: return character.getName();
+            case 2: return character.getCreationDateFormatter();
+            default: return null;
         }
     }
 

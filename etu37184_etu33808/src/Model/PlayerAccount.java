@@ -44,8 +44,7 @@ public class PlayerAccount {
     public void setSex(String sex) throws SexException {
         if(sex.equals("f") || sex.equals("m")){
           this.sex = sex;
-        }
-        else {
+        } else {
            throw new SexException(sex.charAt(0));
         }
     }

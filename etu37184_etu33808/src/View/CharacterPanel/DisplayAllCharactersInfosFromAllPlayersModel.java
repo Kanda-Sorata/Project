@@ -48,28 +48,17 @@ public class DisplayAllCharactersInfosFromAllPlayersModel extends AbstractTableM
         DisplayCharacter character = contents.get(row);
         if (isSpecifiedPlayer) column += 1;
         switch (column) {
-            case 0:
-                return character.getPlayerAccount();
-            case 1:
-                return character.getGameName();
-            case 2:
-                return character.getServerName();
-            case 3:
-                return character.getCharacterName();
-            case 4:
-                return character.getCharacterClassName();
-            case 5:
-                return character.getHealthPoint();
-            case 6:
-                return character.getIsStuffed();
-            case 7:
-                return character.getCreationDateFormatter();
-            case 8:
-                return character.getPetName();
-            case 9:
-                return character.getDamagePerSecond();
-            default:
-                return null;
+            case 0: return character.getPlayerAccount();
+            case 1: return character.getGameName();
+            case 2: return character.getServerName();
+            case 3: return character.getCharacterName();
+            case 4: return character.getCharacterClassName();
+            case 5: return character.getHealthPoint();
+            case 6: return character.getIsStuffed();
+            case 7: return character.getCreationDateFormatter();
+            case 8: return character.getPetName();
+            case 9: return character.getDamagePerSecond();
+            default: return null;
         }
     }
 
@@ -81,24 +70,13 @@ public class DisplayAllCharactersInfosFromAllPlayersModel extends AbstractTableM
         Class c;
         if (isSpecifiedPlayer) column += 1;
         switch (column) {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 7:
-            case 8:
-                c = String.class;
+            case 0: case 1: case 2: case 3: case 4: case 7: case 8: c = String.class;
                 break;
-            case 5:
-            case 9:
-                c = Integer.class;
+            case 5: case 9: c = Integer.class;
                 break;
-            case 6:
-                c = Boolean.class;
+            case 6: c = Boolean.class;
                 break;
-            default:
-                c = String.class;
+            default: c = String.class;
         }
         return c;
     }

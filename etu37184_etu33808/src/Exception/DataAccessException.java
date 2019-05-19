@@ -8,13 +8,11 @@ public class DataAccessException extends Exception {
     }
 
     public String getMessage() {
-        String output = "Sorry an error has been occurred, ";
+        String output = "Sorry an error occurred ";
         switch (code) {
-            case 1:
-                output += "when you tried to access at the data.";
+            case 1: output += "when you tried to access to the data.";
                 break;
-            case 2:
-                output += "at closing connection at source of data. There is a risk about the privacy of your data.";
+            case 2: output += "at closing connection at source of data. There is a risk about the privacy of your data.";
                 break;
         }
         return output;

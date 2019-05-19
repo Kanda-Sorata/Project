@@ -8,8 +8,8 @@ public class UniqueNameException extends Exception {
     }
 
     public String getMessage() {
-        return "Sorry an error has been occurred, when you tried  to add a new character.\n" +
-                "The add has been cancelled.\n" + "Your already have a character with the same name.\n" +
+        return "Sorry an error occurred when you tried to add a new character.\n" +
+                "The add has been cancelled.\n" + "An other character already exists on this server with the same name.\n" +
                 "\" " + unavailableName + " \"";
     }
 }

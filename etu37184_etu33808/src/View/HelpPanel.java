@@ -18,10 +18,8 @@ public class HelpPanel extends JPanel {
     }
 
     public void setMessage(){
-        String cssHeader = "font-size: 32px; " +
-                "font-family:Arial, Helvetica, sans-serif; " +
-                "text-align:center; ";
-        String cssOffer = "text-align:left; ";
+        String cssHeader = "text-align:center;";
+        String cssOffer = "text-align:left;";
         String cssIntro = "text-align:center;";
 
         message = "<html>" + //Only use this disposition of string for clarity

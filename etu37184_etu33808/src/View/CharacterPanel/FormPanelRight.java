@@ -36,7 +36,7 @@ public class FormPanelRight extends JPanel {
     private JCheckBox damagePerSecondActivated;
     private JSlider damagePerSecondSlider;
 
-    private Hashtable<Integer, JLabel> sliderLabels; //Key must be, Value must been an object
+    private Hashtable<Integer, JLabel> sliderLabels;
     private SpinnerDateModel spinnerModel;
     private JSpinner.DateEditor dateEditor;
     private GregorianCalendar dateChoice;

@@ -42,8 +42,7 @@ public class Character {
     public void setHealthPoints(Integer healthPoints) throws HealthPointsException {
         if(healthPoints < MIN_HP || healthPoints > MAX_HP){
             throw new HealthPointsException(healthPoints);
-        }
-        else{
+        } else {
             this.healthPoints = healthPoints;
         }
     }

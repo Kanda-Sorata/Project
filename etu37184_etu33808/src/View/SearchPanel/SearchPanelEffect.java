@@ -49,7 +49,6 @@ public class SearchPanelEffect extends JPanel {
         games = new ArrayList<>();
         games.add(noSelection);
         gamesTemp = gameController.getAllGames();
-        int size = gamesTemp.size();
         games.addAll(gamesTemp);
 
         gameCombo = new JComboBox(games.toArray());

@@ -22,16 +22,4 @@ public class SearchEffectList {
     public Integer getCooldown() {
         return cooldown;
     }
-
-    public void setLabelEffect(String labelEffect) {
-        this.labelEffect = labelEffect;
-    }
-
-    public void setSpellName(String spellName) {
-        this.spellName = spellName;
-    }
-
-    public void setCooldown(Integer cooldown) {
-        this.cooldown = cooldown;
-    }
 }

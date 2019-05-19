@@ -6,15 +6,13 @@ import java.util.GregorianCalendar;
 public class Game {
 
     private String name;
-    private GregorianCalendar releaseDaze;
+    private GregorianCalendar releaseDate;
     private Boolean haveMultiLanguages;
-    private Double price;
-
     private ArrayList<Server> servers;
 
-    public Game(String name, GregorianCalendar releaseDaze, Boolean haveMultiLanguages) {
+    public Game(String name, GregorianCalendar releaseDate, Boolean haveMultiLanguages) {
         this.name = name;
-        this.releaseDaze = releaseDaze;
+        this.releaseDate = releaseDate;
         this.haveMultiLanguages = haveMultiLanguages;
         servers = new ArrayList<>();
     }

@@ -29,5 +29,4 @@ public class Server {
         if(nbPlayersMax < MIN_PLAYER || nbPlayersMax > MAX_PLAYER)
         this.nbPlayersMax = nbPlayersMax;
     }
-
 }

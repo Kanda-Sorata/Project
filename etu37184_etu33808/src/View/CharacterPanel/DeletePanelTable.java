@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class DeletePanelTable extends JPanel {
     private ArrayList<DeleteCharacter> characters;
     private JTable table;
-    private  JScrollPane scrollPane;
+    private JScrollPane scrollPane;
     private CharacterController characterController;
     private UtilitiesPanelMethod utilitiesPanelMethod;
     private String pseudoChoice;

@@ -391,17 +391,12 @@ public class FormPanelLeftModify extends JPanel {
     private int getHealthPointMax() {
         healthPointMax = 0;
         switch (characterClassCombo.getSelectedIndex()) {
-            case 1:
-                healthPointMax = 50000;
+            case 1: healthPointMax = 50000;
                 break;
-            case 2:
-                healthPointMax = 40000;
+            case 2: healthPointMax = 40000;
                 break;
-            case 3:
-            case 4:
-                healthPointMax = 20000;
+            case 3: case 4: healthPointMax = 20000;
                 break;
-
         }
         return healthPointMax;
     }
