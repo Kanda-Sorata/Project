@@ -13,7 +13,7 @@ public class FrameThread extends JFrame {
 
     public FrameThread(Frame frameParent) {
         //Add properties
-        setTitle("Counters");
+        setTitle("Extra information about player(s) account(s)");
 
         //Init
         container = this.getContentPane();

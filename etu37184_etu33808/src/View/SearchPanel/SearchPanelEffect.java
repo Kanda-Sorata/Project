@@ -83,9 +83,8 @@ public class SearchPanelEffect extends JPanel {
                         characterClassesTemp = characterClassController.getClassesInAGame(gameChoice);
                         characterClasses = new ArrayList<>();
                         characterClasses.add(noSelection);
-                        for (String characterClass : characterClassesTemp) {
-                            characterClasses.add(characterClass);
-                        }
+
+                        characterClasses.addAll(characterClassesTemp);
                         characterClassCombo.setModel(new DefaultComboBoxModel(characterClasses.toArray()));
                     } catch (DataException dataException) {
                         JOptionPane.showMessageDialog(null, dataException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

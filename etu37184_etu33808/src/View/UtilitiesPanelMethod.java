@@ -29,7 +29,7 @@ public class UtilitiesPanelMethod {
     }
 
     public JTable getJTableModelBlank(){
-        String [] columns = {"Colonne 1", "Colonne 2", "Colonne 3"};
+        String[] columns = {"Column 1", "Column 2", "Column 3"};
         Object [][] data = {{"", "", ""}, {"", "", ""}, {"", "", ""}, {"", "", ""}, {"", "", ""}, {"", "", ""}};
         JTable table = new JTable();
         DefaultTableModel tableModel = new DefaultTableModel(data, columns) {

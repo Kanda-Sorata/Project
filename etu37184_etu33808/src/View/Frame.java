@@ -128,7 +128,7 @@ public class Frame extends JFrame{
 
         setResizable(false);
 
-        addWindowListener(new WindowAdapter() { //Fermer la fenetre
+        addWindowListener(new WindowAdapter() { //Close the window
             @Override
             public void windowClosing(WindowEvent windowEvent) {
                 closeWindow();
@@ -153,7 +153,7 @@ public class Frame extends JFrame{
         application.setMnemonic('a');
         home = new JMenuItem("Home");
         home.addActionListener(applicationListener);
-        topOfClass = new JMenuItem("Top of class");
+        topOfClass = new JMenuItem("Top of classes");
         topOfClass.addActionListener(applicationListener);
         dataAccount = new JMenuItem("Data about Account");
         dataAccount.addActionListener(applicationListener);
@@ -184,7 +184,7 @@ public class Frame extends JFrame{
         add = new JMenuItem("Add a new character");
         add.addActionListener(characterListener);
         character.add(add);
-        modify = new JMenuItem("Modifiy a character");
+        modify = new JMenuItem("Modify a character");
         modify.addActionListener(characterListener);
         character.add(modify);
         delete = new JMenuItem("Delete a character");
