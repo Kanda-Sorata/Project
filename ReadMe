@@ -1,0 +1,10 @@
+Librairies :
+JUnit
+  >hamcrest-core-1.3.jar
+  >junit-4.12.jar
+Maeven MySQL
+  >mysql-connector-java-8.0.16.jar
+  >protobuf-java-3.6.1.jar
+
+Ressources:
+Script_base_de_donnees -> MySQL
