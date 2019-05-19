@@ -34,7 +34,7 @@ public class HelpPanel extends JPanel {
                 "<ul>" +
                 "<li>Home - Come back at home</li>" +
                 "<li>Top of class - Get a list of character classes order by utilisation</li>" +
-                "<li>Data account information - You are able to open a new window with extra information</li>" +
+                "<li>Extra information about player(s) account(s) - You are able to open a new window with extra information</li>" +
                 "</ul>" +
 
                 "<h3 style = " + cssOffer + ">Here are the research that you can find into the menu \"Search\"</h3>" +

@@ -155,7 +155,7 @@ public class Frame extends JFrame{
         home.addActionListener(applicationListener);
         topOfClass = new JMenuItem("Top of classes");
         topOfClass.addActionListener(applicationListener);
-        dataAccount = new JMenuItem("Data about Account");
+        dataAccount = new JMenuItem("Extra information about player(s) account(s)");
         dataAccount.addActionListener(applicationListener);
         exit = new JMenuItem("Exit");
         exit.addActionListener(applicationListener);
