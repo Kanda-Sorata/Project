@@ -126,7 +126,7 @@ public class Frame extends JFrame{
         // here's the part where i center the jframe on screen
         setLocationRelativeTo(null);
 
-        setResizable(false);
+        setResizable(true);
 
         addWindowListener(new WindowAdapter() { //Close the window
             @Override
