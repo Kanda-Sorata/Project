@@ -91,6 +91,9 @@ public class SearchPanelEffect extends JPanel {
                         JOptionPane.showMessageDialog(null, dataAccessException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                     characterClassCombo.setEnabled(true);
+                } else {
+                    characterClassCombo.setSelectedIndex(0);
+                    characterClassCombo.setEnabled(false);
                 }
             } else{
                 classChoice = characterClassCombo.getSelectedItem().toString();
