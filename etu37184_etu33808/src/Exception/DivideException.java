@@ -10,7 +10,7 @@ public class DivideException extends Exception {
     }
 
     public String getMessage() {
-        return "Sorry, an error has been occurred, when you tried to access at the Top of Class.\n";
+        return "Sorry, an error occurred when you tried to access at the Top of Class.\n";
     }
 
     public String getMessageDetailed() {
